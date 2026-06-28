@@ -1,0 +1,56 @@
+{
+  "slug": "strings",
+  "title": "Strings",
+  "icon": "TextCursorInput",
+  "patterns": [
+    {
+      "slug": "frequency-map",
+      "title": "Frequency Map",
+      "description": "Convert character requirements into count comparisons.",
+      "explanation": "Frequency maps simplify anagram, permutation, and window matching problems.",
+      "appearsIn": [
+        "Anagrams",
+        "Character replacement",
+        "Minimum window",
+        "Permutation checks"
+      ],
+      "identify": [
+        "Character counts",
+        "Same letters",
+        "Permutation",
+        "Need exact availability"
+      ],
+      "template": "vector<int> count(26, 0);\nfor (char c : s) count[c - 'a']++;\nfor (char c : t) count[c - 'a']--;\nreturn all_of(count.begin(), count.end(), [](int x) { return x == 0; });",
+      "problems": [
+        {
+          "slug": "valid-anagram",
+          "title": "Valid Anagram",
+          "difficulty": "Easy",
+          "tags": [
+            "String",
+            "Hash Table",
+            "Frequency"
+          ],
+          "platforms": {
+            "leetcode": "https://leetcode.com/problems/valid-anagram/",
+            "gfg": "https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/"
+          },
+          "notes": {
+            "intuition": "Anagrams have identical character inventories.",
+            "whyPattern": "Frequency comparison turns ordering into simple counts.",
+            "mistakes": [
+              "Sorting when linear counting is enough",
+              "Ignoring length mismatch"
+            ]
+          },
+          "approach": "Count characters from one string and subtract characters from the other.",
+          "complexity": {
+            "time": "O(n)",
+            "space": "O(1)"
+          },
+          "code": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        if (s.size() != t.size()) return false;\n        vector<int> count(26, 0);\n        for (char c : s) count[c - 'a']++;\n        for (char c : t) count[c - 'a']--;\n        for (int x : count) if (x != 0) return false;\n        return true;\n    }\n};"
+        }
+      ]
+    }
+  ]
+}

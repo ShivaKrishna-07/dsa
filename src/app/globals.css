@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #09090b;
+  color: #f4f4f5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+}
+
+.code-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+.code-token-keyword {
+  color: #c678dd;
+}
+
+.code-token-type {
+  color: #4ec9b0;
+}
+
+.code-token-number {
+  color: #b5cea8;
+}
+
+.code-token-string {
+  color: #ce9178;
+}
+
+.code-token-comment {
+  color: #6a9955;
+}
+
+.code-token-function {
+  color: #dcdcaa;
+}
+
+.code-token-operator {
+  color: #c586c0;
+}

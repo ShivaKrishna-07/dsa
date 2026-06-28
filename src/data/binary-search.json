@@ -1,0 +1,53 @@
+{
+  "slug": "binary-search",
+  "title": "Binary Search",
+  "icon": "Search",
+  "patterns": [
+    {
+      "slug": "answer-space",
+      "title": "Binary Search on Answer",
+      "description": "Search the smallest or largest value that satisfies a monotonic condition.",
+      "explanation": "When feasibility changes from false to true once, binary search can find the boundary.",
+      "appearsIn": [
+        "Minimum capacity",
+        "Maximum minimum distance",
+        "Koko-style rate problems"
+      ],
+      "identify": [
+        "Minimize maximum",
+        "Maximize minimum",
+        "Feasible check",
+        "Monotonic answer"
+      ],
+      "template": "int low = 1, high = maxValue, answer = high;\nwhile (low <= high) {\n    int mid = low + (high - low) / 2;\n    if (can(mid)) {\n        answer = mid;\n        high = mid - 1;\n    } else {\n        low = mid + 1;\n    }\n}\nreturn answer;",
+      "problems": [
+        {
+          "slug": "koko-eating-bananas",
+          "title": "Koko Eating Bananas",
+          "difficulty": "Medium",
+          "tags": [
+            "Binary Search",
+            "Answer Space"
+          ],
+          "platforms": {
+            "leetcode": "https://leetcode.com/problems/koko-eating-bananas/"
+          },
+          "notes": {
+            "intuition": "Higher eating speed never hurts feasibility.",
+            "whyPattern": "The possible speed range has a monotonic feasible boundary.",
+            "mistakes": [
+              "Binary searching pile indices",
+              "Using floating division instead of ceiling division"
+            ]
+          },
+          "approach": "Binary search speed and compute total hours needed at each candidate speed.",
+          "complexity": {
+            "time": "O(n log m)",
+            "space": "O(1)"
+          },
+          "code": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        int low = 1, high = *max_element(piles.begin(), piles.end());\n        int answer = high;\n        while (low <= high) {\n            int mid = low + (high - low) / 2;\n            long long hours = 0;\n            for (int pile : piles) hours += (pile + mid - 1) / mid;\n            if (hours <= h) answer = mid, high = mid - 1;\n            else low = mid + 1;\n        }\n        return answer;\n    }\n};"
+        }
+      ]
+    }
+  ]
+}
