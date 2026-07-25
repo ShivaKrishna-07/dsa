@@ -1,22 +1,75 @@
-import arrays from "@/data/arrays.json";
-import binarySearch from "@/data/binary-search.json";
-import recursion from "@/data/recursion.json";
-import slidingWindow from "@/data/sliding-window.json";
-import strings from "@/data/strings.json";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
-const plannedTopics = [
-  { slug: "linked-list", title: "Linked List", icon: "ListTree", patterns: [] },
-  { slug: "trees", title: "Trees", icon: "Network", patterns: [] },
-  { slug: "bst", title: "BST", icon: "GitFork", patterns: [] },
-  { slug: "heap", title: "Heap", icon: "Layers3", patterns: [] },
-  { slug: "graph", title: "Graph", icon: "Route", patterns: [] },
-  { slug: "dp", title: "DP", icon: "Table2", patterns: [] },
-  { slug: "greedy", title: "Greedy", icon: "Zap", patterns: [] },
-  { slug: "bit-manipulation", title: "Bit Manipulation", icon: "Binary", patterns: [] },
-  { slug: "trie", title: "Trie", icon: "TreePine", patterns: [] }
-];
+const contentDir = path.join(process.cwd(), 'src/content');
 
-export const topics = [arrays, strings, binarySearch, slidingWindow, recursion, ...plannedTopics];
+export function getAllData() {
+  if (!fs.existsSync(contentDir)) return [];
+
+  const topicsJsonPath = path.join(contentDir, 'topics.json');
+  if (!fs.existsSync(topicsJsonPath)) return [];
+  const topicsList = JSON.parse(fs.readFileSync(topicsJsonPath, 'utf8'));
+
+  return topicsList.map(topicMeta => {
+    const topicDir = path.join(contentDir, topicMeta.slug);
+    const patternsJsonPath = path.join(topicDir, 'patterns.json');
+    
+    let patterns = [];
+    if (fs.existsSync(patternsJsonPath)) {
+      patterns = JSON.parse(fs.readFileSync(patternsJsonPath, 'utf8'));
+      
+      patterns = patterns.map(patternMeta => {
+        const patternDir = path.join(topicDir, patternMeta.slug);
+        let problems = [];
+        
+        if (fs.existsSync(patternDir)) {
+          const files = fs.readdirSync(patternDir).filter(f => f.endsWith('.md'));
+          problems = files.map(file => {
+            const filePath = path.join(patternDir, file);
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            const { data, content } = matter(fileContent);
+            
+            // Prefer the solution block after "### Code"; examples often contain earlier text fences.
+            const codeSection = content.split('### Code')[1] || content;
+            const codeMatch =
+              codeSection.match(/```(?:cpp|c\+\+|javascript|js)?\n([\s\S]*?)```/) ||
+              content.match(/```(?:cpp|c\+\+)\n([\s\S]*?)```/);
+            const code = codeMatch ? codeMatch[1].trim() : '';
+            // For the Problem Statement, we can just strip the ### Code section completely
+            const psMatch = content.split('### Code')[0];
+            
+            return {
+              slug: file.replace(/\.md$/, ''),
+              title: data.title || file,
+              difficulty: data.difficulty || 'Medium',
+              complexity: {
+                time: data.time || 'O(1)',
+                space: data.space || 'O(1)'
+              },
+              platforms: data.platforms || {},
+              tags: data.tags || [],
+              code: code,
+              problemStatement: psMatch.replace('### Problem Statement', '').trim()
+            };
+          });
+        }
+        
+        return {
+          ...patternMeta,
+          problems
+        };
+      });
+    }
+
+    return {
+      ...topicMeta,
+      patterns
+    };
+  });
+}
+
+export const topics = getAllData();
 
 export function getTopic(slug) {
   return topics.find((topic) => topic.slug === slug);
@@ -41,14 +94,14 @@ export function getSearchItems() {
     const topicItem = {
       type: "Topic",
       title: topic.title,
-      description: topic.description,
+      description: topic.description || '',
       href: `/${topic.slug}`
     };
 
     const patternItems = topic.patterns.map((pattern) => ({
       type: "Pattern",
       title: pattern.title,
-      description: `${topic.title} / ${pattern.description}`,
+      description: `${topic.title} / ${pattern.description || ''}`,
       href: `/${topic.slug}/${pattern.slug}`
     }));
 

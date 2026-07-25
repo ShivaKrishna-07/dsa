@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "fixed-window",
+    "title": "Fixed Window",
+    "description": "Window size remains constant.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "variable-longest",
+    "title": "Variable Window (Longest/Largest)",
+    "description": "Window size expands to find the maximum valid subarray.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "variable-shortest",
+    "title": "Variable Window (Shortest/Minimum)",
+    "description": "Window size shrinks to find the minimum valid subarray.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "counting",
+    "title": "Counting Sliding Window",
+    "description": "Using math or specific counting techniques on sliding window.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "queue-special",
+    "title": "Queue / Special window",
+    "description": "Using monotonic queues or specific data structures.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  }
+]

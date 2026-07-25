@@ -67,7 +67,7 @@ export default function Breadcrumb({ items }) {
 
   return (
     <>
-      <div className="mb-6 mt-4">
+      <div className="sticky top-16 z-20 mb-4">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 rounded-xl border border-ink-800/60 bg-ink-900/30 px-4 py-2.5 text-sm text-ink-400 shadow-sm backdrop-blur">
           {allItems.map((item, index) => (
             <span key={`${item.label}-${index}`} className="flex items-center gap-1.5">

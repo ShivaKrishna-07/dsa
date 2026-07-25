@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "two-pointers",
+    "title": "Two Pointers",
+    "description": "Move one or more indices through the array to avoid nested scans.",
+    "identify": [
+      "The problem asks for in-place rearrangement or compaction.",
+      "The array is sorted, partially partitioned, or can be scanned from both ends.",
+      "You can make progress by moving only the pointer that violates the target condition.",
+      "Relative order or partition boundaries matter more than random access."
+    ],
+    "appearsIn": [
+      "Move zeroes or remove duplicates",
+      "Dutch National Flag sorting",
+      "Positive/negative rearrangement",
+      "Moore voting style candidate tracking"
+    ],
+    "template": "int left = 0, right = n - 1;\nwhile (left <= right) {\n    if (/* left side is already correct */) {\n        left++;\n    } else if (/* right side is already correct */) {\n        right--;\n    } else {\n        swap(nums[left], nums[right]);\n        left++;\n        right--;\n    }\n}",
+    "explanation": "Two pointers reduce repeated work by turning a nested search or extra-array operation into a single pass. One pointer usually scans the input while another marks the next write position, boundary, or matching index."
+  },
+  {
+    "slug": "prefix-sum",
+    "title": "Prefix Sum",
+    "description": "Store cumulative values to convert subarray questions into differences of earlier states.",
+    "identify": [
+      "The question is about a contiguous subarray or range.",
+      "A range value can be expressed as prefix[right] - prefix[left - 1].",
+      "Negative numbers prevent a normal sliding window.",
+      "You need to count or find previous cumulative states quickly."
+    ],
+    "appearsIn": [
+      "Subarray sum equals K",
+      "Subarray XOR equals K",
+      "Missing and repeating number equations",
+      "Consecutive sequence membership checks"
+    ],
+    "template": "unordered_map<long long, int> freq;\nfreq[0] = 1;\nlong long prefix = 0;\nint answer = 0;\nfor (int x : nums) {\n    prefix += x;\n    answer += freq[prefix - k];\n    freq[prefix]++;\n}\nreturn answer;",
+    "explanation": "Prefix sums remember the value of everything seen so far. If the current prefix is P and an earlier prefix was P - K, the subarray between those two positions has sum K. Hashing makes this lookup constant time."
+  },
+  {
+    "slug": "kadanes",
+    "title": "Kadane's",
+    "description": "Track the best subarray ending at the current index and update the global answer.",
+    "identify": [
+      "The problem asks for a maximum or minimum contiguous subarray value.",
+      "At each index you choose between extending the previous subarray or starting fresh.",
+      "A bad running contribution should be dropped.",
+      "Only local running state is needed."
+    ],
+    "appearsIn": [
+      "Maximum subarray sum",
+      "Circular maximum subarray",
+      "Maximum absolute subarray sum",
+      "Best contiguous gain/loss"
+    ],
+    "template": "int best = nums[0];\nint current = nums[0];\nfor (int i = 1; i < nums.size(); i++) {\n    current = max(nums[i], current + nums[i]);\n    best = max(best, current);\n}\nreturn best;",
+    "explanation": "Kadane's algorithm keeps the best subarray that must end at the current element. If extending the old subarray is worse than starting at the current value, reset the running sum."
+  },
+  {
+    "slug": "matrix",
+    "title": "Matrix",
+    "description": "Use boundaries, coordinates, and row/column relationships to traverse grids cleanly.",
+    "identify": [
+      "The input is a 2D grid or triangular arrangement.",
+      "The traversal direction or boundary changes after each pass.",
+      "Rows and columns carry independent meaning.",
+      "You need careful index limits to avoid duplicate visits."
+    ],
+    "appearsIn": [
+      "Spiral traversal",
+      "Pascal triangle generation",
+      "Row-column simulation",
+      "Layer-by-layer grid processing"
+    ],
+    "template": "int top = 0, bottom = matrix.size() - 1;\nint left = 0, right = matrix[0].size() - 1;\nwhile (top <= bottom && left <= right) {\n    for (int col = left; col <= right; col++) ans.push_back(matrix[top][col]);\n    top++;\n    for (int row = top; row <= bottom; row++) ans.push_back(matrix[row][right]);\n    right--;\n    if (top <= bottom) {\n        for (int col = right; col >= left; col--) ans.push_back(matrix[bottom][col]);\n        bottom--;\n    }\n    if (left <= right) {\n        for (int row = bottom; row >= top; row--) ans.push_back(matrix[row][left]);\n        left++;\n    }\n}",
+    "explanation": "Matrix problems become easier when you name the moving boundaries or the coordinate relationship. The goal is to make each cell's visit rule explicit and guard against revisiting cells."
+  },
+  {
+    "slug": "observation",
+    "title": "Observation Based",
+    "description": "Exploit a small mathematical or logical property instead of applying a heavy data structure.",
+    "identify": [
+      "The main trick is a property of the values or operation.",
+      "A single scan can maintain the required best answer.",
+      "The problem looks simple but has edge cases around order or wraparound.",
+      "Sorting or hashing would work but is more than needed."
+    ],
+    "appearsIn": [
+      "Stock buy and sell",
+      "Max consecutive ones",
+      "Array rotation",
+      "Simple invariant-based scans"
+    ],
+    "template": "int answer = 0;\nint state = 0;\nfor (int x : nums) {\n    // update the state using the observation\n    // update answer from the state\n}\nreturn answer;",
+    "explanation": "Observation based problems usually depend on one invariant: minimum price so far, current streak length, or how rotation changes positions. Once the invariant is clear, the implementation is often a compact linear scan."
+  }
+]

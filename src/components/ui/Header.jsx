@@ -1,10 +1,11 @@
-"use client";
-
 import Link from "next/link";
 import { Brackets } from "lucide-react";
 import SearchBox from "@/components/ui/SearchBox";
+import { getSearchItems } from "@/lib/data";
 
 export default function Header() {
+  const items = getSearchItems();
+  
   return (
     <header className="sticky top-0 z-30 border-b border-ink-800 bg-ink-950/95 backdrop-blur">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center gap-4 px-4 py-3 sm:px-5">
@@ -16,7 +17,7 @@ export default function Header() {
         </Link>
 
         <div className="ml-auto flex min-w-0 flex-1 justify-end">
-          <SearchBox />
+          <SearchBox items={items} />
         </div>
       </div>
     </header>

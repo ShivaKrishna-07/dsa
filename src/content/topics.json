@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "arrays",
+    "title": "Arrays",
+    "icon": "Library"
+  },
+  {
+    "slug": "binary-search",
+    "title": "Binary Search",
+    "icon": "Search"
+  },
+  {
+    "slug": "strings",
+    "title": "Strings",
+    "icon": "Type"
+  },
+  {
+    "slug": "linked-list",
+    "title": "Linked List",
+    "icon": "ListTree"
+  },
+  {
+    "slug": "sliding-window",
+    "title": "Sliding Window",
+    "icon": "RectangleHorizontal"
+  }
+]

@@ -8,12 +8,12 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
     <MotionCard>
       <Link
         href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
-        className="group block rounded-md border border-ink-800 bg-ink-950/40 p-4 transition hover:border-accent-400"
+        className="group block rounded-md border border-ink-800 bg-ink-950/40 px-4 py-3 transition hover:border-accent-400"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="font-medium text-ink-100">{problem.title}</h3>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-2">
               <span className={`rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
                 {problem.difficulty}
               </span>

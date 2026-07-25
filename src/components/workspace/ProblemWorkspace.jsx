@@ -6,6 +6,7 @@ import CodeBlock from "@/components/ui/CodeBlock";
 import Tabs from "@/components/ui/Tabs";
 import { difficultyClass, platformLabel } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
+import ReactMarkdown from "react-markdown";
 
 const platformIcons = {
   leetcode: SiLeetcode,
@@ -14,6 +15,13 @@ const platformIcons = {
 };
 
 export default function ProblemWorkspace({ problem }) {
+  const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
+    if (!url || typeof url !== "string" || !url.trim()) return false;
+    if (key === "youtube") return true;
+    if (key === "leetcode") return true;
+    return key === "gfg" && !problem.platforms.leetcode;
+  });
+
   return (
     <div className="grid h-[calc(100vh-11.5rem)] gap-4 lg:grid-cols-[22rem_minmax(0,1fr)]">
       <aside className="rounded-md border border-ink-800 bg-ink-900/40 p-4 lg:sticky lg:top-[126px] lg:h-[calc(100vh-11.5rem)] lg:overflow-auto">
@@ -29,7 +37,7 @@ export default function ProblemWorkspace({ problem }) {
           ))}
         </div>
         <div className="mt-5 grid gap-2">
-          {Object.entries(problem.platforms).map(([key, url]) => {
+          {visiblePlatforms.map(([key, url]) => {
             const Icon = platformIcons[key];
             return (
             <Link
@@ -70,56 +78,13 @@ export default function ProblemWorkspace({ problem }) {
             content: <CodeBlock code={problem.code} compact />
           },
           {
-            value: "approach",
-            label: "Approach",
+            value: "ps",
+            label: "Problem Statement",
             icon: BookOpen,
             content: (
-              <article className="max-w-3xl p-4">
-                <h2 className="text-2xl font-semibold">Approach</h2>
-                <p className="mt-4 leading-7 text-ink-300">{problem.approach}</p>
+              <article className="prose prose-invert max-w-none p-6">
+                <ReactMarkdown>{problem.problemStatement}</ReactMarkdown>
               </article>
-            )
-          },
-          {
-            value: "notes",
-            label: "Notes",
-            icon: Lightbulb,
-            content: (
-              <div className="grid gap-4 xl:grid-cols-3 p-4">
-                <article className="rounded-md border border-ink-800 bg-ink-950/50 p-5">
-                  <h2 className="font-semibold">Intuition</h2>
-                  <p className="mt-3 text-sm leading-6 text-ink-300">{problem.notes.intuition}</p>
-                </article>
-                <article className="rounded-md border border-ink-800 bg-ink-950/50 p-5">
-                  <h2 className="font-semibold">Why this pattern</h2>
-                  <p className="mt-3 text-sm leading-6 text-ink-300">{problem.notes.whyPattern}</p>
-                </article>
-                <article className="rounded-md border border-ink-800 bg-ink-950/50 p-5">
-                  <h2 className="font-semibold">Common mistakes</h2>
-                  <ul className="mt-3 space-y-2 text-sm text-ink-300">
-                    {problem.notes.mistakes.map((mistake) => (
-                      <li key={mistake}>{mistake}</li>
-                    ))}
-                  </ul>
-                </article>
-              </div>
-            )
-          },
-          {
-            value: "complexity",
-            label: "Complexity",
-            icon: Gauge,
-            content: (
-              <div className="grid gap-3 sm:grid-cols-2 p-4">
-                <div className="rounded-md border border-ink-800 bg-ink-950/50 p-5">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-500">Time</h2>
-                  <p className="mt-2 text-xl font-semibold">{problem.complexity.time}</p>
-                </div>
-                <div className="rounded-md border border-ink-800 bg-ink-950/50 p-5">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-500">Space</h2>
-                  <p className="mt-2 text-xl font-semibold">{problem.complexity.space}</p>
-                </div>
-              </div>
             )
           }
         ]}

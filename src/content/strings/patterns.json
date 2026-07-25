@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "basics",
+    "title": "Basics & Manipulations",
+    "description": "Parse, transform, compare, and scan strings using direct character-level rules.",
+    "identify": [
+      "The problem asks you to transform or validate a string without changing the relative meaning of characters.",
+      "A direct scan, two pointers, or small fixed-size map is enough.",
+      "The important details are whitespace, character mapping, overflow, or substring boundaries.",
+      "The alphabet is small or bounded, so O(1) auxiliary maps are often possible."
+    ],
+    "appearsIn": [
+      "String parsing such as atoi",
+      "Roman numeral conversion",
+      "Word cleanup and reversal",
+      "Character mapping problems",
+      "Palindrome expansion"
+    ],
+    "template": "int n = s.size();\nint i = 0;\nwhile (i < n && /* skip condition */) i++;\n\nwhile (i < n) {\n    char c = s[i];\n    // apply the string rule for this character\n    i++;\n}\n\nreturn answer;",
+    "explanation": "Most basic string problems are won by carefully defining the scan rule. Decide what each character means, what state must be remembered, and when the scan should stop or reset."
+  }
+]

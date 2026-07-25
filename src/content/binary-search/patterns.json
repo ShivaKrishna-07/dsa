@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "boundaries",
+    "title": "Boundaries",
+    "description": "Finding lower or upper bounds in sorted space.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "peak-elements",
+    "title": "Peak Elements",
+    "description": "Finding peaks and valleys.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "bs-on-partitions",
+    "title": "BS on Partitions",
+    "description": "Binary searching partitions across multiple arrays.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "rotated-sorted-arr",
+    "title": "Rotated Sorted Array",
+    "description": "Searching in arrays that have been shifted.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "bs-on-answers-min-max",
+    "title": "BS on Answers (min/max)",
+    "description": "Binary searching the answer space for direct values.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "bs-on-answers-min-max-max-min",
+    "title": "BS on Answers (min(max) or max(min))",
+    "description": "Binary searching the answer space for optimized boundaries.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "matrix-bs",
+    "title": "Matrix BS",
+    "description": "Binary searching within 2D space.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "bs-on-answers-misc",
+    "title": "BS on Answers (Misc)",
+    "description": "Miscellaneous binary search on answers.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  }
+]

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import PageFade from "@/components/ui/PageFade";
-import SearchBox from "@/components/ui/SearchBox";
 import { TopicIcon } from "@/components/ui/icons";
 import MotionCard from "@/components/ui/MotionCard";
 import { getTopicStats, topics } from "@/lib/data";

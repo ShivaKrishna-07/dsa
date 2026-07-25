@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "fast-and-slow",
+    "title": "Fast & Slow Pointers",
+    "description": "Use two pointers moving at different speeds to detect cycles, middle positions, and distance gaps.",
+    "identify": [
+      "The list may contain a cycle.",
+      "You need to find a middle, loop start, or remove a node from the end.",
+      "A fixed gap between two pointers can avoid measuring the full list twice.",
+      "The solution should use O(1) extra space."
+    ],
+    "appearsIn": [
+      "Detect loop",
+      "Find loop start",
+      "Find loop length",
+      "Remove nth node from back"
+    ],
+    "template": "ListNode* slow = head;\nListNode* fast = head;\nwhile (fast && fast->next) {\n    slow = slow->next;\n    fast = fast->next->next;\n    if (slow == fast) {\n        // cycle or meeting point found\n        break;\n    }\n}",
+    "explanation": "Fast and slow pointers exploit relative speed. If a cycle exists, the faster pointer must eventually meet the slower pointer. If a fixed distance is needed, one pointer can be advanced first and both can move together."
+  },
+  {
+    "slug": "reverse",
+    "title": "Reverse",
+    "description": "Change next pointers carefully while preserving access to the remaining list.",
+    "identify": [
+      "The problem asks to reverse a list, sublist, or fixed-size group.",
+      "Node links must be rewired in-place.",
+      "You need to remember previous, current, and next nodes.",
+      "Carry or arithmetic can be done while traversing reversed order."
+    ],
+    "appearsIn": [
+      "Reverse linked list",
+      "Reverse in k groups",
+      "Add one to a number",
+      "Add two numbers"
+    ],
+    "template": "ListNode* prev = nullptr;\nListNode* curr = head;\nwhile (curr) {\n    ListNode* nextNode = curr->next;\n    curr->next = prev;\n    prev = curr;\n    curr = nextNode;\n}\nreturn prev;",
+    "explanation": "Reversal is pointer bookkeeping. Before changing curr->next, store the next node. Then point curr backward, move prev forward, and continue."
+  },
+  {
+    "slug": "dummy-nodes",
+    "title": "Dummy Nodes",
+    "description": "Use a sentinel node to simplify head changes, merges, partitions, and list construction.",
+    "identify": [
+      "The head node may change.",
+      "You are building a new linked-list order from existing nodes.",
+      "Multiple edge cases appear around the first node.",
+      "A tail pointer can append nodes cleanly."
+    ],
+    "appearsIn": [
+      "Merge two lists",
+      "Partition list",
+      "Reorder list",
+      "Sort 0s, 1s and 2s"
+    ],
+    "template": "ListNode dummy(0);\nListNode* tail = &dummy;\nwhile (head) {\n    tail->next = head;\n    tail = tail->next;\n    head = head->next;\n}\ntail->next = nullptr;\nreturn dummy.next;",
+    "explanation": "A dummy node removes special handling for the first inserted node. Build from dummy.next and keep tail at the last node of the result."
+  },
+  {
+    "slug": "special",
+    "title": "Special",
+    "description": "Handle linked-list problems that need extra mapping, pointer identity, or intersection reasoning.",
+    "identify": [
+      "Nodes have extra pointers such as random pointers.",
+      "The answer depends on node identity, not just node value.",
+      "Two lists may physically share nodes.",
+      "A hash map or clever pointer switching can preserve O(N) time."
+    ],
+    "appearsIn": [
+      "Clone list with random pointer",
+      "Intersection of Y linked list"
+    ],
+    "template": "unordered_map<Node*, Node*> copy;\nfor (Node* cur = head; cur; cur = cur->next) {\n    copy[cur] = new Node(cur->val);\n}\nfor (Node* cur = head; cur; cur = cur->next) {\n    copy[cur]->next = copy[cur->next];\n    copy[cur]->random = copy[cur->random];\n}\nreturn copy[head];",
+    "explanation": "Special linked-list problems often require preserving node identity. Hash maps are direct and safe; pointer-switching can solve intersection without extra space."
+  },
+  {
+    "slug": "k-way-merge",
+    "title": "K-way Merge",
+    "description": "Merge many sorted linked lists using a priority queue or divide-and-conquer.",
+    "identify": [
+      "There are multiple sorted linked lists.",
+      "You repeatedly need the smallest current head.",
+      "The total number of nodes is large compared with the number of lists.",
+      "A min-heap can reduce repeated scans."
+    ],
+    "appearsIn": [
+      "Merge k sorted lists",
+      "External merge patterns",
+      "Sorted stream merging"
+    ],
+    "template": "priority_queue<ListNode*, vector<ListNode*>, Compare> pq;\nfor (ListNode* list : lists) {\n    if (list) pq.push(list);\n}\nListNode dummy(0);\nListNode* tail = &dummy;\nwhile (!pq.empty()) {\n    ListNode* node = pq.top();\n    pq.pop();\n    tail->next = node;\n    tail = tail->next;\n    if (node->next) pq.push(node->next);\n}\nreturn dummy.next;",
+    "explanation": "A min-heap keeps the smallest head among k lists available in O(log k). Each node enters and leaves the heap once."
+  }
+]

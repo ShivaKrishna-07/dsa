@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
-import Breadcrumb from "@/components/ui/Breadcrumb";
 import PageFade from "@/components/ui/PageFade";
 import PatternWorkspace from "@/components/workspace/PatternWorkspace";
 import { getPattern, getTopic, topics } from "@/lib/data";
-import { patternMenu, rootMenu, topicMenu } from "@/lib/navigation";
 
 export function generateStaticParams() {
   return topics.flatMap((topic) =>
@@ -22,14 +20,7 @@ export default function PatternPage({ params }) {
   if (!topic || !pattern) notFound();
 
   return (
-    <PageFade className="mx-auto max-w-7xl px-5 py-6">
-      <Breadcrumb
-        items={[
-          { label: topic.title, href: `/${topic.slug}`, rootMenu: rootMenu(), menu: topicMenu(topic) },
-          { label: pattern.title, menu: patternMenu(topic, pattern) }
-        ]}
-      />
-
+    <PageFade className="mx-auto max-w-6xl px-5 py-6">
       <PatternWorkspace topic={topic} pattern={pattern} />
     </PageFade>
   );

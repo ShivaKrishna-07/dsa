@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import MotionCard from "@/components/ui/MotionCard";
 
 export default function TopicWorkspace({ topic }) {
   if (!topic.patterns.length) {
@@ -8,23 +10,27 @@ export default function TopicWorkspace({ topic }) {
   }
 
   return (
-    <div className="mt-2 grid gap-3 md:grid-cols-2">
+    <div className="mt-4 grid gap-4 py-2">
       {topic.patterns.map((pattern) => (
-        <Link
-          key={pattern.slug}
-          href={`/${topic.slug}/${pattern.slug}`}
-          className="block rounded-md border border-ink-800 bg-ink-950/40 p-5 transition hover:border-accent-400"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="font-semibold">{pattern.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-ink-400">{pattern.description}</p>
+        <MotionCard key={pattern.slug}>
+          <Link
+            href={`/${topic.slug}/${pattern.slug}`}
+            className="group block rounded-xl border border-ink-800 bg-ink-900/40 p-5 transition hover:border-accent-400 hover:bg-ink-900/60"
+          >
+            <div className="flex items-center justify-between gap-6">
+              <div>
+                <h2 className="text-xl font-semibold text-ink-100">{pattern.title}</h2>
+                <p className="mt-2 text-base leading-6 text-ink-400">{pattern.description}</p>
+              </div>
+              <div className="flex items-center gap-5">
+                <span className="shrink-0 rounded-md border border-ink-800/60 bg-ink-900/50 px-3 py-1.5 text-sm font-medium text-ink-300">
+                  {pattern.problems.length} problems
+                </span>
+                <ArrowRight className="h-6 w-6 shrink-0 text-ink-500 transition group-hover:translate-x-1 group-hover:text-accent-300" />
+              </div>
             </div>
-            <span className="shrink-0 rounded border border-ink-700 px-2 py-1 text-xs text-ink-300">
-              {pattern.problems.length} problems
-            </span>
-          </div>
-        </Link>
+          </Link>
+        </MotionCard>
       ))}
     </div>
   );
