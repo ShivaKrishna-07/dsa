@@ -38,15 +38,18 @@ Use one pointer to scan and another pointer to write the compact unique prefix.
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int write = 1;
-        for (int read = 1; read < nums.size(); read++) {
-            if (nums[read] != nums[read - 1]) {
-                nums[write] = nums[read];
-                write++;
+        int n = nums.size();
+        int i = 0, j = 0;
+
+        while (j < n) {
+            if (nums[i] != nums[j]) {
+                i++;
+                nums[i] = nums[j];
             }
+            j++;
         }
-        return write;
+
+        return i + 1;
     }
 };
 ```

@@ -36,12 +36,20 @@ Maintain a candidate and count. Reset the candidate when count becomes zero, inc
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int candidate = 0, count = 0;
-        for (int x : nums) {
-            if (count == 0) candidate = x;
-            count += (x == candidate) ? 1 : -1;
+        int n = nums.size();
+
+        int cnt=1, ele = nums[0];
+        for(int i=1; i<n; i++){
+            if(cnt == 0){
+                ele = nums[i];
+            }
+            if(nums[i] == ele){
+                cnt++;
+            }else{
+                cnt--;
+            }
         }
-        return candidate;
+        return ele;
     }
 };
 ```

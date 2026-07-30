@@ -35,13 +35,24 @@ Run Kadane-style tracking for both maximum ending sum and minimum ending sum.
 class Solution {
 public:
     int maxAbsoluteSum(vector<int>& nums) {
-        int maxEnd = 0, minEnd = 0, ans = 0;
-        for (int x : nums) {
-            maxEnd = max(x, maxEnd + x);
-            minEnd = min(x, minEnd + x);
-            ans = max(ans, max(abs(maxEnd), abs(minEnd)));
+        int n = nums.size();
+        int sum = 0, maxi = INT_MIN;
+
+      // find max subarr of +ve elements
+        for(int i=0; i<n; i++){
+            sum = max(sum+nums[i], nums[i]);
+            maxi = max(maxi, sum);
         }
-        return ans;
+        sum = 0;
+        int mini=INT_MAX;
+
+        // find min subarr of -ve elements
+        for(int i=0; i<n; i++){
+            sum = min(sum+nums[i], nums[i]);
+            mini = min(mini, sum);
+        }
+        // return abs of max(max_subarr, min_subarr)
+        return max(abs(mini), abs(maxi));
     }
 };
 ```

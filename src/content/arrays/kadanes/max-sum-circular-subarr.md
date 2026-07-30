@@ -36,18 +36,40 @@ Compute maximum subarray, minimum subarray and total sum. If all values are nega
 class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
-        int total = 0;
-        int maxEnd = 0, minEnd = 0;
-        int maxSum = nums[0], minSum = nums[0];
-        for (int x : nums) {
-            maxEnd = max(x, maxEnd + x);
-            maxSum = max(maxSum, maxEnd);
-            minEnd = min(x, minEnd + x);
-            minSum = min(minSum, minEnd);
-            total += x;
+        int n = nums.size();
+
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        int minSum = kadanesMin(nums, n);
+        int maxSum = kadanesMax(nums, n);
+
+        // Total_sum - min_subarray_sum = max sum subarray with wrap around 
+        int circularSum = sum - minSum;
+
+        // if all elements are -ve, then maxSum will be -ve
+        // in that case circularSum will be 0, which is wrong
+        // so return maxSum
+        
+        if(maxSum < 0) return maxSum;
+        return max(maxSum, circularSum);
+    }
+    // function to find max subarr of +ve elements
+    int kadanesMax(vector<int>&nums, int n){
+        int sum = 0, maxi=INT_MIN;
+        for(int x: nums){
+            sum = max(sum+x, x);
+            maxi = max(maxi, sum);
         }
-        if (maxSum < 0) return maxSum;
-        return max(maxSum, total - minSum);
+        return maxi;
+    }
+    
+    // function to find min subarr of -ve elements  
+    int kadanesMin(vector<int>&nums, int n){
+        int sum = 0, mini=INT_MAX;
+        for(int x: nums){
+            sum = min(sum+x, x);
+            mini = min(mini, sum);
+        }
+        return mini;
     }
 };
 ```

@@ -42,12 +42,15 @@ Whenever the read pointer sees a non-zero value, swap it with the write pointer 
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
-        int write = 0;
-        for (int read = 0; read < nums.size(); read++) {
-            if (nums[read] != 0) {
-                swap(nums[write], nums[read]);
-                write++;
+        int n = nums.size();
+        int i = 0, j = 0;
+
+        while (j < n) {
+            if (nums[j] != 0) {
+                swap(nums[i], nums[j]);
+                i++;
             }
+            j++;
         }
     }
 };

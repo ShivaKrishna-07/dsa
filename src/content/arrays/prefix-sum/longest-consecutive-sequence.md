@@ -37,20 +37,25 @@ Put all values into a hash set. For each possible sequence start, walk forward w
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        unordered_set<int> seen(nums.begin(), nums.end());
-        int best = 0;
-        for (int x : seen) {
-            if (!seen.count(x - 1)) {
-                int current = x;
-                int length = 1;
-                while (seen.count(current + 1)) {
-                    current++;
-                    length++;
+        int n = nums.size();
+        if(n == 0 || n == 1) return n;
+        unordered_set<int>st;
+
+        for(int i=0; i<n; i++) st.insert(nums[i]);
+
+        int maxi = 1;
+        for(int x: nums){
+            if(st.find(x - 1) == st.end()){
+                int cnt = 1;
+                int val = x;
+                while(st.find(val+1) != st.end()){
+                    val++;
+                    cnt++;
                 }
-                best = max(best, length);
+                maxi = max(maxi, cnt);
             }
         }
-        return best;
+        return maxi;
     }
 };
 ```

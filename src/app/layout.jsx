@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Header from "@/components/ui/Header";
+import PageOverflowController from "@/components/ui/PageOverflowController";
 import RouteBreadcrumb from "@/components/ui/RouteBreadcrumb";
 import ThemeProvider from "@/components/ui/ThemeProvider";
 import { topics } from "@/lib/data";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider>
           <div className="min-h-screen bg-ink-950 text-ink-100">
+            <PageOverflowController />
             <Header />
             <RouteBreadcrumb tree={navigationTree} />
             <main>{children}</main>

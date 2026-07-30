@@ -9,8 +9,8 @@ export default function PatternWorkspace({ topic, pattern }) {
   return (
     <Tabs
       defaultValue="problems"
-      className="mt-6"
-      panelClassName="rounded-b-md border border-t-0 border-ink-800 bg-ink-900/35 p-4"
+      className="h-[calc(100vh-10.25rem)] overflow-hidden rounded-md border border-ink-800 bg-ink-900/35"
+      panelClassName="overflow-auto p-4"
       tabs={[
         {
           value: "problems",

@@ -55,6 +55,10 @@ export function getAllData() {
           });
         }
         
+        if (patternMeta.slug === 'two-pointers') {
+          problems.reverse();
+        }
+        
         return {
           ...patternMeta,
           problems

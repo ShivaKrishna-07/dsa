@@ -37,14 +37,23 @@ Build rows from top to bottom. Set both ends to 1 and fill the middle from the p
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> triangle;
-        for (int row = 0; row < numRows; row++) {
-            triangle.push_back(vector<int>(row + 1, 1));
-            for (int col = 1; col < row; col++) {
-                triangle[row][col] = triangle[row - 1][col - 1] + triangle[row - 1][col];
-            }
+        
+        vector<vector<int>>ans;
+        for(int row=1; row<=numRows; row++){
+            ans.push_back(generateRow(row));
         }
-        return triangle;
+        return ans;
+    }
+    vector<int> generateRow(int row){
+        vector<int>ans;
+        long long res = 1;
+        ans.push_back(1);
+        for(int col=1; col<row; col++){
+            res *= (row-col);
+            res /= col;
+            ans.push_back(res);
+        }
+        return ans;
     }
 };
 ```

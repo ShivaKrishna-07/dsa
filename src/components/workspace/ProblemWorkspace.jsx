@@ -67,16 +67,10 @@ export default function ProblemWorkspace({ problem }) {
       </aside>
 
       <Tabs
-        defaultValue="code"
+        defaultValue="ps"
         className="h-[calc(100vh-11.5rem)] overflow-hidden rounded-md border border-ink-800 bg-ink-900/35"
         panelClassName="overflow-auto"
         tabs={[
-          {
-            value: "code",
-            label: "Code",
-            icon: Code2,
-            content: <CodeBlock code={problem.code} compact />
-          },
           {
             value: "ps",
             label: "Problem Statement",
@@ -86,6 +80,12 @@ export default function ProblemWorkspace({ problem }) {
                 <ReactMarkdown>{problem.problemStatement}</ReactMarkdown>
               </article>
             )
+          },
+          {
+            value: "code",
+            label: "Code",
+            icon: Code2,
+            content: <CodeBlock code={problem.code} compact />
           }
         ]}
       />

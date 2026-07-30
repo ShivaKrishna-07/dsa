@@ -17,10 +17,7 @@ export default function TopicPage({ params }) {
   if (!topic) notFound();
 
   return (
-    <PageFade className="mx-auto max-w-6xl px-5 py-6">
-      <div className="mt-6 mb-3">
-        <h1 className="text-2xl font-semibold sm:text-3xl">Patterns</h1>
-      </div>
+    <PageFade className="mx-auto max-w-6xl px-5 pb-4 pt-1">
       <TopicWorkspace topic={topic} />
     </PageFade>
   );

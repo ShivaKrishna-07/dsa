@@ -33,12 +33,20 @@ Use Kadane's recurrence: current = max(arr[i], current + arr[i]).
 ### Code
 
 ```cpp
-long long maxSubarraySum(vector<int> arr, int n) {
-    long long current = arr[0], best = arr[0];
-    for (int i = 1; i < n; i++) {
-        current = max<long long>(arr[i], current + arr[i]);
-        best = max(best, current);
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int sum = 0;
+        int maxi = INT_MIN;
+
+        for(int i=0; i<n; i++){
+            if(sum < 0) sum = 0;
+            
+            sum += nums[i];
+            maxi = max(maxi, sum);
+        }
+        return maxi;
     }
-    return best;
-}
+};
 ```

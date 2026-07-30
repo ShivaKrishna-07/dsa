@@ -4,7 +4,7 @@ difficulty: "Medium"
 time: "O(N)"
 space: "O(1)"
 platforms:
-  gfg: "https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/"
+  leetcode: "https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1"
   article: "https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/"
 tags:
   - "Arrays"
@@ -34,20 +34,22 @@ Let x be repeating and y be missing. From sum difference and square-sum differen
 ### Code
 
 ```cpp
-vector<int> findMissingRepeatingNumbers(vector<int> nums) {
-    long long n = nums.size();
-    long long expectedSum = n * (n + 1) / 2;
-    long long expectedSq = n * (n + 1) * (2 * n + 1) / 6;
-    long long actualSum = 0, actualSq = 0;
-    for (long long x : nums) {
-        actualSum += x;
-        actualSq += x * x;
+class Solution {
+  public:
+    vector<int> findTwoElement(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        
+        vector<int>temp(n+1, 0);
+        vector<int>ans(2);
+        for(int i=0; i<n; i++){
+            temp[arr[i]]++;
+        }
+        for(int i=1; i<=n; i++){
+            if(temp[i] == 0) ans[1] = i;
+            if(temp[i] == 2) ans[0] = i;
+        }
+        return ans;
     }
-    long long diff = actualSum - expectedSum;
-    long long sqDiff = actualSq - expectedSq;
-    long long sum = sqDiff / diff;
-    int repeating = (diff + sum) / 2;
-    int missing = repeating - diff;
-    return {repeating, missing};
-}
+};
 ```

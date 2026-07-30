@@ -4,6 +4,12 @@ import MotionCard from "@/components/ui/MotionCard";
 import { difficultyClass, platformLabel } from "@/lib/format";
 
 export default function ProblemCard({ topicSlug, patternSlug, problem }) {
+  const primaryPlatform = problem.platforms?.leetcode
+    ? ["leetcode", problem.platforms.leetcode]
+    : problem.platforms?.gfg
+      ? ["gfg", problem.platforms.gfg]
+      : null;
+
   return (
     <MotionCard>
       <Link
@@ -17,12 +23,28 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
               <span className={`rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
                 {problem.difficulty}
               </span>
-              {Object.keys(problem.platforms).slice(0, 4).map((key) => (
-                <span key={key} className="inline-flex items-center gap-1 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300">
-                  {platformLabel(key)}
+              {primaryPlatform ? (
+                <span
+                  role="link"
+                  tabIndex={0}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    window.open(primaryPlatform[1], "_blank", "noopener,noreferrer");
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      window.open(primaryPlatform[1], "_blank", "noopener,noreferrer");
+                    }
+                  }}
+                  className="inline-flex cursor-pointer items-center gap-1 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
+                >
+                  {platformLabel(primaryPlatform[0])}
                   <ExternalLink className="h-3 w-3" />
                 </span>
-              ))}
+              ) : null}
             </div>
           </div>
           <ArrowRight className="mt-1 h-5 w-5 text-ink-500 transition group-hover:translate-x-1 group-hover:text-accent-300" />

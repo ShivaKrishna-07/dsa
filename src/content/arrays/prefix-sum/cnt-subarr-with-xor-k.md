@@ -4,7 +4,7 @@ difficulty: "Medium"
 time: "O(N)"
 space: "O(N)"
 platforms:
-  gfg: "https://www.geeksforgeeks.org/count-number-subarrays-given-xor/"
+  gfg: "https://www.geeksforgeeks.org/problems/count-subarray-with-given-xor/1"
   article: "https://takeuforward.org/data-structure/count-the-number-of-subarrays-with-given-xor-k/"
 tags:
   - "Arrays"
@@ -34,15 +34,24 @@ Track frequencies of prefix XOR values. For each current XOR, add how many previ
 ### Code
 
 ```cpp
-int subarraysWithXorK(vector<int> nums, int k) {
-    unordered_map<int, int> freq;
-    freq[0] = 1;
-    int xr = 0, count = 0;
-    for (int x : nums) {
-        xr ^= x;
-        count += freq[xr ^ k];
-        freq[xr]++;
+class Solution {
+  public:
+    long subarrayXor(vector<int> &arr, int k) {
+        int n = arr.size();
+        unordered_map<int, int>mp;
+        mp[0] = 1;
+        
+        int xr = 0;
+        int cnt = 0;
+        
+        for(int i=0; i<n; i++){
+            xr ^= arr[i];
+            int x = xr^k;
+            
+            cnt += mp[x];
+            mp[xr]++;
+        }
+        return cnt;
     }
-    return count;
-}
+};
 ```
