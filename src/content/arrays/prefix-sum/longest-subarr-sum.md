@@ -4,8 +4,7 @@ difficulty: "Medium"
 time: "O(N)"
 space: "O(N)"
 platforms:
-  gfg: "https://www.geeksforgeeks.org/longest-sub-array-sum-k/"
-  article: "https://takeuforward.org/arrays/longest-subarray-with-sum-k-postives-and-negatives/"
+  gfg: "https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1"
 tags:
   - "Arrays"
   - "Prefix Sum"

@@ -4,8 +4,7 @@ difficulty: "Medium"
 time: "O(N)"
 space: "O(1)"
 platforms:
-  leetcode: "https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1"
-  article: "https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/"
+  gfg: "https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1"
 tags:
   - "Arrays"
   - "Math"

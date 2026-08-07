@@ -6,7 +6,7 @@ import MotionCard from "@/components/ui/MotionCard";
 
 export default function TopicWorkspace({ topic }) {
   return (
-    <section className="h-[calc(100vh-10.25rem)] overflow-hidden rounded-md border border-ink-800 bg-ink-900/35">
+    <section className="rounded-md border border-ink-800 bg-ink-900/35 md:h-[calc(100vh-10.25rem)] md:overflow-hidden">
       <div className="flex h-12 items-center border-b border-ink-800 px-4">
         <h1 className="text-lg font-semibold">Patterns</h1>
         <span className="ml-auto rounded border border-ink-800 bg-ink-950/50 px-2.5 py-1 text-xs text-ink-400">
@@ -15,20 +15,19 @@ export default function TopicWorkspace({ topic }) {
       </div>
 
       {topic.patterns.length ? (
-        <div className="h-[calc(100%-3rem)] overflow-auto p-4">
+        <div className="p-3 md:h-[calc(100%-3rem)] md:overflow-auto md:p-4">
           <div className="grid gap-4">
             {topic.patterns.map((pattern) => (
               <MotionCard key={pattern.slug}>
                 <Link
                   href={`/${topic.slug}/${pattern.slug}`}
-                  className="group block rounded-xl border border-ink-800 bg-ink-950/40 p-5 transition hover:border-accent-400 hover:bg-ink-900/60"
+                  className="group block rounded-xl border border-ink-800 bg-ink-950/40 p-4 transition hover:border-accent-400 hover:bg-ink-900/60 sm:p-5"
                 >
-                  <div className="flex items-center justify-between gap-6">
+                  <div className="flex items-center justify-between gap-4 sm:gap-6">
                     <div>
-                      <h2 className="text-xl font-semibold text-ink-100">{pattern.title}</h2>
-                      <p className="mt-2 text-base leading-6 text-ink-400">{pattern.description}</p>
+                      <h2 className="text-base font-semibold text-ink-100 sm:text-xl">{pattern.title}</h2>
                     </div>
-                    <div className="flex items-center gap-5">
+                    <div className="flex shrink-0 items-center gap-3 sm:gap-5">
                       <span className="shrink-0 rounded-md border border-ink-800/60 bg-ink-900/50 px-3 py-1.5 text-sm font-medium text-ink-300">
                         {pattern.problems.length} problems
                       </span>
@@ -49,7 +48,7 @@ export default function TopicWorkspace({ topic }) {
 
 function EmptyState({ title, text }) {
   return (
-    <div className="m-4 rounded-md border border-ink-800 bg-ink-950/40 p-6">
+    <div className="m-3 rounded-md border border-ink-800 bg-ink-950/40 p-5 md:m-4 md:p-6">
       <h2 className="font-semibold">{title}</h2>
       <p className="mt-2 text-sm leading-6 text-ink-400">{text}</p>
     </div>

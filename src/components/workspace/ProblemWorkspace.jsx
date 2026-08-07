@@ -14,6 +14,12 @@ const platformIcons = {
   youtube: SiYoutube,
 };
 
+const platformIconClass = {
+  leetcode: "text-[#ffa116]",
+  gfg: "text-[#2f8d46]",
+  youtube: "text-[#ff0000]"
+};
+
 export default function ProblemWorkspace({ problem }) {
   const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
     if (!url || typeof url !== "string" || !url.trim()) return false;
@@ -23,9 +29,9 @@ export default function ProblemWorkspace({ problem }) {
   });
 
   return (
-    <div className="grid h-[calc(100vh-11.5rem)] gap-4 lg:grid-cols-[22rem_minmax(0,1fr)]">
+    <div className="grid gap-4 lg:h-[calc(100vh-11.5rem)] lg:grid-cols-[22rem_minmax(0,1fr)]">
       <aside className="rounded-md border border-ink-800 bg-ink-900/40 p-4 lg:sticky lg:top-[126px] lg:h-[calc(100vh-11.5rem)] lg:overflow-auto">
-        <h1 className="mb-4 text-3xl font-semibold">{problem.title}</h1>
+        <h1 className="mb-4 text-2xl font-semibold sm:text-3xl">{problem.title}</h1>
         <div className="flex flex-wrap items-center gap-2">
           <span className={`rounded border px-2.5 py-1 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
             {problem.difficulty}
@@ -47,7 +53,7 @@ export default function ProblemWorkspace({ problem }) {
               className="inline-flex items-center justify-between gap-2 rounded-md border border-ink-700 px-3 py-2 text-sm font-medium text-ink-200 transition hover:border-accent-400"
             >
               <span className="flex items-center gap-2">
-                {Icon && <Icon className="h-4 w-4" />}
+                {Icon && <Icon className={`h-4 w-4 ${platformIconClass[key] || ""}`} />}
                 {platformLabel(key)}
               </span>
               <ExternalLink className="h-4 w-4" />
@@ -68,15 +74,15 @@ export default function ProblemWorkspace({ problem }) {
 
       <Tabs
         defaultValue="ps"
-        className="h-[calc(100vh-11.5rem)] overflow-hidden rounded-md border border-ink-800 bg-ink-900/35"
-        panelClassName="overflow-auto"
+        className="rounded-md border border-ink-800 bg-ink-900/35 lg:h-[calc(100vh-11.5rem)] lg:overflow-hidden"
+        panelClassName="lg:overflow-auto"
         tabs={[
           {
             value: "ps",
             label: "Problem Statement",
             icon: BookOpen,
             content: (
-              <article className="prose prose-invert max-w-none p-6">
+              <article className="prose prose-invert max-w-none p-4 sm:p-6">
                 <ReactMarkdown>{problem.problemStatement}</ReactMarkdown>
               </article>
             )

@@ -5,7 +5,6 @@ time: "O(N)"
 space: "O(N)"
 platforms:
   gfg: "https://www.geeksforgeeks.org/problems/count-subarray-with-given-xor/1"
-  article: "https://takeuforward.org/data-structure/count-the-number-of-subarrays-with-given-xor-k/"
 tags:
   - "Arrays"
   - "Prefix XOR"
@@ -37,19 +36,20 @@ Track frequencies of prefix XOR values. For each current XOR, add how many previ
 class Solution {
   public:
     long subarrayXor(vector<int> &arr, int k) {
+        // code here
         int n = arr.size();
+        int cnt=0;
         unordered_map<int, int>mp;
-        mp[0] = 1;
-        
-        int xr = 0;
-        int cnt = 0;
+        int xorr=0;
         
         for(int i=0; i<n; i++){
-            xr ^= arr[i];
-            int x = xr^k;
+            xorr ^= arr[i];
+            if(xorr == k) cnt++;
+            if(mp.count(xorr^k)){
+                cnt += mp[xorr^k];
+            }
             
-            cnt += mp[x];
-            mp[xr]++;
+            mp[xorr]++;
         }
         return cnt;
     }

@@ -17,6 +17,7 @@ export default function SearchBox({ variant = "header", items = [] }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const trimmed = query.trim().toLowerCase();
 
   const groupedResults = useMemo(() => {
@@ -36,7 +37,10 @@ export default function SearchBox({ variant = "header", items = [] }) {
 
   useEffect(() => {
     function handlePointerDown(event) {
-      if (!rootRef.current?.contains(event.target)) setIsOpen(false);
+      if (!rootRef.current?.contains(event.target)) {
+        setIsOpen(false);
+        setIsFocused(false);
+      }
     }
 
     window.addEventListener("pointerdown", handlePointerDown);
@@ -65,7 +69,9 @@ export default function SearchBox({ variant = "header", items = [] }) {
       className={
         isHero
           ? "relative w-full max-w-2xl"
-          : "relative w-full max-w-[18rem] transition-all duration-200 focus-within:max-w-xl"
+          : `relative w-full max-w-[11rem] transition-all duration-200 focus-within:max-w-xl sm:max-w-[18rem] ${
+              isFocused ? "fixed left-3 right-3 top-3 z-[80] w-auto max-w-none sm:relative sm:left-auto sm:right-auto sm:top-auto sm:z-auto sm:w-full" : ""
+            }`
       }
     >
       <form onSubmit={submit}>
@@ -74,12 +80,15 @@ export default function SearchBox({ variant = "header", items = [] }) {
           ref={inputRef}
           aria-label="Search topics, patterns, and problems"
           value={query}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() => {
+            setIsOpen(true);
+            setIsFocused(true);
+          }}
           onChange={(event) => {
             setQuery(event.target.value);
             setIsOpen(true);
           }}
-          placeholder="Search"
+          placeholder={isFocused ? "Search topic, pattern, problem" : "Search"}
           className={`w-full rounded-md border border-ink-700 bg-ink-900/90 py-2.5 pl-10 text-sm text-ink-100 outline-none transition placeholder:text-ink-500 focus:border-accent-400 ${
             query ? "pr-10" : "pr-3"
           } ${isHero ? "h-12 text-base" : "h-10"}`}
@@ -97,7 +106,7 @@ export default function SearchBox({ variant = "header", items = [] }) {
       </form>
 
       {isOpen && trimmed && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[70vh] overflow-auto rounded-xl border border-ink-700 bg-ink-900 shadow-soft">
+        <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[calc(100vh-5rem)] overflow-auto rounded-xl border border-ink-700 bg-ink-900 shadow-soft sm:max-h-[70vh]">
           {hasResults ? (
             resultTypes.map((type) => {
               const Icon = typeIcons[type];

@@ -21,10 +21,12 @@ body {
   color: #f4f4f5;
 }
 
-html.route-lock-scroll,
-body.route-lock-scroll {
-  height: 100%;
-  overflow: hidden;
+@media (min-width: 768px) {
+  html.route-lock-scroll,
+  body.route-lock-scroll {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 button,

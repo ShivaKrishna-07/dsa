@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 export default function PageOverflowController() {
   const pathname = usePathname();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const segments = pathname.split("/").filter(Boolean);
     const shouldLockPageScroll = segments.length > 0;
 

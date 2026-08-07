@@ -1,7 +1,18 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import { SiGeeksforgeeks, SiLeetcode } from "react-icons/si";
 import MotionCard from "@/components/ui/MotionCard";
 import { difficultyClass, platformLabel } from "@/lib/format";
+
+const platformIcons = {
+  leetcode: SiLeetcode,
+  gfg: SiGeeksforgeeks
+};
+
+const platformIconClass = {
+  leetcode: "text-[#ffa116]",
+  gfg: "text-[#2f8d46]"
+};
 
 export default function ProblemCard({ topicSlug, patternSlug, problem }) {
   const primaryPlatform = problem.platforms?.leetcode
@@ -24,26 +35,7 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
                 {problem.difficulty}
               </span>
               {primaryPlatform ? (
-                <span
-                  role="link"
-                  tabIndex={0}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    window.open(primaryPlatform[1], "_blank", "noopener,noreferrer");
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      window.open(primaryPlatform[1], "_blank", "noopener,noreferrer");
-                    }
-                  }}
-                  className="inline-flex cursor-pointer items-center gap-1 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
-                >
-                  {platformLabel(primaryPlatform[0])}
-                  <ExternalLink className="h-3 w-3" />
-                </span>
+                <PlatformLink platform={primaryPlatform[0]} url={primaryPlatform[1]} />
               ) : null}
             </div>
           </div>
@@ -51,5 +43,31 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
         </div>
       </Link>
     </MotionCard>
+  );
+}
+
+function PlatformLink({ platform, url }) {
+  const Icon = platformIcons[platform];
+
+  function open(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <span
+      role="link"
+      tabIndex={0}
+      onClick={open}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") open(event);
+      }}
+      className="inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
+    >
+      {Icon ? <Icon className={`h-3.5 w-3.5 ${platformIconClass[platform] || ""}`} /> : null}
+      {platformLabel(platform)}
+      <ExternalLink className="h-3 w-3" />
+    </span>
   );
 }

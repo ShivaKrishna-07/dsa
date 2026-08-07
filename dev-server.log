@@ -1,0 +1,29 @@
+
+> dsa-pattern-sheet@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3000
+
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:3000
+  - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling / ...
+ ✓ Compiled / in 8.8s (1350 modules)
+ GET / 200 in 9250ms
+ ○ Compiling /[topicSlug]/[patternSlug] ...
+ ✓ Compiled /[topicSlug]/[patternSlug] in 6.7s (1353 modules)
+ GET /arrays/two-pointers 200 in 8144ms
+ ○ Compiling /[topicSlug]/[patternSlug]/[problemSlug] ...
+ ✓ Compiled /[topicSlug]/[patternSlug]/[problemSlug] in 11.1s (1711 modules)
+ ○ Compiling /[topicSlug] ...
+ ✓ Compiled /[topicSlug] in 1655ms (1720 modules)
+ ✓ Compiled in 9.9s (1728 modules)
+ ✓ Compiled in 6s (1728 modules)
+ ✓ Compiled in 1869ms (1728 modules)
+ ✓ Compiled in 1869ms (1728 modules)
+ ✓ Compiled in 10.8s (1728 modules)
+ ✓ Compiled in 1588ms (1728 modules)
+ ✓ Compiled in 1166ms (1728 modules)
+ ✓ Compiled in 594ms (1728 modules)
+ ✓ Compiled in 25.9s (1730 modules)

@@ -1,0 +1,6 @@
+[Error: EPERM: operation not permitted, open 'D:\shiva\dsa\.next\trace'] {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'D:\\shiva\\dsa\\.next\\trace'
+}
