@@ -54,20 +54,19 @@ Maintain two arrays/maps: one for mapping characters from `s` to `t`, and one fo
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        vector<int> mapST(256, -1), mapTS(256, -1);
-
-        for (int i = 0; i < s.size(); i++) {
-            unsigned char a = s[i];
-            unsigned char b = t[i];
-
-            if (mapST[a] == -1 && mapTS[b] == -1) {
-                mapST[a] = b;
-                mapTS[b] = a;
-            } else if (mapST[a] != b || mapTS[b] != a) {
+        int n = s.size();
+        unordered_map<char, char>mp1, mp2;
+        
+        for(int i=0; i<n; i++){
+            if(mp1.count(s[i]) && mp1[s[i]] != t[i]){
                 return false;
             }
+            else if(mp2.count(t[i]) && mp2[t[i]] != s[i]){
+                return false;
+            }
+            mp1[s[i]] = t[i];
+            mp2[t[i]] = s[i];
         }
-
         return true;
     }
 };
