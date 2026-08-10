@@ -73,7 +73,26 @@ export function getAllData() {
   });
 }
 
-export const topics = getAllData();
+const cachedTopics = getAllData();
+
+export const topics = process.env.NODE_ENV === 'development'
+  ? new Proxy([], {
+      get(target, prop) {
+        const latest = getAllData();
+        const value = latest[prop];
+        if (typeof value === 'function') {
+          return value.bind(latest);
+        }
+        return value;
+      },
+      getOwnPropertyDescriptor(target, prop) {
+        return Reflect.getOwnPropertyDescriptor(getAllData(), prop);
+      },
+      ownKeys(target) {
+        return Reflect.ownKeys(getAllData());
+      }
+    })
+  : cachedTopics;
 
 export function getTopic(slug) {
   return topics.find((topic) => topic.slug === slug);
