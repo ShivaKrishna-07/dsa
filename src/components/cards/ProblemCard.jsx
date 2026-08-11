@@ -1,25 +1,25 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
-import { SiGeeksforgeeks, SiLeetcode } from "react-icons/si";
+import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import MotionCard from "@/components/ui/MotionCard";
 import { difficultyClass, platformLabel } from "@/lib/format";
 
 const platformIcons = {
   leetcode: SiLeetcode,
-  gfg: SiGeeksforgeeks
+  gfg: SiGeeksforgeeks,
+  youtube: SiYoutube
 };
 
 const platformIconClass = {
   leetcode: "text-[#ffa116]",
-  gfg: "text-[#2f8d46]"
+  gfg: "text-[#2f8d46]",
+  youtube: "text-[#ff0000]"
 };
 
 export default function ProblemCard({ topicSlug, patternSlug, problem }) {
-  const primaryPlatform = problem.platforms?.leetcode
-    ? ["leetcode", problem.platforms.leetcode]
-    : problem.platforms?.gfg
-      ? ["gfg", problem.platforms.gfg]
-      : null;
+  const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
+    return url && typeof url === "string" && url.trim();
+  });
 
   return (
     <MotionCard>
@@ -34,9 +34,9 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
               <span className={`rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
                 {problem.difficulty}
               </span>
-              {primaryPlatform ? (
-                <PlatformLink platform={primaryPlatform[0]} url={primaryPlatform[1]} />
-              ) : null}
+              {visiblePlatforms.map(([key, url]) => (
+                <PlatformLink key={key} platform={key} url={url} />
+              ))}
             </div>
           </div>
           <ArrowRight className="mt-1 h-5 w-5 text-ink-500 transition group-hover:translate-x-1 group-hover:text-accent-300" />

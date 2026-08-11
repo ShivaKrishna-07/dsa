@@ -4,52 +4,70 @@
     "title": "Boundaries",
     "description": "Finding lower or upper bounds in sorted space.",
     "identify": [
-      "Add identification tips here"
+      "Looking for a transition point in a sorted array or monotonic search space",
+      "Problems asking for 'first index where condition holds' or 'last index where condition holds'",
+      "When the search space can be logically split into two halves of opposite boolean results (e.g., FFF...TTT)"
     ],
     "appearsIn": [
-      "Add places it appears here"
+      "LeetCode 34: Find First and Last Position of Element in Sorted Array",
+      "LeetCode 35: Search Insert Position",
+      "LeetCode 278: First Bad Version",
+      "LeetCode 704: Binary Search",
+      "GFG: Floor/Ceil in Sorted Array"
     ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
-  },
-  {
-    "slug": "peak-elements",
-    "title": "Peak Elements",
-    "description": "Finding peaks and valleys.",
-    "identify": [
-      "Add identification tips here"
-    ],
-    "appearsIn": [
-      "Add places it appears here"
-    ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
-  },
-  {
-    "slug": "bs-on-partitions",
-    "title": "BS on Partitions",
-    "description": "Binary searching partitions across multiple arrays.",
-    "identify": [
-      "Add identification tips here"
-    ],
-    "appearsIn": [
-      "Add places it appears here"
-    ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
+    "template": "int binarySearchBoundaries(vector<int>& arr, int target) {\n    int low = 0, high = arr.size() - 1;\n    int ans = -1; // Or return n or default value depending on problem\n    \n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        // Check condition (e.g., arr[mid] >= target for Lower Bound)\n        if (condition(arr[mid])) {\n            ans = mid;         // Record the potential candidate\n            high = mid - 1;    // Search left half to find an earlier transition\n        } else {\n            low = mid + 1;     // Search right half\n        }\n    }\n    return ans;\n}",
+    "explanation": "The Boundaries pattern is used to find the exact transition point in a sorted search space. This space can be conceptualized as having **opposite polarity**: it is partitioned into a range that fails a predicate condition and a range that passes it (e.g., `[False, False, False, True, True, True]`). By checking the midpoint `mid`:\n1. If `condition(mid)` is `True` (positive polarity), it means `mid` is a valid candidate. However, since we want the *first* transition, a better candidate might exist to its left. Thus, we record `mid` as the candidate and search the left half (`high = mid - 1`).\n2. If `condition(mid)` is `False` (negative polarity), the first transition must be strictly to the right of `mid`. Thus, we search the right half (`low = mid + 1`).\n\nThis systematic polarity partitioning ensures we never get stuck in infinite loops and can solve all boundary/transition problems with `O(log N)` complexity.",
+    "problemsOrder": [
+      "lower-bound",
+      "upper-bound",
+      "floor",
+      "ceil",
+      "first-last-occurence"
+    ]
   },
   {
     "slug": "rotated-sorted-arr",
     "title": "Rotated Sorted Array",
     "description": "Searching in arrays that have been shifted.",
     "identify": [
-      "Add identification tips here"
+      "Array is sorted but rotated around an unknown pivot point",
+      "Contains a discontinuity point where the ascending order breaks (e.g. `[4, 5, 6, 0, 1, 2]`)",
+      "Binary search midpoint divides the array into at least one fully sorted half"
     ],
     "appearsIn": [
-      "Add places it appears here"
+      "LeetCode 33: Search in Rotated Sorted Array",
+      "LeetCode 81: Search in Rotated Sorted Array II (with duplicates)",
+      "LeetCode 153: Find Minimum in Rotated Sorted Array",
+      "GFG: Find Rotation Count"
     ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
+    "template": "int searchRotated(vector<int>& nums, int target) {\n    int low = 0, high = nums.size() - 1;\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (nums[mid] == target) return mid;\n        if (nums[low] <= nums[mid]) { // Left half is sorted\n            if (nums[low] <= target && target < nums[mid]) high = mid - 1;\n            else low = mid + 1;\n        } else { // Right half is sorted\n            if (nums[mid] < target && target <= nums[high]) low = mid + 1;\n            else high = mid - 1;\n        }\n    }\n    return -1;\n}",
+    "explanation": "In a Rotated Sorted Array, at least one of the two halves partitioned by the midpoint `mid` is guaranteed to be fully sorted. We can leverage this by identifying which side is sorted, and checking if our target (or candidate) lies within that sorted range. This allows us to safely discard half of the search space at each iteration, maintaining the logarithmic `O(log N)` complexity.",
+    "problemsOrder": [
+      "search-in-rotated-sorted-array",
+      "find-minimum-in-rotated-sorted-array",
+      "how-many-times-arr-rotated"
+    ]
+  },
+  {
+    "slug": "peak-elements",
+    "title": "Peak Elements",
+    "description": "Finding peaks and valleys.",
+    "identify": [
+      "Monotonically increasing then decreasing sequence (or vice-versa)",
+      "Finding local extrema (local maxima or local minima) in an unsorted or semi-sorted array/matrix",
+      "Using neighbor values to determine which direction the peak lies"
+    ],
+    "appearsIn": [
+      "LeetCode 162: Find Peak Element",
+      "LeetCode 852: Peak Index in a Mountain Array",
+      "LeetCode 1901: Find a Peak Element II"
+    ],
+    "template": "int findPeak(vector<int>& arr) {\n    int low = 0, high = arr.size() - 1;\n    while (low < high) {\n        int mid = low + (high - low) / 2;\n        if (arr[mid] > arr[mid + 1]) {\n            high = mid;      // Peak lies on the left side (inclusive of mid)\n        } else {\n            low = mid + 1;   // Peak lies strictly on the right side\n        }\n    }\n    return low;\n}",
+    "explanation": "The Peak Elements pattern uses binary search on unsorted arrays by analyzing local slope directions. The core principle is that if `arr[mid] > arr[mid + 1]`, we are on a descending slope, which guarantees that a peak exists on the left (including `mid`). Conversely, if `arr[mid] < arr[mid + 1]`, we are on an ascending slope, which guarantees that a peak exists strictly on the right. This property allows us to discard half of the search space at each step, achieving `O(log N)` complexity for 1D arrays, and `O(M log N)` for 2D matrices.",
+    "problemsOrder": [
+      "find-peak-element",
+      "find-peak-element-ii"
+    ]
   },
   {
     "slug": "bs-on-answers-min-max",
@@ -94,6 +112,19 @@
     "slug": "bs-on-answers-misc",
     "title": "BS on Answers (Misc)",
     "description": "Miscellaneous binary search on answers.",
+    "identify": [
+      "Add identification tips here"
+    ],
+    "appearsIn": [
+      "Add places it appears here"
+    ],
+    "template": "function solve() {\n  // Add template here\n}",
+    "explanation": "Add explanation here"
+  },
+  {
+    "slug": "bs-on-partitions",
+    "title": "BS on Partitions",
+    "description": "Binary searching partitions across multiple arrays.",
     "identify": [
       "Add identification tips here"
     ],

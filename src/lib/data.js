@@ -59,6 +59,17 @@ export function getAllData() {
           problems.reverse();
         }
         
+        if (patternMeta.problemsOrder) {
+          problems.sort((a, b) => {
+            const indexA = patternMeta.problemsOrder.indexOf(a.slug);
+            const indexB = patternMeta.problemsOrder.indexOf(b.slug);
+            if (indexA === -1 && indexB === -1) return 0;
+            if (indexA === -1) return 1;
+            if (indexB === -1) return -1;
+            return indexA - indexB;
+          });
+        }
+        
         return {
           ...patternMeta,
           problems
