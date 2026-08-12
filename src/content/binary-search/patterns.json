@@ -74,13 +74,24 @@
     "title": "BS on Answers (min/max)",
     "description": "Binary searching the answer space for direct values.",
     "identify": [
-      "Add identification tips here"
+      "Looking for the minimum possible value of some maximum constraint, or maximum of a minimum constraint",
+      "The search space has a clear, monotonic range [low, high] (e.g. [1, max_element] or [max_element, sum_elements])",
+      "A helper function possible(mid) can evaluate if a candidate value mid is feasible in O(N) time"
     ],
     "appearsIn": [
-      "Add places it appears here"
+      "LeetCode 875: Koko Eating Bananas",
+      "LeetCode 1482: Minimum Number of Days to Make m Bouquets",
+      "LeetCode 1283: Find the Smallest Divisor Given a Threshold",
+      "LeetCode 1011: Capacity To Ship Packages Within D Days"
     ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
+    "template": "bool possible(vector<int>& nums, int limit, int candidate) {\n    // Check if the candidate value is feasible (usually O(N))\n    // Return true or false\n}\n\nint solve(vector<int>& nums, int limit) {\n    int low = getMinPossibleValue(nums);\n    int high = getMaxPossibleValue(nums);\n    int ans = -1;\n    \n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (possible(nums, limit, mid)) {\n            ans = mid;        // Record potential answer\n            high = mid - 1;   // Try to find a smaller/better solution (for min/max)\n        } else {\n            low = mid + 1;    // Try larger values\n        }\n    }\n    return ans;\n}",
+    "explanation": "The Binary Search on Answers pattern is used to find an optimal value (minimum or maximum) from a continuous search space. Instead of searching over array indices, we binary search over the range of possible answers `[low, high]`. At each step, a helper function `possible(mid)` evaluates if the candidate `mid` is feasible. If it is, we record the candidate and continue to search for a more optimal value on one side; otherwise, we search on the opposite side. This reduces the search complexity to `O(N log(high - low))`.",
+    "problemsOrder": [
+      "koko-eating-banans",
+      "min-days-to-make-m-boquets",
+      "smallest-divisor",
+      "capacity-to-ship-in-d-days"
+    ]
   },
   {
     "slug": "bs-on-answers-min-max-max-min",
