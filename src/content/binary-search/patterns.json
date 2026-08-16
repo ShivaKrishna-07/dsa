@@ -98,30 +98,50 @@
     "title": "BS on Answers (min(max) or max(min))",
     "description": "Binary searching the answer space for optimized boundaries.",
     "identify": [
-      "Add identification tips here"
+      "Optimization problems asking to 'maximize the minimum' (max(min)) or 'minimize the maximum' (min(max))",
+      "The answer is a threshold that can be checked for feasibility using a greedy check function in O(N) time",
+      "Monotonic search space between clear lower and upper bounds"
     ],
     "appearsIn": [
-      "Add places it appears here"
+      "GFG: Aggressive Cows (maximize the minimum distance)",
+      "GFG: Allocate Minimum Number of Pages (minimize the maximum pages)",
+      "GFG: Minimize Max Distance to Gas Station (minimize the maximum distance)"
     ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
+    "template": "bool isPossible(vector<int>& arr, int limit, int k) {\n    // Greedily checks if arrangement/partition is possible within target 'limit'\n    // Return true or false\n}\n\nint solve(vector<int>& arr, int k) {\n    int low = getLowerBound(arr); // e.g. max_element or 0\n    int high = getUpperBound(arr); // e.g. sum_elements or max-min\n    int ans = -1;\n    \n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (isPossible(arr, mid, k)) {\n            ans = mid;        // Record valid candidate\n            high = mid - 1;   // Try to minimize further (for min(max))\n        } else {\n            low = mid + 1;    // Increase threshold\n        }\n    }\n    return ans;\n}",
+    "explanation": "This pattern optimizes constraints on partitioned search spaces (e.g. allocating pages to students, placing cows at stall thresholds). By binary searching over the possible threshold values `[low, high]` and using a greedy check `isPossible(mid)`, we dynamically narrow the search space to find the optimal boundary in `O(N log(high - low))` time.",
+    "problemsOrder": [
+      "aggresive-cows",
+      "book-allocation",
+      "minimize-max-distance-of-gas-station"
+    ]
   },
   {
     "slug": "matrix-bs",
     "title": "Matrix BS",
     "description": "Binary searching within 2D space.",
     "identify": [
-      "Add identification tips here"
+      "The search space is structured as a 2D grid/matrix",
+      "Matrix has sorted properties: row-wise, column-wise, or flat-sorted",
+      "Looking to find a target value, Kth smallest element, or median in the 2D space"
     ],
     "appearsIn": [
-      "Add places it appears here"
+      "LeetCode 74: Search a 2D Matrix",
+      "LeetCode 240: Search a 2D Matrix II",
+      "LeetCode 378: Kth Smallest Element in a Sorted Matrix",
+      "GFG: Matrix Median"
     ],
-    "template": "function solve() {\n  // Add template here\n}",
-    "explanation": "Add explanation here"
+    "template": "bool searchMatrix(vector<vector<int>>& matrix, int target) {\n    int m = matrix.size();\n    int n = matrix[0].size();\n    int low = 0, high = m * n - 1;\n    \n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        int val = matrix[mid / n][mid % n];\n        if (val == target) return true;\n        else if (val < target) low = mid + 1;\n        else high = mid - 1;\n    }\n    return false;\n}",
+    "explanation": "The Matrix BS pattern extends binary search to two-dimensional space. Depending on the matrix's sorted properties, we can either treat it as a flattened 1D array (`O(log(M * N))`), prune search coordinates from corner points (`O(M + N)`), or binary search over the value range and count feasibility using binary search on rows (`O(R log C * log(max - min))`). This pattern optimizes grid search constraints without flattening or full scanning.",
+    "problemsOrder": [
+      "search-a-2d-matrix",
+      "search-a-2d-matrix-ii",
+      "kth-smallest-element-in-2d-matrix",
+      "matrix-median"
+    ]
   },
   {
-    "slug": "bs-on-answers-misc",
-    "title": "BS on Answers (Misc)",
+    "slug": "misc",
+    "title": "Miscellaneous",
     "description": "Miscellaneous binary search on answers.",
     "identify": [
       "Add identification tips here"

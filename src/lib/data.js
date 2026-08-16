@@ -31,11 +31,28 @@ export function getAllData() {
             const { data, content } = matter(fileContent);
             
             // Prefer the solution block after "### Code"; examples often contain earlier text fences.
-            const codeSection = content.split('### Code')[1] || content;
-            const codeMatch =
-              codeSection.match(/```(?:cpp|c\+\+|javascript|js)?\n([\s\S]*?)```/) ||
-              content.match(/```(?:cpp|c\+\+)\n([\s\S]*?)```/);
-            const code = codeMatch ? codeMatch[1].trim() : '';
+            const codeSection = content.split('### Code')[1] || '';
+            const codes = [];
+            const regex = /```(?:cpp|c\+\+|javascript|js|text)?\n([\s\S]*?)```/g;
+            let match;
+            while ((match = regex.exec(codeSection)) !== null) {
+              const codeText = match[1].trim();
+              let name = "Optimal"; // Default
+              if (codeText.toLowerCase().includes("brute")) {
+                name = "Brute Force";
+              } else if (codeText.toLowerCase().includes("better")) {
+                name = "Better";
+              } else if (codeText.toLowerCase().includes("optimal")) {
+                name = "Optimal";
+              } else if (codes.length === 0) {
+                name = "Solution";
+              } else {
+                name = `Solution ${codes.length + 1}`;
+              }
+              codes.push({ name, code: codeText });
+            }
+            
+            const code = codes.length > 0 ? codes[0].code : '';
             // For the Problem Statement, we can just strip the ### Code section completely
             const psMatch = content.split('### Code')[0];
             
@@ -43,6 +60,7 @@ export function getAllData() {
               slug: file.replace(/\.md$/, ''),
               title: data.title || file,
               difficulty: data.difficulty || 'Medium',
+              label: data.label || null,
               complexity: {
                 time: data.time || 'O(1)',
                 space: data.space || 'O(1)'
@@ -50,6 +68,7 @@ export function getAllData() {
               platforms: data.platforms || {},
               tags: data.tags || [],
               code: code,
+              codes: codes,
               problemStatement: psMatch.replace('### Problem Statement', '').trim()
             };
           });

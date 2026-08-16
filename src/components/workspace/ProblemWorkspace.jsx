@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb } from "lucide-react";
+import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb, Flame } from "lucide-react";
 import CodeBlock from "@/components/ui/CodeBlock";
 import Tabs from "@/components/ui/Tabs";
 import { difficultyClass, platformLabel } from "@/lib/format";
@@ -36,6 +36,12 @@ export default function ProblemWorkspace({ problem }) {
           <span className={`rounded border px-2.5 py-1 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
             {problem.difficulty}
           </span>
+          {problem.label && (
+            <span className="inline-flex items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2.5 py-1 text-xs font-bold text-red-400 animate-pulse">
+              <Flame className="h-3.5 w-3.5 fill-red-500 text-red-500" />
+              {problem.label}
+            </span>
+          )}
           {problem.tags.map((tag) => (
             <span key={tag} className="rounded border border-ink-700 px-2.5 py-1 text-xs text-ink-300">
               {tag}
@@ -91,7 +97,20 @@ export default function ProblemWorkspace({ problem }) {
             value: "code",
             label: "Code",
             icon: Code2,
-            content: <CodeBlock code={problem.code} compact />
+            content: problem.codes && problem.codes.length > 1 ? (
+              <Tabs
+                defaultValue={problem.codes.find(c => c.name === "Optimal") ? "Optimal" : problem.codes[0].name}
+                className="h-full"
+                panelClassName="p-4 overflow-auto"
+                tabs={problem.codes.map((c) => ({
+                  value: c.name,
+                  label: c.name,
+                  content: <CodeBlock code={c.code} compact />
+                }))}
+              />
+            ) : (
+              <CodeBlock code={problem.code} compact />
+            )
           }
         ]}
       />

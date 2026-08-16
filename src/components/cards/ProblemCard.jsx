@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, Flame } from "lucide-react";
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import MotionCard from "@/components/ui/MotionCard";
 import { difficultyClass, platformLabel } from "@/lib/format";
@@ -34,6 +34,12 @@ export default function ProblemCard({ topicSlug, patternSlug, problem }) {
               <span className={`rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
                 {problem.difficulty}
               </span>
+              {problem.label && (
+                <span className="inline-flex items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
+                  <Flame className="h-3 w-3 fill-red-500 text-red-500" />
+                  {problem.label}
+                </span>
+              )}
               {visiblePlatforms.map(([key, url]) => (
                 <PlatformLink key={key} platform={key} url={url} />
               ))}
