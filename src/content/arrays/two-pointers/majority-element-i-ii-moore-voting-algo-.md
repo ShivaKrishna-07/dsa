@@ -20,6 +20,7 @@ Return all elements that appear more than floor(n / 3) times. There can be at mo
 ```text
 Input: nums = [3,2,3]
 Output: [3]
+Explanation: 3 appears twice, which is more than n/3 times (3/3 = 1).
 ```
 
 ### Intuition

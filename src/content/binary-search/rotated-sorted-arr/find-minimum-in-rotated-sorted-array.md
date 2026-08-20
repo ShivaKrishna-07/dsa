@@ -50,21 +50,21 @@ Explanation: The original array was [0, 1, 2, 4, 5, 6, 7] and it was rotated 4 t
 
 ### Intuition
 
-Since all elements are unique, we can perform a binary search:
-- If the current subarray is already fully sorted (`nums[low] < nums[high]`), then `nums[low]` must be the minimum element. We can return it immediately.
+Since all elements are unique, we can perform a binary search using our standard `while (low <= high)` template:
+- If the current search space `[low, high]` is already fully sorted (`nums[low] <= nums[high]`), then `nums[low]` must be the minimum element in this segment. We can record it and stop.
 - Otherwise, we find `mid`:
-  - If `nums[mid] >= nums[low]`, the left half is sorted, meaning the rotation pivot (and therefore the minimum element) must lie in the right half. Thus, we update `low = mid + 1`.
-  - Else, the right half is sorted, and `nums[mid]` itself could be the minimum element. Thus, we update `high = mid`.
+  - If `nums[mid] >= nums[low]`, the left half is sorted. The minimum element could be `nums[low]`, so we record it and search the right half by setting `low = mid + 1`.
+  - Else, the right half is sorted. The minimum element could be `nums[mid]`, so we record it and search the left half by setting `high = mid - 1`.
 
 ### Approach
 
-1. Initialize `low = 0` and `high = nums.size() - 1`.
-2. Loop while `low < high`:
-   - If `nums[low] < nums[high]`, return `nums[low]`.
+1. Initialize `low = 0`, `high = nums.size() - 1`, and `ans = nums[0]`.
+2. Loop while `low <= high`:
+   - If `nums[low] <= nums[high]`, update `ans = min(ans, nums[low])` and break.
    - Calculate `mid = low + (high - low) / 2`.
-   - If `nums[mid] >= nums[low]`, update `low = mid + 1`.
-   - Otherwise, update `high = mid`.
-3. Return `nums[low]`.
+   - If `nums[mid] >= nums[low]`, update `ans = min(ans, nums[low])` and set `low = mid + 1`.
+   - Otherwise, update `ans = min(ans, nums[mid])` and set `high = mid - 1`.
+3. Return `ans`.
 
 ---
 
@@ -73,33 +73,30 @@ Since all elements are unique, we can perform a binary search:
 ```cpp
 class Solution {
 public:
-    // Function to find the minimum element using binary search
     int findMin(vector<int>& nums) {
-
-        // Initialize low and high pointers
         int low = 0, high = nums.size() - 1;
-
-        // Binary search loop
-        while (low < high) {
-
-            // Calculate mid index
+        int ans = nums[0];
+        
+        while (low <= high) {
             int mid = low + (high - low) / 2;
-
-            // Check which half to discard
-            if (nums[mid] > nums[high]) {
-
-                // Minimum lies in right half
+            
+            // If the search space is already sorted, the minimum is nums[low]
+            if (nums[low] <= nums[high]) {
+                ans = min(ans, nums[low]);
+                break;
+            }
+            
+            if (nums[mid] >= nums[low]) {
+                // Left half is sorted, min could be nums[low]
+                ans = min(ans, nums[low]);
                 low = mid + 1;
-
             } else {
-
-                // Minimum lies in left half (including mid)
-                high = mid;
+                // Right half is sorted, min could be nums[mid]
+                ans = min(ans, nums[mid]);
+                high = mid - 1;
             }
         }
-
-        // Return the minimum element
-        return nums[low];
+        return ans;
     }
 };
 ```

@@ -42,16 +42,21 @@ Explanation: The original array was [5, 7, 9, 11, 12] and it has been rotated 4 
 
 The number of times a sorted array has been rotated is exactly equal to the index of the minimum element in the array. 
 
-For example, in `[5, 1, 2, 3, 4]`, the minimum element is `1` which is at index `1`. This means the array was rotated `1` time. We can locate the index of the minimum element using binary search.
+For example, in `[5, 1, 2, 3, 4]`, the minimum element is `1` which is at index `1`. This means the array was rotated `1` time. We can locate the index of the minimum element using binary search with our standard `while (low <= high)` template:
+- If the current search space `[low, high]` is already fully sorted (`arr[low] <= arr[high]`), the minimum is `arr[low]`. If `arr[low]` is smaller than the current minimum, we update `ansIndex = low` and stop.
+- Otherwise, we find `mid`:
+  - If `arr[mid] >= arr[low]`, the left half is sorted. The minimum could be `arr[low]`, so we record its index if it's smaller than the current minimum, and search the right half (`low = mid + 1`).
+  - Else, the right half is sorted. The minimum could be `arr[mid]`, so we record its index if it's smaller, and search the left half (`high = mid - 1`).
 
 ### Approach
 
-1. Initialize `low = 0` and `high = arr.size() - 1`.
-2. Loop while `low < high`:
+1. Initialize `low = 0`, `high = arr.size() - 1`, `ans = arr[0]`, and `ansIndex = 0`.
+2. Loop while `low <= high`:
+   - If `arr[low] <= arr[high]`, check if `arr[low] < ans`, update `ansIndex = low` and break.
    - Calculate `mid = low + (high - low) / 2`.
-   - If `arr[mid] > arr[high]`, the smallest element (and therefore the pivot) must be in the right half, so set `low = mid + 1`.
-   - Otherwise, the smallest element is at `mid` or to its left, so set `high = mid`.
-3. When `low == high`, `low` points to the index of the minimum element. Return `low`.
+   - If `arr[mid] >= arr[low]`, update `ansIndex` if `arr[low]` is smaller, and set `low = mid + 1`.
+   - Otherwise, update `ansIndex` if `arr[mid]` is smaller, and set `high = mid - 1`.
+3. Return `ansIndex`.
 
 ---
 
@@ -60,29 +65,42 @@ For example, in `[5, 1, 2, 3, 4]`, the minimum element is `1` which is at index 
 ```cpp
 class Solution {
   public:
-    // Function to find rotation count using binary search
-    int findRotations(vector[int]& arr) {
-        // Initialize low and high pointers
+    int findRotations(vector<int>& arr) {
         int low = 0;
         int high = arr.size() - 1;
+        int ans = arr[0];
+        int ansIndex = 0;
 
-        // Loop until low meets high
-        while (low < high) {
-            // Find mid index
+        while (low <= high) {
             int mid = low + (high - low) / 2;
 
-            // If mid element is greater than element at high,
-            // smallest element lies to the right of mid
-            if (arr[mid] > arr[high]) {
+            // If the search space is already sorted, the minimum is arr[low]
+            if (arr[low] <= arr[high]) {
+                if (arr[low] < ans) {
+                    ans = arr[low];
+                    ansIndex = low;
+                }
+                break;
+            }
+
+            if (arr[mid] >= arr[low]) {
+                // Left half is sorted, min could be arr[low]
+                if (arr[low] < ans) {
+                    ans = arr[low];
+                    ansIndex = low;
+                }
                 low = mid + 1;
             } else {
-                // Else smallest element is at mid or to the left
-                high = mid;
+                // Right half is sorted, min could be arr[mid]
+                if (arr[mid] < ans) {
+                    ans = arr[mid];
+                    ansIndex = mid;
+                }
+                high = mid - 1;
             }
         }
 
-        // When low == high, we found the smallest element
-        return low;
+        return ansIndex;
     }
 };
 ```

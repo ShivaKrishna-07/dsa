@@ -52,6 +52,7 @@ Or:
 ```text
 Input: arr = [250, 74, 159, 181, 23, 104, 242], k = 3
 Output: 470
+Explanation: The books can be allocated to 3 students such that the maximum number of pages allocated to a student is minimized to 470.
 ```
 
 ### Intuition

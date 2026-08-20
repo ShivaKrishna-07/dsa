@@ -20,6 +20,7 @@ Given an array and an integer K, count the number of subarrays whose XOR is K.
 ```text
 Input: nums = [4,2,2,6,4], k = 6
 Output: 4
+Explanation: The subarrays with XOR sum 6 are [4, 2], [2, 6, 4], [2, 2, 6], and [6].
 ```
 
 ### Intuition

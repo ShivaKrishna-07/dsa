@@ -31,12 +31,14 @@ Write an efficient algorithm that searches for a value `target` in an `m x n` in
 ```text
 Input: matrix = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]], target = 5
 Output: true
+Explanation: 5 is present in the matrix, so return true.
 ```
 
 **Example 2:**
 ```text
 Input: matrix = [[1, 4, 7, 11, 15], [2, 5, 8, 12, 19], [3, 6, 9, 16, 22], [10, 13, 14, 17, 24], [18, 21, 23, 26, 30]], target = 20
 Output: false
+Explanation: 20 is not present in the matrix, so return false.
 ```
 
 ### Intuition

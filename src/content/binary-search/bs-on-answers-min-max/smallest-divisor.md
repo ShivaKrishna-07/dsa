@@ -40,6 +40,7 @@ If the divisor is 4 we can get a sum of 7 (1+1+2+3) and if the divisor is 5 the 
 ```text
 Input: nums = [44, 22, 33, 11, 1], threshold = 5
 Output: 44
+Explanation: A divisor of 44 gives sum = 1+1+1+1+1 = 5, which is <= threshold 5. Any divisor less than 44 will yield a sum greater than 5.
 ```
 
 ### Intuition

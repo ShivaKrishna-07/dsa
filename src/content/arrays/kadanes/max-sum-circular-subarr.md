@@ -20,6 +20,7 @@ Find the maximum subarray sum in a circular array, where a subarray may wrap fro
 ```text
 Input: nums = [5,-3,5]
 Output: 10
+Explanation: The circular subarray [5, 5] has sum 10.
 ```
 
 ### Intuition

@@ -41,6 +41,7 @@ Explanation: The elements in the matrix are [1, 5, 9, 10, 11, 12, 13, 13, 15], a
 ```text
 Input: matrix = [[-5]], k = 1
 Output: -5
+Explanation: The only element in the matrix is -5, which is also the 1st smallest.
 ```
 
 ### Intuition

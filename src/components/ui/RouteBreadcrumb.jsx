@@ -74,9 +74,37 @@ export default function RouteBreadcrumb({ tree }) {
     });
   }
 
+  // Calculate prev and next problem from flattened tree hierarchy
+  const allProblems = [];
+  tree.forEach((t) => {
+    t.patterns.forEach((p) => {
+      p.problems.forEach((prob) => {
+        allProblems.push({
+          topicSlug: t.slug,
+          patternSlug: p.slug,
+          problemSlug: prob.slug,
+          href: `/${t.slug}/${p.slug}/${prob.slug}`,
+          title: prob.title
+        });
+      });
+    });
+  });
+
+  const currentIndex = allProblems.findIndex(
+    (p) => p.topicSlug === topicSlug && p.patternSlug === patternSlug && p.problemSlug === problemSlug
+  );
+
+  const prevProblem = currentIndex > 0 ? allProblems[currentIndex - 1] : null;
+  const nextProblem = currentIndex < allProblems.length - 1 ? allProblems[currentIndex + 1] : null;
+
   return (
     <div className="mx-auto max-w-7xl px-5 pt-3">
-      <Breadcrumb items={items} />
+      <Breadcrumb
+        items={items}
+        prevProblem={prevProblem}
+        nextProblem={nextProblem}
+        showNav={!!problem}
+      />
     </div>
   );
 }

@@ -19,6 +19,7 @@ Return the largest absolute value of the sum of any subarray.
 ```text
 Input: nums = [1,-3,2,3,-4]
 Output: 5
+Explanation: The subarray [2, 3] has sum 5, which gives the maximum absolute sum.
 ```
 
 ### Intuition

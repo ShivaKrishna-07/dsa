@@ -21,6 +21,7 @@ Given numRows, generate the first numRows of Pascal's Triangle.
 ```text
 Input: numRows = 5
 Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+Explanation: The first 5 rows of Pascal's triangle are generated.
 ```
 
 ### Intuition

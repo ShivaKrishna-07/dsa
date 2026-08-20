@@ -35,6 +35,7 @@ Explanation: The final sorted array would be [1, 2, 3, 4, 6, 7, 8, 9, 10]. The 5
 ```text
 Input: arr1 = [100, 112, 256, 349, 770], arr2 = [72, 86, 113, 119, 265, 445, 892], k = 7
 Output: 256
+Explanation: The sorted merged array is [72, 86, 100, 112, 113, 119, 256, 265, 349, 445, 770, 892]. The 7th element is 256.
 ```
 
 ### Intuition

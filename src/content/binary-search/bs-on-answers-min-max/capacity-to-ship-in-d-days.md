@@ -43,6 +43,7 @@ Explanation: A ship capacity of 15 is the minimum to ship all the packages in 5 
 ```text
 Input: weights = [3, 2, 2, 4, 1, 4], days = 3
 Output: 6
+Explanation: A ship capacity of 6 allows shipping the packages in 3 days: [3, 2], [2, 4], [1, 4].
 ```
 
 ### Intuition

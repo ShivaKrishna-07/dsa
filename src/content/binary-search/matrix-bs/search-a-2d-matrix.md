@@ -35,12 +35,14 @@ You must write a solution in `O(log(m * n))` time complexity.
 ```text
 Input: matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], target = 3
 Output: true
+Explanation: 3 is present in the matrix, so return true.
 ```
 
 **Example 2:**
 ```text
 Input: matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], target = 13
 Output: false
+Explanation: 13 is not present in the matrix, so return false.
 ```
 
 ### Intuition

@@ -20,6 +20,7 @@ Find the element that appears more than floor(n / 2) times. The majority element
 ```text
 Input: nums = [2,2,1,1,1,2,2]
 Output: 2
+Explanation: 2 appears 4 times, which is greater than n/2 times (7/2 = 3).
 ```
 
 ### Intuition

@@ -39,6 +39,7 @@ Explanation: Place a gas station at each midpoint between consecutive stations. 
 ```text
 Input: stalls = [3, 6, 12, 19, 20], K = 4
 Output: 2.25
+Explanation: By placing gas stations optimally, the minimized maximum distance is 2.25.
 ```
 
 ### Intuition

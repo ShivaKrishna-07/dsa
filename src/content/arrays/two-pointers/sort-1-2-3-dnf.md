@@ -21,6 +21,7 @@ Given an array containing only 0, 1 and 2, sort it in-place without using a sort
 ```text
 Input: nums = [2,0,2,1,1,0]
 Output: [0,0,1,1,2,2]
+Explanation: The array is sorted in ascending order in-place.
 ```
 
 ### Intuition

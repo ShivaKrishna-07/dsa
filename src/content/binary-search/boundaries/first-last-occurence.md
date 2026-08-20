@@ -33,18 +33,21 @@ You must write an algorithm with `O(log n)` runtime complexity.
 ```text
 Input: nums = [5, 7, 7, 8, 8, 10], target = 8
 Output: [3, 4]
+Explanation: The first occurrence of 8 is at index 3, and the last is at index 4.
 ```
 
 **Example 2:**
 ```text
 Input: nums = [5, 7, 7, 8, 8, 10], target = 6
 Output: [-1, -1]
+Explanation: 6 is not present in the array, so return [-1, -1].
 ```
 
 **Example 3:**
 ```text
 Input: nums = [], target = 0
 Output: [-1, -1]
+Explanation: The array is empty, so return [-1, -1].
 ```
 
 ### Intuition

@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 function ContextMenu({ menu, position, onClose }) {
   const ref = useRef(null);
@@ -53,9 +54,35 @@ function ContextMenu({ menu, position, onClose }) {
   );
 }
 
-export default function Breadcrumb({ items }) {
+export default function Breadcrumb({ items, prevProblem, nextProblem, showNav }) {
   const [context, setContext] = useState(null);
+  const router = useRouter();
   const allItems = [{ label: "Sheet", href: "/", menu: items[0]?.rootMenu }, ...items];
+
+  useEffect(() => {
+    if (!showNav) return;
+
+    function handleKeyDown(event) {
+      if (
+        document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA" ||
+        document.activeElement.isContentEditable
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft" && prevProblem) {
+        router.push(prevProblem.href);
+      } else if (event.key === "ArrowRight" && nextProblem) {
+        router.push(nextProblem.href);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showNav, prevProblem, nextProblem, router]);
 
   function openMenu(event, item) {
     if (!item.menu?.items?.length) return;
@@ -67,8 +94,31 @@ export default function Breadcrumb({ items }) {
 
   return (
     <>
-      <div className="sticky top-16 z-20 mb-2">
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 rounded-xl border border-ink-800/60 bg-ink-900/30 px-4 py-2.5 text-sm text-ink-400 shadow-sm backdrop-blur">
+      <div className="sticky top-16 z-20 mb-2 flex items-stretch gap-2">
+        {showNav && (
+          <div className="group relative shrink-0 flex">
+            {prevProblem ? (
+              <Link
+                href={prevProblem.href}
+                className="flex w-10 items-center justify-center rounded-xl border border-ink-800 bg-ink-900/30 text-ink-400 hover:bg-ink-800/60 hover:text-ink-100 transition shadow-sm backdrop-blur"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="flex w-10 items-center justify-center rounded-xl border border-ink-800/30 bg-ink-950/20 text-ink-600 cursor-not-allowed transition backdrop-blur"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+            )}
+            <div className="pointer-events-none absolute top-full left-0 mt-2 scale-95 rounded-lg border border-ink-700 bg-ink-950 px-2.5 py-1.5 text-xs font-medium text-ink-100 opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100 whitespace-nowrap z-50">
+              {prevProblem ? `Go to previous: ${prevProblem.title}` : "No previous problem"}
+            </div>
+          </div>
+        )}
+
+        <nav aria-label="Breadcrumb" className="flex-1 flex flex-wrap items-center gap-1.5 rounded-xl border border-ink-800/60 bg-ink-900/30 px-4 py-2 text-sm text-ink-400 shadow-sm backdrop-blur">
           {allItems.map((item, index) => (
             <span key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               {index > 0 ? <ChevronRight className="h-4 w-4 text-ink-600/70" /> : null}
@@ -95,6 +145,29 @@ export default function Breadcrumb({ items }) {
             Right-click items to jump
           </span>
         </nav>
+
+        {showNav && (
+          <div className="group relative shrink-0 flex">
+            {nextProblem ? (
+              <Link
+                href={nextProblem.href}
+                className="flex w-10 items-center justify-center rounded-xl border border-ink-800 bg-ink-900/30 text-ink-400 hover:bg-ink-800/60 hover:text-ink-100 transition shadow-sm backdrop-blur"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="flex w-10 items-center justify-center rounded-xl border border-ink-800/30 bg-ink-950/20 text-ink-600 cursor-not-allowed transition backdrop-blur"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            )}
+            <div className="pointer-events-none absolute top-full right-0 mt-2 scale-95 rounded-lg border border-ink-700 bg-ink-950 px-2.5 py-1.5 text-xs font-medium text-ink-100 opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100 whitespace-nowrap z-50">
+              {nextProblem ? `Go to next: ${nextProblem.title}` : "No next problem"}
+            </div>
+          </div>
+        )}
       </div>
       <ContextMenu
         menu={context?.menu}

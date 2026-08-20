@@ -20,6 +20,7 @@ An array contains numbers from 1 to N, but one number is missing and one number 
 ```text
 Input: nums = [3,1,2,5,3]
 Output: repeating = 3, missing = 4
+Explanation: 3 appears twice, and 4 is missing from the sequence 1 to 5.
 ```
 
 ### Intuition

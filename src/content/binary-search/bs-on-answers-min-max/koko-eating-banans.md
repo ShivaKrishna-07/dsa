@@ -34,18 +34,21 @@ Return the minimum integer `k` such that she can eat all the bananas within `h` 
 ```text
 Input: piles = [3, 6, 7, 11], h = 8
 Output: 4
+Explanation: With speed 4, Koko eats the piles in 1 + 2 + 2 + 3 = 8 hours.
 ```
 
 **Example 2:**
 ```text
 Input: piles = [30, 11, 23, 4, 20], h = 5
 Output: 30
+Explanation: With speed 30, Koko eats the piles in 1 + 1 + 1 + 1 + 1 = 5 hours.
 ```
 
 **Example 3:**
 ```text
 Input: piles = [30, 11, 23, 4, 20], h = 6
 Output: 23
+Explanation: With speed 23, Koko eats the piles in 2 + 1 + 1 + 1 + 1 = 6 hours.
 ```
 
 ### Intuition

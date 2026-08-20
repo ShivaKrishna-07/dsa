@@ -37,6 +37,7 @@ Explanation: Sorting all matrix elements gives [1, 2, 3, 3, 5, 6, 6, 9, 9], the 
 ```text
 Input: matrix = [[1], [2], [3]]
 Output: 2
+Explanation: The sorted list of all elements is [1, 2, 3], and the median is 2.
 ```
 
 ### Intuition

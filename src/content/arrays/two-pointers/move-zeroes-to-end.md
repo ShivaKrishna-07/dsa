@@ -21,6 +21,7 @@ Given an integer array, move every zero to the end while keeping the relative or
 ```text
 Input: nums = [0,1,0,3,12]
 Output: [1,3,12,0,0]
+Explanation: All zeroes are moved to the end while maintaining the relative order of non-zero elements.
 ```
 
 ### Intuition

@@ -22,6 +22,7 @@ Given a sorted array, remove duplicates in-place so that each unique value appea
 Input: nums = [1,1,2]
 Output: 2
 Modified prefix: [1,2]
+Explanation: The function returns 2, and the first two elements are modified to [1, 2].
 ```
 
 ### Intuition

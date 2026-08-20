@@ -21,6 +21,7 @@ Rotate the array by K positions. For LeetCode style rotation, values move to the
 ```text
 Input: nums = [1,2,3,4,5,6,7], k = 3
 Output: [5,6,7,1,2,3,4]
+Explanation: Rotating the array to the right/left by 3 steps yields [5,6,7,1,2,3,4].
 ```
 
 ### Intuition

@@ -21,6 +21,7 @@ Given an array with equal positive and negative counts, rearrange it so signs al
 ```text
 Input: nums = [3,1,-2,-5,2,-4]
 Output: [3,-2,1,-5,2,-4]
+Explanation: The positive and negative integers are rearranged in an alternating fashion.
 ```
 
 ### Intuition

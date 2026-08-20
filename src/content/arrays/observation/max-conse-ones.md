@@ -20,6 +20,7 @@ Given a binary array, return the maximum number of consecutive 1s.
 ```text
 Input: nums = [1,1,0,1,1,1]
 Output: 3
+Explanation: The last three elements are consecutive 1s, giving a maximum length of 3.
 ```
 
 ### Intuition
