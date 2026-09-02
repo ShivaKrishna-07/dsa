@@ -23,5 +23,10 @@
     "slug": "sliding-window",
     "title": "Sliding Window",
     "icon": "RectangleHorizontal"
+  },
+  {
+    "slug": "recursion",
+    "title": "Recursion",
+    "icon": "RotateCcw"
   }
 ]

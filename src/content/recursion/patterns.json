@@ -1,0 +1,141 @@
+[
+  {
+    "slug": "basic-recursion",
+    "title": "Basic Recursion",
+    "description": "Core recursion, reducing a problem step-by-step, recursive return values, divide-and-conquer, and recursion with data structures.",
+    "identify": [
+      "Problem size naturally reduces at each step towards a base case",
+      "Requires building up a result using return values of recursive calls",
+      "Solving a subproblem is strictly identical to the original problem but on smaller input"
+    ],
+    "appearsIn": [
+      "Mathematical functions like power or factorial",
+      "String or number conversions",
+      "Basic structural operations on linked lists or stacks"
+    ],
+    "template": "ReturnType solve(args) {\n    if (base_case_condition) {\n        return base_case_value;\n    }\n    // Do some work before recursion (optional)\n    ReturnType subResult = solve(smaller_args);\n    // Do some work after recursion\n    return result;\n}",
+    "explanation": "Basic recursion relies on the call stack to manage state. The key components are the base case, which stops the recursion, and the recursive step, which breaks the problem down into smaller, similar subproblems. Understanding the flow of parameters downwards and the return values upwards is crucial.",
+    "problemsOrder": [
+      "recursive-atoi",
+      "pow-x-n",
+      "sort-stack-using-recursion",
+      "count-good-numbers"
+    ]
+  },
+  {
+    "slug": "subsequences",
+    "title": "Subsequences - Pick / No Pick",
+    "description": "At every index, make a pick / don't-pick decision. Foundation for subsequences, subsets, target-sum recursion, and many DP problems.",
+    "identify": [
+      "Generating all possible combinations where order of elements in the original sequence is maintained",
+      "Finding subsets that sum to a specific target",
+      "Constraint where elements can be included or excluded independently"
+    ],
+    "appearsIn": [
+      "Subset generation problems",
+      "0/1 Knapsack type problems",
+      "Partitioning arrays into subsets with certain properties"
+    ],
+    "template": "void generate(int index, vector<int>& current, vector<int>& arr) {\n    if (index == arr.size()) {\n        // Process current subsequence\n        return;\n    }\n    // Pick the current element\n    current.push_back(arr[index]);\n    generate(index + 1, current, arr);\n    current.pop_back(); // Backtrack\n    \n    // Don't pick the current element\n    generate(index + 1, current, arr);\n}",
+    "explanation": "The 'Pick / No Pick' pattern explores the binary choice space for each element in an array. By either including the current element or excluding it and moving to the next, we generate a complete search tree of size `O(2^N)`. This pattern naturally transitions into Dynamic Programming by adding memoization on `index` and any tracking variables like `sum`.",
+    "problemsOrder": [
+      "generate-all-subsequences",
+      "partition-equal-subset-sum",
+      "combination-sum",
+      "partition-to-k-equal-sum-subsets",
+      "generate-parentheses",
+      "sum-of-all-subsets",
+      "subsets-ii"
+    ]
+  },
+  {
+    "slug": "combinations",
+    "title": "Combinations - Multiple Options",
+    "description": "Use a loop to explore multiple choices at each recursion level, then backtrack. Focus on reuse, duplicate handling, constraints and building combinations.",
+    "identify": [
+      "Need to generate combinations of a specific size or target sum",
+      "Elements can be reused multiple times or there are multiple branches from each state",
+      "Order does not matter (unlike permutations), usually solved by keeping a starting index"
+    ],
+    "appearsIn": [
+      "Combination Sum problems",
+      "Letter Combinations",
+      "Grouping problems"
+    ],
+    "template": "void combine(int startIndex, vector<int>& current, ...) {\n    if (goal_reached) {\n        // Save combination\n        return;\n    }\n    for (int i = startIndex; i < choices.size(); i++) {\n        // Skip duplicates if necessary: if (i > startIndex && choices[i] == choices[i-1]) continue;\n        current.push_back(choices[i]);\n        combine(i + 1, current, ...); // Or combine(i, ...) if reuse is allowed\n        current.pop_back();\n    }\n}",
+    "explanation": "Unlike the binary 'Pick / No Pick', this pattern explores a variable number of branches at each step using a `for` loop. The `startIndex` parameter ensures we only pick elements moving forward, avoiding duplicate combinations that differ only in order. Backtracking (`pop_back()`) undoes the choice to try the next one in the loop.",
+    "problemsOrder": [
+      "combination-sum-ii",
+      "combination-sum-iii",
+      "letter-combinations-of-a-phone-number",
+      "restore-ip-addresses",
+      "beautiful-arrangement"
+    ]
+  },
+  {
+    "slug": "permutations",
+    "title": "Permutations",
+    "description": "Use every element while changing its order. Covers used[], swapping, frequency counting and duplicate handling.",
+    "identify": [
+      "Need to arrange elements in all possible orders",
+      "Order of elements matters",
+      "Constraint to use all given elements exactly once"
+    ],
+    "appearsIn": [
+      "Generating all arrangements of an array or string",
+      "Finding next/previous permutation computationally",
+      "Arrangement puzzles"
+    ],
+    "template": "void permute(int index, vector<int>& nums) {\n    if (index == nums.size()) {\n        // Save permutation\n        return;\n    }\n    for (int i = index; i < nums.size(); i++) {\n        swap(nums[index], nums[i]);\n        permute(index + 1, nums);\n        swap(nums[index], nums[i]); // Backtrack\n    }\n}",
+    "explanation": "Permutations involve rearranging elements. The swapping approach fixes an element at the current `index` and recursively permutes the rest of the array. The `for` loop considers all remaining elements as candidates for the current position. Alternatively, a boolean `used[]` array can track which elements are already in the current permutation.",
+    "problemsOrder": [
+      "permutations",
+      "permutations-ii",
+      "letter-tile-possibilities"
+    ]
+  },
+  {
+    "slug": "backtracking",
+    "title": "Backtracking",
+    "description": "Make a choice \u2192 check validity \u2192 recurse \u2192 undo the choice. Covers grid exploration and constraint-based backtracking.",
+    "identify": [
+      "Need to find a valid configuration on a grid or board",
+      "Exploring a space where many paths are invalid and need to be abandoned early (pruning)",
+      "Sudoku, N-Queens, Word Search"
+    ],
+    "appearsIn": [
+      "2D Grid traversal with constraints",
+      "Puzzle solvers",
+      "Graph coloring or Hamiltonian paths"
+    ],
+    "template": "bool backtrack(...) {\n    if (is_success) return true;\n    \n    for (Choice c : choices) {\n        if (isValid(c)) {\n            applyChoice(c);\n            if (backtrack(...)) return true;\n            undoChoice(c);\n        }\n    }\n    return false;\n}",
+    "explanation": "Backtracking is an algorithmic technique for solving problems recursively by trying to build a solution incrementally, one piece at a time, removing those solutions that fail to satisfy the constraints of the problem at any point of time. Pruning branches early using an `isValid` check is critical for performance.",
+    "problemsOrder": [
+      "word-search",
+      "n-queens",
+      "sudoku-solver"
+    ]
+  },
+  {
+    "slug": "partition-dp",
+    "title": "Partition / DP",
+    "description": "Recursively choose partition points or operations and explore the resulting possibilities. Useful for partition-based recursion and expression construction.",
+    "identify": [
+      "Problem requires breaking a string or array into contiguous segments",
+      "Need to evaluate an expression by placing operators or parentheses",
+      "Cost or outcome depends on where the split is made"
+    ],
+    "appearsIn": [
+      "Matrix Chain Multiplication type problems",
+      "Palindrome Partitioning",
+      "Expression evaluation and formatting"
+    ],
+    "template": "int solve(int start, int end, ...) {\n    if (start >= end) return base_case;\n    \n    int best = INF;\n    for (int k = start; k < end; k++) {\n        int cost = solve(start, k) + solve(k + 1, end) + current_cost;\n        best = min(best, cost);\n    }\n    return best;\n}",
+    "explanation": "Partitioning problems involve choosing a split point `k` in an interval `[start, end]`. The problem is divided into two independent subproblems: the left part and the right part. The overall result is a combination of these subproblems. This pattern inherently has overlapping subproblems, making it a prime candidate for memoization or Dynamic Programming.",
+    "problemsOrder": [
+      "palindrome-partitioning",
+      "different-ways-to-add-parentheses",
+      "expression-add-operators"
+    ]
+  }
+]
