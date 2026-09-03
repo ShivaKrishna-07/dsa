@@ -39,8 +39,7 @@
     "template": "void generate(int index, vector<int>& current, vector<int>& arr) {\n    if (index == arr.size()) {\n        // Process current subsequence\n        return;\n    }\n    // Pick the current element\n    current.push_back(arr[index]);\n    generate(index + 1, current, arr);\n    current.pop_back(); // Backtrack\n    \n    // Don't pick the current element\n    generate(index + 1, current, arr);\n}",
     "explanation": "The 'Pick / No Pick' pattern explores the binary choice space for each element in an array. By either including the current element or excluding it and moving to the next, we generate a complete search tree of size `O(2^N)`. This pattern naturally transitions into Dynamic Programming by adding memoization on `index` and any tracking variables like `sum`.",
     "problemsOrder": [
-      "generate-all-subsequences",
-      "partition-equal-subset-sum",
+      "subsets",
       "combination-sum",
       "partition-to-k-equal-sum-subsets",
       "generate-parentheses",

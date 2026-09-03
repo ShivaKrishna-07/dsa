@@ -57,5 +57,5 @@ class Solution {
 
 ### Complexity Analysis
 
-- **Time Complexity:** $\mathcal{O}(N^2)$ in the worst case. The `sortStack` function removes each element one by one ($N$ times). For each element, the `insert` function is called, which in the worst case (e.g., when the stack is already sorted in reverse order) requires popping and pushing all elements currently in the stack, leading to quadratic time complexity.
-- **Space Complexity:** $\mathcal{O}(N)$ auxiliary space for the recursive call stack. Both `sortStack` and `insert` can go up to a depth of $N$.
+- **Time Complexity:** O(N^2) in the worst case. The `sortStack` function removes each element one by one (N times). For each element, the `insert` function is called, which in the worst case (e.g., when the stack is already sorted in reverse order) requires popping and pushing all elements currently in the stack, leading to quadratic time complexity.
+- **Space Complexity:** O(N) auxiliary space for the recursive call stack. Both `sortStack` and `insert` can go up to a depth of N.

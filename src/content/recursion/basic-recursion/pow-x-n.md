@@ -8,14 +8,14 @@ platforms:
 
 ### Problem Statement
 
-Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., $x^n$).
+Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., x^n).
 
 **Constraints:**
-- $-100.0 < x < 100.0$
-- $-2^{31} \le n \le 2^{31}-1$
+- -100.0 < x < 100.0
+- -2^{31} <= n <= 2^{31}-1
 - `n` is an integer.
 - Either `x` is not zero or `n > 0`.
-- $-10^4 \le x^n \le 10^4$
+- -10^4 <= x^n <= 10^4
 
 ---
 
@@ -45,5 +45,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** $\mathcal{O}(\log N)$, where $N$ is the absolute value of the exponent `n`. At each step, if $N$ is even, we square the base and halve the exponent. If odd, we decrease the exponent by $1$. This reduces the search space logarithmically, making the time complexity logarithmic.
-- **Space Complexity:** $\mathcal{O}(\log N)$ auxiliary space required for the recursion stack. The maximum depth of the recursive tree will be proportional to the number of times we can halve $N$, which is $\log_2(N)$.
+- **Time Complexity:** O(\log N), where N is the absolute value of the exponent `n`. At each step, if N is even, we square the base and halve the exponent. If odd, we decrease the exponent by 1. This reduces the search space logarithmically, making the time complexity logarithmic.
+- **Space Complexity:** O(\log N) auxiliary space required for the recursion stack. The maximum depth of the recursive tree will be proportional to the number of times we can halve N, which is \log_2(N).

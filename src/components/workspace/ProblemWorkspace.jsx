@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb, Flame } from "lucide-react";
 import CodeBlock from "@/components/ui/CodeBlock";
 import Tabs from "@/components/ui/Tabs";
@@ -21,6 +22,9 @@ const platformIconClass = {
 };
 
 export default function ProblemWorkspace({ problem }) {
+  const pathname = usePathname();
+  const isRecursionTopic = pathname?.startsWith('/recursion');
+
   const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
     if (!url || typeof url !== "string" || !url.trim()) return false;
     if (key === "youtube") return true;
@@ -95,7 +99,7 @@ export default function ProblemWorkspace({ problem }) {
                       const textContent = String(children);
                       const isInline = inline || (className ? !className.startsWith('language-') : true);
                       
-                      if (!isInline && (textContent.includes('[[') || textContent.includes('matrix =') || textContent.includes('mat ='))) {
+                      if (!isRecursionTopic && !isInline && (textContent.includes('[[') || textContent.includes('matrix =') || textContent.includes('mat ='))) {
                         const trimmed = textContent.trim();
                         
                         // Try parsing as a matrix-example block

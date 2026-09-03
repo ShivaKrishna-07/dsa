@@ -67,5 +67,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** $\mathcal{O}(N)$, where $N$ is the length of the string `s`. We iterate through the string once processing leading whitespaces, and then the recursive calls process the digit characters.
-- **Space Complexity:** $\mathcal{O}(N)$ in the worst case for the call stack due to recursion, where $N$ is the length of the numeric part of the string.
+- **Time Complexity:** O(N), where N is the length of the string `s`. We iterate through the string once processing leading whitespaces, and then the recursive calls process the digit characters.
+- **Space Complexity:** O(N) in the worst case for the call stack due to recursion, where N is the length of the numeric part of the string.
