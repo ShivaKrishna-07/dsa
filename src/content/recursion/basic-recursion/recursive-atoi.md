@@ -2,6 +2,8 @@
 title: "Recursive Implementation of atoi()"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/results?search_query=take+U+forward+Recursive+Implementation+of+atoi"
+time: "O(N)"
+space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/string-to-integer-atoi/description/"
 ---

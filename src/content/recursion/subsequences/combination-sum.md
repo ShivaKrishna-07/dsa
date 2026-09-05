@@ -2,6 +2,8 @@
 title: "Combination Sum"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/watch?v=OyZFFqQtu98"
+time: "O(2^T * k)"
+space: "O(T/min)"
 platforms:
   leetcode: "https://leetcode.com/problems/combination-sum/description/"
 ---

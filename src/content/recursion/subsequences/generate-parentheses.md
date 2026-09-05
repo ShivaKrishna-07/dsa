@@ -2,6 +2,8 @@
 title: "Generate Parentheses"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/results?search_query=take+U+forward+Generate+Parentheses"
+time: "O(4^n / sqrt(n))"
+space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/generate-parentheses/"
 ---

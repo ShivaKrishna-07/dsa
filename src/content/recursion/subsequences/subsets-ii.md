@@ -2,6 +2,8 @@
 title: "Subsets II"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/results?search_query=take+U+forward+Subsets+II"
+time: "O(2^N * N log(X))"
+space: "O(2^N * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/subsets-ii/description/"
 ---

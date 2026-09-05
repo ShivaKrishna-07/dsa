@@ -2,6 +2,8 @@
 title: "Subsets"
 difficulty: "Easy"
 youtube: "https://www.youtube.com/watch?v=b7AYbpM5YrE"
+time: "O(2^N * N)"
+space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/subsets/description/"
 ---

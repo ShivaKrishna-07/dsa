@@ -2,6 +2,8 @@
 title: "Sort Stack using Recursion"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sort+a+Stack+using+Recursion"
+time: "O(N^2)"
+space: "O(N)"
 platforms:
   gfg: "https://www.geeksforgeeks.org/problems/sort-a-stack/1"
 ---

@@ -2,6 +2,8 @@
 title: "Pow(x,n)"
 difficulty: "Medium"
 youtube: "https://www.youtube.com/watch?v=l0YC3876qxg"
+time: "O(log N)"
+space: "O(log N)"
 platforms:
   leetcode: "https://leetcode.com/problems/powx-n/description/"
 ---
