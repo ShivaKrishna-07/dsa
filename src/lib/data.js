@@ -31,7 +31,9 @@ export function getAllData() {
             const { data, content } = matter(fileContent);
             
             // Prefer the solution block after "### Code"; examples often contain earlier text fences.
-            const codeSection = content.split('### Code')[1] || '';
+            const partsAfterCode = (content.split('### Code')[1] || '').split('### Complexity Analysis');
+            const codeSection = partsAfterCode[0];
+            const complexitySection = partsAfterCode[1] || '';
             const codes = [];
             const regex = /```(?:cpp|c\+\+|javascript|js|text)?\n([\s\S]*?)```/g;
             let match;
@@ -56,6 +58,24 @@ export function getAllData() {
             // For the Problem Statement, we can just strip the ### Code section completely
             const psMatch = content.split('### Code')[0];
             
+            let timeDesc = '';
+            let spaceDesc = '';
+            if (complexitySection) {
+              const timeMatch = complexitySection.match(/- \*\*Time Complexity:\*\*([^\n]+)/i);
+              if (timeMatch) {
+                timeDesc = timeMatch[1].trim();
+                const stripRegex = /^(?:O\([^)]+\)|\$\\mathcal\{O\}\([^)]+\)\$)[^a-zA-Z]*/i;
+                timeDesc = timeDesc.replace(stripRegex, '').trim();
+              }
+
+              const spaceMatch = complexitySection.match(/- \*\*Space Complexity:\*\*([^\n]+)/i);
+              if (spaceMatch) {
+                spaceDesc = spaceMatch[1].trim();
+                const stripRegex = /^(?:O\([^)]+\)|\$\\mathcal\{O\}\([^)]+\)\$)[^a-zA-Z]*/i;
+                spaceDesc = spaceDesc.replace(stripRegex, '').trim();
+              }
+            }
+
             return {
               slug: file.replace(/\.md$/, ''),
               title: data.title || file,
@@ -63,7 +83,9 @@ export function getAllData() {
               label: data.label || null,
               complexity: {
                 time: data.time || 'O(1)',
-                space: data.space || 'O(1)'
+                space: data.space || 'O(1)',
+                timeDesc: timeDesc || null,
+                spaceDesc: spaceDesc || null
               },
               platforms: data.platforms || {},
               tags: data.tags || [],

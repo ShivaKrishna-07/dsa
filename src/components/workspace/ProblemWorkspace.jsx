@@ -70,14 +70,24 @@ export default function ProblemWorkspace({ problem }) {
             </Link>
           )})}
         </div>
-        <div className="mt-5 grid grid-cols-2 gap-2">
+        <div className="mt-5 grid gap-3">
           <div className="rounded-md border border-ink-800 bg-ink-950/50 p-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">Time</p>
-            <p className="mt-1 font-semibold">{problem.complexity.time}</p>
+            <p className="mt-1 font-semibold text-sm">{problem.complexity.time}</p>
+            {problem.complexity.timeDesc && (
+              <p className="mt-2 text-xs text-ink-400 leading-relaxed">
+                {problem.complexity.timeDesc}
+              </p>
+            )}
           </div>
           <div className="rounded-md border border-ink-800 bg-ink-950/50 p-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">Space</p>
-            <p className="mt-1 font-semibold">{problem.complexity.space}</p>
+            <p className="mt-1 font-semibold text-sm">{problem.complexity.space}</p>
+            {problem.complexity.spaceDesc && (
+              <p className="mt-2 text-xs text-ink-400 leading-relaxed">
+                {problem.complexity.spaceDesc}
+              </p>
+            )}
           </div>
         </div>
       </aside>
