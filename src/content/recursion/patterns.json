@@ -41,7 +41,6 @@
     "problemsOrder": [
       "subsets",
       "combination-sum",
-      "partition-to-k-equal-sum-subsets",
       "generate-parentheses",
       "sum-of-all-subsets",
       "subsets-ii"
