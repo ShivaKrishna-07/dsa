@@ -20,6 +20,8 @@ A sudoku solution must satisfy **all of the following rules:**
 The `'.'` character indicates empty cells.
 
 **Example 1:**
+![Unsolved Sudoku](/images/sudoku-solver/sudoku-unsolved.png)
+![Solved Sudoku](/images/sudoku-solver/sudoku-solved.png)
 ```text
 Input: board = [
   ["5","3",".",".","7",".",".",".","."],
