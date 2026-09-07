@@ -10,7 +10,20 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "DSA Pattern Sheet",
-  description: "Learn DSA patterns first, then solve the problems that use them."
+  description: "Learn DSA patterns first, then solve the problems that use them.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "DSA Pattern Sheet",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#09090b",
 };
 
 export default function RootLayout({ children }) {
