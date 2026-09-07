@@ -23,7 +23,7 @@ const platformIconClass = {
 
 export default function ProblemWorkspace({ problem }) {
   const pathname = usePathname();
-  const isRecursionTopic = pathname?.startsWith('/recursion') && !pathname?.includes('word-search') && !pathname?.includes('n-queens');
+  const isRecursionTopic = pathname?.startsWith('/recursion') && !pathname?.includes('word-search') && !pathname?.includes('n-queens') && !pathname?.includes('sudoku-solver');
 
   const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
     if (!url || typeof url !== "string" || !url.trim()) return false;
