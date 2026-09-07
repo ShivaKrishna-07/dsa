@@ -110,7 +110,8 @@
       "word-search",
       "n-queens",
       "sudoku-solver",
-      "expression-add-operators"
+      "expression-add-operators",
+      "palindrome-partitioning"
     ]
   },
   {
@@ -130,7 +131,6 @@
     "template": "int solve(int start, int end, ...) {\n    if (start >= end) return base_case;\n    \n    int best = INF;\n    for (int k = start; k < end; k++) {\n        int cost = solve(start, k) + solve(k + 1, end) + current_cost;\n        best = min(best, cost);\n    }\n    return best;\n}",
     "explanation": "Partitioning problems involve choosing a split point `k` in an interval `[start, end]`. The problem is divided into two independent subproblems: the left part and the right part. The overall result is a combination of these subproblems. This pattern inherently has overlapping subproblems, making it a prime candidate for memoization or Dynamic Programming.",
     "problemsOrder": [
-      "palindrome-partitioning",
       "different-ways-to-add-parentheses"
     ]
   }
