@@ -17,6 +17,7 @@ Given an integer `n`, return all distinct solutions to the **n-queens** puzzle. 
 Each solution contains a distinct board configuration of the n-queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
 
 **Example 1:**
+![N-Queens Example](/images/n-queens/n-queens.png)
 ```text
 Input: n = 4
 Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
