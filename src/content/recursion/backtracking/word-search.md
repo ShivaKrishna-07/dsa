@@ -15,6 +15,7 @@ Given an `m x n` grid of characters `board` and a string `word`, return `true` i
 The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
 **Example 1:**
+![Word Search Example 1](/images/word-search/word-search-1.jpg)
 ```text
 Input: 
 board = [
@@ -27,6 +28,7 @@ Output: true
 ```
 
 **Example 2:**
+![Word Search Example 2](/images/word-search/word-search-2.png)
 ```text
 Input: 
 board = [
@@ -39,6 +41,7 @@ Output: true
 ```
 
 **Example 3:**
+![Word Search Example 3](/images/word-search/word-search-3.png)
 ```text
 Input: 
 board = [
