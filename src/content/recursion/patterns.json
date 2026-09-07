@@ -87,8 +87,7 @@
     "explanation": "Permutations involve rearranging elements. The swapping approach fixes an element at the current `index` and recursively permutes the rest of the array. The `for` loop considers all remaining elements as candidates for the current position. Alternatively, a boolean `used[]` array can track which elements are already in the current permutation.",
     "problemsOrder": [
       "permutations",
-      "permutations-ii",
-      "letter-tile-possibilities"
+      "permutations-ii"
     ]
   },
   {
