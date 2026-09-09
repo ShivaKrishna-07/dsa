@@ -6,6 +6,7 @@ time: "O(log N)"
 space: "O(log N)"
 platforms:
   leetcode: "https://leetcode.com/problems/powx-n/description/"
+  article: "https://takeuforward.org/data-structure/implement-powxn-x-raised-to-the-power-n/"
 ---
 
 ### Problem Statement
@@ -27,10 +28,14 @@ Implement `pow(x, n)`, which calculates `x` raised to the power `n` (i.e., x^n).
 class Solution {
 public:
     double helper(double x, long long n){
+        // Base cases
         if(n == 0) return 1;
         if(n == 1) return x;
 
+        // If exponent is even
         if(n%2 == 0) return helper(x*x, n/2);
+        
+        // If exponent is odd
         return x*helper(x, n-1);
     }
     double myPow(double x, int n) {
@@ -47,5 +52,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(\log N), where N is the absolute value of the exponent `n`. At each step, if N is even, we square the base and halve the exponent. If odd, we decrease the exponent by 1. This reduces the search space logarithmically, making the time complexity logarithmic.
-- **Space Complexity:** O(\log N) auxiliary space required for the recursion stack. The maximum depth of the recursive tree will be proportional to the number of times we can halve N, which is \log_2(N).
+- **Time Complexity:** O(\log N): The exponent is halved at each step, reducing the search space logarithmically.
+- **Space Complexity:** O(\log N): Auxiliary space for the recursive call stack depth.

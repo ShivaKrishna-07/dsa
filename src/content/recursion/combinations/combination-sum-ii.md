@@ -6,6 +6,7 @@ time: "O(2^N * k)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/combination-sum-ii/description/"
+  article: "https://takeuforward.org/data-structure/combination-sum-ii-find-all-unique-combinations/"
 ---
 
 ### Problem Statement
@@ -51,15 +52,20 @@ Output:
 class Solution {
 public:
     void solve(int i, vector<int>&ds, vector<int>nums, int target, vector<vector<int>>&ans){
+        // Base case: target is reached
         if(target == 0){
             ans.push_back(ds);
             return;
         }
         for(int idx=i; idx<nums.size(); idx++){
+            // Prune if current number exceeds target
             if(target < nums[idx]) break;
+            // Skip duplicate elements
             if(idx>i && nums[idx] == nums[idx-1]) continue;
+            
             ds.push_back(nums[idx]);
             solve(idx+1, ds, nums, target-nums[idx], ans);
+            // Backtrack
             ds.pop_back();
         }
     }
@@ -77,5 +83,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^N * k), where N is the size of the array and k is the average length of the combinations. We generate subsets recursively up to a bound of 2^N possibilities. For each valid combination, we append it to our answer array which takes O(k) time. (Sorting the array takes O(N log N), which is extremely small compared to the combination generation).
-- **Space Complexity:** O(N) auxiliary space. The `ds` vector and the recursive call stack will at most reach a depth of N. Note that the output space required for the 2D array of combinations is not typically counted toward the auxiliary space complexity.
+- **Time Complexity:** O(2^N * k): N is array size, k is average combination length. Up to 2^N subsets, and O(k) to copy each valid one to the answer.
+- **Space Complexity:** O(N): Auxiliary space for the recursion depth and `ds` vector.

@@ -6,6 +6,7 @@ time: "O(N * M * 4^L)"
 space: "O(L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-search/"
+  article: "https://takeuforward.org/data-structure/word-search-leetcode/"
 ---
 
 ### Problem Statement
@@ -69,18 +70,25 @@ class Solution {
 public:
     vector<vector<int>>dir={{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     bool findWord(int idx, int i, int j, int n, int m, vector<vector<char>>&board, string word){
+        // Base case: Full word matched
         if(idx == word.size()) return true;
+        
+        // Out of bounds or character mismatch
         if(i<0 || i>=n || j<0 || j>=m || board[i][j] != word[idx]){
             return false;
         }
+        
         char temp = board[i][j];
-        board[i][j] = '$';
+        board[i][j] = '$'; // Mark cell as visited
+        
+        // Explore all 4 directions
         for(int k=0; k<4; k++){
             int _i = i+dir[k][0];
             int _j = j+dir[k][1];
             if(findWord(idx+1, _i, _j, n, m, board, word)) return true;
         }
-        board[i][j] = temp;
+        
+        board[i][j] = temp; // Backtrack
         return false;
     }
     bool exist(vector<vector<char>>& board, string word) {
@@ -103,5 +111,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N * M * 4^L), where N is the number of rows, M is the number of columns, and L is the length of the string `word`. The algorithm iterates over all N * M cells in the board. From each valid starting cell, the backtracking DFS explores up to 4 directions at each step, branching up to a depth of L.
-- **Space Complexity:** O(L) auxiliary space. The maximum depth of the recursive call stack is exactly the length of the word L. Because the visited state is maintained by temporarily modifying the board in-place (`board[i][j] = '$'`), no additional O(N * M) visited array is needed!
+- **Time Complexity:** O(N * M * 4^L): Iterate over N*M cells. From each, explore up to 4 directions at each step, up to depth L (word length).
+- **Space Complexity:** O(L): Auxiliary space. Max recursion depth is length of word L. Board is modified in-place to save space.

@@ -6,6 +6,7 @@ time: "O(2^N)"
 space: "O(N)"
 platforms:
   gfg: "https://www.geeksforgeeks.org/problems/subset-sums2234/1"
+  article: "https://takeuforward.org/data-structure/subset-sum-sum-of-all-subsets/"
 ---
 
 ### Problem Statement
@@ -48,12 +49,16 @@ class Solution {
   public:
   
     void helper(int i, int sum, vector<int> &arr, vector<int> &ans){
+        // Base case: reached end of array
         if(i == arr.size()){
             ans.push_back(sum);
             return;
         }
         
+        // Choice 1: Include the element's value in sum
         helper(i+1, sum+arr[i], arr, ans);
+        
+        // Choice 2: Exclude the element
         helper(i+1, sum, arr, ans);
     }
   
@@ -72,5 +77,5 @@ class Solution {
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^N), where N is the number of elements in the array. For every element, we make a choice to either include it in the subset sum or exclude it. This results in exactly 2^N recursive calls.
-- **Space Complexity:** O(N) auxiliary space for the recursive call stack. The output vector `ans` requires O(2^N) space to store all the resulting sums, but algorithmic auxiliary space is bounded by the recursion depth N.
+- **Time Complexity:** O(2^N): Exactly 2^N recursive calls to either include or exclude each element.
+- **Space Complexity:** O(N): Auxiliary space for recursion depth.

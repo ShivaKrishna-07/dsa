@@ -6,6 +6,7 @@ time: "O(N!)"
 space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/n-queens/"
+  article: "https://takeuforward.org/data-structure/n-queen-problem-return-all-distinct-solutions-to-the-n-queens-puzzle/"
 ---
 
 ### Problem Statement
@@ -41,24 +42,30 @@ Output: [["Q"]]
 class Solution {
 public:
     void findQueens(int col, vector<string>&board, int n, vector<vector<string>>&ans, vector<int>&leftRow, vector<int>&lowerDiagonal, vector<int>&upperDiagonal){
+        // Base case: If all queens are placed
         if(col == n){
             ans.push_back(board);
             return;
         }
+        
+        // Try placing a queen in each row for the current column
         for(int row=0; row<n; row++){
+            // Check if the current cell is safe from attacks
             if(leftRow[row]==0 && lowerDiagonal[row+col]==0 && upperDiagonal[n-1 +col-row]==0) {
                 board[row][col] = 'Q';
                 leftRow[row] = 1;
                 lowerDiagonal[row+col] = 1;
                 upperDiagonal[n-1 +col-row] = 1;
+                
                 findQueens(col+1, board, n, ans, leftRow, lowerDiagonal, upperDiagonal);
+                
+                // Backtrack: Remove the queen and mark the cell as safe
                 board[row][col] = '.';
                 leftRow[row] = 0;
                 lowerDiagonal[row+col] = 0;
                 upperDiagonal[n-1 +col-row] = 0;
             }
         }
-
     }
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>>ans;
@@ -81,5 +88,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N!). Placing the 1st queen has N possibilities, the 2nd queen has at most N-1, the 3rd at most N-2, etc. Since we use `leftRow`, `lowerDiagonal`, and `upperDiagonal` hashing arrays to validate positions in O(1) constant time, the overall time complexity perfectly bounds to factorial exponential time O(N!). 
-- **Space Complexity:** O(N^2) auxiliary space. The `board` structure stores strings of size N leading to O(N^2) space. The recursion stack can reach a maximum depth of N, and our three tracking arrays use O(N) space each.
+- **Time Complexity:** O(N!): Placing the 1st queen has N possibilities, 2nd has N-1, etc. Using arrays for validation gives O(1) checks, bounding time to O(N!). 
+- **Space Complexity:** O(N^2): Auxiliary space. Board takes O(N^2), recursion stack and tracking arrays take O(N).

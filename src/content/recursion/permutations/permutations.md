@@ -6,6 +6,7 @@ time: "O(N! * N)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/permutations/"
+  article: "https://takeuforward.org/data-structure/print-all-permutations-of-a-string-array/"
 ---
 
 ### Problem Statement
@@ -44,16 +45,21 @@ class Solution {
 public:
 
     void findPermutations(vector<int>& ds, int freq[], vector<int>& nums, vector<vector<int>>& ans){
+        // Base case: combination length matches array size
         if(ds.size() == nums.size()){
             ans.push_back(ds);
             return;
         }
 
         for(int i=0; i<nums.size(); i++){
+            // If element is not yet chosen
             if(!freq[i]){
                 ds.push_back(nums[i]);
-                freq[i] = 1;
+                freq[i] = 1; // Mark as visited
+                
                 findPermutations(ds, freq, nums, ans);
+                
+                // Backtrack
                 ds.pop_back();
                 freq[i] = 0;
             }
@@ -77,5 +83,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N! * N). There are N! (factorial of N) possible permutations for an array of size N. For each valid permutation, we do an O(N) operation to push the combination `ds` into the answer array. 
-- **Space Complexity:** O(N) auxiliary space. The recursion call stack reaches a maximum depth of N. The data structures we maintain—the `ds` array and the `freq` boolean frequency array—also both take O(N) space.
+- **Time Complexity:** O(N! * N): N! possible permutations. For each, pushing the combination to the answer array takes O(N).
+- **Space Complexity:** O(N): Auxiliary space for the recursion call stack, `ds` array, and `freq` array.

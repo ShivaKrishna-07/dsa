@@ -6,6 +6,7 @@ time: "O(2^N * N log(X))"
 space: "O(2^N * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/subsets-ii/description/"
+  article: "https://takeuforward.org/data-structure/subset-ii-print-all-the-unique-subsets/"
 ---
 
 ### Problem Statement
@@ -38,12 +39,17 @@ Output: [[],[0]]
 class Solution {
 public:
     void solve(int i, vector<int>&ds, vector<int>nums, set<vector<int>>&ans){
+        // Base case: reached end of array
         if(i == nums.size()){
             ans.insert(ds);
             return;
         }
+        
+        // Include current element
         ds.push_back(nums[i]);
         solve(i+1, ds, nums, ans);
+        
+        // Exclude current element
         ds.pop_back();
         solve(i+1, ds, nums, ans);
     }
@@ -62,5 +68,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^N * N log(X)) + O(N log N), where N is the number of elements in `nums`. We first sort the array taking O(N log N). There are 2^N possible subsets generated, and each subset takes O(N) time to insert into the `std::set`. The logarithmic factor comes from the `set` insertion (where X is the number of unique subsets generated so far, bounded by 2^N).
-- **Space Complexity:** O(2^N * N) to store all the unique subsets inside the `set` before transferring them to the final vector `res`. Additionally, the recursion stack and temporary subset array `ds` take O(N) auxiliary space.
+- **Time Complexity:** O(2^N * N log(X)) + O(N log N): Generate 2^N subsets, takes O(N) to insert into `set`.
+- **Space Complexity:** O(2^N * N): Auxiliary space to store unique subsets in `set` before transferring to vector.

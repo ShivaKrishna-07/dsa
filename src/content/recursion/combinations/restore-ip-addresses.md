@@ -46,16 +46,26 @@ Output: ["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
 class Solution {
 public:
     void findValidIps(int i, string ip, string curr, string s, vector<string>&ans){
+        // Base case: string fully traversed
         if(i == s.size()){
+            // Must have exactly 3 dots and no leftover current segment
             if(curr.empty() && count(ip.begin(), ip.end(), '.') == 3)
                 ans.push_back(ip);
             return;
         }
+        
+        // No leading zeros allowed in a segment
         if(!curr.empty() and stoi(curr)==0) return;
+        
         curr += s[i];
+        
+        // Segment value cannot exceed 255
         if(stoi(curr) > 255) return;
 
+        // Choice 1: Continue extending current segment
         findValidIps(i+1, ip, curr, s, ans);
+        
+        // Choice 2: Add dot and start new segment
         if(ip.empty()) findValidIps(i+1, curr, "", s, ans);
         else findValidIps(i+1, ip+"."+curr, "", s, ans);
     }
@@ -73,5 +83,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(3^4). An IP address has exactly 4 segments, and each segment can only have 1 to 3 digits. This gives a bounded maximum of 3^4 = 81 possible dot placements to explore in the worst-case. Because the recursion heavily prunes invalid paths (numbers > 255 or leading zeros), it runs extremely fast in practice.
-- **Space Complexity:** O(N), where N is the length of the string `s`. This space is required for the recursive call stack depth, as well as maintaining the current path of `ip` and `curr` strings at each level.
+- **Time Complexity:** O(3^4): Exactly 4 segments, each 1 to 3 digits. Bounded to 3^4 = 81 possibilities. Heavily pruned.
+- **Space Complexity:** O(N): Auxiliary space for the recursive call stack and string tracking.

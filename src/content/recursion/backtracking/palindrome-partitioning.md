@@ -6,6 +6,7 @@ time: "O(2^N * N)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/palindrome-partitioning/"
+  article: "https://takeuforward.org/data-structure/palindrome-partitioning/"
 ---
 
 ### Problem Statement
@@ -43,15 +44,19 @@ public:
         return true;
     }
     void solve(string s, vector<string>ds, vector<vector<string>>&ans){
+        // Base case: If string is fully partitioned
         if(s.size() == 0){
             ans.push_back(ds);
             return;
         }
+        
+        // Try partitioning at every possible index
         for(int i=0; i<s.size(); i++){
             string parts = s.substr(0, i+1);
             if(isPalin(parts)){
                 ds.push_back(parts);
                 solve(s.substr(i+1), ds, ans);
+                // Backtrack
                 ds.pop_back();
             }
         }
@@ -70,5 +75,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^N * N), where N is the length of the string. In the worst-case scenario where every substring is a palindrome (e.g., `"aaaa"`), there are exactly 2^(N-1) possible partitions. For each partition, validating palindromes and constructing substrings takes an additional O(N) time.
-- **Space Complexity:** O(N) auxiliary space. The recursion call stack reaches a maximum depth of N. The current partition array `ds` also uses O(N) space to store the substrings at each level.
+- **Time Complexity:** O(2^N * N): Worst case 2^(N-1) possible partitions, each taking O(N) time to construct and validate.
+- **Space Complexity:** O(N): Auxiliary space for the recursion depth and current partition array `ds`.

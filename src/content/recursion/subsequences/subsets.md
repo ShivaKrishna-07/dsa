@@ -6,6 +6,7 @@ time: "O(2^N * N)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/subsets/description/"
+  article: "https://takeuforward.org/data-structure/power-set-print-all-the-possible-subsequences-of-the-string/"
 ---
 
 ### Problem Statement
@@ -39,12 +40,17 @@ Output: [[],[0]]
 class Solution {
 public:
     void solve(int i, vector<int>&ds, vector<int>nums, vector<vector<int>>&ans){
+        // Base case: processed all elements
         if(i == nums.size()){
             ans.push_back(ds);
             return;
         }
+        
+        // Choice 1: Include current element
         ds.push_back(nums[i]);
         solve(i+1, ds, nums, ans);
+        
+        // Choice 2: Exclude current element (Backtrack)
         ds.pop_back();
         solve(i+1, ds, nums, ans);
     }
@@ -61,5 +67,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^N * N), where N is the number of elements in `nums`. There are exactly 2^N possible subsets, and each time we hit the base case, we copy the subset `ds` into our answer vector `ans`, which takes O(N) time.
-- **Space Complexity:** O(N) auxiliary space required for the recursive call stack and the `ds` vector. Note that the output array `ans` takes O(2^N * N) space to store all the answers, but this isn't typically counted as extra algorithmic space.
+- **Time Complexity:** O(2^N * N): 2^N subsets, each takes O(N) to copy to `ans`.
+- **Space Complexity:** O(N): Auxiliary space for the recursion stack and `ds` vector.

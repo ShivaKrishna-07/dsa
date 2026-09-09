@@ -54,13 +54,16 @@ public:
     }
 
     int atoi(string s, long ans, int i, int sign){
+        // Clamp to 32-bit signed integer range
         if(sign*ans >= INT_MAX) return INT_MAX;
         if(sign*ans <= INT_MIN) return INT_MIN;
 
+        // Base case: end of string or non-digit character
         if(i >= s.size() || !isdigit(s[i])) return sign*ans;
+        
         ans = ans*10 + (s[i]-'0');
 
-        return ans = atoi(s, ans, i+1, sign);
+        return atoi(s, ans, i+1, sign);
     }
 };
 ```
@@ -69,5 +72,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N), where N is the length of the string `s`. We iterate through the string once processing leading whitespaces, and then the recursive calls process the digit characters.
-- **Space Complexity:** O(N) in the worst case for the call stack due to recursion, where N is the length of the numeric part of the string.
+- **Time Complexity:** O(N): We iterate through the string once to process whitespaces and digit characters.
+- **Space Complexity:** O(N): Auxiliary space for the call stack due to recursion, limited by the numeric part's length.

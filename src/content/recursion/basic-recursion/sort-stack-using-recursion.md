@@ -6,6 +6,7 @@ time: "O(N^2)"
 space: "O(N)"
 platforms:
   gfg: "https://www.geeksforgeeks.org/problems/sort-a-stack/1"
+  article: "https://takeuforward.org/data-structure/sort-a-stack-using-recursion/"
 ---
 
 ### Problem Statement
@@ -34,6 +35,7 @@ Output: 41 32 11 3 2
 class Solution {
   public:
     void insert(stack<int> &st, int val){
+        // Base case: if stack is empty or top is smaller than val
         if(st.empty() || st.top()<val){
             st.push(val);
             return;
@@ -41,15 +43,18 @@ class Solution {
         int x = st.top();
         st.pop();
         insert(st, val);
-        st.push(x);
+        st.push(x); // Backtrack: restore the element
     }
     void sortStack(stack<int> &st) {
-        // code here
+        // Base case: empty stack is trivially sorted
         if(st.empty()) return;
         
         int val = st.top();
         st.pop();
+        
         sortStack(st);
+        
+        // Insert the popped element into the sorted stack
         insert(st, val);
     }
 };
@@ -59,5 +64,5 @@ class Solution {
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N^2) in the worst case. The `sortStack` function removes each element one by one (N times). For each element, the `insert` function is called, which in the worst case (e.g., when the stack is already sorted in reverse order) requires popping and pushing all elements currently in the stack, leading to quadratic time complexity.
-- **Space Complexity:** O(N) auxiliary space for the recursive call stack. Both `sortStack` and `insert` can go up to a depth of N.
+- **Time Complexity:** O(N^2): `sortStack` removes N elements, and `insert` may traverse up to N elements each time in the worst case (reverse sorted).
+- **Space Complexity:** O(N): Auxiliary space for the recursive call stack in both functions.

@@ -6,6 +6,7 @@ time: "O(9^(n^2))"
 space: "O(n^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/sudoku-solver/"
+  article: "https://takeuforward.org/data-structure/sudoku-solver/"
 ---
 
 ### Problem Statement
@@ -65,19 +66,22 @@ public:
     }
 
     bool solve(vector<vector<char>>& board){
+        // Traverse the entire 9x9 board
         for(int i=0; i<board.size(); i++){
             for(int j=0; j<board[0].size(); j++){
+                // If cell is empty
                 if(board[i][j] == '.'){
+                    // Try all possible digits
                     for(char c='1'; c<='9'; c++){
                         if(isValid(board, i, j, c)){
                             board[i][j] = c;
                             if(solve(board) == true)
                                 return true;
                             else
-                                board[i][j] = '.';
+                                board[i][j] = '.'; // Backtrack
                         }
                     }
-                    return false;
+                    return false; // No valid digit found
                 }
             }
         }
@@ -85,13 +89,11 @@ public:
     }
 
     bool isValid(vector<vector<char>>& board, int row, int col, char c){
+        // Check row, col, and 3x3 sub-box
         for(int i=0; i<9; i++){
-            if(board[row][i] == c)
-                return false;
-            if(board[i][col] == c)
-                return false;
-            if(board[3*(row/3) + i/3][3*(col/3) + i%3] == c)
-                return false;
+            if(board[row][i] == c) return false;
+            if(board[i][col] == c) return false;
+            if(board[3*(row/3) + i/3][3*(col/3) + i%3] == c) return false;
         }
         return true;
     }
@@ -102,5 +104,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(9^(n^2)), where n=9 is the board dimension. For each empty cell (up to 81 cells max), we have 9 possible digits (1 through 9) to try. This gives a theoretical worst-case bound of 9^81 operations. However, because of the rigid rules of Sudoku, the number of valid branches decreases drastically at every step, allowing it to run efficiently in practice.
-- **Space Complexity:** O(n^2) auxiliary space. Since the board dimensions are fixed to 9x9, the maximum depth the recursive call stack can reach is exactly the number of empty cells, which is 81. Thus, memory usage scales proportional to the empty cells tracking the backtracks.
+- **Time Complexity:** O(9^(n^2)): For each empty cell, 9 possible digits. Practically much faster due to Sudoku rules pruning invalid branches.
+- **Space Complexity:** O(n^2): Auxiliary space. Recursion depth reaches up to 81 (the number of empty cells).

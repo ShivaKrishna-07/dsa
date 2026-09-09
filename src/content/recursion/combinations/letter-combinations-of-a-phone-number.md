@@ -54,17 +54,20 @@ class Solution {
 public:
 
     void solve(int i, string s, string digits, vector<string>mp, vector<string>&ans){
+        // Base case: all digits processed
         if(i == digits.size()){
             ans.push_back(s);
             return;
         }
+        
         int mpIdx = (digits[i]-'0') - 2;
-        cout<<mpIdx;
         string text = mp[mpIdx];
+        
+        // Try all letters for current digit
         for(int idx=0; idx<text.size(); idx++){
             s += text[idx];
             solve(i+1, s, digits, mp, ans);
-            s.pop_back();
+            s.pop_back(); // Backtrack
         }
     }
     vector<string> letterCombinations(string digits) {
@@ -83,5 +86,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(4^N * N), where N is the length of digits. The worst-case is when the input consists entirely of digits like `7` or `9` which map to 4 letters. The total number of combinations is bounded by 4^N, and we take O(N) time to build and copy each string combination into our answer array.
-- **Space Complexity:** O(N) auxiliary space. The recursion call stack reaches a maximum depth of N, and the string `s` takes O(N) space.
+- **Time Complexity:** O(4^N * N): N is length of digits. Max 4 letters per digit (e.g., '7' or '9') yields 4^N combinations, each taking O(N) to build.
+- **Space Complexity:** O(N): Auxiliary space for the recursion call stack and string `s`.

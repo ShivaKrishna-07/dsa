@@ -6,6 +6,7 @@ time: "O(2^T * k)"
 space: "O(T/min)"
 platforms:
   leetcode: "https://leetcode.com/problems/combination-sum/description/"
+  article: "https://takeuforward.org/data-structure/combination-sum-1/"
 ---
 
 ### Problem Statement
@@ -44,6 +45,7 @@ Output: [[2,2,2,2],[2,3,3],[3,5]]
 class Solution {
 public:
     void solve(int i, vector<int>&ds, vector<int>nums, int target, vector<vector<int>>&ans){
+        // Base case: processed all elements
         if(i == nums.size()){
             if(target == 0){
                 ans.push_back(ds);
@@ -51,11 +53,15 @@ public:
             }
             return;
         }
+        
+        // Include element if it doesn't exceed target
         if(nums[i] <= target){
             ds.push_back(nums[i]);
             solve(i, ds, nums, target-nums[i], ans);
-            ds.pop_back();
+            ds.pop_back(); // Backtrack
         }
+        
+        // Exclude current element and move to next
         solve(i+1, ds, nums, target, ans);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
@@ -71,5 +77,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^T * k), where T is the target value and k is the average length of each combination. In the worst-case, if the smallest candidate is 1, we can branch up to T times. At each step, we either pick the element and stay at the same index, or skip it. Copying the combination array `ds` into `ans` takes O(k) time.
-- **Space Complexity:** O(\frac{T}{\text{min}(candidates)}) auxiliary space. This is the maximum possible depth of our recursive call stack, assuming we keep picking the smallest element until we exceed the target.
+- **Time Complexity:** O(2^T * k): T is target value, k is average combination length. Worst case branching up to T times.
+- **Space Complexity:** O(T/min(candidates)): Auxiliary space for recursive stack depth.

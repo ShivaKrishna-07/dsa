@@ -36,14 +36,17 @@ Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 class Solution {
 public:
     void recursion(vector<int> num, int i, int j, vector<vector<int> > &res) {
+        // Base case: reached the end
         if (i == j-1) {
             res.push_back(num);
             return;
         }
         for (int k = i; k < j; k++) {
+            // Skip duplicates to avoid duplicate permutations
             if (i != k && num[i] == num[k]) continue;
             swap(num[i], num[k]);
             recursion(num, i+1, j, res);
+            // No backtrack swap needed because `num` is passed by value
         }
     }
     vector<vector<int> > permuteUnique(vector<int> &num) {
@@ -59,5 +62,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(N! * N), where N is the number of elements. In the worst-case (all elements are unique), there are N! permutations. Because the array `num` is passed by value to the recursive function, it is copied at every step taking O(N) time per node in the recursive tree.
-- **Space Complexity:** O(N^2) auxiliary space. Since the vector `num` is passed by value, an O(N) copy is made and stored locally at every level of the recursion tree. With the maximum recursion depth being N, this leads to an O(N^2) overall memory footprint for the call stack.
+- **Time Complexity:** O(N! * N): N! permutations. `num` is passed by value, taking O(N) time to copy per recursive node.
+- **Space Complexity:** O(N^2): Auxiliary space. Vector `num` is copied at every level, with max depth N.

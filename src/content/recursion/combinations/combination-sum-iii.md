@@ -48,6 +48,7 @@ There are no other valid combinations.
 class Solution {
 public:
     void solve(int i, int sum, vector<int>ds, int n, int k, vector<vector<int>>&ans){
+        // Base case: reached 10 or valid combination length
         if(i==10 || ds.size()==k){
             if(ds.size() == k && sum == n){
                 ans.push_back(ds);
@@ -55,8 +56,11 @@ public:
             return;
         }
 
+        // Include current number
         ds.push_back(i);
         solve(i+1, sum+i, ds, n, k, ans);
+        
+        // Exclude current number (backtrack)
         ds.pop_back();
         solve(i+1, sum, ds, n, k, ans);
     }
@@ -73,5 +77,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(2^9 * k). Since we only ever pick from the numbers 1 to 9, there are exactly 2^9 (512) possible combinations to explore in the worst-case scenario. When a valid combination of length `k` is found, copying it to the answer array takes O(k) time. 
-- **Space Complexity:** O(k) auxiliary space. The recursion stack reaches a depth of at most 9, but effectively the `ds` array holds at most `k` elements at any given time before returning.
+- **Time Complexity:** O(2^9 * k): 9 numbers (1 to 9) yields 2^9 possible combinations. O(k) to copy valid ones.
+- **Space Complexity:** O(k): Auxiliary space for the recursion stack and `ds` array.

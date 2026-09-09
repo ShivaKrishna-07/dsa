@@ -30,11 +30,13 @@ class Solution {
 public:
     const long long MOD = 1e9+7;
     long long findPow(long long x, long long n){
+        // Base case: x^0 = 1
         if(n == 0) return 1;
         
         long long half = findPow(x, n/2);
         long long result = (half*half)%MOD;
 
+        // If exponent is odd, multiply by base one more time
         if(n%2 == 1) result = (result*x)%MOD;
 
         return result;
@@ -49,5 +51,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** O(\log N), where N is the input integer `n`. We use binary exponentiation (`findPow`) to compute 5^{\text{even positions}} and 4^{\text{odd positions}}, which halves the search space at each recursive step.
-- **Space Complexity:** O(\log N) auxiliary space required for the recursive call stack during the binary exponentiation process.
+- **Time Complexity:** O(\log N): Binary exponentiation computes powers by halving the exponent at each step.
+- **Space Complexity:** O(\log N): Auxiliary space for the recursive call stack during exponentiation.
