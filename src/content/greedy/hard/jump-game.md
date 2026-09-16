@@ -21,6 +21,21 @@ Output: true
 Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 ```
 
+
+**Example 2:**
+```text
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0.
+```
+
+**Example 3: (Edge Case - Single element)**
+```text
+Input: nums = [0]
+Output: true
+Explanation: You are already at the last index.
+```
+
 ---
 
 ### Code

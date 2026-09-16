@@ -25,6 +25,21 @@ Waiting times: [0, 1, 3, 6, 10]
 Average waiting time = (0 + 1 + 3 + 6 + 10) / 5 = 4.
 ```
 
+
+**Example 2:**
+```text
+Input: n = 4, bt = [1, 2, 3, 4]
+Output: 2
+Explanation: Wait times are 0, 1, 3, 6. Average = 10 / 4 = 2.
+```
+
+**Example 3: (Edge Case - Single Job)**
+```text
+Input: n = 1, bt = [10]
+Output: 0
+Explanation: Only one job, so it doesn't wait.
+```
+
 ---
 
 ### Code

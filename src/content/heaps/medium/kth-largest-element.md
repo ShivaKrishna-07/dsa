@@ -21,6 +21,20 @@ Input: nums = [3,2,1,5,6,4], k = 2
 Output: 5
 ```
 
+
+**Example 2:**
+```text
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+```
+
+**Example 3: (Edge Case - K equals array length)**
+```text
+Input: nums = [10, 9, 8], k = 3
+Output: 8
+Explanation: The 3rd largest element is the smallest element.
+```
+
 ---
 
 ### Code

@@ -28,6 +28,25 @@ Maximum four meetings can be held with given start and end timings.
 The meetings are - (1, 2),(3, 4), (5,7) and (8,9)
 ```
 
+
+**Example 2:**
+```text
+Input: N = 3
+start[] = {10, 12, 20}
+end[] = {20, 25, 30}
+Output: 1
+Explanation: No two meetings can be accommodated.
+```
+
+**Example 3: (Edge Case - Contiguous meetings)**
+```text
+Input: N = 2
+start[] = {1, 2}
+end[] = {2, 3}
+Output: 1
+Explanation: A meeting starting at the exact time another ends is generally not overlapping, but according to GFG constraints, start time cannot equal end time of chosen meeting, so only 1.
+```
+
 ---
 
 ### Code

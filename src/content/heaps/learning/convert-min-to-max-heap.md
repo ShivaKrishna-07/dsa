@@ -19,6 +19,19 @@ Output: [13, 11, 8, 4, 3]
 Explanation: The elements form a valid max heap after conversion.
 ```
 
+
+**Example 2:**
+```text
+Input: arr = [1, 2, 3, 4, 5]
+Output: [5, 4, 3, 1, 2]
+```
+
+**Example 3: (Edge Case - Already valid for both / single element)**
+```text
+Input: arr = [7]
+Output: [7]
+```
+
 ---
 
 ### Code

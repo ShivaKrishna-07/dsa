@@ -21,6 +21,21 @@ Output: true
 Explanation: Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]
 ```
 
+
+**Example 2:**
+```text
+Input: hand = [1,2,3,4,5], groupSize = 4
+Output: false
+Explanation: Alice's hand cannot be rearranged into groups of 4.
+```
+
+**Example 3: (Edge Case - Group size 1)**
+```text
+Input: hand = [1,5,3], groupSize = 1
+Output: true
+Explanation: Any hand can be grouped if the group size is 1.
+```
+
 ---
 
 ### Code

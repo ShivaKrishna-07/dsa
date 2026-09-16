@@ -22,6 +22,21 @@ Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
 Output: [[1,5],[6,9]]
 ```
 
+
+**Example 2:**
+```text
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+```
+
+**Example 3: (Edge Case - Empty intervals)**
+```text
+Input: intervals = [], newInterval = [5,7]
+Output: [[5,7]]
+Explanation: The original list is empty, just insert the new interval.
+```
+
 ---
 
 ### Code

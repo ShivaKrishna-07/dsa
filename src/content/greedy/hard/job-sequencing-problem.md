@@ -23,6 +23,21 @@ Explanation:
 Job1 and Job3 can be done with maximum profit of 60 (20+40).
 ```
 
+
+**Example 2:**
+```text
+Input: N = 5, Jobs = {(1,2,100),(2,1,19),(3,2,27),(4,1,25),(5,1,15)}
+Output: 2 127
+Explanation: Job 1 and Job 4 can be completed for max profit.
+```
+
+**Example 3: (Edge Case - Identical deadlines)**
+```text
+Input: N = 3, Jobs = {(1,1,50),(2,1,10),(3,1,20)}
+Output: 1 50
+Explanation: All jobs have deadline 1, only the one with max profit can be chosen.
+```
+
 ---
 
 ### Code

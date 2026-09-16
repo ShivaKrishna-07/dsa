@@ -19,6 +19,25 @@ Implement the `Twitter` class:
 - `void follow(int followerId, int followeeId)` The user with ID `followerId` started following the user with ID `followeeId`.
 - `void unfollow(int followerId, int followeeId)` The user with ID `followerId` started unfollowing the user with ID `followeeId`.
 
+
+**Example 2:**
+```text
+Input: 
+["Twitter", "postTweet", "getNewsFeed"]
+[[], [1, 5], [1]]
+Output: 
+[null, null, [5]]
+Explanation: User 1 posts tweet 5 and gets it in feed.
+```
+
+**Example 3: (Edge Case - Feed limit)**
+```text
+Input:
+(Assuming user posts 12 tweets sequentially)
+Output:
+Only the 10 most recent tweets are returned in the news feed.
+```
+
 ---
 
 ### Code

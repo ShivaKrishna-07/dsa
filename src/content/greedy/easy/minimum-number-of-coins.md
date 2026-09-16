@@ -20,6 +20,21 @@ Output: 20 20 2 1
 Explanation: Minimum number of coins and notes to make 43 are 20, 20, 2, 1.
 ```
 
+
+**Example 2:**
+```text
+Input: N = 1000
+Output: 500 500
+Explanation: Two 500 notes make 1000.
+```
+
+**Example 3: (Edge Case - Exactly one coin)**
+```text
+Input: N = 10
+Output: 10
+Explanation: Just one 10 coin is needed.
+```
+
 ---
 
 ### Code

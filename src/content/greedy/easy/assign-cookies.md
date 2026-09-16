@@ -23,6 +23,22 @@ And even though you have 2 cookies, since their size is both 1, you could only m
 You need to output 1.
 ```
 
+
+**Example 2:**
+```text
+Input: g = [1,2], s = [1,2,3]
+Output: 2
+Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. 
+You can make both children content.
+```
+
+**Example 3: (Edge Case - No cookies large enough)**
+```text
+Input: g = [5,6,7], s = [1,2,3]
+Output: 0
+Explanation: No child can be content as all cookies are too small.
+```
+
 ---
 
 ### Code

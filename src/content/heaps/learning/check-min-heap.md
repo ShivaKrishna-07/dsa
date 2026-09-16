@@ -20,6 +20,21 @@ Output: true
 Explanation: The array satisfies the min-heap property everywhere.
 ```
 
+
+**Example 2:**
+```text
+Input: arr = [9, 15, 10, 7, 12, 11]
+Output: false
+Explanation: 9 is parent of 15 and 10, valid. But 15 is parent of 7, which is invalid since 15 > 7.
+```
+
+**Example 3: (Edge Case - Single element)**
+```text
+Input: arr = [5]
+Output: true
+Explanation: A single element array is always a valid min-heap.
+```
+
 ---
 
 ### Code

@@ -25,6 +25,21 @@ Output: 5
 Explanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.
 ```
 
+
+**Example 2:**
+```text
+Input: ratings = [1,2,2]
+Output: 4
+Explanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively.
+```
+
+**Example 3: (Edge Case - All same ratings)**
+```text
+Input: ratings = [2,2,2,2]
+Output: 4
+Explanation: All children have the same rating, so each gets exactly 1 candy.
+```
+
 ---
 
 ### Code

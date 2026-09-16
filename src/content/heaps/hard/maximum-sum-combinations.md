@@ -26,6 +26,20 @@ Explanation:
 6 -> (A : 2) + (B : 4)
 ```
 
+
+**Example 2:**
+```text
+Input: N = 4, K = 3, A = [1, 4, 2, 3], B = [2, 5, 1, 6]
+Output: 10, 9, 9
+Explanation: 4+6=10, 3+6=9, 4+5=9.
+```
+
+**Example 3: (Edge Case - Same elements)**
+```text
+Input: N = 2, K = 2, A = [1, 1], B = [1, 1]
+Output: 2, 2
+```
+
 ---
 
 ### Code

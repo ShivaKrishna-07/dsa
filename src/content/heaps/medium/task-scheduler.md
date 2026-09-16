@@ -25,6 +25,21 @@ A -> B -> idle -> A -> B -> idle -> A -> B
 There is at least 2 units of time between any two same tasks.
 ```
 
+
+**Example 2:**
+```text
+Input: tasks = ["A","A","A","B","B","B"], n = 0
+Output: 6
+Explanation: With no cooldown, tasks can run back to back: A -> B -> A -> B -> A -> B.
+```
+
+**Example 3: (Edge Case - High cooldown, one task dominating)**
+```text
+Input: tasks = ["A","A","A"], n = 2
+Output: 7
+Explanation: A -> idle -> idle -> A -> idle -> idle -> A.
+```
+
 ---
 
 ### Code

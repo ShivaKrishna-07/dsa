@@ -23,6 +23,19 @@ Explanation:
 3rd smallest element in the given array is 7.
 ```
 
+
+**Example 2:**
+```text
+Input: N = 5, arr[] = {1, 2, 3, 4, 5}, K = 1
+Output: 1
+```
+
+**Example 3: (Edge Case - K is max length)**
+```text
+Input: N = 4, arr[] = {10, 5, 4, 3}, K = 4
+Output: 10
+```
+
 ---
 
 ### Code

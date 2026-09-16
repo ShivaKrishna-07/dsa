@@ -24,6 +24,25 @@ Output:
 Explanation:Total maximum value of item we can have is 240.00 from the given capacity of sack. 
 ```
 
+
+**Example 2:**
+```text
+Input: N = 2, W = 50
+values[] = {60, 100}
+weight[] = {10, 20}
+Output: 160.00
+Explanation: We can take both items fully since 10+20 <= 50.
+```
+
+**Example 3: (Edge Case - Zero capacity)**
+```text
+Input: N = 3, W = 0
+values[] = {60, 100, 120}
+weight[] = {10, 20, 30}
+Output: 0.00
+Explanation: The knapsack has 0 capacity, so no items can be taken.
+```
+
 ---
 
 ### Code

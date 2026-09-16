@@ -23,6 +23,19 @@ Insert: 3, 2, 1
 Output of extractMin: 1
 ```
 
+
+**Example 2:**
+```text
+Input: Insert 5, Insert 3, Insert 8, extractMin()
+Output: 3
+```
+
+**Example 3: (Edge Case - Extract from empty)**
+```text
+Input: extractMin()
+Output: -1
+```
+
 ---
 
 ### Code

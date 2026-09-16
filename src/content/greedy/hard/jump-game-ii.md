@@ -25,6 +25,21 @@ Output: 2
 Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
 ```
 
+
+**Example 2:**
+```text
+Input: nums = [2,3,0,1,4]
+Output: 2
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+```
+
+**Example 3: (Edge Case - Zero jumps needed)**
+```text
+Input: nums = [0]
+Output: 0
+Explanation: You are already at the last index, 0 jumps needed.
+```
+
 ---
 
 ### Code

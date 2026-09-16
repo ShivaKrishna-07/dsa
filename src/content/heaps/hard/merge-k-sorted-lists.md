@@ -28,6 +28,19 @@ merging them into one sorted list:
 1->1->2->3->4->4->5->6
 ```
 
+
+**Example 2:**
+```text
+Input: lists = []
+Output: []
+```
+
+**Example 3: (Edge Case - Lists containing empty lists)**
+```text
+Input: lists = [[]]
+Output: []
+```
+
 ---
 
 ### Code

@@ -24,6 +24,25 @@ Minimum 3 platforms are required to
 safely arrive and depart all trains.
 ```
 
+
+**Example 2:**
+```text
+Input: n = 3
+arr[] = {0900, 1100, 1235}
+dep[] = {1000, 1200, 1240}
+Output: 1
+Explanation: No trains overlap.
+```
+
+**Example 3: (Edge Case - All overlap)**
+```text
+Input: n = 3
+arr[] = {1000, 1000, 1000}
+dep[] = {1100, 1100, 1100}
+Output: 3
+Explanation: All trains arrive at the same time and depart at the same time.
+```
+
 ---
 
 ### Code

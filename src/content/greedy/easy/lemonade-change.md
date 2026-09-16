@@ -27,6 +27,21 @@ From the fifth customer, we give a $10 bill and a $5 bill.
 Since all customers got correct change, we output true.
 ```
 
+
+**Example 2:**
+```text
+Input: bills = [5,5,10,10,20]
+Output: false
+Explanation: We collect two $5 bills, then give one back for the first $10. For the second $10, we give our last $5. For the $20, we have no $5 left to make change.
+```
+
+**Example 3: (Edge Case - No $5 at start)**
+```text
+Input: bills = [10, 10]
+Output: false
+Explanation: First customer pays $10, we have no $5 to return.
+```
+
 ---
 
 ### Code

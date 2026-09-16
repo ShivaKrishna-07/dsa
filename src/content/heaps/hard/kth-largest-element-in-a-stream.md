@@ -25,6 +25,20 @@ Output
 [null, 4, 5, 5, 8, 8]
 ```
 
+
+**Example 2:**
+```text
+Input: KthLargest(1, []), add(3), add(5)
+Output: 3, 5
+```
+
+**Example 3: (Edge Case - Duplicates in stream)**
+```text
+Input: KthLargest(2, [1, 1]), add(1)
+Output: 1
+Explanation: With stream [1, 1, 1], the 2nd largest is 1.
+```
+
 ---
 
 ### Code

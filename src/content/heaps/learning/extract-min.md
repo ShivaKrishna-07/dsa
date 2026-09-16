@@ -19,6 +19,21 @@ Output: 1
 Heap after extraction: [3, 5, 6, 8, 9]
 ```
 
+
+**Example 2:**
+```text
+Input: [2, 5, 8, 10, 15]
+Output: 2
+Heap after extraction: [5, 10, 8, 15]
+```
+
+**Example 3: (Edge Case - Single element heap)**
+```text
+Input: [42]
+Output: 42
+Heap after extraction: []
+```
+
 ---
 
 ### Code

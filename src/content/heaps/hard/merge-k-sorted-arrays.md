@@ -26,6 +26,19 @@ The merged list will be
 [1, 2, 3, 4, 5, 6, 7, 8, 9].
 ```
 
+
+**Example 2:**
+```text
+Input: K = 2, arr[][] = {{1, 2}, {3, 4}}
+Output: 1 2 3 4
+```
+
+**Example 3: (Edge Case - Arrays with duplicates)**
+```text
+Input: K = 2, arr[][] = {{1, 1}, {1, 1}}
+Output: 1 1 1 1
+```
+
 ---
 
 ### Code

@@ -24,6 +24,21 @@ Input: s = "(*)"
 Output: true
 ```
 
+
+**Example 2:**
+```text
+Input: s = "(*))"
+Output: true
+Explanation: The '*' can be treated as a '(' to make it valid.
+```
+
+**Example 3: (Edge Case - All stars)**
+```text
+Input: s = "***"
+Output: true
+Explanation: All stars can be empty strings.
+```
+
 ---
 
 ### Code

@@ -19,6 +19,19 @@ Implement the `MedianFinder` class:
 - `void addNum(int num)` adds the integer `num` from the data stream to the data structure.
 - `double findMedian()` returns the median of all elements so far.
 
+
+**Example 2:**
+```text
+Input: addNum(1), addNum(2), findMedian(), addNum(3), findMedian()
+Output: null, null, 1.5, null, 2.0
+```
+
+**Example 3: (Edge Case - Negative numbers)**
+```text
+Input: addNum(-1), addNum(-2), findMedian(), addNum(-3), findMedian()
+Output: null, null, -1.5, null, -2.0
+```
+
 ---
 
 ### Code

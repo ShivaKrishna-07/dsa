@@ -23,6 +23,23 @@ Explanation: memory allocates 4 pages.
 faults are 5, 0, 1, 3, 2, 4, 1, 0, 5.
 ```
 
+
+**Example 2:**
+```text
+Input: N = 4, C = 2
+pages = {1, 2, 1, 3}
+Output: 3
+Explanation: Faults for 1, 2, and 3. The second 1 is in memory.
+```
+
+**Example 3: (Edge Case - Infinite capacity)**
+```text
+Input: N = 5, C = 10
+pages = {1, 2, 3, 4, 5}
+Output: 5
+Explanation: Every unique page causes a fault exactly once.
+```
+
 ---
 
 ### Code
