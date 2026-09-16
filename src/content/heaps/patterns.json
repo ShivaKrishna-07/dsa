@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "learning",
+    "title": "Learning / Theory",
+    "description": "Understand the core concepts of Binary Heaps (Min Heap and Max Heap), their implementations, and properties.",
+    "identify": [
+      "Problems asking to build a heap from an array",
+      "Implementing heap operations like insert, extract min/max, or heapify"
+    ],
+    "appearsIn": [
+      "Foundation topics",
+      "System design primitives for priority queues"
+    ],
+    "template": "class MinHeap {\n    vector<int> heap;\n    void heapify(int i) {\n        int smallest = i;\n        int left = 2 * i + 1;\n        int right = 2 * i + 2;\n        if (left < heap.size() && heap[left] < heap[smallest]) smallest = left;\n        if (right < heap.size() && heap[right] < heap[smallest]) smallest = right;\n        if (smallest != i) {\n            swap(heap[i], heap[smallest]);\n            heapify(smallest);\n        }\n    }\n};",
+    "explanation": "A Heap is a special Tree-based data structure in which the tree is a complete binary tree. Max-Heap guarantees the parent is greater than its children, while Min-Heap guarantees the parent is smaller.",
+    "problemsOrder": [
+      "min-heap-implementation",
+      "extract-min",
+      "check-min-heap",
+      "convert-min-to-max-heap"
+    ]
+  },
+  {
+    "slug": "medium",
+    "title": "Medium Problems",
+    "description": "Application of Priority Queues to solve problems involving top K elements, merging arrays, and scheduling.",
+    "identify": [
+      "Find the 'Kth' smallest/largest element",
+      "Merge multiple sorted arrays/lists",
+      "Sort elements based on frequency or rank"
+    ],
+    "appearsIn": [
+      "Top-K problems",
+      "Task scheduling",
+      "Rank conversions"
+    ],
+    "template": "void solve(vector<int>& arr, int k) {\n    priority_queue<int, vector<int>, greater<int>> minHeap;\n    for(int i = 0; i < arr.size(); i++) {\n        minHeap.push(arr[i]);\n        if(minHeap.size() > k) {\n            minHeap.pop();\n        }\n    }\n    return minHeap.top();\n}",
+    "explanation": "Medium problems typically utilize the standard library priority queue (`std::priority_queue` in C++) to keep track of the largest or smallest elements seen so far optimally in O(log K) time per insertion.",
+    "problemsOrder": [
+      "kth-largest-element",
+      "kth-smallest-element",
+      "merge-k-sorted-arrays",
+      "merge-k-sorted-lists",
+      "replace-elements-by-rank",
+      "task-scheduler",
+      "hand-of-straights"
+    ]
+  },
+  {
+    "slug": "hard",
+    "title": "Hard Problems",
+    "description": "Complex algorithms involving dual heaps, custom comparators, or integrating heaps with other data structures like maps.",
+    "identify": [
+      "Finding the running median of a data stream",
+      "Tracking top K elements dynamically with combinations or streams",
+      "Designing complex systems like Twitter feeds"
+    ],
+    "appearsIn": [
+      "Data stream processing",
+      "System design implementation questions"
+    ],
+    "template": "class MedianFinder {\n    priority_queue<int> maxHeap;\n    priority_queue<int, vector<int>, greater<int>> minHeap;\n    void addNum(int num) {\n        maxHeap.push(num);\n        minHeap.push(maxHeap.top());\n        maxHeap.pop();\n        if (maxHeap.size() < minHeap.size()) {\n            maxHeap.push(minHeap.top());\n            minHeap.pop();\n        }\n    }\n};",
+    "explanation": "Hard heap problems often require maintaining two heaps to balance data (like the Median Finder problem) or mapping objects to priority levels dynamically using structs and custom comparators.",
+    "problemsOrder": [
+      "design-twitter",
+      "kth-largest-element-in-a-stream",
+      "maximum-sum-combinations",
+      "find-median-from-data-stream"
+    ]
+  }
+]
