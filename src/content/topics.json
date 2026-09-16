@@ -28,5 +28,10 @@
     "slug": "recursion",
     "title": "Recursion",
     "icon": "RotateCcw"
+  },
+  {
+    "slug": "greedy",
+    "title": "Greedy",
+    "icon": "Coins"
   }
 ]

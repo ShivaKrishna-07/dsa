@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "easy",
+    "title": "Easy Problems",
+    "description": "Basic greedy problems to build up logical thinking.",
+    "identify": [
+      "Problems where making a locally optimal choice leads to a globally optimal solution"
+    ],
+    "appearsIn": [
+      "Resource allocation",
+      "Scheduling basic tasks"
+    ],
+    "template": "void greedy() {\n    // Sort the input based on some criteria\n    sort(arr.begin(), arr.end(), compare);\n    \n    // Iterate and make the best choice\n    for(int i = 0; i < n; i++) {\n        if(is_valid(arr[i])) {\n            // Add to result\n        }\n    }\n}",
+    "explanation": "Greedy algorithms make the optimal choice at each step as they attempt to find the overall optimal way to solve the entire problem. Sorting the input is often the key first step.",
+    "problemsOrder": [
+      "assign-cookies",
+      "fractional-knapsack",
+      "minimum-number-of-coins",
+      "lemonade-change",
+      "valid-parenthesis-checker"
+    ]
+  },
+  {
+    "slug": "medium-hard",
+    "title": "Medium/Hard Problems",
+    "description": "More complex greedy algorithms involving scheduling, intervals, and optimizations.",
+    "identify": [
+      "Interval merging or overlapping",
+      "Complex task scheduling with deadlines"
+    ],
+    "appearsIn": [
+      "Intervals",
+      "CPU Scheduling",
+      "Job Sequencing"
+    ],
+    "template": "void greedyIntervals() {\n    // Sort intervals by start or end time\n    sort(intervals.begin(), intervals.end());\n    \n    vector<vector<int>> merged;\n    for(auto interval : intervals) {\n        // Merge logic based on overlap\n        if(merged.empty() || merged.back()[1] < interval[0]) {\n            merged.push_back(interval);\n        } else {\n            merged.back()[1] = max(merged.back()[1], interval[1]);\n        }\n    }\n}",
+    "explanation": "These problems require sorting the data based on a specific criteria (like ending time for meetings, or starting time for intervals) and then greedily picking the best available options or merging them.",
+    "problemsOrder": [
+      "n-meetings-in-one-room",
+      "jump-game",
+      "jump-game-ii",
+      "minimum-platforms",
+      "job-sequencing-problem",
+      "candy",
+      "shortest-job-first",
+      "page-faults-in-lru",
+      "insert-interval",
+      "merge-intervals"
+    ]
+  }
+]
