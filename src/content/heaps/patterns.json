@@ -26,7 +26,6 @@
     "description": "Application of Priority Queues to solve problems involving top K elements, merging arrays, and scheduling.",
     "identify": [
       "Find the 'Kth' smallest/largest element",
-      "Merge multiple sorted arrays/lists",
       "Sort elements based on frequency or rank"
     ],
     "appearsIn": [
@@ -39,8 +38,6 @@
     "problemsOrder": [
       "kth-largest-element",
       "kth-smallest-element",
-      "merge-k-sorted-arrays",
-      "merge-k-sorted-lists",
       "replace-elements-by-rank",
       "task-scheduler",
       "hand-of-straights"
@@ -53,7 +50,7 @@
     "identify": [
       "Finding the running median of a data stream",
       "Tracking top K elements dynamically with combinations or streams",
-      "Designing complex systems like Twitter feeds"
+      "Merge multiple sorted arrays/lists"
     ],
     "appearsIn": [
       "Data stream processing",
@@ -62,6 +59,8 @@
     "template": "class MedianFinder {\n    priority_queue<int> maxHeap;\n    priority_queue<int, vector<int>, greater<int>> minHeap;\n    void addNum(int num) {\n        maxHeap.push(num);\n        minHeap.push(maxHeap.top());\n        maxHeap.pop();\n        if (maxHeap.size() < minHeap.size()) {\n            maxHeap.push(minHeap.top());\n            minHeap.pop();\n        }\n    }\n};",
     "explanation": "Hard heap problems often require maintaining two heaps to balance data (like the Median Finder problem) or mapping objects to priority levels dynamically using structs and custom comparators.",
     "problemsOrder": [
+      "merge-k-sorted-arrays",
+      "merge-k-sorted-lists",
       "design-twitter",
       "kth-largest-element-in-a-stream",
       "maximum-sum-combinations",
