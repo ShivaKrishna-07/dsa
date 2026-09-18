@@ -54,50 +54,50 @@ To minimize idle time, we should always prioritize scheduling the tasks that hav
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        // Count frequencies of all tasks
-        unordered_map<char, int> counts;
-        for (char t : tasks) {
-            counts[t]++;
+        // Count frequencies of each task
+        map<int, int> mp;
+        for(char ch: tasks) {
+            mp[ch - 'A']++;
+        }
+
+        // Store frequencies in a max-heap to process most frequent tasks first
+        priority_queue<int> pq;
+        for(auto it: mp) {
+            pq.push(it.second);
         }
         
-        // Max-heap to process the most frequent tasks first
-        priority_queue<int> maxHeap;
-        for (auto& pair : counts) {
-            maxHeap.push(pair.second);
-        }
+        int ans = 0;
         
-        int time = 0;
-        
-        while (!maxHeap.empty()) {
+        // Process tasks in cycles of length (n + 1)
+        while(!pq.empty()) {
             vector<int> temp;
-            int cycle = n + 1; // Number of slots in one cooldown cycle
             
-            // Schedule tasks for the current cycle
-            while (cycle > 0 && !maxHeap.empty()) {
-                int max_freq = maxHeap.top();
-                maxHeap.pop();
-                
-                // If a task is not completely finished, queue it for the next cycle
-                if (max_freq > 1) {
-                    temp.push_back(max_freq - 1);
+            // Try to execute (n + 1) tasks in the current cooldown cycle
+            for(int i = 1; i <= n + 1; i++) {
+                if(!pq.empty()) {
+                    int freq = pq.top();
+                    pq.pop();
+                    freq--;
+                    temp.push_back(freq);
                 }
-                
-                time++;
-                cycle--;
             }
             
-            // Push unfinished tasks back into the heap
-            for (int t : temp) {
-                maxHeap.push(t);
+            // Push tasks with remaining frequencies back into the heap
+            for(int f: temp) {
+                if(f > 0) pq.push(f);
             }
             
-            // If heap is not empty, it means we need idle time to finish the cycle
-            if (!maxHeap.empty()) {
-                time += cycle; 
+            // Calculate time taken for this cycle
+            // If heap is not empty, it means we had to wait (idle) for the full cycle length
+            if(pq.size() > 0) {
+                ans += n + 1;
+            } else {
+                // Otherwise, this was the last cycle, only add the time for tasks executed
+                ans += temp.size();
             }
         }
         
-        return time;
+        return ans;
     }
 };
 ```
