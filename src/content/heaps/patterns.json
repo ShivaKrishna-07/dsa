@@ -17,6 +17,7 @@
       "min-heap-implementation",
       "extract-min",
       "check-min-heap",
+      "check-binary-tree-heap",
       "convert-min-to-max-heap"
     ]
   },
