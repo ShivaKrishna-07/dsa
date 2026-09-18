@@ -57,6 +57,7 @@ Output: []
  * };
  */
 class Solution {
+    // Custom comparator for min-heap to keep the smallest node at the top
     struct compare {
         bool operator()(ListNode* a, ListNode* b) {
             return a->val > b->val;
@@ -66,7 +67,7 @@ public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         priority_queue<ListNode*, vector<ListNode*>, compare> pq;
         
-        // Push the head of all k lists
+        // Push the head of all K lists into the min-heap
         for (int i = 0; i < lists.size(); i++) {
             if (lists[i] != nullptr) {
                 pq.push(lists[i]);
@@ -76,6 +77,7 @@ public:
         ListNode* dummy = new ListNode(-1);
         ListNode* tail = dummy;
         
+        // Iteratively extract the minimum element and push its next element
         while (!pq.empty()) {
             ListNode* minNode = pq.top();
             pq.pop();
@@ -83,6 +85,7 @@ public:
             tail->next = minNode;
             tail = minNode;
             
+            // Push the next node in the list if it exists
             if (minNode->next != nullptr) {
                 pq.push(minNode->next);
             }

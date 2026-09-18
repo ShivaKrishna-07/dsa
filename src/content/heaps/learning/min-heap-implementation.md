@@ -52,6 +52,7 @@ public:
         harr = new int[cap];
     }
     
+    // Utility functions to get parent and child indices
     int parent(int i) { return (i - 1) / 2; }
     int left(int i) { return (2 * i + 1); }
     int right(int i) { return (2 * i + 2); }
@@ -59,10 +60,12 @@ public:
     void insertKey(int k) {
         if (heap_size == capacity) return;
         
+        // Insert the new key at the end
         heap_size++;
         int i = heap_size - 1;
         harr[i] = k;
         
+        // Fix the min heap property if it is violated
         while (i != 0 && harr[parent(i)] > harr[i]) {
             swap(harr[i], harr[parent(i)]);
             i = parent(i);
@@ -73,8 +76,11 @@ public:
         int l = left(i);
         int r = right(i);
         int smallest = i;
+        
+        // Find the smallest among node and its children
         if (l < heap_size && harr[l] < harr[i]) smallest = l;
         if (r < heap_size && harr[r] < harr[smallest]) smallest = r;
+        
         if (smallest != i) {
             swap(harr[i], harr[smallest]);
             MinHeapify(smallest);
@@ -87,15 +93,20 @@ public:
             heap_size--;
             return harr[0];
         }
+        
+        // Store minimum value and replace root with last element
         int root = harr[0];
         harr[0] = harr[heap_size - 1];
         heap_size--;
+        
+        // Restore min heap property
         MinHeapify(0);
         return root;
     }
     
     void decreaseKey(int i, int new_val) {
         harr[i] = new_val;
+        // Float up the node to its correct position
         while (i != 0 && harr[parent(i)] > harr[i]) {
             swap(harr[i], harr[parent(i)]);
             i = parent(i);
@@ -104,7 +115,9 @@ public:
     
     void deleteKey(int i) {
         if (i < heap_size) {
+            // Decrease key to negative infinity so it floats to top
             decreaseKey(i, INT_MIN);
+            // Extract the minimum element (the one we just pushed to top)
             extractMin();
         }
     }

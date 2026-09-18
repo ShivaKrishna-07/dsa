@@ -44,20 +44,27 @@ Explanation: Any hand can be grouped if the group size is 1.
 class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
+        // Total cards must be a multiple of groupSize
         if (hand.size() % groupSize != 0) return false;
         
+        // Count frequencies of each card, keeping them sorted
         map<int, int> counts;
         for (int card : hand) {
             counts[card]++;
         }
         
+        // Group cards starting from the smallest available card
         while (!counts.empty()) {
             int first = counts.begin()->first;
+            
+            // Try to form a consecutive sequence of groupSize
             for (int i = 0; i < groupSize; i++) {
                 if (counts.find(first + i) == counts.end()) {
-                    return false;
+                    return false; // A required card is missing
                 }
                 counts[first + i]--;
+                
+                // Remove the card from map if its count drops to 0
                 if (counts[first + i] == 0) {
                     counts.erase(first + i);
                 }

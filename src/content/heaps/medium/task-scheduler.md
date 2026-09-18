@@ -48,11 +48,13 @@ Explanation: A -> idle -> idle -> A -> idle -> idle -> A.
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
+        // Count frequencies of all tasks
         unordered_map<char, int> counts;
         for (char t : tasks) {
             counts[t]++;
         }
         
+        // Max-heap to process the most frequent tasks first
         priority_queue<int> maxHeap;
         for (auto& pair : counts) {
             maxHeap.push(pair.second);
@@ -62,24 +64,30 @@ public:
         
         while (!maxHeap.empty()) {
             vector<int> temp;
-            int cycle = n + 1;
+            int cycle = n + 1; // Number of slots in one cooldown cycle
             
+            // Schedule tasks for the current cycle
             while (cycle > 0 && !maxHeap.empty()) {
                 int max_freq = maxHeap.top();
                 maxHeap.pop();
+                
+                // If a task is not completely finished, queue it for the next cycle
                 if (max_freq > 1) {
                     temp.push_back(max_freq - 1);
                 }
+                
                 time++;
                 cycle--;
             }
             
+            // Push unfinished tasks back into the heap
             for (int t : temp) {
                 maxHeap.push(t);
             }
             
+            // If heap is not empty, it means we need idle time to finish the cycle
             if (!maxHeap.empty()) {
-                time += cycle; // Add idle time
+                time += cycle; 
             }
         }
         

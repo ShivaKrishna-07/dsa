@@ -44,9 +44,9 @@ Only the 10 most recent tweets are returned in the news feed.
 
 ```cpp
 class Twitter {
-    int time;
-    unordered_map<int, unordered_set<int>> following;
-    unordered_map<int, vector<pair<int, int>>> tweets; // userId -> {time, tweetId}
+    int time; // Global timestamp for all tweets
+    unordered_map<int, unordered_set<int>> following; // userId -> set of followees
+    unordered_map<int, vector<pair<int, int>>> tweets; // userId -> list of {time, tweetId}
 
 public:
     Twitter() {
@@ -58,24 +58,26 @@ public:
     }
     
     vector<int> getNewsFeed(int userId) {
-        priority_queue<pair<int, int>> pq; // max-heap by time
+        // Max-heap to sort tweets by timestamp in descending order
+        priority_queue<pair<int, int>> pq; 
         
-        // Add user's own tweets
+        // Add user's own tweets to the heap
         for (auto& t : tweets[userId]) {
             pq.push(t);
         }
         
-        // Add followees' tweets
+        // Add followees' tweets to the heap
         for (int followeeId : following[userId]) {
             for (auto& t : tweets[followeeId]) {
                 pq.push(t);
             }
         }
         
+        // Extract the 10 most recent tweets
         vector<int> res;
         int count = 0;
         while (!pq.empty() && count < 10) {
-            res.push_back(pq.top().second);
+            res.push_back(pq.top().second); // Add tweetId to result
             pq.pop();
             count++;
         }

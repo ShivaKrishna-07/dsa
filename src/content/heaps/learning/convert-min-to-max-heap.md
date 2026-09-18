@@ -43,6 +43,7 @@ class Solution {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
         
+        // Find the largest among root, left child, and right child
         if (left < n && arr[left] > arr[largest]) {
             largest = left;
         }
@@ -50,6 +51,7 @@ class Solution {
             largest = right;
         }
         
+        // If root is not largest, swap and recursively heapify the affected subtree
         if (largest != i) {
             swap(arr[i], arr[largest]);
             maxHeapify(arr, largest, n);
@@ -58,7 +60,7 @@ class Solution {
     
 public:
     void convertMinToMaxHeap(vector<int>& arr, int n) {
-        // Start from bottom-most and rightmost internal node and heapify all internal nodes
+        // Start from the last internal node and heapify all internal nodes bottom-up
         for (int i = (n - 2) / 2; i >= 0; --i) {
             maxHeapify(arr, i, n);
         }

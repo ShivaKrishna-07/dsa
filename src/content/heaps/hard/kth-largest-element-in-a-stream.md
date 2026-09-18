@@ -50,6 +50,7 @@ class KthLargest {
 public:
     KthLargest(int k, vector<int>& nums) {
         this->k = k;
+        // Initialize the stream by adding all given elements
         for (int num : nums) {
             add(num);
         }
@@ -57,9 +58,13 @@ public:
     
     int add(int val) {
         minHeap.push(val);
+        
+        // Maintain a heap size of exactly K
         if (minHeap.size() > k) {
             minHeap.pop();
         }
+        
+        // The Kth largest element is always at the root of the min-heap
         return minHeap.top();
     }
 };

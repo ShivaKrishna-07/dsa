@@ -61,7 +61,7 @@ class Solution {
     bool isHeap(Node* tree) {
         queue<Node*> q;
         q.push(tree);
-        bool child = true;
+        bool isComplete = true; // Flag to track completeness of the tree
         
         while(!q.empty()){
             int sz = q.size();
@@ -70,15 +70,18 @@ class Solution {
                 auto node = q.front();
                 q.pop();
                 
+                // Max-heap property: Parent must be >= left child
                 if(node->left and node->left->data > node->data){
                     return false;
                 }
                 
+                // Max-heap property: Parent must be >= right child
                 if(node->right and node->right->data > node->data){
                     return false;
                 }
                 
-                if(child == false and node->left){
+                // Completeness property: If we have seen a missing node, we can't have any more children
+                if(isComplete == false and node->left){
                     return false;
                 }
                 
@@ -86,17 +89,18 @@ class Solution {
                     q.push(node->left);
                 }
                 else{
-                    child = false;
+                    isComplete = false; // Left child missing, future nodes must be leaves
                 }
                 
                 if(node->right){
                     q.push(node->right);
                 }
                 else{
-                    child = false;
+                    isComplete = false; // Right child missing, future nodes must be leaves
                 }
                 
-                if(child == false and node->right){
+                // Double check completeness for right child
+                if(isComplete == false and node->right){
                     return false;
                 }
             }

@@ -44,16 +44,19 @@ Output: 10
 class Solution{
 public:
     int kthSmallest(int arr[], int l, int r, int k) {
-        // Max-heap to keep track of the smallest k elements
+        // Max-heap to maintain the top K smallest elements seen so far
         priority_queue<int> maxHeap;
         
         for (int i = l; i <= r; i++) {
             maxHeap.push(arr[i]);
+            
+            // If heap size exceeds k, pop the largest element
             if (maxHeap.size() > k) {
-                maxHeap.pop(); // Remove the largest among the smallest k
+                maxHeap.pop(); 
             }
         }
         
+        // The root of the max-heap is the kth smallest element
         return maxHeap.top();
     }
 };

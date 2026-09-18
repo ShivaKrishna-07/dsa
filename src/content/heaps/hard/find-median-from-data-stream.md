@@ -38,8 +38,8 @@ Output: null, null, -1.5, null, -2.0
 
 ```cpp
 class MedianFinder {
-    priority_queue<int> maxHeap; // stores lower half
-    priority_queue<int, vector<int>, greater<int>> minHeap; // stores upper half
+    priority_queue<int> maxHeap; // Stores the smaller half of the numbers
+    priority_queue<int, vector<int>, greater<int>> minHeap; // Stores the larger half
     
 public:
     MedianFinder() {
@@ -49,11 +49,11 @@ public:
     void addNum(int num) {
         maxHeap.push(num);
         
-        // Ensure every element in maxHeap is less than or equal to elements in minHeap
+        // Step 1: Ensure every element in maxHeap is <= elements in minHeap
         minHeap.push(maxHeap.top());
         maxHeap.pop();
         
-        // Balance the heaps: maxHeap can have at most 1 more element than minHeap
+        // Step 2: Balance heaps so maxHeap always has equal or 1 more element than minHeap
         if (maxHeap.size() < minHeap.size()) {
             maxHeap.push(minHeap.top());
             minHeap.pop();
@@ -61,9 +61,11 @@ public:
     }
     
     double findMedian() {
+        // If maxHeap is larger, total elements is odd; root of maxHeap is the median
         if (maxHeap.size() > minHeap.size()) {
             return maxHeap.top();
         } else {
+            // Even elements; median is average of the two roots
             return (maxHeap.top() + minHeap.top()) / 2.0;
         }
     }

@@ -46,13 +46,15 @@ Output: 1 1 1 1
 ```cpp
 class Solution {
 public:
-    // Structure to represent an element with its value, array index, and position in array
+    // Structure to represent a node for the min-heap
     struct Node {
-        int val, arrIdx, valIdx;
+        int val;     // The value of the element
+        int arrIdx;  // Which array the element came from
+        int valIdx;  // The position of the element in its array
         Node(int v, int a, int i) : val(v), arrIdx(a), valIdx(i) {}
     };
     
-    // Custom comparator for the min-heap
+    // Custom comparator for prioritizing the smallest element
     struct Compare {
         bool operator()(Node const& a, Node const& b) {
             return a.val > b.val;
@@ -63,7 +65,7 @@ public:
         vector<int> result;
         priority_queue<Node, vector<Node>, Compare> minHeap;
         
-        // Push the first element of each array into the min-heap
+        // Push the first element of all K arrays into the min-heap
         for(int i = 0; i < K; i++) {
             minHeap.push(Node(arr[i][0], i, 0));
         }
@@ -72,9 +74,10 @@ public:
             Node curr = minHeap.top();
             minHeap.pop();
             
+            // Add the smallest element to the result
             result.push_back(curr.val);
             
-            // If the array of the popped element has more elements, push the next one
+            // If the popped element's array has more elements, push the next element to the heap
             if(curr.valIdx + 1 < arr[curr.arrIdx].size()) {
                 minHeap.push(Node(arr[curr.arrIdx][curr.valIdx + 1], curr.arrIdx, curr.valIdx + 1));
             }

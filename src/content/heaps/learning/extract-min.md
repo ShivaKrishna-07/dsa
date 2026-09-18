@@ -48,9 +48,12 @@ int extractMin() {
         return harr[0];
     }
     
+    // Store the minimum value, and replace root with the last element
     int root = harr[0];
     harr[0] = harr[heap_size - 1];
     heap_size--;
+    
+    // Restore the heap property starting from the new root
     MinHeapify(0);
     
     return root;
@@ -61,11 +64,13 @@ void MinHeapify(int i) {
     int r = 2 * i + 2;
     int smallest = i;
     
+    // Find the smallest among root, left child, and right child
     if (l < heap_size && harr[l] < harr[i])
         smallest = l;
     if (r < heap_size && harr[r] < harr[smallest])
         smallest = r;
         
+    // If root is not the smallest, swap with the smallest child and continue heapifying
     if (smallest != i) {
         swap(harr[i], harr[smallest]);
         MinHeapify(smallest);

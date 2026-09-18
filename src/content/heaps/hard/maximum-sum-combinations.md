@@ -48,18 +48,20 @@ Output: 2, 2
 class Solution {
 public:
     vector<int> maxCombinations(int N, int K, vector<int> &A, vector<int> &B) {
+        // Sort both arrays in descending order to easily track maximum combinations
         sort(A.begin(), A.end(), greater<int>());
         sort(B.begin(), B.end(), greater<int>());
         
-        // Max heap to store pairs of {sum, {i, j}}
+        // Max heap stores the sum and the current indices of A and B
         priority_queue<pair<int, pair<int, int>>> pq;
-        set<pair<int, int>> visited;
+        set<pair<int, int>> visited; // Set to avoid processing duplicate pairs
         
         pq.push({A[0] + B[0], {0, 0}});
         visited.insert({0, 0});
         
         vector<int> res;
         
+        // Extract K maximum sums
         while(K--) {
             auto curr = pq.top();
             pq.pop();
@@ -69,6 +71,7 @@ public:
             int i = curr.second.first;
             int j = curr.second.second;
             
+            // Push next valid combinations by incrementing indices
             if (i + 1 < N && visited.find({i + 1, j}) == visited.end()) {
                 pq.push({A[i + 1] + B[j], {i + 1, j}});
                 visited.insert({i + 1, j});

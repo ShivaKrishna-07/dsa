@@ -49,7 +49,7 @@ public:
         int n = arr.size();
         if (n == 0) return {};
         
-        // Use a min-heap to sort elements while keeping track of original indices
+        // Min-heap to sort elements while tracking their original indices
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
         for (int i = 0; i < n; i++) {
             pq.push({arr[i], i});
@@ -57,15 +57,17 @@ public:
         
         vector<int> res(n);
         int rank = 1;
-        int prev = pq.top().first;
+        int prev = pq.top().first; // Track previous value to handle duplicates
         
         while (!pq.empty()) {
             auto curr = pq.top();
             pq.pop();
             
+            // Increment rank only if the current value is strictly greater than the previous
             if (curr.first > prev) {
                 rank++;
             }
+            
             res[curr.second] = rank;
             prev = curr.first;
         }
