@@ -43,6 +43,12 @@ Output: []
 
 ---
 
+### Intuition
+
+Merging K sorted linked lists works on the exact same principle as merging K sorted arrays. We can push the head node of each linked list into a Min-Heap. We then extract the minimum node, append it to our merged list, and if that node has a `next` node, we push the `next` node into the heap. We continue this until the heap is empty.
+
+---
+
 ### Code
 
 ```cpp

@@ -39,6 +39,12 @@ Explanation: The tree has no left child for the root but has a right child. This
 
 ---
 
+### Intuition
+
+To check if a binary tree is a max-heap, we need to verify two things: first, that it is a complete binary tree, and second, that every parent node has a value greater than or equal to its children. We can do this efficiently by performing a level-order traversal (using a queue). If we ever encounter a node after we've seen a missing child, the tree is incomplete. At the same time, we check if any child is greater than its parent.
+
+---
+
 ### Code
 
 ```cpp

@@ -38,6 +38,12 @@ Output: 10
 
 ---
 
+### Intuition
+
+Similar to finding the Kth largest element, we can use a Max-Heap of size K. As we traverse the array, we insert elements into the heap. If the heap size exceeds K, we remove the maximum element (the root). By doing this, we discard elements that are too large, leaving only the K smallest elements in the heap. The root will then be the Kth smallest element.
+
+---
+
 ### Code
 
 ```cpp

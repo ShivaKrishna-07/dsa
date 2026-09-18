@@ -40,6 +40,12 @@ Only the 10 most recent tweets are returned in the news feed.
 
 ---
 
+### Intuition
+
+To generate a news feed containing the 10 most recent tweets from the user and their followees, we are essentially looking for the top 10 maximums from multiple sorted lists of tweets. A Max-Heap (or a Min-Heap of size 10) is perfect for this. We can push the latest tweets of the user and their followees into a priority queue based on a global timestamp, and then extract the top 10.
+
+---
+
 ### Code
 
 ```cpp

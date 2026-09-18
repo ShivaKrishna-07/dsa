@@ -34,6 +34,12 @@ Output: null, null, -1.5, null, -2.0
 
 ---
 
+### Intuition
+
+To efficiently find the median in a continuous stream of numbers, we can divide the data into two halves. A Max-Heap stores the smaller half of the numbers, and a Min-Heap stores the larger half. We keep the heaps balanced so that their sizes differ by at most 1. The median will then either be the root of the larger heap, or the average of the roots of both heaps.
+
+---
+
 ### Code
 
 ```cpp

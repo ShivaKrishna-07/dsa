@@ -41,6 +41,12 @@ Output: 1 1 1 1
 
 ---
 
+### Intuition
+
+To merge K sorted arrays efficiently, we don't need to combine them all and sort from scratch. Since each array is already sorted, the absolute smallest element must be one of the first elements of the K arrays. We can push the first element of each array into a Min-Heap. Then, we repeatedly extract the smallest element, add it to our result, and push the next element from the extracted element's original array into the heap.
+
+---
+
 ### Code
 
 ```cpp

@@ -55,8 +55,11 @@ export function getAllData() {
             }
             
             const code = codes.length > 0 ? codes[0].code : '';
-            // For the Problem Statement, we can just strip the ### Code section completely
-            const psMatch = content.split('### Code')[0];
+            const beforeCode = content.split('### Code')[0];
+            const intuitionParts = beforeCode.split('### Intuition');
+            
+            let problemStatement = intuitionParts[0].replace('### Problem Statement', '').trim();
+            let intuition = intuitionParts[1] ? intuitionParts[1].trim() : null;
             
             let timeDesc = '';
             let spaceDesc = '';
@@ -91,7 +94,8 @@ export function getAllData() {
               tags: data.tags || [],
               code: code,
               codes: codes,
-              problemStatement: psMatch.replace('### Problem Statement', '').trim()
+              problemStatement: problemStatement,
+              intuition: intuition
             };
           });
         }

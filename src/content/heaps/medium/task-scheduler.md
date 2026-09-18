@@ -42,6 +42,12 @@ Explanation: A -> idle -> idle -> A -> idle -> idle -> A.
 
 ---
 
+### Intuition
+
+To minimize idle time, we should always prioritize scheduling the tasks that have the highest remaining frequency. We can use a Max-Heap to keep track of task counts. In each cycle (of length `n+1`), we greedily pick the most frequent available tasks, execute them, and then put them back in the queue for the next cycle if they still have remaining instances.
+
+---
+
 ### Code
 
 ```cpp

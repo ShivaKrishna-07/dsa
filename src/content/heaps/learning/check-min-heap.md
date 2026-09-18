@@ -37,6 +37,12 @@ Explanation: A single element array is always a valid min-heap.
 
 ---
 
+### Intuition
+
+An array represents a valid min-heap if every parent element is smaller than or equal to its children. Since a heap is a complete binary tree, the left child of an element at index `i` is at `2*i + 1` and the right child is at `2*i + 2`. We can simply iterate through all internal nodes (up to the middle of the array) and check if this property holds true.
+
+---
+
 ### Code
 
 ```cpp

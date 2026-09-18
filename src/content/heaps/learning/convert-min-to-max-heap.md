@@ -34,6 +34,12 @@ Output: [7]
 
 ---
 
+### Intuition
+
+A min-heap is already a complete binary tree, but the parent-child relationships are inverted compared to a max-heap. To convert it, we don't need to rebuild it from scratch. Instead, we can simply perform a bottom-up `maxHeapify` process, starting from the last internal node and moving up to the root. This reshuffles the elements in-place to satisfy the max-heap property.
+
+---
+
 ### Code
 
 ```cpp

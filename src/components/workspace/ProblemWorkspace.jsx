@@ -260,6 +260,16 @@ export default function ProblemWorkspace({ problem }) {
               </article>
             )
           },
+          ...(problem.intuition ? [{
+            value: "intuition",
+            label: "Intuition",
+            icon: Lightbulb,
+            content: (
+              <article className="prose prose-invert max-w-none p-4 sm:p-6">
+                <ReactMarkdown>{problem.intuition}</ReactMarkdown>
+              </article>
+            )
+          }] : []),
           {
             value: "code",
             label: "Code",

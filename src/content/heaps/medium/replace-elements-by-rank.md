@@ -40,6 +40,12 @@ Output: []
 
 ---
 
+### Intuition
+
+To assign ranks based on relative size, we need to know the sorted order of the elements. We can pair each element with its original index and push them into a Min-Heap. By popping from the Min-Heap, we process elements from smallest to largest, assigning ranks. If an element is the same as the previously popped element, it gets the same rank; otherwise, the rank increments.
+
+---
+
 ### Code
 
 ```cpp

@@ -38,6 +38,12 @@ Explanation: Any hand can be grouped if the group size is 1.
 
 ---
 
+### Intuition
+
+To form groups of consecutive cards, we should always greedily start the next group with the smallest available card. If we sort the cards or use a map to keep track of card frequencies, we can continuously pick the smallest remaining card and try to form a sequence of `groupSize`. If we can't find the required consecutive cards to complete the group, then it's impossible.
+
+---
+
 ### Code
 
 ```cpp

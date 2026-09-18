@@ -36,6 +36,12 @@ Heap after extraction: []
 
 ---
 
+### Intuition
+
+When we extract the minimum element from a min-heap, it's always the root. Removing the root directly would break the tree structure. Instead, we replace the root with the last element in the heap and reduce the heap size by 1. Since the new root might be larger than its children, we call `MinHeapify` on the root to 'bubble it down' to its correct position, restoring the heap property.
+
+---
+
 ### Code
 
 ```cpp

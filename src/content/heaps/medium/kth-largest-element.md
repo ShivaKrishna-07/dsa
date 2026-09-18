@@ -37,6 +37,12 @@ Explanation: The 3rd largest element is the smallest element.
 
 ---
 
+### Intuition
+
+If we sort the array, we can easily pick the Kth largest element, but sorting takes `O(N log N)`. To optimize, we can use a Min-Heap of size K. As we iterate through the array, we add elements to the heap. If the heap grows larger than K, we pop the smallest element. By the end, the heap contains only the K largest elements, and the root (the smallest of them) will be exactly the Kth largest element.
+
+---
+
 ### Code
 
 ```cpp

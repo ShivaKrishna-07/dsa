@@ -38,6 +38,12 @@ Output: -1
 
 ---
 
+### Intuition
+
+A Min-Heap can be efficiently represented as an array where the root is at index 0. For any element at index `i`, its left child is at `2i+1`, right child at `2i+2`, and parent at `(i-1)/2`. To insert, we add at the end and 'bubble up'. To extract, we replace the root with the last element and 'bubble down' (heapify). This guarantees `O(log N)` time for both operations.
+
+---
+
 ### Code
 
 ```cpp

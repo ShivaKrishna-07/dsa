@@ -42,6 +42,12 @@ Output: 2, 2
 
 ---
 
+### Intuition
+
+To find the top K maximum sums from two arrays, we can first sort both arrays in descending order. The absolute maximum sum is obviously `A[0] + B[0]`. We can push this sum and its indices into a Max-Heap. From there, the next potential maximums can only be `A[1] + B[0]` or `A[0] + B[1]`. We use the heap to iteratively extract the maximum sum and push the next adjacent combinations, keeping track of visited index pairs.
+
+---
+
 ### Code
 
 ```cpp

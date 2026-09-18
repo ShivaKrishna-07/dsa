@@ -41,6 +41,12 @@ Explanation: With stream [1, 1, 1], the 2nd largest is 1.
 
 ---
 
+### Intuition
+
+To continuously track the Kth largest element as new numbers arrive, we can maintain a Min-Heap of exactly size K. The heap will always hold the top K largest elements seen so far. The smallest among these top K elements (which is the Kth largest overall) will always sit at the root of the min-heap. When a new element arrives, we push it in and pop the smallest if the size exceeds K.
+
+---
+
 ### Code
 
 ```cpp
