@@ -1,7 +1,7 @@
 ---
 title: "Task Scheduler"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Task+Scheduler+leetcode+621"
+youtube: "https://www.youtube.com/watch?v=rYh-Kkbzsnw"
 time: "O(N)"
 space: "O(1)"
 platforms:
