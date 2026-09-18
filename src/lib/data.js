@@ -35,7 +35,7 @@ export function getAllData() {
             const codeSection = partsAfterCode[0];
             const complexitySection = partsAfterCode[1] || '';
             const codes = [];
-            const regex = /```(?:cpp|c\+\+|javascript|js|text)?\n([\s\S]*?)```/g;
+            const regex = /```(?:cpp|c\+\+|javascript|js|text)?\r?\n([\s\S]*?)```/g;
             let match;
             while ((match = regex.exec(codeSection)) !== null) {
               const codeText = match[1].trim();
