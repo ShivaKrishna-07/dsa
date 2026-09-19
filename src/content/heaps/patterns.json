@@ -65,7 +65,9 @@
       "kth-largest-element-in-a-stream",
       "maximum-sum-combinations",
       "find-median-from-data-stream",
-      "top-k-frequent-elements"
+      "top-k-frequent-elements",
+      "merge-k-sorted-arrays",
+      "merge-k-sorted-lists"
     ]
   }
 ]
