@@ -60,12 +60,12 @@
     "template": "class MedianFinder {\n    priority_queue<int> maxHeap;\n    priority_queue<int, vector<int>, greater<int>> minHeap;\n    void addNum(int num) {\n        maxHeap.push(num);\n        minHeap.push(maxHeap.top());\n        maxHeap.pop();\n        if (maxHeap.size() < minHeap.size()) {\n            maxHeap.push(minHeap.top());\n            minHeap.pop();\n        }\n    }\n};",
     "explanation": "Hard heap problems often require maintaining two heaps to balance data (like the Median Finder problem) or mapping objects to priority levels dynamically using structs and custom comparators.",
     "problemsOrder": [
-      "merge-k-sorted-arrays",
-      "merge-k-sorted-lists",
       "design-twitter",
+      "minimum-cost-to-connect-sticks",
       "kth-largest-element-in-a-stream",
       "maximum-sum-combinations",
-      "find-median-from-data-stream"
+      "find-median-from-data-stream",
+      "top-k-frequent-elements"
     ]
   }
 ]
