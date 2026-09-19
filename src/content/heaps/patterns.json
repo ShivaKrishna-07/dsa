@@ -41,7 +41,9 @@
       "kth-smallest-element",
       "replace-elements-by-rank",
       "task-scheduler",
-      "hand-of-straights"
+      "hand-of-straights",
+      "merge-k-sorted-arrays",
+      "merge-k-sorted-lists"
     ]
   },
   {
@@ -65,9 +67,7 @@
       "kth-largest-element-in-a-stream",
       "maximum-sum-combinations",
       "find-median-from-data-stream",
-      "top-k-frequent-elements",
-      "merge-k-sorted-arrays",
-      "merge-k-sorted-lists"
+      "top-k-frequent-elements"
     ]
   }
 ]
