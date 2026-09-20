@@ -44,36 +44,38 @@ To efficiently find the median in a continuous stream of numbers, we can divide 
 
 ```cpp
 class MedianFinder {
-    priority_queue<int> maxHeap; // Stores the smaller half of the numbers
-    priority_queue<int, vector<int>, greater<int>> minHeap; // Stores the larger half
-    
 public:
-    MedianFinder() {
-        
-    }
+    priority_queue<int> left_max_heap; // Max heap for the smaller half
+    priority_queue<int, vector<int>, greater<int>> right_min_heap; // Min heap for the larger half
+
+    MedianFinder() {}
     
     void addNum(int num) {
-        maxHeap.push(num);
+        if(left_max_heap.empty() || num < left_max_heap.top()) {
+            left_max_heap.push(num);
+        } else {
+            right_min_heap.push(num);
+        }
         
-        // Step 1: Ensure every element in maxHeap is <= elements in minHeap
-        minHeap.push(maxHeap.top());
-        maxHeap.pop();
-        
-        // Step 2: Balance heaps so maxHeap always has equal or 1 more element than minHeap
-        if (maxHeap.size() < minHeap.size()) {
-            maxHeap.push(minHeap.top());
-            minHeap.pop();
+        // Always maintain left_max_heap size one greater than right_min_heap size,
+        // or their sizes should be equal.
+        if(abs((int)left_max_heap.size() - (int)right_min_heap.size()) > 1) {
+            right_min_heap.push(left_max_heap.top());
+            left_max_heap.pop();
+        } else if(left_max_heap.size() < right_min_heap.size()) {
+            left_max_heap.push(right_min_heap.top());
+            right_min_heap.pop();
         }
     }
     
     double findMedian() {
-        // If maxHeap is larger, total elements is odd; root of maxHeap is the median
-        if (maxHeap.size() > minHeap.size()) {
-            return maxHeap.top();
-        } else {
-            // Even elements; median is average of the two roots
-            return (maxHeap.top() + minHeap.top()) / 2.0;
+        if(left_max_heap.size() == right_min_heap.size()) {
+            // Meaning we have an even number of elements
+            return (double)(left_max_heap.top() + right_min_heap.top()) / 2.0;
         }
+        
+        // Otherwise, we have an odd number of elements
+        return left_max_heap.top();
     }
 };
 ```
