@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "implementation",
+    "title": "Implementation",
+    "description": "Build stacks and queues with arrays, linked lists, and each other.",
+    "identify": [
+      "The task asks for stack or queue operations with strict ordering",
+      "The data structure must be implemented without using its standard library equivalent"
+    ],
+    "appearsIn": ["Data structure design", "API implementation questions"],
+    "template": "stack<int> st;\nst.push(value);\nint top = st.top();\nst.pop();",
+    "explanation": "Choose the representation that gives each required operation its target complexity.",
+    "problemsOrder": [
+      "implement-stack-using-arrays",
+      "implement-queue-using-arrays",
+      "implement-stack-using-queue",
+      "implement-queue-using-stack",
+      "implement-stack-using-linked-list",
+      "implement-queue-using-linked-list",
+      "balanced-parentheses",
+      "reverse-a-stack"
+    ]
+  },
+  {
+    "slug": "expression-conversions",
+    "title": "Prefix, Infix and Postfix Conversions",
+    "description": "Convert and evaluate expressions while respecting precedence and associativity.",
+    "identify": ["Operators and operands must preserve evaluation order", "Parentheses and precedence affect the output"],
+    "appearsIn": ["Expression parsing", "Compiler fundamentals"],
+    "template": "while (!operators.empty() && precedence(operators.top()) >= precedence(token)) {\n    output += operators.top();\n    operators.pop();\n}",
+    "explanation": "Use an operand stack and an operator stack, or scan from the direction that makes the target notation natural.",
+    "problemsOrder": ["infix-to-postfix", "infix-to-prefix", "prefix-to-infix", "prefix-to-postfix", "postfix-to-infix", "postfix-to-prefix"]
+  },
+  {
+    "slug": "monotonic-stack",
+    "title": "Monotonic Stack",
+    "description": "Use ordered stacks to answer nearest-element and contribution queries in linear time.",
+    "identify": ["The answer depends on the next or previous greater or smaller element", "Elements can be discarded once they can no longer affect a future answer"],
+    "appearsIn": ["Nearest element queries", "Contribution counting"],
+    "template": "for (int i = n - 1; i >= 0; --i) {\n    while (!st.empty() && st.top() <= nums[i]) st.pop();\n    answer[i] = st.empty() ? -1 : st.top();\n    st.push(nums[i]);\n}",
+    "explanation": "Each element enters and leaves the stack once, turning many quadratic scans into linear passes.",
+    "problemsOrder": ["next-greater-element", "next-greater-element-ii", "next-smaller-element", "asteroid-collision", "sum-of-subarray-minimums", "sum-of-subarray-ranges", "remove-k-digits"]
+  }
+]

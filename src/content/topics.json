@@ -38,5 +38,10 @@
     "slug": "heaps",
     "title": "Heaps",
     "icon": "Layers"
+  },
+  {
+    "slug": "stack-queue",
+    "title": "Stack / Queue",
+    "icon": "Layers3"
   }
 ]
