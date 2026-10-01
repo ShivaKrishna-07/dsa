@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import MotionCard from "@/components/ui/MotionCard";
 
 export default function TopicWorkspace({ topic }) {
   return (
@@ -16,27 +15,41 @@ export default function TopicWorkspace({ topic }) {
 
       {topic.patterns.length ? (
         <div className="p-3 md:h-[calc(100%-3rem)] md:overflow-auto md:p-4">
-          <div className="grid gap-4">
-            {topic.patterns.map((pattern) => (
-              <MotionCard key={pattern.slug}>
-                <Link
+          <div className="overflow-hidden rounded-lg border border-ink-800 bg-ink-950/40 shadow-sm w-full">
+            {/* Header */}
+            <div className="grid grid-cols-[minmax(200px,1fr)_120px_60px] gap-4 border-b border-ink-800/60 bg-ink-900/60 px-6 py-4 text-xs uppercase text-ink-400 font-medium">
+              <div>Pattern</div>
+              <div>Problems</div>
+              <div className="text-right"></div>
+            </div>
+            
+            {/* Body */}
+            <div className="divide-y divide-ink-800/60 text-sm text-ink-300">
+              {topic.patterns.map((pattern, index) => (
+                <Link 
+                  key={pattern.slug}
                   href={`/${topic.slug}/${pattern.slug}`}
-                  className="group block rounded-xl border border-ink-800 bg-ink-950/40 p-4 transition hover:border-accent-400 hover:bg-ink-900/60 sm:p-5"
+                  className="grid grid-cols-[minmax(200px,1fr)_120px_60px] items-center gap-4 px-6 py-4 transition-colors hover:bg-ink-900/40 group cursor-pointer"
                 >
-                  <div className="flex items-center justify-between gap-4 sm:gap-6">
-                    <div>
-                      <h2 className="text-base font-semibold text-ink-100 sm:text-xl">{pattern.title}</h2>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-3 sm:gap-5">
-                      <span className="shrink-0 rounded-md border border-ink-800/60 bg-ink-900/50 px-3 py-1.5 text-sm font-medium text-ink-300">
-                        {pattern.problems.length} problems
-                      </span>
-                      <ArrowRight className="h-6 w-6 shrink-0 text-ink-500 transition group-hover:translate-x-1 group-hover:text-accent-300" />
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ink-700/60 bg-ink-900/50 text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
+                      {index + 1}
+                    </span>
+                    <div className="font-medium text-ink-100 text-base">
+                      {pattern.title}
                     </div>
                   </div>
+                  <div className="whitespace-nowrap">
+                    <span className="inline-flex items-center rounded-md border border-ink-800/60 bg-ink-900/40 px-2.5 py-1 text-xs font-medium">
+                      {pattern.problems.length} problems
+                    </span>
+                  </div>
+                  <div className="whitespace-nowrap flex justify-end">
+                    <ArrowRight className="h-5 w-5 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
+                  </div>
                 </Link>
-              </MotionCard>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       ) : (
