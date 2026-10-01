@@ -1,10 +1,10 @@
 ---
 title: "Insert into a Binary Search Tree"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Insert+into+a+Binary+Search+Tree"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Insert+into+a+Binary+Search+Tree"
   leetcode: "https://leetcode.com/problems/insert-into-a-binary-search-tree/"
 ---
 

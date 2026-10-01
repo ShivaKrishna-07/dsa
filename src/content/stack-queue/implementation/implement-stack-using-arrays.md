@@ -1,10 +1,10 @@
 ---
 title: "Implement Stack using Arrays"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Arrays"
 time: "O(1)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Arrays"
   gfg: "https://practice.geeksforgeeks.org/problems/implement-stack-using-array/1"
 ---
 

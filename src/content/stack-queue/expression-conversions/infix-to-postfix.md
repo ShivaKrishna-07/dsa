@@ -1,10 +1,10 @@
 ---
 title: "Infix to Postfix"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Infix+to+Postfix+Conversion"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Infix+to+Postfix+Conversion"
   gfg: "https://practice.geeksforgeeks.org/problems/infix-to-postfix-1587115620/1"
 ---
 

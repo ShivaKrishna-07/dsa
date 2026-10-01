@@ -1,10 +1,10 @@
 ---
 title: "Letter Combinations of a Phone Number"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Letter+Combinations+of+a+Phone+Number"
 time: "O(4^N * N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Letter+Combinations+of+a+Phone+Number"
   leetcode: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
 ---
 

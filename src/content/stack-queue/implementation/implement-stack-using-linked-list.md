@@ -1,10 +1,10 @@
 ---
 title: "Implement Stack using Linked List"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Linked+List"
 time: "O(1)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Linked+List"
   gfg: "https://practice.geeksforgeeks.org/problems/implement-stack-using-linked-list/1"
 ---
 

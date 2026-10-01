@@ -1,10 +1,10 @@
 ---
 title: "Sum of Subarray Ranges"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Sum+of+Subarray+Ranges+leetcode+2104"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Sum+of+Subarray+Ranges+leetcode+2104"
   leetcode: "https://leetcode.com/problems/sum-of-subarray-ranges/"
 ---
 

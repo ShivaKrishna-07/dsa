@@ -1,10 +1,10 @@
 ---
 title: "Fractional Knapsack"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Fractional+Knapsack+greedy+algorithm"
 time: "O(N log N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Fractional+Knapsack+greedy+algorithm"
   gfg: "https://practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1"
 ---
 

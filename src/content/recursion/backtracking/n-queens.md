@@ -1,10 +1,10 @@
 ---
 title: "N-Queens"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+N-Queens"
 time: "O(N!)"
 space: "O(N^2)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+N-Queens"
   leetcode: "https://leetcode.com/problems/n-queens/"
   article: "https://takeuforward.org/data-structure/n-queen-problem-return-all-distinct-solutions-to-the-n-queens-puzzle/"
 ---

@@ -1,10 +1,10 @@
 ---
 title: "Merge K Sorted Arrays"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Merge+K+Sorted+Arrays"
 time: "O(N * K * log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Merge+K+Sorted+Arrays"
   gfg: "https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1"
 ---
 

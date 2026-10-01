@@ -1,10 +1,10 @@
 ---
 title: "Lowest Common Ancestor of a BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Lowest+Common+Ancestor+BST+leetcode+235"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Lowest+Common+Ancestor+BST+leetcode+235"
   leetcode: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
 ---
 

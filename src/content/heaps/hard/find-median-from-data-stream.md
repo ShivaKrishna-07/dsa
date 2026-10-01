@@ -1,10 +1,10 @@
 ---
 title: "Find Median from Data Stream"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Find+Median+from+Data+Stream+leetcode+295"
 time: "O(log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Find+Median+from+Data+Stream+leetcode+295"
   leetcode: "https://leetcode.com/problems/find-median-from-data-stream/"
 ---
 

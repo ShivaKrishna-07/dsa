@@ -1,10 +1,10 @@
 ---
 title: "Construct BST from Preorder Traversal"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Construct+BST+from+Preorder+Traversal+leetcode+1008"
 time: "O(N)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Construct+BST+from+Preorder+Traversal+leetcode+1008"
   leetcode: "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/"
 ---
 

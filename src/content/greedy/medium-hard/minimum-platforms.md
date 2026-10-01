@@ -1,10 +1,10 @@
 ---
 title: "Minimum Platforms"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Minimum+number+of+platforms+required+for+a+railway"
 time: "O(N log N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Minimum+number+of+platforms+required+for+a+railway"
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1"
 ---
 

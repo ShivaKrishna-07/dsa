@@ -1,10 +1,10 @@
 ---
 title: "Palindrome Partitioning"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Palindrome+Partitioning"
 time: "O(2^N * N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Palindrome+Partitioning"
   leetcode: "https://leetcode.com/problems/palindrome-partitioning/"
   article: "https://takeuforward.org/data-structure/palindrome-partitioning/"
 ---

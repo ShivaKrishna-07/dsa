@@ -1,10 +1,10 @@
 ---
 title: "Kth Smallest Element in an Array"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Kth+Smallest+Element"
 time: "O(N log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Kth+Smallest+Element"
   gfg: "https://practice.geeksforgeeks.org/problems/kth-smallest-element5635/1"
 ---
 

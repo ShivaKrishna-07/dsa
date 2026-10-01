@@ -1,10 +1,10 @@
 ---
 title: "Check if an array is a Min Heap"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Check+if+an+array+is+a+Min+Heap"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Check+if+an+array+is+a+Min+Heap"
   gfg: "https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1"
 ---
 

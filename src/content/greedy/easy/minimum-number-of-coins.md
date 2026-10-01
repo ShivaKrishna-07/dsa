@@ -1,10 +1,10 @@
 ---
 title: "Minimum Number of Coins"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Greedy+algorithm+to+find+minimum+number+of+coins"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Greedy+algorithm+to+find+minimum+number+of+coins"
   gfg: "https://practice.geeksforgeeks.org/problems/find-minimum-number-of-coins/1"
 ---
 

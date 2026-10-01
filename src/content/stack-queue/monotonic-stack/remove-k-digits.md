@@ -1,10 +1,10 @@
 ---
 title: "Remove K Digits"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Remove+K+Digits+leetcode+402"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Remove+K+Digits+leetcode+402"
   leetcode: "https://leetcode.com/problems/remove-k-digits/"
 ---
 

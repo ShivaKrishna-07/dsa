@@ -1,10 +1,10 @@
 ---
 title: "Prefix to Postfix"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Prefix+to+Postfix+Conversion"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Prefix+to+Postfix+Conversion"
   gfg: "https://practice.geeksforgeeks.org/problems/prefix-to-postfix-conversion/1"
 ---
 

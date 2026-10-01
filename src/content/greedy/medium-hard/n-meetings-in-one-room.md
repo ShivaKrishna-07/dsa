@@ -1,10 +1,10 @@
 ---
 title: "N meetings in one room"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=N+meetings+in+one+room+greedy"
 time: "O(N log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=N+meetings+in+one+room+greedy"
   gfg: "https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1"
 ---
 

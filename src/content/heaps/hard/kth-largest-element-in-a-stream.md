@@ -1,10 +1,10 @@
 ---
 title: "Kth Largest Element in a Stream"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Kth+Largest+Element+in+a+Stream+leetcode+703"
 time: "O(log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Kth+Largest+Element+in+a+Stream+leetcode+703"
   leetcode: "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
 ---
 

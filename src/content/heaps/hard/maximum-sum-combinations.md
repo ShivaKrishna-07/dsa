@@ -1,10 +1,10 @@
 ---
 title: "Maximum Sum Combinations"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Maximum+Sum+Combinations"
 time: "O(N log N + K log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Maximum+Sum+Combinations"
   gfg: "https://practice.geeksforgeeks.org/problems/maximum-sum-combination/1"
 ---
 

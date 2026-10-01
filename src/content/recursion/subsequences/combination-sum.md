@@ -1,10 +1,10 @@
 ---
 title: "Combination Sum"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/watch?v=OyZFFqQtu98"
 time: "O(2^T * k)"
 space: "O(T/min)"
 platforms:
+  youtube: "https://www.youtube.com/watch?v=OyZFFqQtu98"
   leetcode: "https://leetcode.com/problems/combination-sum/description/"
   article: "https://takeuforward.org/data-structure/combination-sum-1/"
 ---

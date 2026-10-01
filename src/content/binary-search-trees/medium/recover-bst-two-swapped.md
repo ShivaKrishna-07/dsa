@@ -1,10 +1,10 @@
 ---
 title: "Recover Binary Search Tree"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Recover+Binary+Search+Tree+leetcode+99"
 time: "O(N)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Recover+Binary+Search+Tree+leetcode+99"
   leetcode: "https://leetcode.com/problems/recover-binary-search-tree/"
 ---
 

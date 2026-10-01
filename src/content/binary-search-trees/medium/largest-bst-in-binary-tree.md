@@ -1,10 +1,10 @@
 ---
 title: "Largest BST in Binary Tree"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Largest+BST+in+Binary+Tree"
 time: "O(N)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Largest+BST+in+Binary+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/largest-bst/1"
 ---
 

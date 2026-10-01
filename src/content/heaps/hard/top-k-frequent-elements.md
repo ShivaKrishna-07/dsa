@@ -1,10 +1,10 @@
 ---
 title: "Top K Frequent Elements"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Top+K+Frequent+Elements+leetcode+347"
 time: "O(N log K)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Top+K+Frequent+Elements+leetcode+347"
   leetcode: "https://leetcode.com/problems/top-k-frequent-elements/"
   gfg: "https://practice.geeksforgeeks.org/problems/top-k-frequent-elements-in-array/1"
 ---

@@ -1,10 +1,10 @@
 ---
 title: "Word Search"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Word+Search"
 time: "O(N * M * 4^L)"
 space: "O(L)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Word+Search"
   leetcode: "https://leetcode.com/problems/word-search/"
   article: "https://takeuforward.org/data-structure/word-search-leetcode/"
 ---

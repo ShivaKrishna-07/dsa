@@ -1,10 +1,10 @@
 ---
 title: "Validate Binary Search Tree"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Validate+Binary+Search+Tree+leetcode+98"
 time: "O(N)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Validate+Binary+Search+Tree+leetcode+98"
   leetcode: "https://leetcode.com/problems/validate-binary-search-tree/"
 ---
 

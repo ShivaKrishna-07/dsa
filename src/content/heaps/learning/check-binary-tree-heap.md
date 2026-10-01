@@ -1,10 +1,10 @@
 ---
 title: "Check if Binary Tree is a Heap"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Check+if+Binary+Tree+is+a+Heap"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Check+if+Binary+Tree+is+a+Heap"
   gfg: "https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1"
 ---
 

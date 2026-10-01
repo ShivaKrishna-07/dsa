@@ -1,10 +1,10 @@
 ---
 title: "Merge K Sorted Lists"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Merge+K+Sorted+Lists+leetcode+23"
 time: "O(N log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Merge+K+Sorted+Lists+leetcode+23"
   leetcode: "https://leetcode.com/problems/merge-k-sorted-lists/"
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: "Subsets"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/watch?v=b7AYbpM5YrE"
 time: "O(2^N * N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/watch?v=b7AYbpM5YrE"
   leetcode: "https://leetcode.com/problems/subsets/description/"
   article: "https://takeuforward.org/data-structure/power-set-print-all-the-possible-subsequences-of-the-string/"
 ---

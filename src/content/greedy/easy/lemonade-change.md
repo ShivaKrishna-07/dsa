@@ -1,10 +1,10 @@
 ---
 title: "Lemonade Change"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Lemonade+Change+leetcode+860"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Lemonade+Change+leetcode+860"
   leetcode: "https://leetcode.com/problems/lemonade-change/"
 ---
 

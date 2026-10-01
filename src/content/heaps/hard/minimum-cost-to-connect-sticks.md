@@ -1,10 +1,10 @@
 ---
 title: "Minimum Cost to Connect Sticks"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Minimum+Cost+to+Connect+Sticks+leetcode"
 time: "O(N log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Minimum+Cost+to+Connect+Sticks+leetcode"
   leetcode: "https://leetcode.com/problems/minimum-cost-to-connect-sticks/"
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1"
 ---

@@ -1,10 +1,10 @@
 ---
 title: "Combination Sum II"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Combination+Sum+II"
 time: "O(2^N * k)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Combination+Sum+II"
   leetcode: "https://leetcode.com/problems/combination-sum-ii/description/"
   article: "https://takeuforward.org/data-structure/combination-sum-ii-find-all-unique-combinations/"
 ---

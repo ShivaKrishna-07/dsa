@@ -1,10 +1,10 @@
 ---
 title: "Expression Add Operators"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Expression+Add+Operators+leetcode+282"
 time: "O(N * 4^N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Expression+Add+Operators+leetcode+282"
   leetcode: "https://leetcode.com/problems/expression-add-operators/"
 ---
 

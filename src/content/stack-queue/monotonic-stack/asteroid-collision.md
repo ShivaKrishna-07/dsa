@@ -1,10 +1,10 @@
 ---
 title: "Asteroid Collision"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Asteroid+Collision+leetcode+735"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Asteroid+Collision+leetcode+735"
   leetcode: "https://leetcode.com/problems/asteroid-collision/"
 ---
 

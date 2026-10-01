@@ -1,10 +1,10 @@
 ---
 title: "Delete Node in a BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Delete+Node+in+a+BST"
 time: "O(H)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Delete+Node+in+a+BST"
   leetcode: "https://leetcode.com/problems/delete-node-in-a-bst/"
 ---
 

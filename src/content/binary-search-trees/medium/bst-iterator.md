@@ -1,10 +1,10 @@
 ---
 title: "Binary Search Tree Iterator"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Binary+Search+Tree+Iterator+leetcode+173"
 time: "O(1) Average"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Binary+Search+Tree+Iterator+leetcode+173"
   leetcode: "https://leetcode.com/problems/binary-search-tree-iterator/"
 ---
 

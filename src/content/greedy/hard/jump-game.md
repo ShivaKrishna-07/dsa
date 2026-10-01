@@ -1,10 +1,10 @@
 ---
 title: "Jump Game"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Jump+Game+leetcode+55"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Jump+Game+leetcode+55"
   leetcode: "https://leetcode.com/problems/jump-game/"
 ---
 

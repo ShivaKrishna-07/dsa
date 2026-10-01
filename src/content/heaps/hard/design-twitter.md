@@ -1,10 +1,10 @@
 ---
 title: "Design Twitter"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Design+Twitter+leetcode+355"
 time: "O(N log K)"
 space: "O(U + T)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Design+Twitter+leetcode+355"
   leetcode: "https://leetcode.com/problems/design-twitter/"
 ---
 

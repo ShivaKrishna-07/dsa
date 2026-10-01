@@ -1,10 +1,10 @@
 ---
 title: "Convert Sorted List to Binary Search Tree"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Convert+Sorted+List+to+Binary+Search+Tree+leetcode+109"
 time: "O(N log N)"
 space: "O(log N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Convert+Sorted+List+to+Binary+Search+Tree+leetcode+109"
   leetcode: "https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/"
 ---
 

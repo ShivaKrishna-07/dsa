@@ -1,10 +1,10 @@
 ---
 title: "Sudoku Solver"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sudoku+Solver"
 time: "O(9^(n^2))"
 space: "O(n^2)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sudoku+Solver"
   leetcode: "https://leetcode.com/problems/sudoku-solver/"
   article: "https://takeuforward.org/data-structure/sudoku-solver/"
 ---

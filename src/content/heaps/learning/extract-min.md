@@ -1,10 +1,10 @@
 ---
 title: "Extract Min"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Extract+Min+from+Min+Heap"
 time: "O(log N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Extract+Min+from+Min+Heap"
   gfg: "https://practice.geeksforgeeks.org/problems/operations-on-binary-min-heap/1"
 ---
 

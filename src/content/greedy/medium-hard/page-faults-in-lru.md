@@ -1,10 +1,10 @@
 ---
 title: "Page Faults in LRU"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Page+Faults+in+LRU"
 time: "O(N * C)"
 space: "O(C)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Page+Faults+in+LRU"
   gfg: "https://practice.geeksforgeeks.org/problems/page-faults-in-lru5603/1"
 ---
 

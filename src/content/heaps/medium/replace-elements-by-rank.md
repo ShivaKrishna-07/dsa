@@ -1,10 +1,10 @@
 ---
 title: "Replace elements by its rank in the array"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Replace+elements+by+its+rank+in+the+array+leetcode+1331"
 time: "O(N log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Replace+elements+by+its+rank+in+the+array+leetcode+1331"
   leetcode: "https://leetcode.com/problems/rank-transform-of-an-array/"
 ---
 

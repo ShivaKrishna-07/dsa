@@ -1,10 +1,10 @@
 ---
 title: "Assign Cookies"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Assign+Cookies+leetcode+455"
 time: "O(N log N + M log M)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Assign+Cookies+leetcode+455"
   leetcode: "https://leetcode.com/problems/assign-cookies/"
 ---
 

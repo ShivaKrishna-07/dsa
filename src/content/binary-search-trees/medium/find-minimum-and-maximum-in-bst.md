@@ -1,10 +1,10 @@
 ---
 title: "Find Minimum and Maximum in BST"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Find+Minimum+in+BST"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Find+Minimum+in+BST"
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-element-in-bst/1"
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: "Permutations"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Permutations"
 time: "O(N! * N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Permutations"
   leetcode: "https://leetcode.com/problems/permutations/"
   article: "https://takeuforward.org/data-structure/print-all-permutations-of-a-string-array/"
 ---

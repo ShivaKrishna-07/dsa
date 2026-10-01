@@ -1,10 +1,10 @@
 ---
 title: "Permutations II"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Permutations+II"
 time: "O(N! * N)"
 space: "O(N^2)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Permutations+II"
   leetcode: "https://leetcode.com/problems/permutations-ii/"
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: "Balanced Parentheses"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Valid+Parentheses+leetcode+20"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Valid+Parentheses+leetcode+20"
   leetcode: "https://leetcode.com/problems/valid-parentheses/"
   gfg: "https://practice.geeksforgeeks.org/problems/parenthesis-checker2744/1"
 ---

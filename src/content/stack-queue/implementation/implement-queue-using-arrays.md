@@ -1,10 +1,10 @@
 ---
 title: "Implement Queue using Arrays"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Implement+Queue+using+Arrays"
 time: "O(1)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Implement+Queue+using+Arrays"
   gfg: "https://practice.geeksforgeeks.org/problems/implement-queue-using-array/1"
 ---
 

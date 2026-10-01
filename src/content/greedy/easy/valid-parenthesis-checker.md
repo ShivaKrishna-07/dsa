@@ -1,10 +1,10 @@
 ---
 title: "Valid Parenthesis Checker"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Valid+Parenthesis+String+leetcode+678"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Valid+Parenthesis+String+leetcode+678"
   leetcode: "https://leetcode.com/problems/valid-parenthesis-string/"
 ---
 

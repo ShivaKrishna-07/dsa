@@ -1,10 +1,10 @@
 ---
 title: "Ceil in a BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Ceil+in+a+BST"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Ceil+in+a+BST"
   gfg: "https://practice.geeksforgeeks.org/problems/implementing-ceil-in-bst/1"
 ---
 

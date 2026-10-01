@@ -1,10 +1,10 @@
 ---
 title: "Sort Stack using Recursion"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sort+a+Stack+using+Recursion"
 time: "O(N^2)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sort+a+Stack+using+Recursion"
   gfg: "https://www.geeksforgeeks.org/problems/sort-a-stack/1"
   article: "https://takeuforward.org/data-structure/sort-a-stack-using-recursion/"
 ---

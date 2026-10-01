@@ -1,10 +1,10 @@
 ---
 title: "Combination Sum III"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Combination+Sum+III"
 time: "O(2^9 * k)"
 space: "O(k)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Combination+Sum+III"
   leetcode: "https://leetcode.com/problems/combination-sum-iii/description/"
 ---
 

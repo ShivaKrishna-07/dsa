@@ -1,10 +1,10 @@
 ---
 title: "Implement Stack using Queue"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Queue+leetcode+225"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Queue+leetcode+225"
   leetcode: "https://leetcode.com/problems/implement-stack-using-queues/"
 ---
 

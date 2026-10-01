@@ -1,10 +1,10 @@
 ---
 title: "Shortest Job First"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Shortest+Job+First+CPU+Scheduling"
 time: "O(N log N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Shortest+Job+First+CPU+Scheduling"
   gfg: "https://practice.geeksforgeeks.org/problems/shortest-job-first/1"
 ---
 

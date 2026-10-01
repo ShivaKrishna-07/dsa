@@ -1,10 +1,10 @@
 ---
 title: "Prefix to Infix"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Prefix+to+Infix+Conversion"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Prefix+to+Infix+Conversion"
   gfg: "https://practice.geeksforgeeks.org/problems/prefix-to-infix-conversion/1"
 ---
 

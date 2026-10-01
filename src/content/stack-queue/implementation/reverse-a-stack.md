@@ -1,10 +1,10 @@
 ---
 title: "Reverse a Stack"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Reverse+a+Stack+using+recursion"
 time: "O(N^2)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Reverse+a+Stack+using+recursion"
   gfg: "https://practice.geeksforgeeks.org/problems/reverse-a-stack/1"
 ---
 

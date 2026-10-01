@@ -1,10 +1,10 @@
 ---
 title: "Two Sum IV - Input is a BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Two+Sum+IV+BST+leetcode+653"
 time: "O(N)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Two+Sum+IV+BST+leetcode+653"
   leetcode: "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/"
 ---
 

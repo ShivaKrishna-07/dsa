@@ -1,10 +1,10 @@
 ---
 title: "Kth Largest Element in an Array"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Kth+Largest+Element+in+an+Array+leetcode+215"
 time: "O(N log K)"
 space: "O(K)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Kth+Largest+Element+in+an+Array+leetcode+215"
   leetcode: "https://leetcode.com/problems/kth-largest-element-in-an-array/"
 ---
 

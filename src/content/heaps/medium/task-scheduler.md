@@ -1,10 +1,10 @@
 ---
 title: "Task Scheduler"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/watch?v=rYh-Kkbzsnw"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/watch?v=rYh-Kkbzsnw"
   leetcode: "https://leetcode.com/problems/task-scheduler/"
 ---
 

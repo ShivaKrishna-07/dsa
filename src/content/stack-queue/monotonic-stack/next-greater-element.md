@@ -1,10 +1,10 @@
 ---
 title: "Next Greater Element I"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Next+Greater+Element+leetcode+496"
 time: "O(N + M)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Next+Greater+Element+leetcode+496"
   leetcode: "https://leetcode.com/problems/next-greater-element-i/"
   gfg: "https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1"
 ---

@@ -1,10 +1,10 @@
 ---
 title: "Convert Min Heap to Max Heap"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Convert+Min+Heap+to+Max+Heap"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Convert+Min+Heap+to+Max+Heap"
   gfg: "https://practice.geeksforgeeks.org/problems/convert-min-heap-to-max-heap-1666385109/1"
 ---
 

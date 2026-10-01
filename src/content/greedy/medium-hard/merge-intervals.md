@@ -1,10 +1,10 @@
 ---
 title: "Merge Intervals"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Merge+Intervals+leetcode+56"
 time: "O(N log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Merge+Intervals+leetcode+56"
   leetcode: "https://leetcode.com/problems/merge-intervals/"
 ---
 

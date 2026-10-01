@@ -1,10 +1,10 @@
 ---
 title: "Kth Smallest / Largest Element in BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Kth+Smallest+Largest+Element+in+BST"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Kth+Smallest+Largest+Element+in+BST"
   leetcode: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/"
   gfg: "https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1"
 ---

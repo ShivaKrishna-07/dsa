@@ -1,10 +1,10 @@
 ---
 title: "Next Smaller Element"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Next+Smaller+Element"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Next+Smaller+Element"
   gfg: "https://practice.geeksforgeeks.org/problems/help-classmates--141631/1"
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: "Count Good Numbers"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Count+Good+Numbers"
 time: "O(log N)"
 space: "O(log N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Count+Good+Numbers"
   leetcode: "https://leetcode.com/problems/count-good-numbers/description/"
 ---
 

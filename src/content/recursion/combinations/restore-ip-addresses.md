@@ -1,10 +1,10 @@
 ---
 title: "Restore IP Addresses"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=take+U+forward+Restore+IP+Addresses"
 time: "O(3^4)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=take+U+forward+Restore+IP+Addresses"
   leetcode: "https://leetcode.com/problems/restore-ip-addresses/"
 ---
 

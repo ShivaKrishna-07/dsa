@@ -1,10 +1,10 @@
 ---
 title: "Next Greater Element II"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Next+Greater+Element+II+leetcode+503"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Next+Greater+Element+II+leetcode+503"
   leetcode: "https://leetcode.com/problems/next-greater-element-ii/"
 ---
 

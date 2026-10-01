@@ -1,10 +1,10 @@
 ---
 title: "Sum of Subarray Minimums"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Sum+of+Subarray+Minimums+leetcode+907"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Sum+of+Subarray+Minimums+leetcode+907"
   leetcode: "https://leetcode.com/problems/sum-of-subarray-minimums/"
 ---
 

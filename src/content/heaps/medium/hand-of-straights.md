@@ -1,10 +1,10 @@
 ---
 title: "Hand of Straights"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Hand+of+Straights+leetcode+846"
 time: "O(N log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Hand+of+Straights+leetcode+846"
   leetcode: "https://leetcode.com/problems/hand-of-straights/"
 ---
 

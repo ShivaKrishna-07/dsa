@@ -1,10 +1,10 @@
 ---
 title: "Min Heap Implementation"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Min+Heap+Implementation"
 time: "O(log N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Min+Heap+Implementation"
   gfg: "https://practice.geeksforgeeks.org/problems/operations-on-binary-min-heap/1"
 ---
 

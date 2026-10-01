@@ -1,10 +1,10 @@
 ---
 title: "Inorder Successor and Predecessor in BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Inorder+Successor+Predecessor+BST"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Inorder+Successor+Predecessor+BST"
   gfg: "https://practice.geeksforgeeks.org/problems/predecessor-and-successor/1"
 ---
 

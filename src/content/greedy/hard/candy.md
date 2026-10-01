@@ -1,10 +1,10 @@
 ---
 title: "Candy"
 difficulty: "Hard"
-youtube: "https://www.youtube.com/results?search_query=Candy+leetcode+135"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Candy+leetcode+135"
   leetcode: "https://leetcode.com/problems/candy/"
 ---
 

@@ -1,10 +1,10 @@
 ---
 title: "Search in a Binary Search Tree"
 difficulty: "Easy"
-youtube: "https://www.youtube.com/results?search_query=Search+in+a+Binary+Search+Tree"
 time: "O(H)"
 space: "O(H)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Search+in+a+Binary+Search+Tree"
   leetcode: "https://leetcode.com/problems/search-in-a-binary-search-tree/"
 ---
 

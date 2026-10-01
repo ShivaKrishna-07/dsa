@@ -1,10 +1,10 @@
 ---
 title: "Floor in a BST"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Floor+in+a+BST"
 time: "O(H)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Floor+in+a+BST"
   gfg: "https://practice.geeksforgeeks.org/problems/floor-in-bst/1"
 ---
 

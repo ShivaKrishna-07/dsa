@@ -1,10 +1,10 @@
 ---
 title: "Pow(x,n)"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/watch?v=l0YC3876qxg"
 time: "O(log N)"
 space: "O(log N)"
 platforms:
+  youtube: "https://www.youtube.com/watch?v=l0YC3876qxg"
   leetcode: "https://leetcode.com/problems/powx-n/description/"
   article: "https://takeuforward.org/data-structure/implement-powxn-x-raised-to-the-power-n/"
 ---

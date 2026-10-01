@@ -1,10 +1,10 @@
 ---
 title: "Insert Interval"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Insert+Interval+leetcode+57"
 time: "O(N)"
 space: "O(N)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Insert+Interval+leetcode+57"
   leetcode: "https://leetcode.com/problems/insert-interval/"
 ---
 

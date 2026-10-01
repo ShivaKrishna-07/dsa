@@ -1,10 +1,10 @@
 ---
 title: "Job Sequencing Problem"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Job+Sequencing+Problem+greedy"
 time: "O(N log N + N * max_deadline)"
 space: "O(max_deadline)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Job+Sequencing+Problem+greedy"
   gfg: "https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1"
 ---
 

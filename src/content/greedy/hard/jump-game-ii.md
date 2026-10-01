@@ -1,10 +1,10 @@
 ---
 title: "Jump Game II"
 difficulty: "Medium"
-youtube: "https://www.youtube.com/results?search_query=Jump+Game+II+leetcode+45"
 time: "O(N)"
 space: "O(1)"
 platforms:
+  youtube: "https://www.youtube.com/results?search_query=Jump+Game+II+leetcode+45"
   leetcode: "https://leetcode.com/problems/jump-game-ii/"
 ---
 
