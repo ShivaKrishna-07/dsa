@@ -45,6 +45,11 @@
     "icon": "Layers3"
   },
   {
+    "slug": "binary-trees",
+    "title": "Binary Trees",
+    "icon": "FolderTree"
+  },
+  {
     "slug": "binary-search-trees",
     "title": "Binary Search Trees",
     "icon": "Binary"

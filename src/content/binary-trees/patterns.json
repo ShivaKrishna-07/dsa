@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "tree-traversal-techniques",
+    "title": "1. Tree Traversal Techniques",
+    "description": "Techniques to visit every node in a binary tree in a systematic way.",
+    "identify": [
+      "The problem requires visiting all nodes in a specific order.",
+      "The problem asks for DFS (Preorder, Inorder, Postorder) or BFS (Level Order)."
+    ],
+    "appearsIn": [
+      "Tree serialization",
+      "Finding specific paths or nodes"
+    ],
+    "template": "void inorder(TreeNode* root) {\n    if(root == NULL) return;\n    inorder(root->left);\n    // process root\n    inorder(root->right);\n}",
+    "explanation": "Traversals form the foundation of all tree algorithms. They dictate the order in which we access and process nodes.",
+    "problemsOrder": [
+      "inorder-traversal",
+      "preorder-traversal",
+      "postorder-traversal",
+      "level-order-traversal",
+      "zigzag-level-order-traversal",
+      "boundary-traversal",
+      "morris-inorder",
+      "morris-preorder"
+    ]
+  },
+  {
+    "slug": "tree-properties",
+    "title": "2. Tree Properties",
+    "description": "Algorithms that determine the structural properties of a binary tree.",
+    "identify": [
+      "The problem asks for height, diameter, or width.",
+      "The problem requires checking symmetry, balance, or identical structures."
+    ],
+    "appearsIn": [
+      "Validating tree structures",
+      "Performance optimizations"
+    ],
+    "template": "int height(TreeNode* root) {\n    if(!root) return 0;\n    return 1 + max(height(root->left), height(root->right));\n}",
+    "explanation": "These problems generally rely on Postorder traversal (Bottom-Up approach), where we compute properties of subtrees first and then combine them at the parent.",
+    "problemsOrder": [
+      "height-of-a-binary-tree",
+      "check-if-balanced",
+      "diameter-of-binary-tree",
+      "check-if-two-trees-are-identical",
+      "maximum-width-of-binary-tree",
+      "check-children-sum-property",
+      "count-nodes-in-complete-tree"
+    ]
+  },
+  {
+    "slug": "tree-views",
+    "title": "3. Tree Views",
+    "description": "Visualizing the tree from different perspectives (Top, Bottom, Left, Right).",
+    "identify": [
+      "The problem asks for the outer boundary or visible nodes from a specific angle."
+    ],
+    "appearsIn": [
+      "2D tree representations",
+      "Shadow problems"
+    ],
+    "template": "",
+    "explanation": "Views typically rely on Level Order Traversal (BFS) combined with a horizontal distance map or a depth map to track the first or last node seen at each position.",
+    "problemsOrder": [
+      "top-view",
+      "bottom-view",
+      "right-view",
+      "left-view",
+      "diagonal-view"
+    ]
+  },
+  {
+    "slug": "path-related-problems",
+    "title": "4. Path-Related Problems",
+    "description": "Finding or analyzing paths between nodes in a tree.",
+    "identify": [
+      "The problem asks for a path from root to leaf.",
+      "The problem asks for a path sum or distance between any two nodes."
+    ],
+    "appearsIn": [
+      "Graph-like tree problems",
+      "Game scenarios"
+    ],
+    "template": "",
+    "explanation": "Paths are explored using Preorder traversal (Top-Down) while passing the current path state down to children.",
+    "problemsOrder": [
+      "root-to-node-path",
+      "path-sum",
+      "maximum-root-to-leaf-sum-paths",
+      "max-path-sum",
+      "all-nodes-distance-k",
+      "burning-tree",
+      "smallest-string-starting-from-leaf"
+    ]
+  },
+  {
+    "slug": "tree-ancestor-problems",
+    "title": "5. Tree Ancestor Problems",
+    "description": "Problems focused on finding common ancestors or relationships between distant nodes.",
+    "identify": [
+      "The problem requires finding the Lowest Common Ancestor (LCA).",
+      "The problem asks for the distance or relationship between a node and its ancestors."
+    ],
+    "appearsIn": [
+      "Hierarchy systems",
+      "Routing in trees"
+    ],
+    "template": "",
+    "explanation": "Ancestor problems often use a Bottom-Up traversal to bubble up matching nodes to their common parent.",
+    "problemsOrder": [
+      "lowest-common-ancestor",
+      "ancestors-in-binary-tree",
+      "maximum-difference-between-node-and-ancestor"
+    ]
+  },
+  {
+    "slug": "tree-constructions",
+    "title": "6. Tree Constructions",
+    "description": "Building or modifying the structure of a tree based on specific rules or traversals.",
+    "identify": [
+      "The problem provides two traversals (e.g., Inorder + Preorder) and asks to build the tree.",
+      "The problem asks to flatten or mutate the tree."
+    ],
+    "appearsIn": [
+      "Deserialization",
+      "Data structure transformations"
+    ],
+    "template": "",
+    "explanation": "Construction uses a recursive Divide and Conquer strategy, identifying the root first, and then recursively building the left and right subtrees.",
+    "problemsOrder": [
+      "construct-tree-from-preorder-inorder",
+      "construct-tree-from-postorder-inorder",
+      "construct-string-from-binary-tree",
+      "convert-binary-tree-to-mirror",
+      "flatten-binary-tree-to-linked-list"
+    ]
+  },
+  {
+    "slug": "serialize-deserialize",
+    "title": "7. Serialize and Deserialize",
+    "description": "Converting a tree into a string or array format and vice versa.",
+    "identify": [
+      "The problem asks to save a tree to a file or transmit it over a network."
+    ],
+    "appearsIn": [
+      "System design",
+      "Data persistence"
+    ],
+    "template": "",
+    "explanation": "Serialization typically relies on Preorder or Level Order traversal, ensuring that NULL nodes are explicitly marked so the tree can be unambiguously reconstructed.",
+    "problemsOrder": [
+      "serialize-and-deserialize-binary-tree",
+      "verify-preorder-serialization"
+    ]
+  }
+]
