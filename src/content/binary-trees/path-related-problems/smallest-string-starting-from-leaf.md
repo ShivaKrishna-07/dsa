@@ -15,11 +15,11 @@ Return the lexicographically smallest string that starts at a leaf of this tree 
 
 **Example 1:**
 ```text
-        **0** (a)
+        0 (a)
        /   \
-  **1** (b) 2 (c)
+  1 (b) 2 (c)
    / \      / \
-**3**(d) 4(e) 3(d) 4(e)
+3(d) 4(e) 3(d) 4(e)
 
 Input: root = [0,1,2,3,4,3,4]
 Output: "dba"

@@ -18,13 +18,13 @@ Given a Binary Tree, find its Boundary Traversal. The traversal should be in the
 
 **Example 1:**
 ```text
-        **1**
+        1
        /   \
-     **2**     **3**
+     2     3
     / \    / \
-  **4**  **5**  6   **7**
+  4  5  6   7
       / \
-     **8**  **9**
+     8  9
 
 Input: root = [1,2,3,4,5,6,7,null,null,8,9]
 Output: [1,2,4,8,9,6,7,3]

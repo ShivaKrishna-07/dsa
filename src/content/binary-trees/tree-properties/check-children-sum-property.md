@@ -16,7 +16,7 @@ The Children Sum Property states that for every node of the tree, its value is e
 
 **Example 1:**
 ```text
-        **10**
+        10
        /   \
       10    0
 

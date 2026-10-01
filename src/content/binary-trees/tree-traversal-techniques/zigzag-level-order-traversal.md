@@ -15,9 +15,9 @@ Given the `root` of a binary tree, return the zigzag level order traversal of it
 
 **Example 1:**
 ```text
-        **3**
+        3
        /   \
-      9     **20**
+      9     20
            /  \
          15    7
 

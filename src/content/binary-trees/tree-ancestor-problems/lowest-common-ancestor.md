@@ -16,9 +16,9 @@ The lowest common ancestor is defined between two nodes `p` and `q` as the lowes
 
 **Example 1:**
 ```text
-        **3**
+        3
        /     \
-     **5**    1
+     5    1
     / \     / \
    6   2   0   8
       / \

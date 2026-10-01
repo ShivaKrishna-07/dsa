@@ -16,11 +16,11 @@ Preorder traversal follows the **Root, Left, Right** order.
 
 **Example 1:**
 ```text
-        **1**
+        1
           \
-           **2**
+           2
           /
-        **3**
+        3
 
 Input: root = [1,null,2,3]
 Output: [1,2,3]

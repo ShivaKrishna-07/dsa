@@ -15,9 +15,9 @@ Given the `root` of a binary tree, return the level order traversal of its nodes
 
 **Example 1:**
 ```text
-        **3**
+        3
        /   \
-      9     **20**
+      9     20
            /  \
          15    7
 
