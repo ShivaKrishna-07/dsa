@@ -43,5 +43,10 @@
     "slug": "stack-queue",
     "title": "Stack / Queue",
     "icon": "Layers3"
+  },
+  {
+    "slug": "binary-search-trees",
+    "title": "Binary Search Trees",
+    "icon": "Binary"
   }
 ]
