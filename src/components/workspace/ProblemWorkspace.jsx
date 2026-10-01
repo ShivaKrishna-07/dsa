@@ -241,6 +241,22 @@ export default function ProblemWorkspace({ problem }) {
                         }
                       }
                       
+                      // Check for custom highlight syntax in text/tree blocks
+                      if (!isInline && className === 'language-text') {
+                        const htmlContent = String(children)
+                          .replace(/</g, '&lt;')
+                          .replace(/>/g, '&gt;')
+                          .replace(/\*\*(.*?)\*\*/g, '<span class="text-rose-400 font-bold bg-rose-500/10 px-1 rounded-sm">$1</span>');
+                          
+                        if (htmlContent !== String(children).replace(/</g, '&lt;').replace(/>/g, '&gt;')) {
+                          return (
+                            <pre className="whitespace-pre-wrap break-words rounded bg-ink-950/80 p-4">
+                              <code className={className} dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                            </pre>
+                          );
+                        }
+                      }
+                      
                       return isInline ? (
                         <code className={`${className || ""} px-1.5 py-0.5 rounded bg-ink-950/60 text-accent-300 font-mono text-xs`} {...props}>
                           {children}
