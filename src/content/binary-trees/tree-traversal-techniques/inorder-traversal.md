@@ -77,6 +77,24 @@ public:
         return ans;
     }
 };
+
+class SolutionRecursive {
+private:
+    void traverse(TreeNode* node, vector<int>& ans) {
+        if (node == NULL) return;
+        traverse(node->left, ans);
+        ans.push_back(node->val);
+        traverse(node->right, ans);
+    }
+    
+public:
+    // Recursive Approach
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        traverse(root, ans);
+        return ans;
+    }
+};
 ```
 
 ---
