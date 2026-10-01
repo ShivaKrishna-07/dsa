@@ -1,47 +1,85 @@
 ---
 title: "Remove K Digits"
 difficulty: "Medium"
+youtube: "https://www.youtube.com/results?search_query=Remove+K+Digits+leetcode+402"
 time: "O(N)"
 space: "O(N)"
-tags: ["Monotonic Stack"]
+platforms:
+  leetcode: "https://leetcode.com/problems/remove-k-digits/"
 ---
 
 ### Problem Statement
 
-Remove exactly `k` digits from a non-negative number to produce the smallest possible number.
+Given string `num` representing a non-negative integer `num`, and an integer `k`, return the smallest possible integer after removing `k` digits from `num`.
 
-### Examples
+**Example 1:**
+```text
+Input: num = "1432219", k = 3
+Output: "1219"
+Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.
+```
 
-- **Input:** `num = "1432219", k = 3` **Output:** `"1219"`
-- **Input:** `num = "10200", k = 1` **Output:** `"200"`
-- **Input:** `num = "10", k = 2` **Output:** `"0"`
+**Example 2:**
+```text
+Input: num = "10200", k = 1
+Output: "200"
+Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes.
+```
 
-### Constraints
+**Example 3: (Edge Case - Remove all)**
+```text
+Input: num = "10", k = 2
+Output: "0"
+Explanation: Remove all the digits from the number and it is left with nothing which is 0.
+```
 
-- `1 <= num.length <= 10^5`
-- `num` contains only digits and has no leading zero unless it is `"0"`.
-- `0 <= k <= num.length`
+---
 
 ### Intuition
 
-Remove a previous larger digit whenever a smaller current digit arrives. The remaining digits are the smallest lexicographic choice.
+To make the resulting number as small as possible, we should prioritize removing larger digits that appear earlier (at higher decimal places). 
+We can use a **Monotonic Stack**. As we iterate through the digits from left to right, if the current digit is smaller than the top of our stack, popping the top digit guarantees a smaller resulting number! We do this until we've removed `k` digits. Finally, we handle edge cases like remaining `k` (e.g., for increasing strings like "1234"), and strip leading zeros.
+
+---
 
 ### Code
 
 ```cpp
-string removeKdigits(string number, int k) {
-    string st;
-    for (char digit : number) {
-        while (k && !st.empty() && st.back() > digit) { st.pop_back(); --k; }
-        st.push_back(digit);
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        string ans = ""; // Using string as a stack
+        
+        for (char c : num) {
+            // While current digit is smaller than the last recorded digit, pop it!
+            while (ans.length() > 0 && ans.back() > c && k > 0) {
+                ans.pop_back();
+                k--;
+            }
+            
+            // Prevent pushing leading zeros
+            if (ans.length() > 0 || c != '0') {
+                ans.push_back(c);
+            }
+        }
+        
+        // If we still need to remove digits (e.g., number was like "1234")
+        while (ans.length() > 0 && k > 0) {
+            ans.pop_back();
+            k--;
+        }
+        
+        // If string is empty, the smallest number is "0"
+        if (ans == "") return "0";
+        
+        return ans;
     }
-    while (k-- && !st.empty()) st.pop_back();
-    int start = st.find_first_not_of('0');
-    return start == string::npos ? "0" : st.substr(start);
-}
+};
 ```
+
+---
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(N)` amortized because each digit is pushed and removed at most once.
-- **Space Complexity:** `O(N)` for the monotonic digit stack.
+- **Time Complexity:** `O(N)` where `N` is the length of `num`. Every digit is pushed and popped at most once.
+- **Space Complexity:** `O(N)` to store the result (which acts as our stack).
