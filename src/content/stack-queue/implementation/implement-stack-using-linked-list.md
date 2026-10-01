@@ -1,44 +1,103 @@
 ---
 title: "Implement Stack using Linked List"
-difficulty: "Easy"
+difficulty: "Medium"
+youtube: "https://www.youtube.com/results?search_query=Implement+Stack+using+Linked+List"
 time: "O(1)"
 space: "O(N)"
-tags: ["Stack", "Linked List"]
+platforms:
+  gfg: "https://practice.geeksforgeeks.org/problems/implement-stack-using-linked-list/1"
 ---
 
 ### Problem Statement
 
-Implement a stack using a singly linked list.
+Design a stack that supports push, pop, top, and empty operations using a linked list. 
+- `push(x)`: Pushes element `x` onto the top of the stack.
+- `pop()`: Removes the element on the top of the stack and returns it.
 
-### Examples
+**Example 1:**
+```text
+Input:
+push(2), push(3), pop(), push(4), pop()
+Output:
+3, 4
+Explanation:
+push(2) -> stack is 2
+push(3) -> stack is 3 -> 2
+pop()   -> returns 3, stack becomes 2
+push(4) -> stack is 4 -> 2
+pop()   -> returns 4
+```
 
-- **Input:** `push(10), push(20), top()` **Output:** `20`
-- **Input:** `push(10), pop(), empty()` **Output:** `true`
+**Example 2:**
+```text
+Input:
+pop() on an empty stack
+Output:
+-1
+```
 
-### Constraints
+**Example 3: (Edge Case - Pushing many items)**
+```text
+Input: push(1), push(2), push(3), pop(), pop(), pop()
+Output: 3, 2, 1
+```
 
-- `1 <= number of operations <= 10^5`
-- The linked list must grow dynamically with the number of elements.
+---
 
 ### Intuition
 
-Use the head as the stack top. Inserting and removing at the head avoids traversal.
+Unlike an array-based stack which can overflow, a linked list stack can grow dynamically. To achieve `O(1)` time complexity for all operations, we must insert and remove nodes at the **head** of the linked list. The head of the linked list essentially acts as the top of the stack.
+
+---
 
 ### Code
 
 ```cpp
-class Stack {
-    struct Node { int value; Node* next; };
-    Node* head = nullptr;
+/*
+struct StackNode {
+    int data;
+    StackNode *next;
+    StackNode(int a) {
+        data = a;
+        next = NULL;
+    }
+};
+*/
+
+class MyStack {
+private:
+    StackNode *top;
+    
 public:
-    void push(int value) { head = new Node{value, head}; }
-    void pop() { if (head) { Node* old = head; head = head->next; delete old; } }
-    int top() { return head ? head->value : -1; }
-    bool empty() { return head == nullptr; }
+    MyStack() { top = NULL; }
+    
+    // Function to push an integer into the stack.
+    void push(int x) {
+        // Create new node and link it before the current top
+        StackNode* newNode = new StackNode(x);
+        newNode->next = top;
+        top = newNode;
+    }
+    
+    // Function to remove an item from top of the stack.
+    int pop() {
+        // Return -1 if stack is empty
+        if (top == NULL) return -1;
+        
+        // Save data and delete the top node
+        int poppedData = top->data;
+        StackNode* temp = top;
+        top = top->next;
+        delete temp;
+        
+        return poppedData;
+    }
 };
 ```
 
+---
+
 ### Complexity Analysis
 
-- **Time Complexity:** `O(1)` per operation.
-- **Space Complexity:** `O(N)` for the linked-list nodes.
+- **Time Complexity:** `O(1)` for both push and pop because we only manipulate the head pointer.
+- **Space Complexity:** `O(N)` since we dynamically allocate memory for each inserted element.

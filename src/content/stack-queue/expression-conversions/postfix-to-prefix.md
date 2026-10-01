@@ -1,44 +1,85 @@
 ---
-title: "Postfix to Prefix Conversion"
+title: "Postfix to Prefix"
 difficulty: "Medium"
+youtube: "https://www.youtube.com/results?search_query=Postfix+to+Prefix+Conversion"
 time: "O(N)"
 space: "O(N)"
-tags: ["Stack", "Expressions"]
+platforms:
+  gfg: "https://practice.geeksforgeeks.org/problems/postfix-to-prefix-conversion/1"
 ---
 
 ### Problem Statement
 
-Convert a postfix expression to prefix notation.
+You are given a string `s` representing a postfix expression. Convert it to a prefix expression.
+- Postfix expression: The operator follows the operands (e.g., `A B *`).
+- Prefix expression: The operator precedes the operands (e.g., `* A B`).
 
-### Examples
+**Example 1:**
+```text
+Input: s = "ABC/-AK/L-*"
+Output: *-A/BC-/AKL
+```
 
-- **Input:** `ab+` **Output:** `+ab`.
+**Example 2:**
+```text
+Input: s = "ab+c*"
+Output: *+abc
+```
 
-**Edge Case:** For a non-commutative operator, preserve the left and right pop order exactly.
+**Example 3: (Edge Case - simple operands)**
+```text
+Input: s = "ab+"
+Output: +ab
+```
 
-### Constraints
-
-- `1 <= expression.length <= 10^5`
-- The postfix expression is valid and contains binary operators only.
+---
 
 ### Intuition
 
-Scan left to right and put each operator before the two expression fragments it combines. Postfix order already determines precedence, so no operator stack is required.
+For Postfix expressions, we read them **forwards** (from left to right). 
+We use a stack of strings. When we see an operand, we push it onto the stack. When we see an operator, we pop the top two operands from the stack (first popped is `operand2`, second is `operand1`), prefix them with the operator (`operator + operand1 + operand2`), and push the new combined string back onto the stack!
+
+---
 
 ### Code
 
 ```cpp
-string postfixToPrefix(string expression) {
-    stack<string> st;
-    for (char c : expression) {
-        if (isalnum(c)) st.push(string(1, c));
-        else { string right = st.top(); st.pop(); string left = st.top(); st.pop(); st.push(string(1, c) + left + right); }
+class Solution {
+public:
+    string postToPre(string s) {
+        stack<string> st;
+        
+        // Traverse the postfix expression from left to right
+        for (int i = 0; i < s.length(); i++) {
+            char c = s[i];
+            
+            // If character is an operand, push to stack
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+                st.push(string(1, c));
+            } 
+            // If operator, pop two operands and format as prefix
+            else {
+                // Because we read left-to-right, the top is operand2
+                string op2 = st.top(); st.pop();
+                string op1 = st.top(); st.pop();
+                
+                // Prefix format: Operator + Operand1 + Operand2
+                string temp = c + op1 + op2;
+                
+                // Push the combined string back
+                st.push(temp);
+            }
+        }
+        
+        // Final element is the complete prefix expression
+        return st.top();
     }
-    return st.top();
-}
+};
 ```
+
+---
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(N)` because each token is processed exactly once.
-- **Space Complexity:** `O(N)` for intermediate prefix expressions.
+- **Time Complexity:** `O(N)` where `N` is the length of the string. Processed completely in one pass.
+- **Space Complexity:** `O(N)` for the stack.
