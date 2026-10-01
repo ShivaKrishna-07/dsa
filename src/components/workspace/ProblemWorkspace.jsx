@@ -109,13 +109,14 @@ export default function ProblemWorkspace({ problem }) {
                       const textContent = String(children);
                       const isInline = inline || (className ? !className.startsWith('language-') : true);
                       
-                      const isMatrixContext = pathname?.includes('matrix') || pathname?.includes('grid') || textContent.includes('matrix =') || textContent.includes('mat =') || textContent.includes('grid =');
+                      const trimmed = textContent.trim();
+                      const lines = trimmed.split('\n');
+                      const inputLine = lines.find(l => l.trim().startsWith('Input:'));
                       
-                      if (!isRecursionTopic && !pathname?.includes('tree') && !isInline && isMatrixContext && textContent.includes('[[')) {
-                        const trimmed = textContent.trim();
-                        
-                        // Try parsing as a matrix-example block
-                        const lines = trimmed.split('\n');
+                      const has2DInput = inputLine && inputLine.includes('[[');
+                      const isStandaloneMatrix = !inputLine && /^\[\s*\[[\s\S]*?\]\s*\]$/.test(trimmed);
+                      
+                      if (!isRecursionTopic && !pathname?.includes('tree') && !isInline && (has2DInput || isStandaloneMatrix || className === 'language-matrix')) {
                         let matrix = null;
                         let otherInputs = '';
                         let outputVal = '';
