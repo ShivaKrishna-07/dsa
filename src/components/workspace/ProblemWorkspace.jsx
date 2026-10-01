@@ -109,7 +109,9 @@ export default function ProblemWorkspace({ problem }) {
                       const textContent = String(children);
                       const isInline = inline || (className ? !className.startsWith('language-') : true);
                       
-                      if (!isRecursionTopic && !isInline && (textContent.includes('[[') || textContent.includes('matrix =') || textContent.includes('mat ='))) {
+                      const isMatrixContext = pathname?.includes('matrix') || pathname?.includes('grid') || textContent.includes('matrix =') || textContent.includes('mat =') || textContent.includes('grid =');
+                      
+                      if (!isRecursionTopic && !pathname?.includes('tree') && !isInline && isMatrixContext && textContent.includes('[[')) {
                         const trimmed = textContent.trim();
                         
                         // Try parsing as a matrix-example block
