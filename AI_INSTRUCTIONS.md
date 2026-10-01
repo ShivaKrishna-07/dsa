@@ -1,6 +1,6 @@
-# Workspace Rules
+# AI Agent Guidelines for DSA Project
 
-When generating or editing problem markdown files under `src/content/`, strictly adhere to the following rules:
+When generating or editing problem markdown files under `src/content/`, ALL AI agents must strictly adhere to the following rules:
 
 ## 1. Code Style
 - Write the **cleanest possible code**.
@@ -15,8 +15,8 @@ When generating or editing problem markdown files under `src/content/`, strictly
 ## 3. Frontmatter & Links
 All markdown files must have YAML frontmatter with a `platforms:` object. 
 - **Coding Platform Link:** Always prioritize the **LeetCode** problem link. If LeetCode is not available, use the **GFG Practice link** (NOT a GFG article link).
-- **YouTube Link:** Check the Striver A2Z sheet. If there is a direct YouTube video link, use it. Otherwise, use a search query (e.g., `youtube: "https://www.youtube.com/results?search_query=<problem_name>"`). Place this inside the `platforms:` object!
-- **Article Link:** Include the Striver sheet article link if one exists, inside the `platforms:` object.
+- **YouTube Link:** Check the Striver A2Z sheet. If there is a direct YouTube video link, use it. Otherwise, use a search query (e.g., `youtube: "https://www.youtube.com/results?search_query=<problem_name>"`).
+- **Article Link:** Include the Striver sheet article link if one exists.
 
 ### Example Frontmatter Template:
 ```yaml
