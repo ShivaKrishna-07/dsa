@@ -2,17 +2,17 @@
   {
     "slug": "arrays",
     "title": "Arrays",
-    "icon": "Library"
+    "icon": "Columns3"
   },
   {
     "slug": "binary-search",
     "title": "Binary Search",
-    "icon": "Search"
+    "icon": "SearchCode"
   },
   {
     "slug": "strings",
     "title": "Strings",
-    "icon": "Type"
+    "icon": "TextCursorInput"
   },
   {
     "slug": "linked-list",
@@ -22,7 +22,7 @@
   {
     "slug": "sliding-window",
     "title": "Sliding Window",
-    "icon": "RectangleHorizontal"
+    "icon": "PanelTop"
   },
   {
     "slug": "recursion",
@@ -32,22 +32,22 @@
   {
     "slug": "greedy",
     "title": "Greedy",
-    "icon": "Coins"
+    "icon": "Zap"
   },
   {
     "slug": "heaps",
     "title": "Heaps",
-    "icon": "Layers"
+    "icon": "Database"
   },
   {
     "slug": "stack-queue",
-    "title": "Stack / Queue",
+    "title": "Stack & Queue",
     "icon": "Layers3"
   },
   {
     "slug": "binary-trees",
     "title": "Binary Trees",
-    "icon": "FolderTree"
+    "icon": "Network"
   },
   {
     "slug": "binary-search-trees",
