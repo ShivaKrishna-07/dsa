@@ -41,36 +41,65 @@ The width of a level is simply `(last node index) - (first node index) + 1`. We 
 ### Code
 
 ```cpp
+// Approach-1 (Using BFS)
 class Solution {
 public:
+    typedef unsigned long long ll;
     int widthOfBinaryTree(TreeNode* root) {
-        if (!root) return 0;
-        
-        long long maxWidth = 0;
-        queue<pair<TreeNode*, long long>> q;
+        if(!root)   
+            return 0;
+        queue<pair<TreeNode*, ll>> q;
         q.push({root, 0});
+        ll maxWidth = 0;
         
-        while (!q.empty()) {
-            int size = q.size();
-            long long minIndex = q.front().second; // minimum index at this level
-            long long first, last;
+        while(!q.empty()) {
+            int n = q.size();
+            ll f = q.front().second;
+            ll l = q.back().second;
+            maxWidth = max(maxWidth, l-f+1);
             
-            for (int i = 0; i < size; i++) {
-                // Normalize index to prevent overflow
-                long long currIndex = q.front().second - minIndex;
-                TreeNode* node = q.front().first;
+            while(n--) {
+                TreeNode* curr = q.front().first;
+                ll d          = q.front().second;
                 q.pop();
-                
-                if (i == 0) first = currIndex;
-                if (i == size - 1) last = currIndex;
-                
-                if (node->left) q.push({node->left, currIndex * 2 + 1});
-                if (node->right) q.push({node->right, currIndex * 2 + 2});
+                if(curr->left) {
+                    q.push({curr->left, 2*d+1});
+                }
+                if(curr->right) {
+                    q.push({curr->right, 2*d+2});
+                }
             }
-            
-            maxWidth = max(maxWidth, last - first + 1);
+        }
+        return maxWidth;
+    }
+};
+
+// Approach-2 : Using DFS
+class SolutionDFS {
+public:
+    typedef unsigned long long ll;
+    
+    void DFS(TreeNode* root, ll d, int level, vector<int>& arr, ll& maxWidth) {
+        if(!root)
+            return;
+        
+        if(level == arr.size()) {
+            arr.push_back(d);
+        } else {
+            maxWidth = max(maxWidth, d-arr[level]+1);
         }
         
+        DFS(root->left, 2*d+1, level+1, arr, maxWidth);
+        DFS(root->right, 2*d+2, level+1, arr, maxWidth);
+    }
+    
+    int widthOfBinaryTree(TreeNode* root) {
+        if(!root)   
+            return 0;
+        
+        ll maxWidth = 1;
+        vector<int> arr;
+        DFS(root, 0, 0, arr, maxWidth);
         return maxWidth;
     }
 };
