@@ -48,24 +48,18 @@ We can check this recursively. For any given node, if it is a leaf node, we retu
 
 ```cpp
 class Solution {
-public:
-    int isSumProperty(Node *root) {
-        // Base cases
-        if (root == NULL) return 1;
-        if (root->left == NULL && root->right == NULL) return 1;
+  public:
+    bool isSumProperty(Node *root) {
+        // code here
+        if(root == NULL) return true;
+        if(root->left == NULL && root->right == NULL) return true;
         
-        int sum = 0;
-        if (root->left) sum += root->left->data;
-        if (root->right) sum += root->right->data;
+        int left = root->left ? root->left->data : 0;
+        int right = root->right ? root->right->data : 0;
         
-        // Current node satisfies property, check subtrees
-        if (root->data == sum 
-            && isSumProperty(root->left) 
-            && isSumProperty(root->right)) {
-            return 1;
-        }
+        if(root->data != left+right) return false;
         
-        return 0;
+        return isSumProperty(root->left) && isSumProperty(root->right);
     }
 };
 ```
