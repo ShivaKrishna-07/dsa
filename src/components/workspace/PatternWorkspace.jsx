@@ -18,8 +18,8 @@ export default function PatternWorkspace({ topic, pattern }) {
           icon: ListChecks,
           content: (
             <div className="grid gap-3">
-              {pattern.problems.map((problem) => (
-                <ProblemCard key={problem.slug} topicSlug={topic.slug} patternSlug={pattern.slug} problem={problem} />
+              {pattern.problems.map((problem, index) => (
+                <ProblemCard key={problem.slug} topicSlug={topic.slug} patternSlug={pattern.slug} problem={problem} index={index} />
               ))}
             </div>
           )
