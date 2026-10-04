@@ -58,8 +58,16 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
   );
 }
 
+const platformWidths = {
+  leetcode: "w-[108px]",
+  gfg: "w-[108px]",
+  youtube: "w-[96px]",
+  article: "w-[84px]"
+};
+
 function PlatformLink({ platform, url }) {
   const Icon = platformIcons[platform];
+  const widthClass = platformWidths[platform] || "w-[100px]";
 
   function open(event) {
     event.preventDefault();
@@ -75,7 +83,7 @@ function PlatformLink({ platform, url }) {
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") open(event);
       }}
-      className="w-[96px] shrink-0 justify-center inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
+      className={`${widthClass} shrink-0 justify-center inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100`}
     >
       {Icon ? <Icon className={`h-3.5 w-3.5 shrink-0 ${platformIconClass[platform] || ""}`} /> : null}
       <span className="truncate">{platformLabel(platform)}</span>
