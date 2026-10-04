@@ -14,7 +14,7 @@ export default function TopicWorkspace({ topic }) {
       </div>
 
       {topic.patterns.length ? (
-        <div className="p-3 md:h-[calc(100%-3rem)] md:overflow-auto md:p-4">
+        <div className="md:h-[calc(100%-3rem)] md:overflow-auto">
           <div className="w-full">
             {/* Body */}
             <div className="divide-y divide-ink-800/60 text-sm text-ink-300">
@@ -22,7 +22,7 @@ export default function TopicWorkspace({ topic }) {
                 <Link 
                   key={pattern.slug}
                   href={`/${topic.slug}/${pattern.slug}`}
-                  className="grid grid-cols-[minmax(200px,1fr)_120px_60px] items-center gap-4 px-6 py-4 transition-colors hover:bg-ink-900/40 group cursor-pointer"
+                  className="grid grid-cols-[minmax(200px,1fr)_120px_60px] items-center gap-4 px-4 py-4 sm:px-6 transition-colors hover:bg-ink-900/40 group cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ink-700/60 bg-ink-900/50 text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
