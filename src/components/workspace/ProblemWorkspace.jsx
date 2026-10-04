@@ -33,7 +33,7 @@ export default function ProblemWorkspace({ problem }) {
   });
 
   return (
-    <div className="grid gap-4 lg:h-[calc(100vh-11.5rem)] lg:grid-cols-[22rem_minmax(0,1fr)]">
+    <div className="flex flex-col-reverse gap-4 lg:grid lg:h-[calc(100vh-11.5rem)] lg:grid-cols-[22rem_minmax(0,1fr)]">
       <aside className="rounded-md border border-ink-800 bg-ink-900/40 p-4 lg:sticky lg:top-[126px] lg:h-[calc(100vh-11.5rem)] lg:overflow-auto">
         <h1 className="mb-4 text-2xl font-semibold sm:text-3xl">{problem.title}</h1>
         <div className="flex flex-wrap items-center gap-2">

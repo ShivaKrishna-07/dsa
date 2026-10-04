@@ -118,7 +118,7 @@ export default function Breadcrumb({ items, prevProblem, nextProblem, showNav })
           </div>
         )}
 
-        <nav aria-label="Breadcrumb" className="flex-1 flex flex-wrap items-center gap-1.5 rounded-xl border border-ink-800/60 bg-ink-900/30 px-4 py-2 text-sm text-ink-400 shadow-sm backdrop-blur">
+        <nav aria-label="Breadcrumb" className="flex-1 flex items-center gap-1.5 rounded-xl border border-ink-800/60 bg-ink-900/30 px-4 py-2 text-sm text-ink-400 shadow-sm backdrop-blur overflow-x-auto whitespace-nowrap code-scroll">
           {allItems.map((item, index) => (
             <span key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               {index > 0 ? <ChevronRight className="h-4 w-4 text-ink-600/70" /> : null}
