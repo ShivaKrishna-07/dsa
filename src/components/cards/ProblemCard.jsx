@@ -36,11 +36,11 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
           </div>
           
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 pl-12 sm:pl-0 shrink-0">
-            <span className={`rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
+            <span className={`w-[68px] shrink-0 text-center rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
               {problem.difficulty}
             </span>
             {problem.label && (
-              <span className="inline-flex items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
                 <Flame className="h-3 w-3 fill-red-500 text-red-500" />
                 {problem.label}
               </span>
@@ -75,11 +75,11 @@ function PlatformLink({ platform, url }) {
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") open(event);
       }}
-      className="inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
+      className="w-[96px] shrink-0 justify-center inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100"
     >
-      {Icon ? <Icon className={`h-3.5 w-3.5 ${platformIconClass[platform] || ""}`} /> : null}
-      {platformLabel(platform)}
-      <ExternalLink className="h-3 w-3" />
+      {Icon ? <Icon className={`h-3.5 w-3.5 shrink-0 ${platformIconClass[platform] || ""}`} /> : null}
+      <span className="truncate">{platformLabel(platform)}</span>
+      <ExternalLink className="h-3 w-3 shrink-0" />
     </span>
   );
 }
