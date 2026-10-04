@@ -1,7 +1,7 @@
 [
   {
     "slug": "tree-traversal-techniques",
-    "title": "1. Tree Traversal Techniques",
+    "title": "Tree Traversal Techniques",
     "description": "Techniques to visit every node in a binary tree in a systematic way.",
     "identify": [
       "The problem requires visiting all nodes in a specific order.",
@@ -26,7 +26,7 @@
   },
   {
     "slug": "tree-properties",
-    "title": "2. Tree Properties",
+    "title": "Tree Properties",
     "description": "Algorithms that determine the structural properties of a binary tree.",
     "identify": [
       "The problem asks for height, diameter, or width.",
@@ -50,7 +50,7 @@
   },
   {
     "slug": "tree-views",
-    "title": "3. Tree Views",
+    "title": "Tree Views",
     "description": "Visualizing the tree from different perspectives (Top, Bottom, Left, Right).",
     "identify": [
       "The problem asks for the outer boundary or visible nodes from a specific angle."
@@ -71,7 +71,7 @@
   },
   {
     "slug": "path-related-problems",
-    "title": "4. Path-Related Problems",
+    "title": "Path-Related Problems",
     "description": "Finding or analyzing paths between nodes in a tree.",
     "identify": [
       "The problem asks for a path from root to leaf.",
@@ -96,7 +96,7 @@
   },
   {
     "slug": "tree-ancestor-problems",
-    "title": "5. Tree Ancestor Problems",
+    "title": "Tree Ancestor Problems",
     "description": "Problems focused on finding common ancestors or relationships between distant nodes.",
     "identify": [
       "The problem requires finding the Lowest Common Ancestor (LCA).",
@@ -116,7 +116,7 @@
   },
   {
     "slug": "tree-constructions",
-    "title": "6. Tree Constructions",
+    "title": "Tree Constructions",
     "description": "Building or modifying the structure of a tree based on specific rules or traversals.",
     "identify": [
       "The problem provides two traversals (e.g., Inorder + Preorder) and asks to build the tree.",
@@ -138,7 +138,7 @@
   },
   {
     "slug": "serialize-deserialize",
-    "title": "7. Serialize and Deserialize",
+    "title": "Serialize and Deserialize",
     "description": "Converting a tree into a string or array format and vice versa.",
     "identify": [
       "The problem asks to save a tree to a file or transmit it over a network."

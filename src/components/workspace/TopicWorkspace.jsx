@@ -15,14 +15,7 @@ export default function TopicWorkspace({ topic }) {
 
       {topic.patterns.length ? (
         <div className="p-3 md:h-[calc(100%-3rem)] md:overflow-auto md:p-4">
-          <div className="overflow-hidden rounded-lg border border-ink-800 bg-ink-950/40 shadow-sm w-full">
-            {/* Header */}
-            <div className="grid grid-cols-[minmax(200px,1fr)_120px_60px] gap-4 border-b border-ink-800/60 bg-ink-900/60 px-6 py-4 text-xs uppercase text-ink-400 font-medium">
-              <div>Pattern</div>
-              <div>Problems</div>
-              <div className="text-right"></div>
-            </div>
-            
+          <div className="w-full">
             {/* Body */}
             <div className="divide-y divide-ink-800/60 text-sm text-ink-300">
               {topic.patterns.map((pattern, index) => (
