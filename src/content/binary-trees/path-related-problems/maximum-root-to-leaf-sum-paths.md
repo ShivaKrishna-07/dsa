@@ -5,7 +5,7 @@ time: "O(N)"
 space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Maximum+Root+to+Leaf+Path+Sum"
-  gfg: "https://practice.geeksforgeeks.org/problems/maximum-path-sum/1"
+  gfg: "https://www.geeksforgeeks.org/problems/maximum-sum-leaf-to-root-path/1"
 ---
 
 ### Problem Statement
@@ -36,22 +36,23 @@ We recursively find the maximum root-to-leaf sum of the left subtree and the rig
 
 ```cpp
 class Solution {
-public:
-    int maxPathSum(Node* root) {
-        if (root == NULL) return 0;
+    void solve(Node* root, int sum, int &maxi){
+        if(root == NULL) return;
         
-        // If it's a leaf node, just return its value
-        if (root->left == NULL && root->right == NULL) {
-            return root->data;
+        if(root->left == NULL && root->right == NULL){
+            maxi = max(maxi, sum+root->data);
+            return;
         }
         
-        // Use a very small number for null children to avoid picking them
-        int leftSum = INT_MIN, rightSum = INT_MIN;
-        
-        if (root->left) leftSum = maxPathSum(root->left);
-        if (root->right) rightSum = maxPathSum(root->right);
-        
-        return root->data + max(leftSum, rightSum);
+        solve(root->left, sum+root->data, maxi);
+        solve(root->right, sum+root->data, maxi);
+    }
+  public:
+    int maxPathSum(Node* root) {
+        // code here
+        int maxi=INT_MIN;
+        solve(root, 0, maxi);
+        return maxi;
     }
 };
 ```
