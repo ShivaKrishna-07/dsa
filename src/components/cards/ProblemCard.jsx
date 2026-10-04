@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink, Flame } from "lucide-react";
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
-import MotionCard from "@/components/ui/MotionCard";
 import { difficultyClass, platformLabel } from "@/lib/format";
 
 const platformIcons = {
@@ -22,39 +21,37 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
   });
 
   return (
-    <MotionCard>
-      <Link
-        href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
-        className="group block rounded-md border border-ink-800 bg-ink-950/40 px-4 py-3 transition hover:border-accent-400 hover:bg-ink-900/40"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-1 overflow-hidden">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ink-700/60 bg-ink-900/50 text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
-              {index + 1}
+    <Link
+      href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
+      className="group block px-4 py-4 sm:px-6 transition-colors hover:bg-ink-900/40"
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-4 flex-1 overflow-hidden">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ink-700/60 bg-ink-900/50 text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
+            {index + 1}
+          </span>
+          <h3 className="font-medium text-ink-100 truncate">{problem.title}</h3>
+        </div>
+        
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 pl-12 sm:pl-0 shrink-0">
+          <span className={`w-[68px] shrink-0 text-center rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
+            {problem.difficulty}
+          </span>
+          {problem.label && (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
+              <Flame className="h-3 w-3 fill-red-500 text-red-500" />
+              {problem.label}
             </span>
-            <h3 className="font-medium text-ink-100 truncate">{problem.title}</h3>
-          </div>
-          
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 pl-12 sm:pl-0 shrink-0">
-            <span className={`w-[68px] shrink-0 text-center rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
-              {problem.difficulty}
-            </span>
-            {problem.label && (
-              <span className="inline-flex shrink-0 items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
-                <Flame className="h-3 w-3 fill-red-500 text-red-500" />
-                {problem.label}
-              </span>
-            )}
-            {visiblePlatforms.map(([key, url]) => (
-              <PlatformLink key={key} platform={key} url={url} />
-            ))}
-            <div className="hidden sm:flex items-center justify-end pl-2">
-              <ArrowRight className="h-5 w-5 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
-            </div>
+          )}
+          {visiblePlatforms.map(([key, url]) => (
+            <PlatformLink key={key} platform={key} url={url} />
+          ))}
+          <div className="hidden sm:flex items-center justify-end pl-2">
+            <ArrowRight className="h-5 w-5 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
           </div>
         </div>
-      </Link>
-    </MotionCard>
+      </div>
+    </Link>
   );
 }
 

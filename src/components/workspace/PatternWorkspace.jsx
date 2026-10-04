@@ -10,14 +10,14 @@ export default function PatternWorkspace({ topic, pattern }) {
     <Tabs
       defaultValue="problems"
       className="rounded-md border border-ink-800 bg-ink-900/35 md:h-[calc(100vh-10.25rem)] md:overflow-hidden"
-      panelClassName="p-3 md:overflow-auto md:p-4"
+      panelClassName="md:overflow-auto"
       tabs={[
         {
           value: "problems",
           label: "Problems",
           icon: ListChecks,
           content: (
-            <div className="grid gap-3">
+            <div className="divide-y divide-ink-800/60">
               {pattern.problems.map((problem, index) => (
                 <ProblemCard key={problem.slug} topicSlug={topic.slug} patternSlug={pattern.slug} problem={problem} index={index} />
               ))}
@@ -29,7 +29,7 @@ export default function PatternWorkspace({ topic, pattern }) {
           label: "Template",
           icon: Code2,
           content: (
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
+            <div className="p-3 md:p-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
               <section className="flex flex-col gap-6">
                 <div>
                   <h2 className="text-xl font-semibold">Pattern Notes</h2>
