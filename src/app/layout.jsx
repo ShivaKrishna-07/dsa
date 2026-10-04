@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <div className="min-h-screen bg-ink-950 text-ink-100">
             <PageOverflowController />
-            <Header tree={navigationTree} />
+            <Header />
             <RouteBreadcrumb tree={navigationTree} />
             <main>{children}</main>
           </div>

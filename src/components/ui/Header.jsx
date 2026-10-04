@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { Brackets } from "lucide-react";
 import SearchBox from "@/components/ui/SearchBox";
-import OfflineDownloader from "@/components/ui/OfflineDownloader";
 import { getSearchItems } from "@/lib/data";
 
-export default function Header({ tree }) {
+export default function Header() {
   const items = getSearchItems();
   
   return (
@@ -18,7 +17,6 @@ export default function Header({ tree }) {
         </Link>
 
         <div className="ml-auto flex min-w-0 flex-1 justify-end items-center gap-3">
-          <OfflineDownloader tree={tree} />
           <SearchBox items={items} />
         </div>
       </div>
