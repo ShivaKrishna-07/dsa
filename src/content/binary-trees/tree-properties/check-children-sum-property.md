@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Check+Children+Sum+Property"
   gfg: "https://practice.geeksforgeeks.org/problems/children-sum-parent/1"
-  article: "https://takeuforward.org/data-structure/check-for-children-sum-property-in-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/check-for-children-sum-property-in-a-binary-tree"
 ---
 
 ### Problem Statement

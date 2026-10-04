@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=b7AYbpM5YrE"
   leetcode: "https://leetcode.com/problems/subsets/description/"
-  article: "https://takeuforward.org/data-structure/power-set-print-all-the-possible-subsequences-of-the-string/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/power-set-print-all-the-possible-subsequences-of-the-string"
 ---
 
 ### Problem Statement

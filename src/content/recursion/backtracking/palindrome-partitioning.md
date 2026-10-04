@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Palindrome+Partitioning"
   leetcode: "https://leetcode.com/problems/palindrome-partitioning/"
-  article: "https://takeuforward.org/data-structure/palindrome-partitioning/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/palindrome-partitioning"
 ---
 
 ### Problem Statement

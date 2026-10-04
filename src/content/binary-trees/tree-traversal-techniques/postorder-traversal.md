@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Postorder+Traversal"
   leetcode: "https://leetcode.com/problems/binary-tree-postorder-traversal/"
-  article: "https://takeuforward.org/data-structure/post-order-traversal-of-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/post-order-traversal-of-binary-tree"
 ---
 
 ### Problem Statement

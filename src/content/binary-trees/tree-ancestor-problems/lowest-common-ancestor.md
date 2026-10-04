@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Lowest+Common+Ancestor+Binary+Tree"
   leetcode: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"
-  article: "https://takeuforward.org/data-structure/lowest-common-ancestor-for-two-given-nodes/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/lowest-common-ancestor-in-a-binary-tree"
 ---
 
 ### Problem Statement

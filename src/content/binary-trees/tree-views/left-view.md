@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Left+View+of+Binary+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1"
-  article: "https://takeuforward.org/data-structure/right-left-view-of-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/left-and-right-views-of-a-binary-tree"
 ---
 
 ### Problem Statement

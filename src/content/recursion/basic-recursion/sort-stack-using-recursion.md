@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Sort+a+Stack+using+Recursion"
   gfg: "https://www.geeksforgeeks.org/problems/sort-a-stack/1"
-  article: "https://takeuforward.org/data-structure/sort-a-stack-using-recursion/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/sort-a-stack-using-recursion"
 ---
 
 ### Problem Statement

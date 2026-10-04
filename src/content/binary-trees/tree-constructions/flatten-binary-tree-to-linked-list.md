@@ -6,7 +6,7 @@ space: "O(1)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Flatten+Binary+Tree+to+Linked+List"
   leetcode: "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/"
-  article: "https://takeuforward.org/data-structure/flatten-binary-tree-to-linked-list/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/flatten-binary-tree-to-linked-list"
 ---
 
 ### Problem Statement

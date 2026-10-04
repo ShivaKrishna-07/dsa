@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Boundary+Traversal+of+Binary+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1"
-  article: "https://takeuforward.org/data-structure/boundary-traversal-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/boundary-traversal-of-a-binary-tree"
 ---
 
 ### Problem Statement

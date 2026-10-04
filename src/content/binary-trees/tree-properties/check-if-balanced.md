@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Check+if+Binary+Tree+is+Balanced"
   leetcode: "https://leetcode.com/problems/balanced-binary-tree/"
-  article: "https://takeuforward.org/data-structure/check-if-the-binary-tree-is-balanced-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/check-if-a-binary-tree-is-height-balanced"
 ---
 
 ### Problem Statement

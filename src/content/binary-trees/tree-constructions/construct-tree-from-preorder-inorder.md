@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Construct+Binary+Tree+from+Preorder+and+Inorder"
   leetcode: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
-  article: "https://takeuforward.org/data-structure/construct-a-binary-tree-from-inorder-and-preorder-traversal/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/construct-a-binary-tree-from-preorder-and-inorder"
 ---
 
 ### Problem Statement

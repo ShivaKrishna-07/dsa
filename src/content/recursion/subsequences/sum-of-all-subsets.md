@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Subset+Sums"
   gfg: "https://www.geeksforgeeks.org/problems/subset-sums2234/1"
-  article: "https://takeuforward.org/data-structure/subset-sum-sum-of-all-subsets/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/subset-sum-sum-of-all-subsets"
 ---
 
 ### Problem Statement

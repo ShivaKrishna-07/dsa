@@ -6,7 +6,7 @@ space: "O(L)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Word+Search"
   leetcode: "https://leetcode.com/problems/word-search/"
-  article: "https://takeuforward.org/data-structure/word-search-leetcode/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/word-search-leetcode"
 ---
 
 ### Problem Statement

@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Height+of+Binary+Tree"
   leetcode: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
-  article: "https://takeuforward.org/data-structure/maximum-depth-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/maximum-depth-of-a-binary-tree"
 ---
 
 ### Problem Statement

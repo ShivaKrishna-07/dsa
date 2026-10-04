@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Check+if+Two+Trees+are+Identical"
   leetcode: "https://leetcode.com/problems/same-tree/"
-  article: "https://takeuforward.org/data-structure/check-if-two-trees-are-identical/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/check-identical-binary-trees"
 ---
 
 ### Problem Statement

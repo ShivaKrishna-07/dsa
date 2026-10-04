@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Root+to+Node+Path+in+a+Binary+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/root-to-leaf-paths/1"
-  article: "https://takeuforward.org/data-structure/print-root-to-node-path-in-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/print-root-to-node-path-in-a-binary-tree"
 ---
 
 ### Problem Statement

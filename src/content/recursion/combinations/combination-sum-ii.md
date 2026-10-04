@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Combination+Sum+II"
   leetcode: "https://leetcode.com/problems/combination-sum-ii/description/"
-  article: "https://takeuforward.org/data-structure/combination-sum-ii-find-all-unique-combinations/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/combination-sum-ii-find-all-unique-combinations"
 ---
 
 ### Problem Statement

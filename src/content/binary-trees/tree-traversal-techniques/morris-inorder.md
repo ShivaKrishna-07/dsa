@@ -6,7 +6,7 @@ space: "O(1)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Morris+Inorder+Traversal"
   leetcode: "https://leetcode.com/problems/binary-tree-inorder-traversal/"
-  article: "https://takeuforward.org/data-structure/morris-inorder-traversal-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/morris-inorder-traversal"
 ---
 
 ### Problem Statement

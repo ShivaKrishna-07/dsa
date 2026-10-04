@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=All+Nodes+Distance+K+in+Binary+Tree"
   leetcode: "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/"
-  article: "https://takeuforward.org/data-structure/print-all-the-nodes-at-a-distance-of-k-in-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/nodes-distance-k-binary-tree"
 ---
 
 ### Problem Statement

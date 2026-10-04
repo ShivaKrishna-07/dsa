@@ -6,7 +6,7 @@ space: "O(2^N * N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+Subsets+II"
   leetcode: "https://leetcode.com/problems/subsets-ii/description/"
-  article: "https://takeuforward.org/data-structure/subset-ii-print-all-the-unique-subsets/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/subset-ii-print-all-the-unique-subsets"
 ---
 
 ### Problem Statement

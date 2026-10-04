@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Burning+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/burning-tree/1"
-  article: "https://takeuforward.org/data-structure/minimum-time-taken-to-burn-the-binary-tree-from-a-node/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/minimum-time-burn-binary-tree"
 ---
 
 ### Problem Statement

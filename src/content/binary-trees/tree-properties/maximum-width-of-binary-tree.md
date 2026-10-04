@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Maximum+Width+of+Binary+Tree"
   leetcode: "https://leetcode.com/problems/maximum-width-of-binary-tree/"
-  article: "https://takeuforward.org/data-structure/maximum-width-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/maximum-width-of-a-binary-tree"
 ---
 
 ### Problem Statement

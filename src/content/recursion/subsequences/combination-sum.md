@@ -6,7 +6,7 @@ space: "O(T/min)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=OyZFFqQtu98"
   leetcode: "https://leetcode.com/problems/combination-sum/description/"
-  article: "https://takeuforward.org/data-structure/combination-sum-1/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/combination-sum-1"
 ---
 
 ### Problem Statement

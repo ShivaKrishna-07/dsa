@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Inorder+Traversal"
   leetcode: "https://leetcode.com/problems/binary-tree-inorder-traversal/"
-  article: "https://takeuforward.org/data-structure/inorder-traversal-of-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/inorder-traversal-of-binary-tree"
 ---
 
 ### Problem Statement

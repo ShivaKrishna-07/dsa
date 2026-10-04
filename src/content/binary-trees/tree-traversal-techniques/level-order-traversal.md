@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Level+Order+Traversal"
   leetcode: "https://leetcode.com/problems/binary-tree-level-order-traversal/"
-  article: "https://takeuforward.org/data-structure/level-order-traversal-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/binary-tree-level-order-traversal"
 ---
 
 ### Problem Statement

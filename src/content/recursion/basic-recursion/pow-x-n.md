@@ -6,7 +6,7 @@ space: "O(log N)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=l0YC3876qxg"
   leetcode: "https://leetcode.com/problems/powx-n/description/"
-  article: "https://takeuforward.org/data-structure/implement-powxn-x-raised-to-the-power-n/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/implement-powxn-x-raised-to-the-power-n"
 ---
 
 ### Problem Statement

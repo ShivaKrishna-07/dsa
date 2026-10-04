@@ -6,7 +6,7 @@ space: "O(N^2)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=take+U+forward+N-Queens"
   leetcode: "https://leetcode.com/problems/n-queens/"
-  article: "https://takeuforward.org/data-structure/n-queen-problem-return-all-distinct-solutions-to-the-n-queens-puzzle/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/n-queen-problem-return-all-distinct-solutions-to-the-n-queens-puzzle"
 ---
 
 ### Problem Statement

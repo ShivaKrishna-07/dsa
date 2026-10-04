@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Construct+Binary+Tree+from+Postorder+and+Inorder"
   leetcode: "https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/"
-  article: "https://takeuforward.org/data-structure/construct-binary-tree-from-inorder-and-postorder-traversal/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/construct-binary-tree-from-inorder-and-postorder-traversal"
 ---
 
 ### Problem Statement

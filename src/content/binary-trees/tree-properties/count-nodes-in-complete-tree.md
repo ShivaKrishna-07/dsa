@@ -6,7 +6,7 @@ space: "O(log N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Count+Complete+Tree+Nodes"
   leetcode: "https://leetcode.com/problems/count-complete-tree-nodes/"
-  article: "https://takeuforward.org/binary-tree/count-number-of-nodes-in-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/count-nodes-in-a-complete-binary-tree"
 ---
 
 ### Problem Statement

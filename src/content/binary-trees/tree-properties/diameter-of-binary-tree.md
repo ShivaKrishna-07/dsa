@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Diameter+of+Binary+Tree"
   leetcode: "https://leetcode.com/problems/diameter-of-binary-tree/"
-  article: "https://takeuforward.org/data-structure/calculate-the-diameter-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/diameter-of-a-binary-tree"
 ---
 
 ### Problem Statement

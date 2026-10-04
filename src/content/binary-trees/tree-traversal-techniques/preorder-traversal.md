@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Preorder+Traversal"
   leetcode: "https://leetcode.com/problems/binary-tree-preorder-traversal/"
-  article: "https://takeuforward.org/data-structure/preorder-traversal-of-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/preorder-traversal-of-binary-tree"
 ---
 
 ### Problem Statement

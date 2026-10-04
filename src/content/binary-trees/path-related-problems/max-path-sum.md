@@ -6,7 +6,7 @@ space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Binary+Tree+Maximum+Path+Sum"
   leetcode: "https://leetcode.com/problems/binary-tree-maximum-path-sum/"
-  article: "https://takeuforward.org/data-structure/maximum-sum-path-in-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/binary-tree-maximum-path-sum"
 ---
 
 ### Problem Statement

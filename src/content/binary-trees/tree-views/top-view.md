@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Top+View+of+Binary+Tree"
   gfg: "https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1"
-  article: "https://takeuforward.org/data-structure/top-view-of-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/top-view-of-binary-tree"
 ---
 
 ### Problem Statement

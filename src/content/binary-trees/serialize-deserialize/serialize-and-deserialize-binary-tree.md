@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Serialize+and+Deserialize+Binary+Tree"
   leetcode: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"
-  article: "https://takeuforward.org/data-structure/serialize-and-deserialize-a-binary-tree/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/serialize-and-deserialize-a-binary-tree"
 ---
 
 ### Problem Statement
