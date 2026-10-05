@@ -2,7 +2,7 @@
 title: "Flatten Binary Tree to Linked List"
 difficulty: "Medium"
 time: "O(N)"
-space: "O(1)"
+space: "O(H)"
 platforms:
   youtube: "https://www.youtube.com/results?search_query=Flatten+Binary+Tree+to+Linked+List"
   leetcode: "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/"
@@ -31,13 +31,7 @@ Output: [1,null,2,null,3,null,4,null,5,null,6]
 
 ### Intuition
 
-The naive approach is to do a Preorder traversal, store nodes in a list, and then rewire them. But this takes `O(N)` space.
-We can use a **Morris Traversal** concept to do this in `O(1)` space!
-For any node, if it has a left child:
-1. Find the rightmost node in its left subtree (this is the predecessor).
-2. Connect this rightmost node to the current node's right child!
-3. Move the entire left subtree to the right, and set left to `NULL`.
-4. Move down to the right and repeat!
+We process nodes in **reverse preorder** (right → left → root). By maintaining a `prev` pointer, each node's `right` is set to the previously processed node, and `left` is set to `NULL`. This builds the flattened list from the tail backwards.
 
 ---
 
@@ -46,28 +40,16 @@ For any node, if it has a left child:
 ```cpp
 class Solution {
 public:
+    TreeNode* prev = NULL;
     void flatten(TreeNode* root) {
-        TreeNode* curr = root;
-        
-        while (curr != NULL) {
-            if (curr->left != NULL) {
-                // Find the rightmost node of the left subtree
-                TreeNode* prev = curr->left;
-                while (prev->right != NULL) {
-                    prev = prev->right;
-                }
-                
-                // Connect the rightmost node to the current right child
-                prev->right = curr->right;
-                
-                // Move the left subtree to the right
-                curr->right = curr->left;
-                curr->left = NULL;
-            }
-            
-            // Move on to the next node
-            curr = curr->right;
-        }
+        if(!root) return;
+
+        flatten(root->right);
+        flatten(root->left);
+
+        root->right = prev;
+        root->left = NULL;
+        prev = root;
     }
 };
 ```
@@ -76,5 +58,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(N)` since each edge is traversed at most twice.
-- **Space Complexity:** `O(1)` as no extra memory or recursive stack is used.
+- **Time Complexity:** `O(N)` since every node is visited once.
+- **Space Complexity:** `O(H)` for the recursive call stack.
