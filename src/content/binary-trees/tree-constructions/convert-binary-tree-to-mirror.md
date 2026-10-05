@@ -39,17 +39,13 @@ We can use a Postorder traversal (Bottom-Up) or Preorder traversal (Top-Down). A
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        if (root == NULL) return NULL;
-        
-        // Swap the left and right children
-        TreeNode* temp = root->left;
-        root->left = root->right;
-        root->right = temp;
-        
-        // Recursively invert the subtrees
-        invertTree(root->left);
-        invertTree(root->right);
-        
+        if(!root) return NULL;
+
+        // Swap children by passing reversed subtrees
+        TreeNode* left = root->left;
+        root->left  = invertTree(root->right);
+        root->right = invertTree(left);
+
         return root;
     }
 };
