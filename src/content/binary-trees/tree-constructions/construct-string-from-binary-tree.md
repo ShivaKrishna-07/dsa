@@ -44,25 +44,22 @@ For the current node, we add its value to the string.
 class Solution {
 public:
     string tree2str(TreeNode* root) {
-        if (root == NULL) return "";
+        if(!root) return "";
+
+        string result = to_string(root->val);
+        string left  = tree2str(root->left);
+        string right = tree2str(root->right);
+
+        // Leaf node, no parenthesis needed
+        if(!root->left && !root->right) return result;
+
+        // Omit empty parenthesis for missing right child
+        if(!root->right) return result + "(" + left + ")";
         
-        string ans = to_string(root->val);
-        
-        // If it's a leaf node
-        if (root->left == NULL && root->right == NULL) {
-            return ans;
-        }
-        
-        // We ALWAYS need the left parenthesis if right child exists
-        // (even if left child is null)
-        ans += "(" + tree2str(root->left) + ")";
-        
-        // We only add the right parenthesis if right child exists
-        if (root->right != NULL) {
-            ans += "(" + tree2str(root->right) + ")";
-        }
-        
-        return ans;
+        // Empty parenthesis for missing left child is mandatory
+        if(!root->left)  return result + "()" + "(" + right + ")";
+
+        return result + "(" + left + ")" + "(" + right + ")";
     }
 };
 ```
