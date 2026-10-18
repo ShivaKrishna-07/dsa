@@ -40,12 +40,17 @@ export function getAllData() {
             while ((match = regex.exec(codeSection)) !== null) {
               const codeText = match[1].trim();
               let name = "Optimal"; // Default
-              if (codeText.toLowerCase().includes("brute")) {
+              const lower = codeText.toLowerCase();
+              if (lower.includes("brute")) {
                 name = "Brute Force";
-              } else if (codeText.toLowerCase().includes("better")) {
+              } else if (lower.includes("better")) {
                 name = "Better";
-              } else if (codeText.toLowerCase().includes("optimal")) {
+              } else if (lower.includes("optimal")) {
                 name = "Optimal";
+              } else if (lower.includes("//dfs") || lower.includes("// dfs") || lower.includes("//approach") && lower.includes("dfs")) {
+                name = "DFS";
+              } else if (lower.includes("//bfs") || lower.includes("// bfs") || lower.includes("//approach") && lower.includes("bfs")) {
+                name = "BFS";
               } else if (codes.length === 0) {
                 name = "Solution";
               } else {

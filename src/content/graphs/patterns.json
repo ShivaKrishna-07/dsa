@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "dfs-bfs",
+    "title": "DFS & BFS",
+    "description": "Problems solvable using both Depth-First Search and Breadth-First Search traversals on graphs.",
+    "identify": [
+      "The problem involves traversing or exploring a grid/graph.",
+      "The problem asks to find connected regions, count components, or fill areas."
+    ],
+    "appearsIn": [
+      "Grid traversal",
+      "Connected component counting",
+      "Flood-fill scenarios"
+    ],
+    "template": "// DFS\nvoid dfs(int node, vector<int> adj[], vector<bool>& vis) {\n    vis[node] = true;\n    for(auto it : adj[node]) {\n        if(!vis[it]) dfs(it, adj, vis);\n    }\n}\n\n// BFS\nvoid bfs(int src, vector<int> adj[], vector<bool>& vis) {\n    queue<int> q;\n    q.push(src);\n    vis[src] = true;\n    while(!q.empty()) {\n        int node = q.front(); q.pop();\n        for(auto it : adj[node]) {\n            if(!vis[it]) { vis[it] = true; q.push(it); }\n        }\n    }\n}",
+    "explanation": "DFS explores as deep as possible before backtracking, while BFS explores neighbors level by level. Both can solve traversal problems, but DFS is simpler to implement recursively and BFS naturally finds shortest paths in unweighted graphs.",
+    "problemsOrder": [
+      "connected-components",
+      "number-of-islands",
+      "flood-fill",
+      "number-of-enclaves",
+      "surrounded-regions",
+      "number-of-distinct-islands"
+    ]
+  },
+  {
+    "slug": "cycles",
+    "title": "Cycles",
+    "description": "Detecting cycles in undirected and directed graphs using DFS/BFS techniques.",
+    "identify": [
+      "The problem asks if a cycle exists in a graph.",
+      "The problem involves checking bipartiteness or detecting back edges."
+    ],
+    "appearsIn": [
+      "Deadlock detection",
+      "Dependency validation",
+      "Graph coloring"
+    ],
+    "template": "",
+    "explanation": "In undirected graphs, a cycle is detected when we visit a node that's already visited and is NOT the parent. In directed graphs, we use DFS with a recursion stack — a back edge to a node in the current stack indicates a cycle.",
+    "problemsOrder": [
+      "detect-cycle-in-undirected-graph",
+      "bipartite-graph",
+      "detect-cycle-in-directed-graph"
+    ]
+  },
+  {
+    "slug": "bfs",
+    "title": "BFS",
+    "description": "Multi-source BFS and shortest path problems in unweighted graphs and grids.",
+    "identify": [
+      "The problem involves finding the shortest distance in an unweighted graph or grid.",
+      "The problem involves spreading or propagation from multiple sources simultaneously."
+    ],
+    "appearsIn": [
+      "Shortest path in grids",
+      "Multi-source propagation",
+      "Level-wise processing"
+    ],
+    "template": "",
+    "explanation": "BFS explores nodes level by level, making it ideal for finding shortest paths in unweighted graphs. Multi-source BFS starts from all sources simultaneously, processing them in waves.",
+    "problemsOrder": [
+      "rotting-oranges",
+      "01-matrix",
+      "shortest-path-in-undirected-graph"
+    ]
+  },
+  {
+    "slug": "bfs-hard",
+    "title": "BFS Hard",
+    "description": "Advanced BFS problems involving word transformations and complex state spaces.",
+    "identify": [
+      "The problem involves transforming one state to another with minimum steps.",
+      "Each transformation changes a small part of the current state."
+    ],
+    "appearsIn": [
+      "Word transformation",
+      "State-space search",
+      "Puzzle solving"
+    ],
+    "template": "",
+    "explanation": "These problems model each state as a node in an implicit graph. BFS finds the shortest transformation sequence since each transformation is one edge.",
+    "problemsOrder": [
+      "word-ladder-i",
+      "word-ladder-ii"
+    ]
+  },
+  {
+    "slug": "topological-sort",
+    "title": "Topological Sort",
+    "description": "Ordering vertices in a Directed Acyclic Graph (DAG) such that every edge u→v has u before v.",
+    "identify": [
+      "The problem involves ordering tasks with dependencies.",
+      "The problem is on a Directed Acyclic Graph (DAG)."
+    ],
+    "appearsIn": [
+      "Task scheduling",
+      "Course prerequisites",
+      "Build systems"
+    ],
+    "template": "// Kahn's Algorithm (BFS)\nvector<int> topoSort(int V, vector<int> adj[]) {\n    vector<int> indegree(V, 0);\n    for(int i = 0; i < V; i++)\n        for(auto it : adj[i]) indegree[it]++;\n    queue<int> q;\n    for(int i = 0; i < V; i++)\n        if(indegree[i] == 0) q.push(i);\n    vector<int> topo;\n    while(!q.empty()) {\n        int node = q.front(); q.pop();\n        topo.push_back(node);\n        for(auto it : adj[node])\n            if(--indegree[it] == 0) q.push(it);\n    }\n    return topo;\n}",
+    "explanation": "Topological Sort can be done via DFS (using a stack to store nodes after all descendants are processed) or BFS (Kahn's Algorithm using indegree). It only works on DAGs.",
+    "problemsOrder": [
+      "topological-sort",
+      "find-eventual-safe-states",
+      "course-schedule",
+      "alien-dictionary",
+      "shortest-path-in-dag"
+    ]
+  },
+  {
+    "slug": "dijkstras-algorithm",
+    "title": "Dijkstra's Algorithm",
+    "description": "Finding shortest paths in weighted graphs with non-negative edge weights.",
+    "identify": [
+      "The problem asks for shortest path in a weighted graph.",
+      "All edge weights are non-negative."
+    ],
+    "appearsIn": [
+      "Network routing",
+      "GPS navigation",
+      "Weighted grid traversal"
+    ],
+    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while(!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if(d > dist[u]) continue;\n        for(auto [v, w] : adj[u]) {\n            if(dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+    "explanation": "Dijkstra's algorithm is a greedy algorithm that finds shortest paths from a source to all vertices. It uses a min-heap to always process the closest unvisited vertex first. It does NOT work with negative edge weights.",
+    "problemsOrder": [
+      "dijkstra-algorithm",
+      "shortest-path-in-weighted-undirected-graph",
+      "shortest-distance-in-binary-maze",
+      "path-with-minimum-effort",
+      "cheapest-flights-within-k-stops",
+      "minimum-multiplications-to-reach-end",
+      "number-of-ways-to-arrive-at-destination",
+      "network-delay-time",
+      "swim-in-rising-water"
+    ]
+  },
+  {
+    "slug": "minimum-spanning-tree",
+    "title": "Minimum Spanning Tree (MST)",
+    "description": "Finding a tree that connects all vertices with minimum total edge weight.",
+    "identify": [
+      "The problem asks to connect all nodes with minimum cost.",
+      "The problem involves selecting edges to form a spanning tree."
+    ],
+    "appearsIn": [
+      "Network design",
+      "Cluster analysis",
+      "Infrastructure planning"
+    ],
+    "template": "",
+    "explanation": "An MST connects all vertices in a weighted undirected graph with the minimum possible total edge weight. Prim's algorithm grows the tree greedily from a source, while Kruskal's sorts edges and adds them if they don't form a cycle (using Union-Find).",
+    "problemsOrder": [
+      "mst-theory",
+      "find-mst-weight"
+    ]
+  },
+  {
+    "slug": "disjoint-set",
+    "title": "Disjoint Set (Union-Find)",
+    "description": "A data structure to efficiently track connected components and merge sets.",
+    "identify": [
+      "The problem involves dynamic connectivity queries.",
+      "The problem asks to merge groups or check if two elements belong to the same set."
+    ],
+    "appearsIn": [
+      "Dynamic graph connectivity",
+      "Network connectivity",
+      "Grouping problems"
+    ],
+    "template": "class DisjointSet {\npublic:\n    vector<int> rank, parent, size;\n    DisjointSet(int n) {\n        rank.resize(n + 1, 0);\n        parent.resize(n + 1);\n        size.resize(n + 1, 1);\n        for(int i = 0; i <= n; i++) parent[i] = i;\n    }\n    int findUPar(int node) {\n        if(node == parent[node]) return node;\n        return parent[node] = findUPar(parent[node]);\n    }\n    void unionByRank(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if(ulp_u == ulp_v) return;\n        if(rank[ulp_u] < rank[ulp_v]) parent[ulp_u] = ulp_v;\n        else if(rank[ulp_v] < rank[ulp_u]) parent[ulp_v] = ulp_u;\n        else { parent[ulp_v] = ulp_u; rank[ulp_u]++; }\n    }\n    void unionBySize(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if(ulp_u == ulp_v) return;\n        if(size[ulp_u] < size[ulp_v]) { parent[ulp_u] = ulp_v; size[ulp_v] += size[ulp_u]; }\n        else { parent[ulp_v] = ulp_u; size[ulp_u] += size[ulp_v]; }\n    }\n};",
+    "explanation": "Disjoint Set Union (DSU) supports two operations: Find (which component does an element belong to?) and Union (merge two components). With path compression and union by rank, both operations run in nearly O(1) amortized time.",
+    "problemsOrder": [
+      "disjoint-set-theory",
+      "number-of-operations-to-make-network-connected",
+      "accounts-merge",
+      "number-of-islands-ii",
+      "making-a-large-island",
+      "most-stones-removed"
+    ]
+  }
+]

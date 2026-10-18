@@ -53,5 +53,10 @@
     "slug": "binary-search-trees",
     "title": "Binary Search Trees",
     "icon": "Binary"
+  },
+  {
+    "slug": "graphs",
+    "title": "Graphs",
+    "icon": "Share2"
   }
 ]
