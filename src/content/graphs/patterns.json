@@ -134,7 +134,25 @@
       "minimum-multiplications-to-reach-end",
       "number-of-ways-to-arrive-at-destination",
       "network-delay-time",
-      "swim-in-rising-water",
+      "swim-in-rising-water"
+    ]
+  },
+  {
+    "slug": "bellman-ford-floyd-warshall",
+    "title": "Bellman-Ford & Floyd-Warshall",
+    "description": "Shortest path algorithms handling negative edge weights, negative cycle detection, and all-pairs shortest paths.",
+    "identify": [
+      "The graph contains negative weights or requires negative cycle detection (Bellman-Ford).",
+      "The problem requires finding shortest distances between all pairs of vertices or threshold reachability across all nodes (Floyd-Warshall)."
+    ],
+    "appearsIn": [
+      "Currency arbitrage detection",
+      "Negative cycle detection in financial networks",
+      "All-pairs threshold city reachability"
+    ],
+    "template": "// Bellman-Ford\nvector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {\n    vector<int> dist(V, 1e8);\n    dist[src] = 0;\n    for (int i = 0; i < V - 1; i++) {\n        for (auto& e : edges) {\n            int u = e[0];\n            int v = e[1];\n            int wt = e[2];\n            if (dist[u] != 1e8 && dist[u] + wt < dist[v]) {\n                dist[v] = dist[u] + wt;\n            }\n        }\n    }\n    for (auto& e : edges) {\n        int u = e[0];\n        int v = e[1];\n        int wt = e[2];\n        if (dist[u] != 1e8 && dist[u] + wt < dist[v]) {\n            return {-1};\n        }\n    }\n    return dist;\n}",
+    "explanation": "Bellman-Ford works on directed graphs with negative weights and detects negative cycles by relaxing all edges V-1 times. Floyd-Warshall is a dynamic programming algorithm computing all-pairs shortest paths by evaluating paths via every intermediate vertex k in O(V^3) time.",
+    "problemsOrder": [
       "bellman-ford-algorithm",
       "floyd-warshall-algorithm",
       "find-city-smallest-neighbors"
