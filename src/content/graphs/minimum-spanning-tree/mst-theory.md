@@ -54,11 +54,11 @@ Total MST Weight = 1 + 2 + 4 = 7
 
 ---
 
-### Prim's Algorithm Template
+### Code
 
 ```cpp
+// Prim's
 int primMST(int V, vector<pair<int, int>> adj[]) {
-    // pq stores: {weight, node}
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
     vector<bool> vis(V, false);
 
@@ -68,7 +68,10 @@ int primMST(int V, vector<pair<int, int>> adj[]) {
     while (!pq.empty()) {
         auto [wt, u] = pq.top();
         pq.pop();
-        if (vis[u]) continue;
+
+        if (vis[u]) {
+            continue;
+        }
 
         vis[u] = true;
         sum += wt;
@@ -83,26 +86,34 @@ int primMST(int V, vector<pair<int, int>> adj[]) {
 }
 ```
 
----
-
-### Kruskal's Algorithm Template
-
 ```cpp
+// Kruskal's
 class DisjointSet {
 public:
     vector<int> parent, size;
+
     DisjointSet(int n) {
         parent.resize(n + 1);
         size.resize(n + 1, 1);
-        for (int i = 0; i <= n; i++) parent[i] = i;
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
     }
+
     int findUPar(int node) {
-        if (node == parent[node]) return node;
+        if (node == parent[node]) {
+            return node;
+        }
         return parent[node] = findUPar(parent[node]);
     }
+
     bool unionBySize(int u, int v) {
-        int ulp_u = findUPar(u), ulp_v = findUPar(v);
-        if (ulp_u == ulp_v) return false;
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) {
+            return false;
+        }
+
         if (size[ulp_u] < size[ulp_v]) {
             parent[ulp_u] = ulp_v;
             size[ulp_v] += size[ulp_u];
@@ -115,18 +126,21 @@ public:
 };
 
 int kruskalMST(int V, vector<vector<int>>& edges) {
-    // edges: [u, v, wt]
     sort(edges.begin(), edges.end(), [](const vector<int>& a, const vector<int>& b) {
         return a[2] < b[2];
     });
 
     DisjointSet ds(V);
-    int sum = 0, count = 0;
+    int sum = 0;
+    int count = 0;
 
     for (auto& e : edges) {
         if (ds.unionBySize(e[0], e[1])) {
             sum += e[2];
-            if (++count == V - 1) break;
+            count++;
+            if (count == V - 1) {
+                break;
+            }
         }
     }
     return sum;
