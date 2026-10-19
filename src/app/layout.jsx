@@ -12,6 +12,15 @@ export const metadata = {
   title: "DSA Pattern Sheet",
   description: "Learn DSA patterns first, then solve the problems that use them.",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" }
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
