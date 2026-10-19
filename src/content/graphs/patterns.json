@@ -121,10 +121,12 @@
       "GPS navigation",
       "Weighted grid traversal"
     ],
-    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        if (d > dist[u]) continue;\n        for (auto [v, w] : adj[u]) {\n            if (dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        if (d > dist[u]) {\n            continue;\n        }\n        for (auto [v, w] : adj[u]) {\n            if (dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
     "explanation": "Dijkstra's algorithm is a greedy algorithm that finds shortest paths from a source to all vertices. It uses a min-heap to always process the closest unvisited vertex first. It does NOT work with negative edge weights.",
     "problemsOrder": [
       "dijkstra-algorithm",
+      "dijkstra-algorithm-set",
+      "print-shortest-path",
       "shortest-path-in-weighted-undirected-graph",
       "shortest-distance-in-binary-maze",
       "path-with-minimum-effort",
@@ -132,7 +134,10 @@
       "minimum-multiplications-to-reach-end",
       "number-of-ways-to-arrive-at-destination",
       "network-delay-time",
-      "swim-in-rising-water"
+      "swim-in-rising-water",
+      "bellman-ford-algorithm",
+      "floyd-warshall-algorithm",
+      "find-city-smallest-neighbors"
     ]
   },
   {
@@ -177,6 +182,27 @@
       "number-of-islands-ii",
       "making-a-large-island",
       "most-stones-removed"
+    ]
+  },
+  {
+    "slug": "advanced-graph-algorithms",
+    "title": "Advanced Graph Algorithms",
+    "description": "Critical graph decomposition algorithms including Tarjan's bridge and articulation point algorithms, and Kosaraju's algorithm for strongly connected components.",
+    "identify": [
+      "The problem asks for critical edges or vertices whose removal disconnects the graph.",
+      "The problem asks to decompose a directed graph into components where every vertex can reach every other vertex."
+    ],
+    "appearsIn": [
+      "Network vulnerability analysis",
+      "Critical infrastructure detection",
+      "Strongly connected component analysis"
+    ],
+    "template": "",
+    "explanation": "Tarjan's algorithm uses DFS discovery times (tin) and lowest reachable times (low) to detect bridges (low[v] > tin[u]) and articulation points (low[v] >= tin[u]). Kosaraju's algorithm finds SCCs in directed graphs using a 2-pass DFS: first ordering by finishing times, then reversing edges and traversing components.",
+    "problemsOrder": [
+      "bridges-in-graph",
+      "articulation-point",
+      "strongly-connected-components-kosaraju"
     ]
   }
 ]

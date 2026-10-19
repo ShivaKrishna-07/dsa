@@ -1,5 +1,5 @@
 ---
-title: "Dijkstra's Algorithm"
+title: "Dijkstra's Algorithm (Priority Queue)"
 difficulty: "Medium"
 time: "O(E * log V)"
 space: "O(V)"
@@ -42,10 +42,15 @@ public:
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
-            if (d > dist[u]) continue;
+
+            if (d > dist[u]) {
+                continue;
+            }
 
             for (auto& edge : adj[u]) {
-                int v = edge[0], wt = edge[1];
+                int v = edge[0];
+                int wt = edge[1];
+
                 if (d + wt < dist[v]) {
                     dist[v] = d + wt;
                     pq.push({dist[v], v});

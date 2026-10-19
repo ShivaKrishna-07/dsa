@@ -50,7 +50,10 @@ public:
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
-            if (d > dist[u]) continue;
+
+            if (d > dist[u]) {
+                continue;
+            }
 
             for (auto& [v, w] : adj[u]) {
                 if (d + w < dist[v]) {
@@ -61,7 +64,9 @@ public:
             }
         }
 
-        if (dist[n] == 1e9) return {-1};
+        if (dist[n] == 1e9) {
+            return {-1};
+        }
 
         vector<int> path;
         int node = n;
