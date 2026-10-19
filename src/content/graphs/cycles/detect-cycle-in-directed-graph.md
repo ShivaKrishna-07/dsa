@@ -84,7 +84,8 @@ public:
 
         int cnt = 0;
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             cnt++;
             for (auto it : adj[node]) {
                 if (--indegree[it] == 0) q.push(it);

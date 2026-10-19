@@ -50,7 +50,10 @@ public:
         vector<bool> vis(V, false);
         int cnt = 0;
         for(int i = 0; i < V; i++) {
-            if(!vis[i]) { dfs(i, adjList, vis); cnt++; }
+            if (!vis[i]) {
+            dfs(i, adjList, vis);
+            cnt++;
+        }
         }
         return cnt;
     }
@@ -66,9 +69,13 @@ public:
         q.push(node);
         vis[node] = true;
         while(!q.empty()) {
-            int curr = q.front(); q.pop();
+            int curr = q.front();
+            q.pop();
             for(auto it : adj[curr]) {
-                if(!vis[it]) { vis[it] = true; q.push(it); }
+                if (!vis[it]) {
+                vis[it] = true;
+                q.push(it);
+            }
             }
         }
     }
@@ -82,7 +89,10 @@ public:
         vector<bool> vis(V, false);
         int cnt = 0;
         for(int i = 0; i < V; i++) {
-            if(!vis[i]) { bfs(i, adjList, vis); cnt++; }
+            if (!vis[i]) {
+            bfs(i, adjList, vis);
+            cnt++;
+        }
         }
         return cnt;
     }

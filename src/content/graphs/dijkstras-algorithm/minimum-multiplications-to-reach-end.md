@@ -43,7 +43,8 @@ public:
         q.push(start);
 
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             for (int num : arr) {
                 int next = (node * num) % MOD;
                 if (dist[next] == -1) {

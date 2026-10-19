@@ -49,7 +49,8 @@ public:
         q.push({0, src, 0});
 
         while (!q.empty()) {
-            auto [stops, u, cost] = q.front(); q.pop();
+            auto [stops, u, cost] = q.front();
+            q.pop();
             if (stops > k) continue;
 
             for (auto& [v, price] : adj[u]) {

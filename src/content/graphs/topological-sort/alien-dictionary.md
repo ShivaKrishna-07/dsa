@@ -64,7 +64,8 @@ public:
 
         string ans = "";
         while (!q.empty()) {
-            int u = q.front(); q.pop();
+            int u = q.front();
+            q.pop();
             ans += (char)(u + 'a');
             for (int v : adj[u]) {
                 if (--indegree[v] == 0) q.push(v);

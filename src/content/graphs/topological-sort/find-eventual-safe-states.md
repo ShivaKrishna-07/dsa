@@ -65,7 +65,8 @@ public:
 
         vector<int> safe;
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             safe.push_back(node);
             for (auto it : revAdj[node]) {
                 if (--indegree[it] == 0) q.push(it);

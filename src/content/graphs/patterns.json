@@ -12,7 +12,7 @@
       "Connected component counting",
       "Flood-fill scenarios"
     ],
-    "template": "// DFS\nvoid dfs(int node, vector<int> adj[], vector<bool>& vis) {\n    vis[node] = true;\n    for(auto it : adj[node]) {\n        if(!vis[it]) dfs(it, adj, vis);\n    }\n}\n\n// BFS\nvoid bfs(int src, vector<int> adj[], vector<bool>& vis) {\n    queue<int> q;\n    q.push(src);\n    vis[src] = true;\n    while(!q.empty()) {\n        int node = q.front(); q.pop();\n        for(auto it : adj[node]) {\n            if(!vis[it]) { vis[it] = true; q.push(it); }\n        }\n    }\n}",
+    "template": "// DFS\nvoid dfs(int node, vector<int> adj[], vector<bool>& vis) {\n    vis[node] = true;\n    for (auto it : adj[node]) {\n        if (!vis[it]) dfs(it, adj, vis);\n    }\n}\n\n// BFS\nvoid bfs(int src, vector<int> adj[], vector<bool>& vis) {\n    queue<int> q;\n    q.push(src);\n    vis[src] = true;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        for (auto it : adj[node]) {\n            if (!vis[it]) {\n                vis[it] = true;\n                q.push(it);\n            }\n        }\n    }\n}",
     "explanation": "DFS explores as deep as possible before backtracking, while BFS explores neighbors level by level. Both can solve traversal problems, but DFS is simpler to implement recursively and BFS naturally finds shortest paths in unweighted graphs.",
     "problemsOrder": [
       "connected-components",
@@ -98,7 +98,7 @@
       "Course prerequisites",
       "Build systems"
     ],
-    "template": "// Kahn's Algorithm (BFS)\nvector<int> topoSort(int V, vector<int> adj[]) {\n    vector<int> indegree(V, 0);\n    for(int i = 0; i < V; i++)\n        for(auto it : adj[i]) indegree[it]++;\n    queue<int> q;\n    for(int i = 0; i < V; i++)\n        if(indegree[i] == 0) q.push(i);\n    vector<int> topo;\n    while(!q.empty()) {\n        int node = q.front(); q.pop();\n        topo.push_back(node);\n        for(auto it : adj[node])\n            if(--indegree[it] == 0) q.push(it);\n    }\n    return topo;\n}",
+    "template": "// Kahn's Algorithm (BFS)\nvector<int> topoSort(int V, vector<int> adj[]) {\n    vector<int> indegree(V, 0);\n    for (int i = 0; i < V; i++) {\n        for (auto it : adj[i]) indegree[it]++;\n    }\n    queue<int> q;\n    for (int i = 0; i < V; i++) {\n        if (indegree[i] == 0) q.push(i);\n    }\n    vector<int> topo;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        topo.push_back(node);\n        for (auto it : adj[node]) {\n            if (--indegree[it] == 0) q.push(it);\n        }\n    }\n    return topo;\n}",
     "explanation": "Topological Sort can be done via DFS (using a stack to store nodes after all descendants are processed) or BFS (Kahn's Algorithm using indegree). It only works on DAGs.",
     "problemsOrder": [
       "topological-sort",
@@ -121,7 +121,7 @@
       "GPS navigation",
       "Weighted grid traversal"
     ],
-    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while(!pq.empty()) {\n        auto [d, u] = pq.top(); pq.pop();\n        if(d > dist[u]) continue;\n        for(auto [v, w] : adj[u]) {\n            if(dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        if (d > dist[u]) continue;\n        for (auto [v, w] : adj[u]) {\n            if (dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
     "explanation": "Dijkstra's algorithm is a greedy algorithm that finds shortest paths from a source to all vertices. It uses a min-heap to always process the closest unvisited vertex first. It does NOT work with negative edge weights.",
     "problemsOrder": [
       "dijkstra-algorithm",
@@ -168,7 +168,7 @@
       "Network connectivity",
       "Grouping problems"
     ],
-    "template": "class DisjointSet {\npublic:\n    vector<int> rank, parent, size;\n    DisjointSet(int n) {\n        rank.resize(n + 1, 0);\n        parent.resize(n + 1);\n        size.resize(n + 1, 1);\n        for(int i = 0; i <= n; i++) parent[i] = i;\n    }\n    int findUPar(int node) {\n        if(node == parent[node]) return node;\n        return parent[node] = findUPar(parent[node]);\n    }\n    void unionByRank(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if(ulp_u == ulp_v) return;\n        if(rank[ulp_u] < rank[ulp_v]) parent[ulp_u] = ulp_v;\n        else if(rank[ulp_v] < rank[ulp_u]) parent[ulp_v] = ulp_u;\n        else { parent[ulp_v] = ulp_u; rank[ulp_u]++; }\n    }\n    void unionBySize(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if(ulp_u == ulp_v) return;\n        if(size[ulp_u] < size[ulp_v]) { parent[ulp_u] = ulp_v; size[ulp_v] += size[ulp_u]; }\n        else { parent[ulp_v] = ulp_u; size[ulp_u] += size[ulp_v]; }\n    }\n};",
+    "template": "class DisjointSet {\npublic:\n    vector<int> rank, parent, size;\n    DisjointSet(int n) {\n        rank.resize(n + 1, 0);\n        parent.resize(n + 1);\n        size.resize(n + 1, 1);\n        for (int i = 0; i <= n; i++) parent[i] = i;\n    }\n    int findUPar(int node) {\n        if (node == parent[node]) return node;\n        return parent[node] = findUPar(parent[node]);\n    }\n    void unionByRank(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (rank[ulp_u] < rank[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n        } else if (rank[ulp_v] < rank[ulp_u]) {\n            parent[ulp_v] = ulp_u;\n        } else {\n            parent[ulp_v] = ulp_u;\n            rank[ulp_u]++;\n        }\n    }\n    void unionBySize(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (size[ulp_u] < size[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n            size[ulp_v] += size[ulp_u];\n        } else {\n            parent[ulp_v] = ulp_u;\n            size[ulp_u] += size[ulp_v];\n        }\n    }\n};",
     "explanation": "Disjoint Set Union (DSU) supports two operations: Find (which component does an element belong to?) and Union (merge two components). With path compression and union by rank, both operations run in nearly O(1) amortized time.",
     "problemsOrder": [
       "disjoint-set-theory",

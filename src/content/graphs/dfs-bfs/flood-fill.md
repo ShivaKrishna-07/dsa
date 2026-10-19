@@ -76,7 +76,8 @@ public:
 
         int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
         while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
+            auto [r, c] = q.front();
+            q.pop();
             for (auto& d : dirs) {
                 int nr = r + d[0], nc = c + d[1];
                 if (nr >= 0 && nr < m && nc >= 0 && nc < n && img[nr][nc] == orig) {

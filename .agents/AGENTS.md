@@ -6,6 +6,9 @@ When generating or editing problem markdown files under `src/content/`, strictly
 - Write the **cleanest possible code**.
 - **Minimal comments:** Only comment on non-obvious logic. Do not write paragraphs of comments, and do not over-comment every line.
 - **Variable names:** Use meaningful but **short** variable names (e.g., `curr`, `ans`, `res`, `idx` instead of overly long names).
+- **Proper line breaks & bracket formatting:**
+  - **Never put multiple statements on one line with semicolons** (e.g., do NOT do `int node = q.front(); q.pop();`). Each statement must be on its own separate line.
+  - **No inline/squashed braces:** When there are curly braces, format them with proper multi-line indentation like other parts of the code. Never write `if (!vis[i]) { dfs(i); cnt++; }` on a single line.
 
 ## 2. Content Structure
 - **Problem Statement:** Must be clearly formatted.

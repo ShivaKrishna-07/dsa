@@ -87,17 +87,30 @@ public:
         queue<pair<int, int>> q;
 
         for (int i = 0; i < m; i++) {
-            if (g[i][0] == 1) { vis[i][0] = true; q.push({i, 0}); }
-            if (g[i][n - 1] == 1 && !vis[i][n - 1]) { vis[i][n - 1] = true; q.push({i, n - 1}); }
+            if (g[i][0] == 1) {
+                vis[i][0] = true;
+                q.push({i, 0});
+            }
+            if (g[i][n - 1] == 1 && !vis[i][n - 1]) {
+                vis[i][n - 1] = true;
+                q.push({i, n - 1});
+            }
         }
         for (int j = 0; j < n; j++) {
-            if (g[0][j] == 1 && !vis[0][j]) { vis[0][j] = true; q.push({0, j}); }
-            if (g[m - 1][j] == 1 && !vis[m - 1][j]) { vis[m - 1][j] = true; q.push({m - 1, j}); }
+            if (g[0][j] == 1 && !vis[0][j]) {
+                vis[0][j] = true;
+                q.push({0, j});
+            }
+            if (g[m - 1][j] == 1 && !vis[m - 1][j]) {
+                vis[m - 1][j] = true;
+                q.push({m - 1, j});
+            }
         }
 
         int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
         while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
+            auto [r, c] = q.front();
+            q.pop();
             for (auto& d : dirs) {
                 int nr = r + d[0], nc = c + d[1];
                 if (nr >= 0 && nr < m && nc >= 0 && nc < n && g[nr][nc] == 1 && !vis[nr][nc]) {

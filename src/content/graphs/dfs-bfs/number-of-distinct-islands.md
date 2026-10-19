@@ -94,7 +94,8 @@ public:
                     q.push({i, j});
 
                     while (!q.empty()) {
-                        auto [r, c] = q.front(); q.pop();
+                        auto [r, c] = q.front();
+                        q.pop();
                         shape.push_back({r - i, c - j});
                         for (auto& d : dirs) {
                             int nr = r + d[0], nc = c + d[1];

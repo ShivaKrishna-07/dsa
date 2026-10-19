@@ -49,7 +49,8 @@ class Solution {
         q.push(start);
 
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             for (auto it : adj[node]) {
                 if (color[it] == -1) {
                     color[it] = 1 - color[node];

@@ -46,7 +46,8 @@ class Solution {
         q.push({src, -1});
 
         while (!q.empty()) {
-            auto [node, parent] = q.front(); q.pop();
+            auto [node, parent] = q.front();
+            q.pop();
             for (auto it : adj[node]) {
                 if (!vis[it]) {
                     vis[it] = true;

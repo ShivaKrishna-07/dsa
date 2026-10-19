@@ -55,7 +55,8 @@ public:
         dict.erase(beginWord);
 
         while (!q.empty()) {
-            auto [word, steps] = q.front(); q.pop();
+            auto [word, steps] = q.front();
+            q.pop();
             if (word == endWord) return steps;
 
             for (int i = 0; i < word.size(); i++) {

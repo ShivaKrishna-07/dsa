@@ -43,7 +43,8 @@ public:
         int sum = 0;
 
         while (!pq.empty()) {
-            auto [wt, u] = pq.top(); pq.pop();
+            auto [wt, u] = pq.top();
+            pq.pop();
             if (vis[u]) continue;
 
             vis[u] = true;

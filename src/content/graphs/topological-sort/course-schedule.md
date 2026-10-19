@@ -62,7 +62,8 @@ public:
 
         int count = 0;
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             count++;
             for (int it : adj[node]) {
                 if (--indegree[it] == 0) q.push(it);
@@ -92,7 +93,8 @@ public:
 
         vector<int> order;
         while (!q.empty()) {
-            int node = q.front(); q.pop();
+            int node = q.front();
+            q.pop();
             order.push_back(node);
             for (int it : adj[node]) {
                 if (--indegree[it] == 0) q.push(it);

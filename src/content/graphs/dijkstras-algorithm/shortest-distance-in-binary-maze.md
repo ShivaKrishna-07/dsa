@@ -62,7 +62,8 @@ public:
         int dirs[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
 
         while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
+            auto [r, c] = q.front();
+            q.pop();
             int d = grid[r][c];
 
             for (auto& dir : dirs) {

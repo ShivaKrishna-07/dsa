@@ -75,7 +75,8 @@ public:
             int sz = q.size();
             time++;
             while (sz--) {
-                auto [r, c] = q.front(); q.pop();
+                auto [r, c] = q.front();
+                q.pop();
                 for (auto& d : dirs) {
                     int nr = r + d[0], nc = c + d[1];
                     if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {

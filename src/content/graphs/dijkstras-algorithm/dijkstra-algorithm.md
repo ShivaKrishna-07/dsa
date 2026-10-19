@@ -40,7 +40,8 @@ public:
         pq.push({0, S});
 
         while (!pq.empty()) {
-            auto [d, u] = pq.top(); pq.pop();
+            auto [d, u] = pq.top();
+            pq.pop();
             if (d > dist[u]) continue;
 
             for (auto& edge : adj[u]) {

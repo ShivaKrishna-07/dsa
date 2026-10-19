@@ -81,7 +81,8 @@ public:
         dict.erase(beginWord);
 
         while (!q.empty()) {
-            string word = q.front(); q.pop();
+            string word = q.front();
+            q.pop();
             int step = stepMap[word];
             if (word == endWord) break;
 

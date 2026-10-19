@@ -59,7 +59,8 @@ public:
         pq.push({0, k});
 
         while (!pq.empty()) {
-            auto [d, u] = pq.top(); pq.pop();
+            auto [d, u] = pq.top();
+            pq.pop();
             if (d > dist[u]) continue;
 
             for (auto& [v, w] : adj[u]) {

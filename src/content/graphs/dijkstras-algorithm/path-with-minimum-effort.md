@@ -54,7 +54,8 @@ public:
         int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
 
         while (!pq.empty()) {
-            auto [diff, r, c] = pq.top(); pq.pop();
+            auto [diff, r, c] = pq.top();
+            pq.pop();
             if (r == m - 1 && c == n - 1) return diff;
             if (diff > effort[r][c]) continue;
 

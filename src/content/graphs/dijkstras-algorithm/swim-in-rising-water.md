@@ -53,7 +53,8 @@ public:
         int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
 
         while (!pq.empty()) {
-            auto [t, r, c] = pq.top(); pq.pop();
+            auto [t, r, c] = pq.top();
+            pq.pop();
             if (r == n - 1 && c == n - 1) return t;
 
             for (auto& d : dirs) {

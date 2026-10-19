@@ -55,7 +55,8 @@ public:
         dist[0] = 0;
 
         while (!st.empty()) {
-            int u = st.top(); st.pop();
+            int u = st.top();
+            st.pop();
             if (dist[u] != 1e9) {
                 for (auto& it : adj[u]) {
                     int v = it.first, wt = it.second;
