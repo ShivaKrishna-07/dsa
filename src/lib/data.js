@@ -51,6 +51,10 @@ export function getAllData() {
                 name = "DFS";
               } else if (lower.includes("//bfs") || lower.includes("// bfs") || lower.includes("//approach") && lower.includes("bfs")) {
                 name = "BFS";
+              } else if (lower.includes("prim")) {
+                name = "Prim's";
+              } else if (lower.includes("kruskal")) {
+                name = "Kruskal's";
               } else if (codes.length === 0) {
                 name = "Solution";
               } else {

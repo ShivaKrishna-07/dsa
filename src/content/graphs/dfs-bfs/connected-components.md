@@ -5,7 +5,6 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=lea-Ap_Rdts"
-  leetcode: "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
   gfg: "https://practice.geeksforgeeks.org/problems/number-of-provinces/1"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-provinces"
 ---

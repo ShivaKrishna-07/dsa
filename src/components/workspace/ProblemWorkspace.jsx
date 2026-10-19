@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb, Flame } from "lucide-react";
-import CodeBlock from "@/components/ui/CodeBlock";
+import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb, Flame, FileText } from "lucide-react";
+import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import Tabs from "@/components/ui/Tabs";
 import { difficultyClass, platformLabel } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
@@ -13,12 +13,14 @@ const platformIcons = {
   leetcode: SiLeetcode,
   gfg: SiGeeksforgeeks,
   youtube: SiYoutube,
+  article: FileText,
 };
 
 const platformIconClass = {
   leetcode: "text-[#ffa116]",
   gfg: "text-[#2f8d46]",
-  youtube: "text-[#ff0000]"
+  youtube: "text-[#ff0000]",
+  article: "text-sky-400"
 };
 
 export default function ProblemWorkspace({ problem }) {
@@ -29,6 +31,7 @@ export default function ProblemWorkspace({ problem }) {
     if (!url || typeof url !== "string" || !url.trim()) return false;
     if (key === "youtube") return true;
     if (key === "leetcode") return true;
+    if (key === "article") return true;
     return key === "gfg" && !problem.platforms.leetcode;
   });
 
@@ -297,11 +300,13 @@ export default function ProblemWorkspace({ problem }) {
               <Tabs
                 defaultValue={problem.codes.find(c => c.name === "Optimal") ? "Optimal" : problem.codes[0].name}
                 className="h-full"
-                panelClassName="p-4 overflow-auto"
+                panelClassName="overflow-auto py-2"
+                rightContent={(selected) => <CopyButton code={selected.code} />}
                 tabs={problem.codes.map((c) => ({
                   value: c.name,
                   label: c.name,
-                  content: <CodeBlock code={c.code} compact />
+                  code: c.code,
+                  content: <CodeBlock code={c.code} hideHeader compact />
                 }))}
               />
             ) : (

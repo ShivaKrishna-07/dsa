@@ -16,8 +16,11 @@ const platformIconClass = {
 };
 
 export default function ProblemCard({ topicSlug, patternSlug, problem, index }) {
+  const hasLeetcode = Boolean(problem.platforms?.leetcode && typeof problem.platforms.leetcode === "string" && problem.platforms.leetcode.trim());
   const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
-    return url && typeof url === "string" && url.trim();
+    if (!url || typeof url !== "string" || !url.trim()) return false;
+    if (key === "gfg" && hasLeetcode) return false;
+    return true;
   });
 
   return (

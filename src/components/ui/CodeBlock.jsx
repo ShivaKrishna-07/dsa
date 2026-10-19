@@ -69,9 +69,8 @@ function tokenizeLine(line) {
   }));
 }
 
-export default function CodeBlock({ code, title = "C++", compact = false }) {
+export function CopyButton({ code, className = "" }) {
   const [copied, setCopied] = useState(false);
-  const highlightedLines = useMemo(() => code.split("\n").map(tokenizeLine), [code]);
 
   async function copyCode() {
     await navigator.clipboard.writeText(code);
@@ -80,18 +79,27 @@ export default function CodeBlock({ code, title = "C++", compact = false }) {
   }
 
   return (
+    <button
+      type="button"
+      onClick={copyCode}
+      className={`inline-flex h-8 items-center gap-2 rounded-md border border-ink-700 px-2.5 text-xs text-ink-300 hover:border-accent-400 hover:text-ink-100 transition ${className}`}
+    >
+      {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+      {copied ? "Copied" : "Copy"}
+    </button>
+  );
+}
+
+export default function CodeBlock({ code, hideHeader = false, compact = false }) {
+  const highlightedLines = useMemo(() => code.split("\n").map(tokenizeLine), [code]);
+
+  return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-transparent">
-      <div className="flex h-11 shrink-0 items-center justify-between border-b border-ink-800 px-4">
-        <span className="text-sm font-medium text-ink-300">{title}</span>
-        <button
-          type="button"
-          onClick={copyCode}
-          className="inline-flex h-8 items-center gap-2 rounded-md border border-ink-700 px-2.5 text-xs text-ink-300 hover:border-accent-400 hover:text-ink-100"
-        >
-          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-          {copied ? "Copied" : "Copy"}
-        </button>
-      </div>
+      {!hideHeader && (
+        <div className="flex h-10 shrink-0 items-center justify-end border-b border-ink-800 px-4">
+          <CopyButton code={code} />
+        </div>
+      )}
       <pre className={`code-scroll min-h-0 flex-1 overflow-auto p-0 font-mono text-[13px] leading-6 text-[#d4d4d4] ${compact ? "max-h-none" : ""}`}>
         <code>
           {highlightedLines.map((tokens, index) => (
