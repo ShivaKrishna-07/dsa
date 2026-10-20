@@ -15,28 +15,23 @@ Given a boolean 2D matrix `grid` of size `n * m`. You have to find the number of
 
 **Example 1:**
 ```text
-Input: grid = [[1, 1, 0, 0, 0],
-               [1, 1, 0, 0, 0],
-               [0, 0, 0, 1, 1],
-               [0, 0, 0, 1, 1]]
+Input: grid = [[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]
 Output: 1
 Explanation: Both 2x2 islands have identical shapes under translation.
 ```
 
 **Example 2:**
 ```text
-Input: grid = [[1, 1, 0, 1, 1],
-               [1, 0, 0, 0, 0],
-               [0, 0, 0, 0, 1],
-               [1, 1, 0, 1, 1]]
+Input: grid = [[1,1,0,1,1],[1,0,0,0,0],[0,0,0,0,1],[1,1,0,1,1]]
 Output: 3
+Explanation: There are 3 distinct island shapes under translation.
 ```
 
 ---
 
 ### Intuition
 
-To determine if two islands have the same shape, store relative coordinates of each island cell with respect to the starting cell: `(r - r0, c - c0)`. Store the serialized shape in a hash set; the number of unique shapes is the answer.
+To determine if two islands have the same shape, record the relative coordinate offset `(r - r0, c - c0)` of each cell from the island's starting cell `(r0, c0)`. When stored in traversal order in a set, translation-invariant duplicate shapes will automatically map to identical vector entries. The final set size gives the number of distinct island shapes.
 
 ---
 
@@ -45,31 +40,45 @@ To determine if two islands have the same shape, store relative coordinates of e
 ```cpp
 // DFS
 class Solution {
-    int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
-    void dfs(vector<vector<int>>& g, int r, int c, int r0, int c0, vector<vector<bool>>& vis, vector<pair<int,int>>& shape) {
+private:
+    int dr[4] = {-1, 1, 0, 0};
+    int dc[4] = {0, 0, -1, 1};
+
+    void dfs(int r, int c, int r0, int c0, vector<vector<int>>& grid, vector<vector<bool>>& vis, vector<pair<int, int>>& shape) {
         vis[r][c] = true;
         shape.push_back({r - r0, c - c0});
-        for (auto& d : dirs) {
-            int nr = r + d[0], nc = c + d[1];
-            if (nr >= 0 && nr < g.size() && nc >= 0 && nc < g[0].size() && g[nr][nc] == 1 && !vis[nr][nc])
-                dfs(g, nr, nc, r0, c0, vis, shape);
+        int n = grid.size();
+        int m = grid[0].size();
+
+        for (int k = 0; k < 4; k++) {
+            int nr = r + dr[k];
+            int nc = c + dc[k];
+
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] == 1 && !vis[nr][nc]) {
+                dfs(nr, nc, r0, c0, grid, vis, shape);
+            }
         }
     }
+
 public:
-    int countDistinctIslands(vector<vector<int>>& g) {
-        int m = g.size(), n = g[0].size();
-        vector<vector<bool>> vis(m, vector<bool>(n, false));
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
+
+        // Stores unique island shapes where each pair is a relative coordinate (r - r0, c - c0)
         set<vector<pair<int, int>>> st;
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (g[i][j] == 1 && !vis[i][j]) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1 && !vis[i][j]) {
                     vector<pair<int, int>> shape;
-                    dfs(g, i, j, i, j, vis, shape);
+                    dfs(i, j, i, j, grid, vis, shape);
                     st.insert(shape);
                 }
             }
         }
+
         return st.size();
     }
 };
@@ -78,37 +87,54 @@ public:
 ```cpp
 // BFS
 class Solution {
+private:
+    int dr[4] = {-1, 1, 0, 0};
+    int dc[4] = {0, 0, -1, 1};
+
+    void bfs(int r0, int c0, vector<vector<int>>& grid, vector<vector<bool>>& vis, vector<pair<int, int>>& shape) {
+        queue<pair<int, int>> q;
+        vis[r0][c0] = true;
+        q.push({r0, c0});
+        int n = grid.size();
+        int m = grid[0].size();
+
+        while (!q.empty()) {
+            int r = q.front().first;
+            int c = q.front().second;
+            q.pop();
+            shape.push_back({r - r0, c - c0});
+
+            for (int k = 0; k < 4; k++) {
+                int nr = r + dr[k];
+                int nc = c + dc[k];
+
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] == 1 && !vis[nr][nc]) {
+                    vis[nr][nc] = true;
+                    q.push({nr, nc});
+                }
+            }
+        }
+    }
+
 public:
-    int countDistinctIslands(vector<vector<int>>& g) {
-        int m = g.size(), n = g[0].size();
-        vector<vector<bool>> vis(m, vector<bool>(n, false));
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
+
+        // Stores unique island shapes where each pair is a relative coordinate (r - r0, c - c0)
         set<vector<pair<int, int>>> st;
-        int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (g[i][j] == 1 && !vis[i][j]) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1 && !vis[i][j]) {
                     vector<pair<int, int>> shape;
-                    queue<pair<int, int>> q;
-                    vis[i][j] = true;
-                    q.push({i, j});
-
-                    while (!q.empty()) {
-                        auto [r, c] = q.front();
-                        q.pop();
-                        shape.push_back({r - i, c - j});
-                        for (auto& d : dirs) {
-                            int nr = r + d[0], nc = c + d[1];
-                            if (nr >= 0 && nr < m && nc >= 0 && nc < n && g[nr][nc] == 1 && !vis[nr][nc]) {
-                                vis[nr][nc] = true;
-                                q.push({nr, nc});
-                            }
-                        }
-                    }
+                    bfs(i, j, grid, vis, shape);
                     st.insert(shape);
                 }
             }
         }
+
         return st.size();
     }
 };
@@ -118,5 +144,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(M * N * log(M * N))` — Traversal takes `O(M * N)` plus insertion into set.
-- **Space Complexity:** `O(M * N)` — Visited array and set storage.
+- **Time Complexity:** `O(M * N * log(M * N))` — Traversal takes `O(M * N)` plus set insertion of shape vectors.
+- **Space Complexity:** `O(M * N)` — For `vis` array, DFS recursion/BFS queue, and shape storage in the set.
