@@ -7,22 +7,45 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 
 function ContextMenu({ menu, position, onClose }) {
   const ref = useRef(null);
+  const activeRef = useRef(null);
 
   useEffect(() => {
     function close(event) {
-      if (!ref.current?.contains(event.target)) onClose();
+      if (ref.current && !ref.current.contains(event.target)) {
+        onClose();
+      }
     }
-    function handleScroll() {
+
+    function handleScroll(event) {
+      // Don't close if user is scrolling inside the context menu itself
+      if (ref.current && (ref.current === event.target || ref.current.contains(event.target))) {
+        return;
+      }
       onClose();
     }
 
-    window.addEventListener("click", close);
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    window.addEventListener("mousedown", close);
     window.addEventListener("scroll", handleScroll, true);
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      window.removeEventListener("click", close);
+      window.removeEventListener("mousedown", close);
       window.removeEventListener("scroll", handleScroll, true);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
+
+  useEffect(() => {
+    if (activeRef.current) {
+      activeRef.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [menu]);
 
   if (!menu) return null;
 
@@ -35,52 +58,75 @@ function ContextMenu({ menu, position, onClose }) {
       <div className="border-b border-ink-800 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-ink-500">
         {menu.title}
       </div>
-      <div className="max-h-80 overflow-auto py-1">
-        {menu.items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onClose}
-            className="block px-3 py-2 text-sm transition-colors hover:bg-ink-800"
-          >
-            <span className="block font-medium text-ink-100">{item.label}</span>
-            {item.meta ? <span className="mt-0.5 block text-xs text-ink-500">{item.meta}</span> : null}
-          </Link>
-        ))}
+      <div className="max-h-80 overflow-y-auto py-1 code-scroll">
+        {menu.items.map((item) => {
+          const isActive = Boolean(item.active);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              ref={isActive ? activeRef : null}
+              onClick={onClose}
+              className={`flex items-center justify-between gap-2 px-3 py-2 text-sm transition-colors ${
+                isActive
+                  ? "bg-accent-500/15 border-l-2 border-accent-400 text-ink-100"
+                  : "hover:bg-ink-800/80 text-ink-300 hover:text-ink-100"
+              }`}
+            >
+              <div className="min-w-0 flex-1">
+                <span className={`block truncate ${isActive ? "font-semibold text-accent-200" : "font-medium text-ink-100"}`}>
+                  {item.label}
+                </span>
+                {item.meta ? (
+                  <span className={`mt-0.5 block text-xs ${isActive ? "text-accent-300/80" : "text-ink-500"}`}>
+                    {item.meta}
+                  </span>
+                ) : null}
+              </div>
+
+              {isActive && (
+                <span className="h-1.5 w-1.5 rounded-full bg-accent-400 shrink-0 shadow-[0_0_6px_rgba(167,139,250,0.8)]" />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function rootMenu(tree) {
+function rootMenu(tree, currentTopicSlug) {
   return {
     title: "Topics",
     items: tree.map((topic) => ({
       label: topic.title,
       href: `/${topic.slug}`,
-      meta: `${topic.patterns.length} patterns`
+      meta: `${topic.patterns.length} patterns`,
+      active: topic.slug === currentTopicSlug
     }))
   };
 }
 
-function topicMenu(topic) {
+function topicMenu(topic, currentPatternSlug) {
   return {
     title: `${topic.title} patterns`,
     items: topic.patterns.map((pattern) => ({
       label: pattern.title,
       href: `/${topic.slug}/${pattern.slug}`,
-      meta: `${pattern.problems.length} problems`
+      meta: `${pattern.problems.length} problems`,
+      active: pattern.slug === currentPatternSlug
     }))
   };
 }
 
-function patternMenu(topic, pattern) {
+function patternMenu(topic, pattern, currentProblemSlug) {
   return {
     title: `${pattern.title} problems`,
     items: pattern.problems.map((problem) => ({
       label: problem.title,
       href: `/${topic.slug}/${pattern.slug}/${problem.slug}`,
-      meta: problem.difficulty
+      meta: problem.difficulty,
+      active: problem.slug === currentProblemSlug
     }))
   };
 }
@@ -145,13 +191,13 @@ export default function NavbarBreadcrumb({ tree = [] }) {
 
   if (segments.length === 0 || !topic) return null;
 
-  const menuForRoot = rootMenu(tree);
+  const menuForRoot = rootMenu(tree, topicSlug);
   const items = [
     {
       label: topic.title,
       href: pattern ? `/${topic.slug}` : undefined,
       rootMenu: menuForRoot,
-      menu: topicMenu(topic)
+      menu: topicMenu(topic, patternSlug)
     }
   ];
 
@@ -159,14 +205,14 @@ export default function NavbarBreadcrumb({ tree = [] }) {
     items.push({
       label: pattern.title,
       href: problem ? `/${topic.slug}/${pattern.slug}` : undefined,
-      menu: patternMenu(topic, pattern)
+      menu: patternMenu(topic, pattern, problemSlug)
     });
   }
 
   if (problem) {
     items.push({
       label: problem.title,
-      menu: patternMenu(topic, pattern)
+      menu: patternMenu(topic, pattern, problemSlug)
     });
   }
 
@@ -175,8 +221,8 @@ export default function NavbarBreadcrumb({ tree = [] }) {
   function openMenu(event, item) {
     if (!item.menu?.items?.length) return;
     event.preventDefault();
-    const x = Math.min(event.clientX, window.innerWidth - 300);
-    const y = Math.min(event.clientY, window.innerHeight - 360);
+    const x = Math.max(8, Math.min(event.clientX, window.innerWidth - 300));
+    const y = Math.max(8, Math.min(event.clientY, window.innerHeight - 360));
     setContext({ menu: item.menu, position: { x, y } });
   }
 
