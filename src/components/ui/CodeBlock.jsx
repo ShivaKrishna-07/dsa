@@ -96,7 +96,19 @@ export function CopyButton({ code, className = "", iconOnly = false }) {
 }
 
 export default function CodeBlock({ code, hideHeader = false, compact = false, wrap = false }) {
-  const highlightedLines = useMemo(() => code.split("\n").map(tokenizeLine), [code]);
+  const highlightedLines = useMemo(() => {
+    const rawLines = (code || "").split("\n");
+    return rawLines.map((line) => {
+      const tokens = tokenizeLine(line);
+      const indentChars = line.match(/^(\s*)/)?.[1] || "";
+      let indentCount = 0;
+      for (const char of indentChars) {
+        if (char === "\t") indentCount += 4;
+        else indentCount += 1;
+      }
+      return { tokens, indentCount };
+    });
+  }, [code]);
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-transparent">
@@ -105,22 +117,38 @@ export default function CodeBlock({ code, hideHeader = false, compact = false, w
           <CopyButton code={code} />
         </div>
       )}
-      <pre className={`code-scroll min-h-0 flex-1 ${wrap ? "overflow-y-auto overflow-x-hidden" : "overflow-auto"} p-0 font-mono text-[13px] leading-6 text-[#d4d4d4] ${compact ? "max-h-none" : ""}`}>
+      <pre
+        style={{ tabSize: 4 }}
+        className={`code-scroll min-h-0 flex-1 ${wrap ? "overflow-y-auto overflow-x-hidden" : "overflow-auto"} p-0 font-mono text-[13px] leading-6 text-[#d4d4d4] ${compact ? "max-h-none" : ""}`}
+      >
         <code>
-          {highlightedLines.map((tokens, index) => (
-            <span key={index} className="grid grid-cols-[3rem_1fr]">
-              <span className="select-none border-r border-ink-800 pr-3 text-right text-ink-500">{index + 1}</span>
-              <span className={`px-4 ${wrap ? "whitespace-pre-wrap break-words" : "whitespace-pre"}`}>
-                {tokens.length
-                  ? tokens.map((part, tokenIndex) => (
-                      <span key={`${index}-${tokenIndex}`} className={part.className}>
-                        {part.token}
-                      </span>
-                    ))
-                  : " "}
-              </span>
-            </span>
-          ))}
+          {highlightedLines.map((item, index) => {
+            const safeIndent = Math.min(item.indentCount, 40);
+            return (
+              <div key={index} className="grid grid-cols-[3rem_1fr]">
+                <span className="select-none border-r border-ink-800 pr-3 text-right text-ink-500">{index + 1}</span>
+                <div
+                  style={
+                    wrap && safeIndent > 0
+                      ? {
+                          paddingLeft: `calc(1rem + ${safeIndent}ch)`,
+                          textIndent: `-${safeIndent}ch`
+                        }
+                      : undefined
+                  }
+                  className={`px-4 ${wrap ? "whitespace-pre-wrap break-words" : "whitespace-pre"}`}
+                >
+                  {item.tokens.length
+                    ? item.tokens.map((part, tokenIndex) => (
+                        <span key={`${index}-${tokenIndex}`} className={part.className}>
+                          {part.token}
+                        </span>
+                      ))
+                    : " "}
+                </div>
+              </div>
+            );
+          })}
         </code>
       </pre>
     </div>
