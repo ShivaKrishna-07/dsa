@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
+import { ArrowLeft, Bookmark, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import ProblemCard from "@/components/cards/ProblemCard";
+import { useBookmarks } from "@/context/BookmarkContext";
 
 export default function PatternWorkspace({ topic, pattern }) {
+  const { isBookmarked } = useBookmarks();
+  const markedCount = pattern.problems.filter((p) => isBookmarked(p.slug)).length;
   const [wrapTemplate, setWrapTemplate] = useState(false);
 
   // Sync word wrap preference from localStorage on mount
@@ -47,6 +50,12 @@ export default function PatternWorkspace({ topic, pattern }) {
         </div>
 
         <div className="flex items-center gap-2">
+          {markedCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-300 shadow-sm shadow-amber-500/10">
+              <Bookmark className="h-3 w-3 fill-amber-400 text-amber-400" />
+              <span>{markedCount} to review</span>
+            </span>
+          )}
           <span className="rounded-full border border-ink-800/80 bg-ink-900/80 px-3 py-1 text-xs font-semibold text-accent-400 shadow-sm">
             {pattern.problems.length} {pattern.problems.length === 1 ? "problem" : "problems"}
           </span>
@@ -63,9 +72,16 @@ export default function PatternWorkspace({ topic, pattern }) {
               <ListChecks className="h-4 w-4 text-accent-400" />
               <span>Problems</span>
             </div>
-            <span className="rounded-full bg-ink-950/80 border border-ink-800/80 px-2.5 py-0.5 text-xs font-mono font-medium text-ink-400">
-              {pattern.problems.length}
-            </span>
+            <div className="flex items-center gap-2">
+              {markedCount > 0 && (
+                <span className="text-[11px] font-semibold text-amber-400">
+                  {markedCount} flagged
+                </span>
+              )}
+              <span className="rounded-full bg-ink-950/80 border border-ink-800/80 px-2.5 py-0.5 text-xs font-mono font-medium text-ink-400">
+                {pattern.problems.length}
+              </span>
+            </div>
           </div>
 
           {/* List of problems */}

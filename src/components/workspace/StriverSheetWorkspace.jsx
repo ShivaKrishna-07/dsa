@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BookOpen,
+  Bookmark,
   ChevronDown,
   Code2,
   Flame,
@@ -17,10 +18,12 @@ import { TopicIcon } from "@/components/ui/icons";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import ProblemStatementMarkdown from "@/components/workspace/ProblemStatementMarkdown";
 import { difficultyClass } from "@/lib/format";
+import { useBookmarks } from "@/context/BookmarkContext";
 
 let memoryCachedTopics = null;
 
 export default function StriverSheetWorkspace({ initialTree = [] }) {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
   const [fullTopics, setFullTopics] = useState(memoryCachedTopics);
   const topics = fullTopics || initialTree;
 
@@ -448,7 +451,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                                       </span>
                                     </div>
 
-                                    {/* Right: Difficulty & Platform Icons */}
+                                    {/* Right: Difficulty, Bookmark & Platform Icons */}
                                     <div className="flex items-center gap-1.5 shrink-0">
                                       <span className={`rounded-full border px-1.5 py-0.2 text-[10px] font-semibold ${difficultyClass(problem.difficulty)}`}>
                                         {problem.difficulty}
@@ -457,6 +460,28 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                                       {problem.label && (
                                         <Flame className="h-3 w-3 fill-red-500 text-red-500 shrink-0" />
                                       )}
+
+                                      {/* Bookmark / Review Later Toggle */}
+                                      {(() => {
+                                        const isMarked = isBookmarked(problem.slug);
+                                        return (
+                                          <button
+                                            type="button"
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              toggleBookmark(problem.slug);
+                                            }}
+                                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded transition ${
+                                              isMarked
+                                                ? "text-amber-400 hover:bg-amber-500/20"
+                                                : "text-ink-600 hover:text-amber-400 hover:bg-ink-800 opacity-0 group-hover:opacity-100"
+                                            }`}
+                                            title={isMarked ? "Marked for review (Click to unmark)" : "Mark to review later"}
+                                          >
+                                            <Bookmark className={`h-3 w-3 ${isMarked ? "fill-amber-400 text-amber-400" : ""}`} />
+                                          </button>
+                                        );
+                                      })()}
 
                                       {/* Platform Link Icons */}
                                       <div className="flex items-center gap-1 pl-1 border-l border-ink-800/80">
@@ -535,8 +560,8 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       <main className="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-ink-950">
         {activeProblem ? (
           <div className="flex flex-col h-full overflow-hidden">
-            {/* 3 Tabs: Problem Statement, Intuition, Code */}
-            <div className="border-b border-ink-800/80 bg-ink-950/90 px-4 sm:px-6 py-2.5 shrink-0">
+            {/* Header: Tabs on left, Bookmark / Review on right */}
+            <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/90 px-4 sm:px-6 py-2.5 shrink-0">
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
@@ -579,6 +604,21 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                   <span>Code</span>
                 </button>
               </div>
+
+              {/* Bookmark / Review Later Toggle */}
+              <button
+                type="button"
+                onClick={() => toggleBookmark(activeProblem.slug)}
+                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                  isBookmarked(activeProblem.slug)
+                    ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-sm shadow-amber-500/10"
+                    : "border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
+                }`}
+                title={isBookmarked(activeProblem.slug) ? "Marked for review (Click to unmark)" : "Mark to review later"}
+              >
+                <Bookmark className={`h-3.5 w-3.5 ${isBookmarked(activeProblem.slug) ? "fill-amber-400 text-amber-400" : ""}`} />
+                <span>{isBookmarked(activeProblem.slug) ? "Review Later" : "Mark"}</span>
+              </button>
             </div>
 
             {/* Tab Body Contents */}

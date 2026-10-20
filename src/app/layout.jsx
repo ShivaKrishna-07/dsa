@@ -4,6 +4,7 @@ import Header from "@/components/ui/Header";
 import PageOverflowController from "@/components/ui/PageOverflowController";
 import ThemeProvider from "@/components/ui/ThemeProvider";
 import { LayoutProvider } from "@/context/LayoutContext";
+import { BookmarkProvider } from "@/context/BookmarkContext";
 import AppLayoutView from "@/components/layout/AppLayoutView";
 import { getSearchItems, topics } from "@/lib/data";
 
@@ -61,13 +62,15 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider>
           <LayoutProvider>
-            <div className="min-h-screen flex flex-col bg-ink-950 text-ink-100">
-              <PageOverflowController />
-              <Header tree={navigationTree} items={searchItems} />
-              <main className="flex-1 flex flex-col">
-                <AppLayoutView tree={navigationTree}>{children}</AppLayoutView>
-              </main>
-            </div>
+            <BookmarkProvider>
+              <div className="min-h-screen flex flex-col bg-ink-950 text-ink-100">
+                <PageOverflowController />
+                <Header tree={navigationTree} items={searchItems} />
+                <main className="flex-1 flex flex-col">
+                  <AppLayoutView tree={navigationTree}>{children}</AppLayoutView>
+                </main>
+              </div>
+            </BookmarkProvider>
           </LayoutProvider>
         </ThemeProvider>
       </body>

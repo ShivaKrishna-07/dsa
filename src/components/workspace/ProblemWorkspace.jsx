@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Code2, ExternalLink, Gauge, Lightbulb, Flame, FileText } from "lucide-react";
+import { BookOpen, Bookmark, Code2, ExternalLink, Gauge, Lightbulb, Flame, FileText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import Tabs from "@/components/ui/Tabs";
 import { difficultyClass, platformLabel } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
 import ReactMarkdown from "react-markdown";
+import { useBookmarks } from "@/context/BookmarkContext";
 
 const platformIcons = {
   leetcode: SiLeetcode,
@@ -24,6 +25,9 @@ const platformIconClass = {
 };
 
 export default function ProblemWorkspace({ problem }) {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const marked = isBookmarked(problem.slug);
+
   const pathname = usePathname();
   const isRecursionTopic = pathname?.startsWith('/recursion') && !pathname?.includes('word-search') && !pathname?.includes('n-queens') && !pathname?.includes('sudoku-solver');
 
@@ -38,7 +42,21 @@ export default function ProblemWorkspace({ problem }) {
   return (
     <div className="flex flex-col-reverse gap-4 lg:grid lg:h-[calc(100vh-11.5rem)] lg:grid-cols-[22rem_minmax(0,1fr)]">
       <aside className="rounded-md border border-ink-800 bg-ink-900/40 p-4 lg:sticky lg:top-[126px] lg:h-[calc(100vh-11.5rem)] lg:overflow-auto">
-        <h1 className="mb-4 text-2xl font-semibold sm:text-3xl">{problem.title}</h1>
+        <div className="flex items-start justify-between gap-2 mb-4">
+          <h1 className="text-2xl font-semibold sm:text-3xl">{problem.title}</h1>
+          <button
+            type="button"
+            onClick={() => toggleBookmark(problem.slug)}
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition ${
+              marked
+                ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-sm"
+                : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:text-amber-300"
+            }`}
+            title={marked ? "Marked for review (Click to unmark)" : "Mark to review later"}
+          >
+            <Bookmark className={`h-4 w-4 ${marked ? "fill-amber-400 text-amber-400" : ""}`} />
+          </button>
+        </div>
         <div className="flex flex-wrap items-center gap-2">
           <span className={`rounded border px-2.5 py-1 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
             {problem.difficulty}

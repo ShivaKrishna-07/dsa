@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Flame } from "lucide-react";
+import { ArrowRight, BookOpen, Flame, Bookmark } from "lucide-react";
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import { difficultyClass, platformLabel } from "@/lib/format";
+import { useBookmarks } from "@/context/BookmarkContext";
 
 const platformIcons = {
   leetcode: SiLeetcode,
@@ -18,6 +19,9 @@ const platformStyles = {
 };
 
 export default function ProblemCard({ topicSlug, patternSlug, problem, index }) {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const marked = isBookmarked(problem.slug);
+
   const hasLeetcode = Boolean(problem.platforms?.leetcode && typeof problem.platforms.leetcode === "string" && problem.platforms.leetcode.trim());
   const visiblePlatforms = Object.entries(problem.platforms || {}).filter(([key, url]) => {
     if (!url || typeof url !== "string" || !url.trim()) return false;
@@ -61,6 +65,24 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
               ))}
             </div>
           )}
+
+          {/* Bookmark / Mark for Review Button */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleBookmark(problem.slug);
+            }}
+            className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg border transition-all hover:scale-105 shadow-sm ${
+              marked
+                ? "border-amber-500/50 bg-amber-500/15 text-amber-400"
+                : "border-ink-800/80 bg-ink-900/60 text-ink-500 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-400"
+            }`}
+            title={marked ? "Marked for review (Click to unmark)" : "Mark to review later"}
+          >
+            <Bookmark className={`h-3.5 w-3.5 ${marked ? "fill-amber-400 text-amber-400" : ""}`} />
+          </button>
 
           <div className="hidden sm:flex items-center justify-end pl-1">
             <ArrowRight className="h-4 w-4 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />

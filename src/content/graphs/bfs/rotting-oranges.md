@@ -54,42 +54,57 @@ This is a classic multi-source BFS problem. All initially rotten oranges start r
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int m = grid.size(), n = grid[0].size();
-        // Queue stores {row, col} coordinates of rotten oranges
-        queue<pair<int, int>> q;
-        int fresh = 0;
+        int n = grid.size();
+        int m = grid[0].size();
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 2) q.push({i, j});
-                else if (grid[i][j] == 1) fresh++;
-            }
-        }
+        vector<vector<int>> vis(n, vector<int>(m));
+        // Queue stores {{row, col}, time}
+        queue<pair<pair<int, int>, int>> q;
 
-        if (fresh == 0) return 0;
-
-        int time = 0;
-        int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
-
-        while (!q.empty() && fresh > 0) {
-            int sz = q.size();
-            time++;
-            while (sz--) {
-                auto [r, c] = q.front();
-                q.pop();
-                for (auto& d : dirs) {
-                    int nr = r + d[0], nc = c + d[1];
-                    if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
-                        // Rot the adjacent fresh orange and decrement remaining fresh count
-                        grid[nr][nc] = 2;
-                        fresh--;
-                        q.push({nr, nc});
-                    }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 2) {
+                    q.push({{i, j}, 0});
+                    vis[i][j] = 1;
+                } else {
+                    vis[i][j] = 0;
                 }
             }
         }
 
-        return fresh == 0 ? time : -1;
+        int drow[4] = {-1, 0, 1, 0};
+        int dcol[4] = {0, 1, 0, -1};
+        int maxTime = 0;
+
+        while (!q.empty()) {
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int t = q.front().second;
+            q.pop();
+            maxTime = max(maxTime, t);
+
+            for (int i = 0; i < 4; i++) {
+                int nrow = r + drow[i];
+                int ncol = c + dcol[i];
+
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] != 1 && grid[nrow][ncol] == 1) {
+                    // Rot adjacent orange and push with incremented time
+                    q.push({{nrow, ncol}, t + 1});
+                    vis[nrow][ncol] = 1;
+                }
+            }
+        }
+
+        // Check if any fresh orange could not be reached
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (vis[i][j] != 1 && grid[i][j] == 1) {
+                    return -1;
+                }
+            }
+        }
+
+        return maxTime;
     }
 };
 ```

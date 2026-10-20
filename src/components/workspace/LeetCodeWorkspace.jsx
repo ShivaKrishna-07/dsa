@@ -3,13 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Lightbulb, Flame, FileText, ChevronLeft, ChevronRight, WrapText } from "lucide-react";
+import { BookOpen, Lightbulb, Flame, FileText, ChevronLeft, ChevronRight, WrapText, Bookmark } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import { difficultyClass } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
 import ReactMarkdown from "react-markdown";
+import { useBookmarks } from "@/context/BookmarkContext";
 
 export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem }) {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const marked = isBookmarked(problem.slug);
+
   const pathname = usePathname();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("ps");
@@ -169,6 +173,23 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                 {problem.label}
               </span>
             )}
+
+            {/* Bookmark / Review Later Toggle */}
+            <button
+              type="button"
+              onClick={() => toggleBookmark(problem.slug)}
+              className={`flex h-7 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-semibold transition hover:scale-105 shadow-sm ${
+                marked
+                  ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-amber-500/10"
+                  : "border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
+              }`}
+              title={marked ? "Marked for review (Click to unmark)" : "Mark to review later"}
+            >
+              <Bookmark className={`h-3.5 w-3.5 ${marked ? "fill-amber-400 text-amber-400" : ""}`} />
+              <span className="hidden sm:inline">
+                {marked ? "Review Later" : "Mark"}
+              </span>
+            </button>
 
             {/* Platform Icon Buttons */}
             <div className="flex items-center gap-1 pl-1 border-l border-ink-800/80">
