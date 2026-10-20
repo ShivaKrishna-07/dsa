@@ -18,7 +18,50 @@ export default function SearchBox({ variant = "header", items = [] }) {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [shortcutText, setShortcutText] = useState("Ctrl+K");
   const trimmed = query.trim().toLowerCase();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform || navigator.userAgent)) {
+      setShortcutText("⌘K");
+    }
+  }, []);
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      // Ctrl+K or Cmd+K
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        inputRef.current?.focus();
+        setIsOpen(true);
+        setIsFocused(true);
+        return;
+      }
+
+      // '/' shortcut when not already inside an editable input
+      if (
+        event.key === "/" &&
+        !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName) &&
+        !document.activeElement?.isContentEditable
+      ) {
+        event.preventDefault();
+        inputRef.current?.focus();
+        setIsOpen(true);
+        setIsFocused(true);
+        return;
+      }
+
+      // 'Escape' closes search
+      if (event.key === "Escape" && (isOpen || isFocused)) {
+        setIsOpen(false);
+        setIsFocused(false);
+        inputRef.current?.blur();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, isFocused]);
 
   const groupedResults = useMemo(() => {
     if (!trimmed) return {};
@@ -88,9 +131,9 @@ export default function SearchBox({ variant = "header", items = [] }) {
             setQuery(event.target.value);
             setIsOpen(true);
           }}
-          placeholder={isFocused ? "Search topic, pattern, problem" : "Search"}
+          placeholder={isFocused ? "Search topic, pattern, problem..." : `Search (${shortcutText})`}
           className={`w-full rounded-xl border border-ink-800 bg-ink-900/70 py-2.5 pl-10 text-sm text-ink-100 outline-none transition placeholder:text-ink-500 focus:border-accent-500/80 focus:bg-ink-900 focus:ring-2 focus:ring-accent-500/20 ${
-            query ? "pr-10" : "pr-3"
+            query ? "pr-10" : "pr-16 sm:pr-18"
           } ${isHero ? "h-12 text-base" : "h-10"}`}
         />
         {query ? (
@@ -102,7 +145,11 @@ export default function SearchBox({ variant = "header", items = [] }) {
           >
             <X className="h-4 w-4" />
           </button>
-        ) : null}
+        ) : (
+          <kbd className="pointer-events-none absolute right-2.5 top-1/2 hidden -translate-y-1/2 items-center rounded-md border border-ink-800/90 bg-ink-950/70 px-1.5 py-0.5 font-mono text-[10px] font-medium text-ink-400 shadow-sm sm:inline-flex">
+            {shortcutText}
+          </kbd>
+        )}
       </form>
 
       {isOpen && trimmed && (
