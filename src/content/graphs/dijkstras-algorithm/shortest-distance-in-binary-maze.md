@@ -5,7 +5,6 @@ time: "O(N * M)"
 space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
-  gfg: "https://practice.geeksforgeeks.org/problems/shortest-path-in-a-binary-maze-1655453161/1"
   youtube: "https://www.youtube.com/watch?v=U5Mw4eyUmw4"
   article: "https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/"
 ---
@@ -55,6 +54,7 @@ public:
         if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1;
         if (n == 1) return 1;
 
+        // Queue stores {row, col} coordinates for unweighted BFS
         queue<pair<int, int>> q;
         grid[0][0] = 1; // distance
         q.push({0, 0});

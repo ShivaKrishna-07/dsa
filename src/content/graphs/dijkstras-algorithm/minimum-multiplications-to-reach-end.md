@@ -36,7 +36,9 @@ public:
     int minimumMultiplications(vector<int>& arr, int start, int end) {
         if (start == end) return 0;
         const int MOD = 100000;
+        // Stores minimum steps to reach each remainder modulo 100000
         vector<int> dist(MOD, -1);
+        // Queue stores current remainder value
         queue<int> q;
 
         dist[start] = 0;

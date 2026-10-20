@@ -41,6 +41,7 @@ Compute all-pairs shortest paths using the Floyd-Warshall algorithm. Once the sh
 class Solution {
 public:
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        // dist[i][j] stores all-pairs shortest path distance
         vector<vector<int>> dist(n, vector<int>(n, 1e9));
 
         for (int i = 0; i < n; i++) {

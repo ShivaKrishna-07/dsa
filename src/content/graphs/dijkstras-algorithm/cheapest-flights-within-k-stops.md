@@ -5,7 +5,6 @@ time: "O(K * E)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
-  gfg: "https://practice.geeksforgeeks.org/problems/cheapest-flights-within-k-stops/1"
   youtube: "https://www.youtube.com/watch?v=9XybHVqTHcQ"
   article: "https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/"
 ---
@@ -42,7 +41,9 @@ public:
             adj[f[0]].push_back({f[1], f[2]});
         }
 
+        // Queue stores {stops, node, cost}
         queue<tuple<int, int, int>> q; // {stops, node, cost}
+        // Stores minimum cost to reach each node within allowed stops
         vector<int> dist(n, 1e9);
 
         dist[src] = 0;

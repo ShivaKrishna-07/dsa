@@ -5,7 +5,6 @@ time: "O(N)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/"
-  gfg: "https://practice.geeksforgeeks.org/problems/maximum-stone-removal-sort/1"
   youtube: "https://www.youtube.com/watch?v=OwMNX8SPavM"
   article: "https://takeuforward.org/data-structure/most-stones-removed-with-same-row-or-column-dsu-g-53/"
 ---
@@ -46,6 +45,7 @@ Therefore:
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: component size
     vector<int> parent, size;
     DisjointSet(int n) {
         parent.resize(n);
@@ -80,6 +80,7 @@ public:
 
         int offset = maxR + 1;
         DisjointSet ds(maxR + maxC + 2);
+        // Stores unique row and column node IDs containing stones
         unordered_set<int> stoneNodes;
 
         for (auto& s : stones) {

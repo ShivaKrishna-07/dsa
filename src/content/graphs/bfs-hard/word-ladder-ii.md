@@ -5,7 +5,6 @@ time: "O(N * L * 26 + Paths)"
 space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder-ii/"
-  gfg: "https://practice.geeksforgeeks.org/problems/word-ladder-ii/1"
   youtube: "https://www.youtube.com/watch?v=DREutrv2gz0"
   article: "https://takeuforward.org/graph/word-ladder-ii-optimised-approach-dfs-bfs/"
 ---
@@ -42,6 +41,7 @@ To avoid Time Limit Exceeded (TLE) when storing full path lists in BFS queues, u
 
 ```cpp
 class Solution {
+    // Stores minimum step/distance from beginWord for each reached word
     unordered_map<string, int> stepMap;
     vector<vector<string>> ans;
     string start;
@@ -59,6 +59,7 @@ class Solution {
             char orig = word[i];
             for (char ch = 'a'; ch <= 'z'; ch++) {
                 word[i] = ch;
+                // Only backtrack to predecessor whose step is exactly currStep - 1
                 if (stepMap.count(word) && stepMap[word] + 1 == currStep) {
                     path.push_back(word);
                     dfs(word, path);
@@ -71,10 +72,12 @@ class Solution {
 
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        // Hash set for fast dictionary lookups
         unordered_set<string> dict(wordList.begin(), wordList.end());
         if (!dict.count(endWord)) return {};
 
         start = beginWord;
+        // Queue stores word to explore level by level
         queue<string> q;
         q.push(beginWord);
         stepMap[beginWord] = 0;

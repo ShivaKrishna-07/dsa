@@ -5,7 +5,6 @@ time: "O(V + E)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/course-schedule/"
-  gfg: "https://practice.geeksforgeeks.org/problems/course-schedule/1"
   youtube: "https://www.youtube.com/watch?v=WAOfKIrV238"
   article: "https://takeuforward.org/data-structure/course-schedule-i-and-ii-pre-requisite-tasks-topological-sort/"
 ---
@@ -49,6 +48,7 @@ class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>> adj(numCourses);
+        // Stores in-degree (prerequisites count) for each course
         vector<int> indegree(numCourses, 0);
 
         for (auto& p : prerequisites) {
@@ -56,6 +56,7 @@ public:
             indegree[p[0]]++;
         }
 
+        // Queue stores courses with 0 remaining prerequisites
         queue<int> q;
         for (int i = 0; i < numCourses; i++)
             if (indegree[i] == 0) q.push(i);
@@ -87,6 +88,7 @@ public:
             indegree[p[0]]++;
         }
 
+        // Queue stores courses with 0 remaining prerequisites
         queue<int> q;
         for (int i = 0; i < numCourses; i++)
             if (indegree[i] == 0) q.push(i);

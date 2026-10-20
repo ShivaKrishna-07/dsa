@@ -33,7 +33,9 @@ Dijkstra using `std::set` stores elements ordered by distance. When a shorter di
 class Solution {
 public:
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S) {
+        // Set stores {distance, node} in ascending order
         set<pair<int, int>> st;
+        // Stores shortest distance from source to each vertex
         vector<int> dist(V, 1e9);
 
         dist[S] = 0;

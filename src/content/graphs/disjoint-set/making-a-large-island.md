@@ -5,7 +5,6 @@ time: "O(N^2)"
 space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/making-a-large-island/"
-  gfg: "https://practice.geeksforgeeks.org/problems/making-a-large-island/1"
   youtube: "https://www.youtube.com/watch?v=lgiz0Oup6gM"
   article: "https://takeuforward.org/data-structure/making-a-large-island-dsu-g-52/"
 ---
@@ -50,6 +49,7 @@ Output: 4
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: island cell count
     vector<int> parent, size;
     DisjointSet(int n) {
         parent.resize(n);
@@ -98,6 +98,7 @@ public:
         for (int r = 0; r < n; r++) {
             for (int c = 0; c < n; c++) {
                 if (grid[r][c] == 1) continue;
+                // Stores unique root IDs of adjacent islands to avoid duplicate addition
                 unordered_set<int> uniqueParents;
                 for (auto& d : dirs) {
                     int nr = r + d[0], nc = c + d[1];

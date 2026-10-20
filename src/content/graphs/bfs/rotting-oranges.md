@@ -5,7 +5,6 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/rotting-oranges/"
-  gfg: "https://practice.geeksforgeeks.org/problems/rotten-oranges2536/1"
   youtube: "https://www.youtube.com/watch?v=yf3oUhkvqA0"
   article: "https://takeuforward.org/data-structure/rotten-oranges-bfs/"
 ---
@@ -56,6 +55,7 @@ class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
         int m = grid.size(), n = grid[0].size();
+        // Queue stores {row, col} coordinates of rotten oranges
         queue<pair<int, int>> q;
         int fresh = 0;
 
@@ -80,6 +80,7 @@ public:
                 for (auto& d : dirs) {
                     int nr = r + d[0], nc = c + d[1];
                     if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
+                        // Rot the adjacent fresh orange and decrement remaining fresh count
                         grid[nr][nc] = 2;
                         fresh--;
                         q.push({nr, nc});

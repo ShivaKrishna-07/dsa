@@ -40,6 +40,7 @@ public:
         }
 
         vector<int> dist(n, -1);
+        // Queue stores current vertex to process level by level
         queue<int> q;
 
         dist[src] = 0;
@@ -50,6 +51,7 @@ public:
             q.pop();
             for (int v : adj[u]) {
                 if (dist[v] == -1) {
+                    // First time reaching vertex v gives its shortest path
                     dist[v] = dist[u] + 1;
                     q.push(v);
                 }

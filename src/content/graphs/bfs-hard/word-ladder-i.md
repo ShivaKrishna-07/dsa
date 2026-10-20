@@ -5,7 +5,6 @@ time: "O(N * L * 26)"
 space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder/"
-  gfg: "https://practice.geeksforgeeks.org/problems/word-ladder/1"
   youtube: "https://www.youtube.com/watch?v=tRPda0rcf8E"
   article: "https://takeuforward.org/graph/word-ladder-i-shortest-paths/"
 ---
@@ -47,9 +46,11 @@ Model this as an unweighted shortest path graph problem where each word is a ver
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        // Hash set for O(1) dictionary word lookups and removal
         unordered_set<string> dict(wordList.begin(), wordList.end());
         if (!dict.count(endWord)) return 0;
 
+        // Queue stores {current word, transformation step count}
         queue<pair<string, int>> q;
         q.push({beginWord, 1});
         dict.erase(beginWord);
@@ -64,6 +65,7 @@ public:
                 for (char ch = 'a'; ch <= 'z'; ch++) {
                     word[i] = ch;
                     if (dict.count(word)) {
+                        // Erase word to avoid revisiting
                         dict.erase(word);
                         q.push({word, steps + 1});
                     }

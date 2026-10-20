@@ -44,6 +44,7 @@ class Solution {
 public:
     int swimInWater(vector<vector<int>>& grid) {
         int n = grid.size();
+        // Min-heap stores {water level (max elevation on path), row, col}
         priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> pq;
         vector<vector<bool>> vis(n, vector<bool>(n, false));
 

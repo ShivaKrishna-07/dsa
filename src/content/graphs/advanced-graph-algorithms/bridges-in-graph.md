@@ -75,6 +75,7 @@ public:
         }
 
         vector<int> vis(n, 0);
+        // tin: DFS discovery time; low: lowest discovery time reachable via back-edge
         vector<int> tin(n);
         vector<int> low(n);
         vector<vector<int>> ans;

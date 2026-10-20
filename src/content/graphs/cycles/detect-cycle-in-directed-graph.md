@@ -49,6 +49,7 @@ class Solution {
             if (!vis[it]) {
                 if (dfs(it, adj, vis, pathVis)) return true;
             } else if (pathVis[it]) {
+                // Back-edge found: node is already in current DFS recursion stack
                 return true;
             }
         }
@@ -58,6 +59,7 @@ class Solution {
     }
 public:
     bool isCyclic(int V, vector<int> adj[]) {
+        // pathVis tracks vertices in the active DFS recursion stack
         vector<bool> vis(V, false), pathVis(V, false);
         for (int i = 0; i < V; i++) {
             if (!vis[i]) {
@@ -74,10 +76,12 @@ public:
 class Solution {
 public:
     bool isCyclic(int V, vector<int> adj[]) {
+        // Stores in-degree (incoming edges count) for each vertex
         vector<int> indegree(V, 0);
         for (int i = 0; i < V; i++)
             for (auto it : adj[i]) indegree[it]++;
 
+        // Queue stores vertices with in-degree 0 (no dependencies)
         queue<int> q;
         for (int i = 0; i < V; i++)
             if (indegree[i] == 0) q.push(i);
@@ -91,6 +95,7 @@ public:
                 if (--indegree[it] == 0) q.push(it);
             }
         }
+        // If processed vertex count != V, a directed cycle exists
         return cnt != V;
     }
 };

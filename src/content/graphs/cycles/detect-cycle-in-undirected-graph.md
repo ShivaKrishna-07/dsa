@@ -41,6 +41,7 @@ During traversal (BFS or DFS), if we encounter an adjacent node that is already 
 // BFS
 class Solution {
     bool checkCycle(int src, vector<int> adj[], vector<bool>& vis) {
+        // Queue stores {current node, parent node}
         queue<pair<int, int>> q;
         vis[src] = true;
         q.push({src, -1});
@@ -53,6 +54,7 @@ class Solution {
                     vis[it] = true;
                     q.push({it, node});
                 } else if (it != parent) {
+                    // Visited neighbor that is not parent indicates a cycle
                     return true;
                 }
             }
@@ -81,6 +83,7 @@ class Solution {
             if (!vis[it]) {
                 if (dfs(it, node, adj, vis)) return true;
             } else if (it != parent) {
+                // Visited neighbor not matching parent in DFS indicates a cycle
                 return true;
             }
         }

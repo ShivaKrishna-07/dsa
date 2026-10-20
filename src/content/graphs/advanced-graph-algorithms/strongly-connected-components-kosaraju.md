@@ -59,6 +59,7 @@ class Solution {
 public:
     int kosaraju(int V, vector<vector<int>>& adj) {
         vector<int> vis(V, 0);
+        // Stack stores vertices sorted by DFS completion/finishing times
         stack<int> st;
 
         for (int i = 0; i < V; i++) {

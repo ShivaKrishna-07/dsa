@@ -54,6 +54,7 @@ We maintain two main arrays: `parent` and `rank` (or `size`). Initially, every v
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; rank/size: tree depth/size for balanced union
     vector<int> rank, parent, size;
 
     DisjointSet(int n) {
@@ -69,6 +70,7 @@ public:
         if (node == parent[node]) {
             return node;
         }
+        // Path compression: attaches node directly to root
         return parent[node] = findUPar(parent[node]);
     }
 

@@ -72,6 +72,7 @@ class Solution {
 public:
     vector<int> articulationPoints(int V, vector<int> adj[]) {
         vector<int> vis(V, 0);
+        // tin: DFS discovery time; low: lowest discovery time reachable via subtree
         vector<int> tin(V);
         vector<int> low(V);
         vector<int> mark(V, 0);

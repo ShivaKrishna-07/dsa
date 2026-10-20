@@ -40,8 +40,10 @@ public:
             adj[e[1]].push_back({e[0], e[2]});
         }
 
+        // Min-heap stores {distance, node}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
         vector<int> dist(n + 1, 1e9);
+        // parent stores predecessor node along the shortest path
         vector<int> parent(n + 1);
 
         for (int i = 1; i <= n; i++) {

@@ -5,7 +5,6 @@ time: "O(N * M * log(N * M))"
 space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/accounts-merge/"
-  gfg: "https://practice.geeksforgeeks.org/problems/accounts-merge/1"
   youtube: "https://www.youtube.com/watch?v=FMwpt_aQOGw"
   article: "https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/"
 ---
@@ -35,6 +34,7 @@ Map each unique email to the account index `i`. If an email was already seen in 
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: component size
     vector<int> parent, size;
     DisjointSet(int n) {
         parent.resize(n);

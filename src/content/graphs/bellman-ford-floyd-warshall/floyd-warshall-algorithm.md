@@ -46,11 +46,13 @@ public:
             }
         }
 
+        // Intermediate vertex k must be outer loop to consider paths via 0..k
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (matrix[i][k] != 1e9 && matrix[k][j] != 1e9) {
-                        matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j]);
+                        // Relaxation: check if path via k is strictly shorter
+                    matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j]);
                     }
                 }
             }

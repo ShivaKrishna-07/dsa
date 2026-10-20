@@ -46,11 +46,13 @@ public:
         }
 
         vector<bool> vis(V, false);
+        // Stack stores topological ordering of DAG
         stack<int> st;
         for (int i = 0; i < V; i++) {
             if (!vis[i]) topoSort(i, adj, vis, st);
         }
 
+        // dist stores shortest distance from source to each vertex
         vector<int> dist(V, 1e9);
         dist[0] = 0;
 
@@ -60,6 +62,7 @@ public:
             if (dist[u] != 1e9) {
                 for (auto& it : adj[u]) {
                     int v = it.first, wt = it.second;
+                    // Relax outgoing edges in topological order
                     if (dist[u] + wt < dist[v]) {
                         dist[v] = dist[u] + wt;
                     }

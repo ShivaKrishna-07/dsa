@@ -5,7 +5,6 @@ time: "O(M * N * log(M * N))"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/path-with-minimum-effort/"
-  gfg: "https://practice.geeksforgeeks.org/problems/path-with-minimum-effort/1"
   youtube: "https://www.youtube.com/watch?v=0ytpZyiZFhA"
   article: "https://takeuforward.org/data-structure/g-37-path-with-minimum-effort/"
 ---
@@ -45,6 +44,7 @@ class Solution {
 public:
     int minimumEffortPath(vector<vector<int>>& heights) {
         int m = heights.size(), n = heights[0].size();
+        // Min-heap stores {effort, row, col}
         priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> pq;
         vector<vector<int>> effort(m, vector<int>(n, 1e9));
 

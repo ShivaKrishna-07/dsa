@@ -5,7 +5,6 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/is-graph-bipartite/"
-  gfg: "https://practice.geeksforgeeks.org/problems/bipartite-graph/1"
   youtube: "https://www.youtube.com/watch?v=-vu34sct1g8"
   article: "https://takeuforward.org/graph/bipartite-graph-dfs-bfs/"
 ---
@@ -44,6 +43,7 @@ A graph is bipartite if and only if it contains no odd-length cycles. We can 2-c
 // BFS
 class Solution {
     bool bfs(int start, vector<vector<int>>& adj, vector<int>& color) {
+        // Queue stores vertex to color its neighbors
         queue<int> q;
         color[start] = 0;
         q.push(start);
@@ -53,6 +53,7 @@ class Solution {
             q.pop();
             for (auto it : adj[node]) {
                 if (color[it] == -1) {
+                    // Assign opposite color to adjacent neighbor
                     color[it] = 1 - color[node];
                     q.push(it);
                 } else if (color[it] == color[node]) {
@@ -65,6 +66,7 @@ class Solution {
 public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
+        // Stores color of each vertex (-1: uncolored, 0: color A, 1: color B)
         vector<int> color(n, -1);
         for (int i = 0; i < n; i++) {
             if (color[i] == -1) {

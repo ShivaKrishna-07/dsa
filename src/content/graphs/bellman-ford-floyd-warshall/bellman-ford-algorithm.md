@@ -33,9 +33,11 @@ Dijkstra's algorithm fails when negative edge weights are present because it ass
 class Solution {
 public:
     vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {
+        // Stores shortest distance from source to each vertex
         vector<int> dist(V, 1e8);
         dist[src] = 0;
 
+        // Relax all edges V-1 times
         for (int i = 0; i < V - 1; i++) {
             for (auto& edge : edges) {
                 int u = edge[0];

@@ -59,7 +59,8 @@ Total MST Weight = 1 + 2 + 4 = 7
 ```cpp
 // Prim's
 int primMST(int V, vector<pair<int, int>> adj[]) {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    // Min-heap stores {edge weight, node}
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
     vector<bool> vis(V, false);
 
     pq.push({0, 0});
@@ -90,6 +91,7 @@ int primMST(int V, vector<pair<int, int>> adj[]) {
 // Kruskal's
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: component size
     vector<int> parent, size;
 
     DisjointSet(int n) {

@@ -33,7 +33,9 @@ Dijkstra's algorithm greedily extracts the vertex with the smallest provisional 
 class Solution {
 public:
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S) {
+        // Min-heap stores {distance, node}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        // Stores shortest distance from source to each vertex
         vector<int> dist(V, 1e9);
 
         dist[S] = 0;

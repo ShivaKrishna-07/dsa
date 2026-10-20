@@ -36,6 +36,7 @@ Explanation: The edges (0, 2) with weight 1 and (1, 2) with weight 3 form the MS
 class Solution {
 public:
     int spanningTree(int V, vector<vector<int>> adj[]) {
+        // Min-heap stores {edge weight, node}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
         vector<bool> vis(V, false);
 
@@ -63,6 +64,7 @@ public:
 ```cpp
 // Kruskal's Algorithm
 class DisjointSet {
+    // parent[i]: representative root; size[i]: component node count
     vector<int> parent, size;
 public:
     DisjointSet(int n) {
@@ -72,6 +74,7 @@ public:
     }
     int findUPar(int node) {
         if (node == parent[node]) return node;
+        // Path compression: points node directly to ultimate parent
         return parent[node] = findUPar(parent[node]);
     }
     bool unionBySize(int u, int v) {

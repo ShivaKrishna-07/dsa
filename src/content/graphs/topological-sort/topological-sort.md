@@ -46,6 +46,7 @@ class Solution {
 public:
     vector<int> topoSort(int V, vector<int> adj[]) {
         vector<bool> vis(V, false);
+        // Stack stores vertices in post-order (finishing times)
         stack<int> st;
         for (int i = 0; i < V; i++) {
             if (!vis[i]) dfs(i, adj, vis, st);
@@ -66,10 +67,12 @@ public:
 class Solution {
 public:
     vector<int> topoSort(int V, vector<int> adj[]) {
+        // Stores in-degree (incoming edges count) for each vertex
         vector<int> indegree(V, 0);
         for (int i = 0; i < V; i++)
             for (auto it : adj[i]) indegree[it]++;
 
+        // Queue stores vertices with in-degree 0 (ready to process)
         queue<int> q;
         for (int i = 0; i < V; i++)
             if (indegree[i] == 0) q.push(i);

@@ -52,7 +52,9 @@ public:
             adj[t[0]].push_back({t[1], t[2]});
         }
 
+        // Min-heap stores {time, node}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+        // Stores shortest signal arrival time to each node
         vector<int> dist(n + 1, 1e9);
 
         dist[k] = 0;

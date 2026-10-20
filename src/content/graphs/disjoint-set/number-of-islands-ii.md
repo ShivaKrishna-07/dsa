@@ -33,6 +33,7 @@ For each query, if the cell is already land, the count doesn't change. Otherwise
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: island size
     vector<int> parent, size;
     DisjointSet(int n) {
         parent.resize(n);

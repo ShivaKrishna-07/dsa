@@ -5,7 +5,6 @@ time: "O(E * log V)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/"
-  gfg: "https://practice.geeksforgeeks.org/problems/number-of-ways-to-arrive-at-destination/1"
   youtube: "https://www.youtube.com/watch?v=_-0mx0SmYxA"
   article: "https://takeuforward.org/data-structure/g-40-number-of-ways-to-arrive-at-destination/"
 ---
@@ -46,7 +45,9 @@ public:
             adj[r[1]].push_back({r[0], r[2]});
         }
 
+        // Min-heap stores {distance, node}
         priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<>> pq;
+        // dist: minimum distance; ways: number of shortest paths to each vertex
         vector<long long> dist(n, 1e18);
         vector<int> ways(n, 0);
 

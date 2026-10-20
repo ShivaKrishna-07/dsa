@@ -5,7 +5,6 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/find-eventual-safe-states/"
-  gfg: "https://practice.geeksforgeeks.org/problems/eventual-safe-states/1"
   youtube: "https://www.youtube.com/watch?v=u4v_TQTr9TU"
   article: "https://takeuforward.org/data-structure/find-eventual-safe-states-dfs/"
 ---
@@ -49,7 +48,9 @@ class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         int n = graph.size();
+        // Reversed graph: original terminal nodes become starting nodes
         vector<vector<int>> revAdj(n);
+        // Stores in-degree in reversed graph (out-degree in original graph)
         vector<int> indegree(n, 0);
 
         for (int i = 0; i < n; i++) {
@@ -59,6 +60,7 @@ public:
             }
         }
 
+        // Queue stores terminal nodes (in-degree 0 in reversed graph)
         queue<int> q;
         for (int i = 0; i < n; i++)
             if (indegree[i] == 0) q.push(i);

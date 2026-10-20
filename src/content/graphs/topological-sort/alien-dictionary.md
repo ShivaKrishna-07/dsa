@@ -41,6 +41,7 @@ class Solution {
 public:
     string findOrder(string dict[], int n, int k) {
         vector<vector<int>> adj(k);
+        // Stores in-degree (preceding characters count) for each letter
         vector<int> indegree(k, 0);
 
         for (int i = 0; i < n - 1; i++) {
@@ -58,6 +59,7 @@ public:
             if (!diff && s1.size() > s2.size()) return "";
         }
 
+        // Queue stores characters with in-degree 0
         queue<int> q;
         for (int i = 0; i < k; i++)
             if (indegree[i] == 0) q.push(i);

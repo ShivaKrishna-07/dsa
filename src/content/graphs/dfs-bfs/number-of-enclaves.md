@@ -5,7 +5,6 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-enclaves/"
-  gfg: "https://practice.geeksforgeeks.org/problems/number-of-enclaves/1"
   youtube: "https://www.youtube.com/watch?v=rxKcepXQgU4"
   article: "https://takeuforward.org/graph/number-of-enclaves/"
 ---
@@ -84,6 +83,7 @@ public:
     int numEnclaves(vector<vector<int>>& g) {
         int m = g.size(), n = g[0].size();
         vector<vector<bool>> vis(m, vector<bool>(n, false));
+        // Queue stores {row, col} coordinates of boundary-connected land
         queue<pair<int, int>> q;
 
         for (int i = 0; i < m; i++) {

@@ -5,7 +5,6 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/01-matrix/"
-  gfg: "https://practice.geeksforgeeks.org/problems/distance-of-nearest-cell-having-1-1587115620/1"
   youtube: "https://www.youtube.com/watch?v=edXdVZ85Il4"
   article: "https://takeuforward.org/data-structure/distance-of-nearest-cell-having-1/"
 ---
@@ -44,6 +43,7 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int m = mat.size(), n = mat[0].size();
         vector<vector<int>> dist(m, vector<int>(n, -1));
+        // Queue stores {row, col} coordinates of 0s for multi-source BFS
         queue<pair<int, int>> q;
 
         for (int i = 0; i < m; i++) {
@@ -62,6 +62,7 @@ public:
             for (auto& d : dirs) {
                 int nr = r + d[0], nc = c + d[1];
                 if (nr >= 0 && nr < m && nc >= 0 && nc < n && dist[nr][nc] == -1) {
+                    // Update nearest 0 distance for adjacent unvisited cell
                     dist[nr][nc] = dist[r][c] + 1;
                     q.push({nr, nc});
                 }

@@ -5,7 +5,6 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/surrounded-regions/"
-  gfg: "https://practice.geeksforgeeks.org/problems/replace-os-with-xs0052/1"
   youtube: "https://www.youtube.com/watch?v=BtdgAys4yMk"
   article: "https://takeuforward.org/graph/surrounded-regions-replace-os-with-xs/"
 ---
@@ -83,6 +82,7 @@ public:
     void solve(vector<vector<char>>& b) {
         int m = b.size(), n = b[0].size();
         vector<vector<bool>> safe(m, vector<bool>(n, false));
+        // Queue stores {row, col} coordinates of boundary-connected 'O's
         queue<pair<int, int>> q;
 
         for (int i = 0; i < m; i++) {

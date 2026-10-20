@@ -5,7 +5,6 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-operations-to-make-network-connected/"
-  gfg: "https://practice.geeksforgeeks.org/problems/connecting-the-graph/1"
   youtube: "https://www.youtube.com/watch?v=FYrl7iz9_ZU"
   article: "https://takeuforward.org/data-structure/number-of-operations-to-make-network-connected-dsu-g-49/"
 ---
@@ -51,6 +50,7 @@ To connect `n` nodes, we need at least `n - 1` edges. If `connections.size() < n
 ```cpp
 class DisjointSet {
 public:
+    // parent[i]: representative root; size[i]: component computer count
     vector<int> parent, size;
     DisjointSet(int n) {
         parent.resize(n);
