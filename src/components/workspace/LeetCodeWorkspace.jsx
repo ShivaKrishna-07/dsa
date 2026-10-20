@@ -258,10 +258,17 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                       const lines = trimmed.split("\n");
                       const inputLine = lines.find((l) => l.trim().startsWith("Input:"));
 
-                      const has2DInput = inputLine && inputLine.includes("[[");
+                      const isExplicitNoMatrix = className === "language-no-matrix";
+                      const isExplicitMatrix = className === "language-matrix";
+                      const isNonMatrixVariable = inputLine && /\b(edges|connections|prerequisites|intervals|lists|adj|stones|operators|points|pairs)\b/i.test(inputLine);
+                      const isMatrixVariable = inputLine && /\b(grid|matrix|board|image)\b/i.test(inputLine);
+
+                      const has2DInput = inputLine && inputLine.includes("[[") && (isMatrixVariable || (!isNonMatrixVariable && !pathname?.includes("graph") && !pathname?.includes("greedy") && !pathname?.includes("heap")));
                       const isStandaloneMatrix = !inputLine && /^\[\s*\[[\s\S]*?\]\s*\]$/.test(trimmed);
 
-                      if (!isRecursionTopic && !pathname?.includes("tree") && !isInline && (has2DInput || isStandaloneMatrix || className === "language-matrix")) {
+                      const shouldRenderMatrix = !isExplicitNoMatrix && !isRecursionTopic && !pathname?.includes("tree") && !isInline && (isExplicitMatrix || isStandaloneMatrix || (has2DInput && !isNonMatrixVariable));
+
+                      if (shouldRenderMatrix) {
                         let matrix = null;
                         let otherInputs = "";
                         let outputVal = "";

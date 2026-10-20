@@ -5,7 +5,6 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/flood-fill/"
-  gfg: "https://practice.geeksforgeeks.org/problems/flood-fill-algorithm1856/1"
   youtube: "https://www.youtube.com/watch?v=C-2_uSRli8o"
   article: "https://takeuforward.org/graph/flood-fill-algorithm/"
 ---
@@ -34,7 +33,7 @@ Explanation: The starting pixel is already colored 0, so no changes are made.
 
 ### Intuition
 
-Starting from `(sr, sc)`, recursively (DFS) or iteratively (BFS) explore all 4-directional neighboring cells that match the original starting color, replacing them with the new color. If the new color is the same as the starting color, return immediately to avoid an infinite loop.
+Starting from `(sr, sc)`, recursively (DFS) or iteratively (BFS) explore all 4-directional neighboring cells that match the original starting color `stColor`, replacing them with `color`. If the new `color` equals `stColor`, return immediately to avoid redundant traversal or infinite loops.
 
 ---
 
@@ -43,20 +42,35 @@ Starting from `(sr, sc)`, recursively (DFS) or iteratively (BFS) explore all 4-d
 ```cpp
 // DFS
 class Solution {
-    int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
-    void dfs(vector<vector<int>>& img, int r, int c, int orig, int color) {
-        img[r][c] = color;
-        for (auto& d : dirs) {
-            int nr = r + d[0], nc = c + d[1];
-            if (nr >= 0 && nr < img.size() && nc >= 0 && nc < img[0].size() && img[nr][nc] == orig)
-                dfs(img, nr, nc, orig, color);
+private:
+    int drow[4] = {-1, 0, 1, 0};
+    int dcol[4] = {0, 1, 0, -1};
+
+    void dfs(int r, int c, vector<vector<int>>& image, int stColor, int color, int n, int m) {
+        image[r][c] = color;
+
+        for (int i = 0; i < 4; i++) {
+            int nrow = r + drow[i];
+            int ncol = c + dcol[i];
+
+            if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == stColor) {
+                dfs(nrow, ncol, image, stColor, color, n, m);
+            }
         }
     }
+
 public:
-    vector<vector<int>> floodFill(vector<vector<int>>& img, int sr, int sc, int color) {
-        if (img[sr][sc] == color) return img;
-        dfs(img, sr, sc, img[sr][sc], color);
-        return img;
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int stColor = image[sr][sc];
+        if (color == stColor) {
+            return image;
+        }
+
+        int n = image.size();
+        int m = image[0].size();
+        dfs(sr, sc, image, stColor, color, n, m);
+
+        return image;
     }
 };
 ```
@@ -65,28 +79,39 @@ public:
 // BFS
 class Solution {
 public:
-    vector<vector<int>> floodFill(vector<vector<int>>& img, int sr, int sc, int color) {
-        int orig = img[sr][sc];
-        if (orig == color) return img;
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int n = image.size();
+        int m = image[0].size();
 
-        int m = img.size(), n = img[0].size();
+        int stColor = image[sr][sc];
+        if (color == stColor) {
+            return image;
+        }
+
         queue<pair<int, int>> q;
         q.push({sr, sc});
-        img[sr][sc] = color;
+        image[sr][sc] = color;
 
-        int dirs[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+        int drow[4] = {-1, 0, 1, 0};
+        int dcol[4] = {0, 1, 0, -1};
+
         while (!q.empty()) {
-            auto [r, c] = q.front();
+            int r = q.front().first;
+            int c = q.front().second;
             q.pop();
-            for (auto& d : dirs) {
-                int nr = r + d[0], nc = c + d[1];
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n && img[nr][nc] == orig) {
-                    img[nr][nc] = color;
-                    q.push({nr, nc});
+
+            for (int i = 0; i < 4; i++) {
+                int nrow = r + drow[i];
+                int ncol = c + dcol[i];
+
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == stColor) {
+                    image[nrow][ncol] = color;
+                    q.push({nrow, ncol});
                 }
             }
         }
-        return img;
+
+        return image;
     }
 };
 ```

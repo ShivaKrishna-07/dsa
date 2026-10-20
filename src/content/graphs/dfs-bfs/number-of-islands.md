@@ -4,14 +4,16 @@ difficulty: "Medium"
 time: "O(M * N)"
 space: "O(M * N)"
 platforms:
-  youtube: "https://www.youtube.com/watch?v=muncqlKJrH0"
   leetcode: "https://leetcode.com/problems/number-of-islands/"
+  youtube: "https://www.youtube.com/watch?v=muncqlKJrH0"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-islands"
 ---
 
 ### Problem Statement
 
-Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
+Given an `m x n` 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
 **Example 1:**
 ```text
@@ -24,11 +26,22 @@ Input: grid = [
 Output: 3
 ```
 
+**Example 2:**
+```text
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+Output: 1
+```
+
 ---
 
 ### Intuition
 
-Traverse the grid. When we find a `'1'`, increment count and run DFS/BFS to mark all connected land cells as visited (flip to `'0'`). Each traversal from an unvisited `'1'` discovers one island.
+Traverse every cell in the grid. When an unvisited land cell (`grid[i][j] == '1'`) is found, increment the island counter and launch a traversal (DFS or BFS) to visit and mark all 4-directionally connected land cells. Each traversal explores and accounts for one complete island.
 
 ---
 
@@ -37,24 +50,43 @@ Traverse the grid. When we find a `'1'`, increment count and run DFS/BFS to mark
 ```cpp
 // DFS
 class Solution {
-    int dx[4] = {-1, 1, 0, 0};
-    int dy[4] = {0, 0, -1, 1};
+private:
+    int dr[4] = {-1, 1, 0, 0};
+    int dc[4] = {0, 0, -1, 1};
 
-    void dfs(vector<vector<char>>& grid, int i, int j) {
-        if(i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size() || grid[i][j] == '0') return;
-        grid[i][j] = '0';
-        for(int d = 0; d < 4; d++) dfs(grid, i + dx[d], j + dy[d]);
+    void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<int>>& vis) {
+        vis[i][j] = 1;
+        int n = grid.size();
+        int m = grid[0].size();
+
+        for (int k = 0; k < 4; k++) {
+            int r = i + dr[k];
+            int c = j + dc[k];
+
+            if (r >= 0 && r < n && c >= 0 && c < m && grid[r][c] == '1' && !vis[r][c]) {
+                dfs(r, c, grid, vis);
+            }
+        }
     }
+
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int cnt = 0;
-        for(int i = 0; i < grid.size(); i++)
-            for(int j = 0; j < grid[0].size(); j++)
-                if (grid[i][j] == '1') {
-                    dfs(grid, i, j);
-                    cnt++;
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && grid[i][j] == '1') {
+                    ans++;
+                    dfs(i, j, grid, vis);
                 }
-        return cnt;
+            }
+        }
+
+        return ans;
     }
 };
 ```
@@ -62,33 +94,51 @@ public:
 ```cpp
 // BFS
 class Solution {
-    int dx[4] = {-1, 1, 0, 0};
-    int dy[4] = {0, 0, -1, 1};
-public:
-    int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size(), n = grid[0].size(), cnt = 0;
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(grid[i][j] == '1') {
-                    cnt++;
-                    queue<pair<int,int>> q;
-                    q.push({i, j});
-                    grid[i][j] = '0';
-                    while(!q.empty()) {
-                        auto [r, c] = q.front();
-                        q.pop();
-                        for(int d = 0; d < 4; d++) {
-                            int nr = r + dx[d], nc = c + dy[d];
-                            if(nr >= 0 && nc >= 0 && nr < m && nc < n && grid[nr][nc] == '1') {
-                                grid[nr][nc] = '0';
-                                q.push({nr, nc});
-                            }
-                        }
-                    }
+    void bfs(int _i, int _j, vector<vector<char>>& grid, vector<vector<int>>& vis) {
+        queue<pair<int, int>> q;
+        vis[_i][_j] = 1;
+        q.push({_i, _j});
+        int n = grid.size();
+        int m = grid[0].size();
+
+        while (!q.empty()) {
+            int i = q.front().first;
+            int j = q.front().second;
+            q.pop();
+
+            int dr[] = {-1, 1, 0, 0};
+            int dc[] = {0, 0, -1, 1};
+
+            for (int k = 0; k < 4; k++) {
+                int r = i + dr[k];
+                int c = j + dc[k];
+
+                if (r >= 0 && r < n && c >= 0 && c < m && grid[r][c] == '1' && !vis[r][c]) {
+                    vis[r][c] = 1;
+                    q.push({r, c});
                 }
             }
         }
-        return cnt;
+    }
+
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && grid[i][j] == '1') {
+                    ans++;
+                    bfs(i, j, grid, vis);
+                }
+            }
+        }
+
+        return ans;
     }
 };
 ```
@@ -97,5 +147,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(M * N)` every cell visited at most once.
-- **Space Complexity:** `O(M * N)` for recursion stack (DFS) or queue (BFS) in worst case.
+- **Time Complexity:** `O(M * N)` — Every cell in the grid is visited at most once.
+- **Space Complexity:** `O(M * N)` — For the `vis` matrix and call stack / queue in the worst case.
