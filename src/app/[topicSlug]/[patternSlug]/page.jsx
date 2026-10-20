@@ -20,7 +20,7 @@ export default function PatternPage({ params }) {
   if (!topic || !pattern) notFound();
 
   return (
-    <PageFade className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
+    <PageFade className="mx-auto max-w-[1700px] w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
       <PatternWorkspace topic={topic} pattern={pattern} />
     </PageFade>
   );

@@ -2,83 +2,53 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Check, Code2, ListChecks, Sparkles } from "lucide-react";
-import CodeBlock from "@/components/ui/CodeBlock";
+import { ArrowLeft, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
+import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import ProblemCard from "@/components/cards/ProblemCard";
 
 export default function PatternWorkspace({ topic, pattern }) {
-  const [activeTab, setActiveTab] = useState("problems");
+  const [wrapTemplate, setWrapTemplate] = useState(false);
 
   return (
-    <div className="space-y-6">
-      {/* Pattern Header / Hero */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-3 flex-wrap">
+    <div className="space-y-4 sm:space-y-5">
+      {/* Pattern Header (Clean title & breadcrumb back link, no subheading) */}
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3">
           <Link
             href={`/${topic.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-400 hover:text-accent-300 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 transition shadow-sm"
+            title={`Back to ${topic.title}`}
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Back to {topic.title}</span>
+            <ArrowLeft className="h-4 w-4" />
           </Link>
-
-          <div className="flex items-center gap-2">
-            <span className="rounded-full border border-ink-800/80 bg-ink-900/80 px-3 py-1 text-xs font-semibold text-accent-400 shadow-sm">
-              {pattern.problems.length} {pattern.problems.length === 1 ? "problem" : "problems"}
-            </span>
-          </div>
-        </div>
-
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink-100">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink-100">
             {pattern.title}
           </h1>
-          {pattern.explanation && (
-            <p className="mt-2 text-sm sm:text-base text-ink-400 max-w-3xl leading-relaxed">
-              {pattern.explanation}
-            </p>
-          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="rounded-full border border-ink-800/80 bg-ink-900/80 px-3 py-1 text-xs font-semibold text-accent-400 shadow-sm">
+            {pattern.problems.length} {pattern.problems.length === 1 ? "problem" : "problems"}
+          </span>
         </div>
       </div>
 
-      {/* Main Workspace Card */}
-      <section className="rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm overflow-hidden shadow-sm">
-        {/* Tab Switcher Header */}
-        <div className="flex items-center justify-between border-b border-ink-800/80 bg-ink-950/70 px-3 sm:px-4 py-2.5">
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => setActiveTab("problems")}
-              className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
-                activeTab === "problems"
-                  ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
-                  : "text-ink-400 hover:bg-ink-800/40 hover:text-ink-200"
-              }`}
-            >
+      {/* Dual Section Grid: Problems List (Left) + Template & Guide (Right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
+        {/* LEFT SECTION: Problems List */}
+        <section className="lg:col-span-7 flex flex-col rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm overflow-hidden shadow-sm">
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-ink-800/80 bg-ink-950/70 px-4 sm:px-5 py-3">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-ink-300">
               <ListChecks className="h-4 w-4 text-accent-400" />
               <span>Problems</span>
-              <span className="ml-1 rounded-full bg-ink-950/80 px-2 py-0.2 text-[11px] font-mono text-ink-400">
-                {pattern.problems.length}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("template")}
-              className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
-                activeTab === "template"
-                  ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
-                  : "text-ink-400 hover:bg-ink-800/40 hover:text-ink-200"
-              }`}
-            >
-              <Code2 className="h-4 w-4 text-emerald-400" />
-              <span>Template & Guide</span>
-            </button>
+            </div>
+            <span className="rounded-full bg-ink-950/80 border border-ink-800/80 px-2.5 py-0.5 text-xs font-mono font-medium text-ink-400">
+              {pattern.problems.length}
+            </span>
           </div>
-        </div>
 
-        {/* Tab Content Panels */}
-        {activeTab === "problems" ? (
+          {/* List of problems */}
           <div className="divide-y divide-ink-800/60">
             {pattern.problems.map((problem, index) => (
               <ProblemCard
@@ -90,32 +60,76 @@ export default function PatternWorkspace({ topic, pattern }) {
               />
             ))}
           </div>
-        ) : (
-          /* Template & Cheatsheet View */
-          <div className="p-4 sm:p-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-            <section className="flex flex-col gap-6">
-              {pattern.explanation && (
+        </section>
+
+        {/* RIGHT SECTION: Template Code & Guide */}
+        <section className="lg:col-span-5 flex flex-col gap-4 sticky top-16">
+          {/* Template Code Card */}
+          <div className="flex flex-col rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm overflow-hidden shadow-sm">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-ink-800/80 bg-ink-950/70 px-4 py-2.5">
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-ink-300">
+                <Code2 className="h-4 w-4 text-emerald-400" />
+                <span>Template Code</span>
+              </div>
+
+              {/* Action Buttons: Wrap + Copy (Icons only) */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setWrapTemplate(!wrapTemplate)}
+                  className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
+                    wrapTemplate
+                      ? "border-accent-500/60 bg-accent-500/20 text-accent-300"
+                      : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
+                  }`}
+                  title={wrapTemplate ? "Disable Word Wrap" : "Enable Word Wrap"}
+                >
+                  <WrapText className="h-3.5 w-3.5" />
+                </button>
+
+                <CopyButton code={pattern.template} iconOnly />
+              </div>
+            </div>
+
+            {/* Code Body */}
+            <div className="max-h-[460px] overflow-auto code-scroll p-1">
+              <CodeBlock code={pattern.template} hideHeader compact wrap={wrapTemplate} />
+            </div>
+          </div>
+
+          {/* Pattern Guide (How to Identify & Appears In) */}
+          {((pattern.identify && pattern.identify.length > 0) || (pattern.appearsIn && pattern.appearsIn.length > 0)) && (
+            <div className="rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm p-4 sm:p-5 shadow-sm space-y-4">
+              {pattern.identify && pattern.identify.length > 0 && (
                 <div>
-                  <h2 className="text-base sm:text-lg font-semibold text-ink-100 flex items-center gap-2">
-                    <BookOpen className="h-4.5 w-4.5 text-accent-400" />
-                    Pattern Overview
-                  </h2>
-                  <p className="mt-2.5 text-sm sm:text-base leading-7 text-ink-300">
-                    {pattern.explanation}
-                  </p>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-2.5 flex items-center gap-1.5">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+                    How to Identify
+                  </h3>
+                  <ul className="space-y-2 text-xs sm:text-sm text-ink-300">
+                    {pattern.identify.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent-500/10 text-accent-400 text-xs">
+                          <Check className="h-3 w-3 stroke-[3]" />
+                        </span>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
               {pattern.appearsIn && pattern.appearsIn.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+                <div className="pt-3 border-t border-ink-800/60">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-2">
                     Commonly Appears In
                   </h3>
-                  <div className="mt-2.5 flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {pattern.appearsIn.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-ink-800 bg-ink-950/60 px-3 py-1 text-xs font-medium text-ink-300"
+                        className="rounded-full border border-ink-800 bg-ink-950/60 px-2.5 py-0.5 text-xs font-medium text-ink-300"
                       >
                         {item}
                       </span>
@@ -123,40 +137,10 @@ export default function PatternWorkspace({ topic, pattern }) {
                   </div>
                 </div>
               )}
-
-              <div>
-                <h2 className="mb-3 text-base sm:text-lg font-semibold text-ink-100 flex items-center gap-2">
-                  <Code2 className="h-4.5 w-4.5 text-emerald-400" />
-                  Canonical Template
-                </h2>
-                <div className="overflow-hidden rounded-xl border border-ink-800 bg-ink-950/50 shadow-sm">
-                  <CodeBlock code={pattern.template} compact wrap />
-                </div>
-              </div>
-            </section>
-
-            {/* Sidebar Guide */}
-            {pattern.identify && pattern.identify.length > 0 && (
-              <aside className="h-fit rounded-xl border border-ink-800 bg-ink-950/60 p-5 shadow-sm space-y-3.5">
-                <h2 className="font-semibold text-sm sm:text-base text-ink-100 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-amber-400" />
-                  How to Identify
-                </h2>
-                <ul className="space-y-3 text-xs sm:text-sm text-ink-300">
-                  {pattern.identify.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span className="mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-accent-500/10 text-accent-400 font-bold text-xs">
-                        <Check className="h-3 w-3 stroke-[3]" />
-                      </span>
-                      <span className="leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </aside>
-            )}
-          </div>
-        )}
-      </section>
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
