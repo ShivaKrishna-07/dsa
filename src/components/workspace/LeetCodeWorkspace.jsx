@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { BookOpen, Lightbulb, Flame, FileText } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { BookOpen, Lightbulb, Flame, FileText, ChevronLeft, ChevronRight, WrapText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import { difficultyClass } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
 import ReactMarkdown from "react-markdown";
 
-export default function LeetCodeWorkspace({ problem }) {
+export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("ps");
+  const [wrapCode, setWrapCode] = useState(false);
 
   // Determine default selected code tab
   const defaultCodeTab = problem.codes && problem.codes.length > 0
@@ -33,11 +35,33 @@ export default function LeetCodeWorkspace({ problem }) {
   const youtubeUrl = problem.platforms?.youtube;
   const articleUrl = problem.platforms?.article;
 
+  // Keyboard navigation for previous/next problems
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (
+        document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA" ||
+        document.activeElement.isContentEditable
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft" && prevProblem) {
+        router.push(prevProblem.href);
+      } else if (event.key === "ArrowRight" && nextProblem) {
+        router.push(nextProblem.href);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [prevProblem, nextProblem, router]);
+
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3 w-full h-[calc(100vh-4.25rem)] overflow-hidden">
       {/* LEFT PANEL: Problem Statement & Intuition */}
       <section className="flex flex-col h-full rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm">
-        {/* Left Panel Header: Tabs on left, Difficulty & Platform Icons on right */}
+        {/* Left Panel Header: Tabs on left, Navigation Arrows + Difficulty + Platform Icons on right */}
         <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/60 px-3 py-2 shrink-0">
           {/* Navigation Tabs */}
           <div className="flex items-center gap-1">
@@ -70,8 +94,49 @@ export default function LeetCodeWorkspace({ problem }) {
             )}
           </div>
 
-          {/* Right Header: Difficulty Badge + Platform Icons */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          {/* Right Header: Problem Prev/Next Arrows + Difficulty + Platform Icons */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Prev/Next Problem Navigation Controls */}
+            <div className="flex items-center rounded-lg border border-ink-800/80 bg-ink-900/60 p-0.5 shadow-sm">
+              {prevProblem ? (
+                <Link
+                  href={prevProblem.href}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                  title={`Previous: ${prevProblem.title} (Left Arrow)`}
+                >
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-700 cursor-not-allowed"
+                  title="No previous problem"
+                >
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                </button>
+              )}
+
+              <div className="h-3.5 w-px bg-ink-800/80 my-auto mx-0.5" />
+
+              {nextProblem ? (
+                <Link
+                  href={nextProblem.href}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                  title={`Next: ${nextProblem.title} (Right Arrow)`}
+                >
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-700 cursor-not-allowed"
+                  title="No next problem"
+                >
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
             {/* Difficulty Badge */}
             <span className={`rounded-md border px-2 py-0.5 text-xs font-semibold ${difficultyClass(problem.difficulty)}`}>
               {problem.difficulty}
@@ -86,7 +151,7 @@ export default function LeetCodeWorkspace({ problem }) {
             )}
 
             {/* Platform Icon Buttons */}
-            <div className="flex items-center gap-1 ml-1 pl-1.5 border-l border-ink-800/80">
+            <div className="flex items-center gap-1 pl-1 border-l border-ink-800/80">
               {/* LeetCode Icon */}
               {leetcodeUrl && (
                 <Link
@@ -374,7 +439,7 @@ export default function LeetCodeWorkspace({ problem }) {
 
       {/* RIGHT PANEL: Code Workspace */}
       <section className="flex flex-col h-full rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm">
-        {/* Code Header Bar: Approach Tabs on left, Copy Button on right */}
+        {/* Code Header Bar: Approach Tabs on left, Word Wrap & Copy Buttons (Icons only) on right */}
         <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/60 px-3 py-2 shrink-0">
           {/* Approach Tabs */}
           <div className="flex items-center gap-1 overflow-x-auto code-scroll">
@@ -400,15 +465,30 @@ export default function LeetCodeWorkspace({ problem }) {
             )}
           </div>
 
-          {/* Copy Button */}
-          <div className="shrink-0">
-            <CopyButton code={activeCode} />
+          {/* Action Buttons: Word Wrap + Copy (Icon-only) */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Word Wrap Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setWrapCode((w) => !w)}
+              className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
+                wrapCode
+                  ? "border-accent-500/50 bg-accent-500/15 text-accent-300"
+                  : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
+              }`}
+              title={wrapCode ? "Disable Word Wrap" : "Enable Word Wrap"}
+            >
+              <WrapText className="h-3.5 w-3.5" />
+            </button>
+
+            {/* Copy Button (Icon only) */}
+            <CopyButton code={activeCode} iconOnly />
           </div>
         </div>
 
         {/* Code Editor Body */}
         <div className="flex-1 overflow-hidden relative">
-          <CodeBlock code={activeCode} hideHeader compact />
+          <CodeBlock code={activeCode} hideHeader compact wrap={wrapCode} />
         </div>
       </section>
     </div>

@@ -28,9 +28,36 @@ export default function ProblemPage({ params }) {
   const problem = getProblem(params.topicSlug, params.patternSlug, params.problemSlug);
   if (!topic || !pattern || !problem) notFound();
 
+  // Find previous and next problems for navigation
+  const allProblems = [];
+  topics.forEach((t) => {
+    t.patterns.forEach((p) => {
+      p.problems.forEach((prob) => {
+        allProblems.push({
+          topicSlug: t.slug,
+          patternSlug: p.slug,
+          problemSlug: prob.slug,
+          href: `/${t.slug}/${p.slug}/${prob.slug}`,
+          title: prob.title
+        });
+      });
+    });
+  });
+
+  const currentIndex = allProblems.findIndex(
+    (p) => p.topicSlug === params.topicSlug && p.patternSlug === params.patternSlug && p.problemSlug === params.problemSlug
+  );
+
+  const prevProblem = currentIndex > 0 ? allProblems[currentIndex - 1] : null;
+  const nextProblem = currentIndex >= 0 && currentIndex < allProblems.length - 1 ? allProblems[currentIndex + 1] : null;
+
   return (
     <PageFade className="w-full px-2 sm:px-3 lg:px-4 py-2 flex-1 flex flex-col">
-      <LeetCodeWorkspace problem={problem} />
+      <LeetCodeWorkspace
+        problem={problem}
+        prevProblem={prevProblem}
+        nextProblem={nextProblem}
+      />
     </PageFade>
   );
 }

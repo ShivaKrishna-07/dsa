@@ -182,32 +182,7 @@ export default function NavbarBreadcrumb({ tree = [] }) {
 
   return (
     <>
-      <div className="flex items-center gap-1.5 min-w-0 flex-1 overflow-hidden">
-        {/* Previous Problem Arrow */}
-        {problem && (
-          <div className="group relative shrink-0">
-            {prevProblem ? (
-              <Link
-                href={prevProblem.href}
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/50 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 transition shadow-sm"
-                title={`Previous: ${prevProblem.title}`}
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Link>
-            ) : (
-              <button
-                disabled
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/40 bg-ink-950/20 text-ink-600 cursor-not-allowed"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-            )}
-            <div className="pointer-events-none absolute top-full left-0 mt-2 scale-95 rounded-lg border border-ink-700 bg-ink-950 px-2 py-1 text-[11px] font-medium text-ink-100 opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100 whitespace-nowrap z-50">
-              {prevProblem ? `Previous: ${prevProblem.title}` : "No previous problem"}
-            </div>
-          </div>
-        )}
-
+      <div className="flex items-center min-w-0 flex-1 overflow-hidden">
         {/* Breadcrumb Links */}
         <nav
           aria-label="Breadcrumb"
@@ -243,31 +218,6 @@ export default function NavbarBreadcrumb({ tree = [] }) {
             );
           })}
         </nav>
-
-        {/* Next Problem Arrow */}
-        {problem && (
-          <div className="group relative shrink-0">
-            {nextProblem ? (
-              <Link
-                href={nextProblem.href}
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/50 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 transition shadow-sm"
-                title={`Next: ${nextProblem.title}`}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Link>
-            ) : (
-              <button
-                disabled
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/40 bg-ink-950/20 text-ink-600 cursor-not-allowed"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            )}
-            <div className="pointer-events-none absolute top-full right-0 mt-2 scale-95 rounded-lg border border-ink-700 bg-ink-950 px-2 py-1 text-[11px] font-medium text-ink-100 opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100 whitespace-nowrap z-50">
-              {nextProblem ? `Next: ${nextProblem.title}` : "No next problem"}
-            </div>
-          </div>
-        )}
       </div>
 
       <ContextMenu

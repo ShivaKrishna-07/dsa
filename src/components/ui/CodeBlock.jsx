@@ -69,7 +69,7 @@ function tokenizeLine(line) {
   }));
 }
 
-export function CopyButton({ code, className = "" }) {
+export function CopyButton({ code, className = "", iconOnly = false }) {
   const [copied, setCopied] = useState(false);
 
   async function copyCode() {
@@ -82,15 +82,20 @@ export function CopyButton({ code, className = "" }) {
     <button
       type="button"
       onClick={copyCode}
-      className={`inline-flex h-8 items-center gap-2 rounded-md border border-ink-700 px-2.5 text-xs text-ink-300 hover:border-accent-400 hover:text-ink-100 transition ${className}`}
+      className={`inline-flex items-center justify-center transition shadow-sm ${
+        iconOnly
+          ? "h-7.5 w-7.5 rounded-lg border border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
+          : "h-8 gap-2 rounded-md border border-ink-700 px-2.5 text-xs text-ink-300 hover:border-accent-400 hover:text-ink-100"
+      } ${className}`}
+      title={copied ? "Copied to clipboard!" : "Copy code"}
     >
       {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-      {copied ? "Copied" : "Copy"}
+      {!iconOnly && <span>{copied ? "Copied" : "Copy"}</span>}
     </button>
   );
 }
 
-export default function CodeBlock({ code, hideHeader = false, compact = false }) {
+export default function CodeBlock({ code, hideHeader = false, compact = false, wrap = false }) {
   const highlightedLines = useMemo(() => code.split("\n").map(tokenizeLine), [code]);
 
   return (
@@ -100,12 +105,12 @@ export default function CodeBlock({ code, hideHeader = false, compact = false })
           <CopyButton code={code} />
         </div>
       )}
-      <pre className={`code-scroll min-h-0 flex-1 overflow-auto p-0 font-mono text-[13px] leading-6 text-[#d4d4d4] ${compact ? "max-h-none" : ""}`}>
+      <pre className={`code-scroll min-h-0 flex-1 ${wrap ? "overflow-y-auto overflow-x-hidden" : "overflow-auto"} p-0 font-mono text-[13px] leading-6 text-[#d4d4d4] ${compact ? "max-h-none" : ""}`}>
         <code>
           {highlightedLines.map((tokens, index) => (
             <span key={index} className="grid grid-cols-[3rem_1fr]">
               <span className="select-none border-r border-ink-800 pr-3 text-right text-ink-500">{index + 1}</span>
-              <span className="px-4">
+              <span className={`px-4 ${wrap ? "whitespace-pre-wrap break-words" : "whitespace-pre"}`}>
                 {tokens.length
                   ? tokens.map((part, tokenIndex) => (
                       <span key={`${index}-${tokenIndex}`} className={part.className}>
