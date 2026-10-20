@@ -54,11 +54,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen bg-ink-950 text-ink-100">
+          <div className="min-h-screen flex flex-col bg-ink-950 text-ink-100">
             <PageOverflowController />
-            <Header />
-            <RouteBreadcrumb tree={navigationTree} />
-            <main>{children}</main>
+            <Header tree={navigationTree} />
+            <main className="flex-1 flex flex-col">{children}</main>
           </div>
         </ThemeProvider>
       </body>

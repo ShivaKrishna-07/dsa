@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import PageFade from "@/components/ui/PageFade";
-import ProblemWorkspace from "@/components/workspace/ProblemWorkspace";
+import LeetCodeWorkspace from "@/components/workspace/LeetCodeWorkspace";
+// ProblemWorkspace is preserved and can be swapped back anytime:
+// import ProblemWorkspace from "@/components/workspace/ProblemWorkspace";
 import { getPattern, getProblem, getTopic, topics } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -27,8 +29,8 @@ export default function ProblemPage({ params }) {
   if (!topic || !pattern || !problem) notFound();
 
   return (
-    <PageFade className="mx-auto max-w-7xl px-5 pt-0 pb-4">
-      <ProblemWorkspace problem={problem} />
+    <PageFade className="w-full px-2 sm:px-3 lg:px-4 py-2 flex-1 flex flex-col">
+      <LeetCodeWorkspace problem={problem} />
     </PageFade>
   );
 }
