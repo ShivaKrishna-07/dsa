@@ -15,6 +15,26 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
   const [activeTab, setActiveTab] = useState("ps");
   const [wrapCode, setWrapCode] = useState(false);
 
+  // Sync word wrap preference from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("dsa_word_wrap");
+      if (saved !== null) {
+        setWrapCode(saved === "true");
+      }
+    } catch (e) {}
+  }, []);
+
+  const toggleWrapCode = () => {
+    setWrapCode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("dsa_word_wrap", String(next));
+      } catch (e) {}
+      return next;
+    });
+  };
+
   // Determine default selected code tab
   const defaultCodeTab = problem.codes && problem.codes.length > 0
     ? (problem.codes.find((c) => c.name === "Optimal")?.name || problem.codes[0].name)
@@ -470,15 +490,17 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
             {/* Word Wrap Toggle Button */}
             <button
               type="button"
-              onClick={() => setWrapCode((w) => !w)}
+              onClick={toggleWrapCode}
               className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
                 wrapCode
-                  ? "border-accent-500/50 bg-accent-500/15 text-accent-300"
+                  ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                   : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
               }`}
-              title={wrapCode ? "Disable Word Wrap" : "Enable Word Wrap"}
+              title={wrapCode ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}
+              aria-label="Toggle word wrap"
+              aria-pressed={wrapCode}
             >
-              <WrapText className="h-3.5 w-3.5" />
+              <WrapText className="h-3.5 w-3.5 stroke-[2.2]" />
             </button>
 
             {/* Copy Button (Icon only) */}

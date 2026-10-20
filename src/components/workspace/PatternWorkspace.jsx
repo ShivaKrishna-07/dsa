@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
@@ -8,6 +8,26 @@ import ProblemCard from "@/components/cards/ProblemCard";
 
 export default function PatternWorkspace({ topic, pattern }) {
   const [wrapTemplate, setWrapTemplate] = useState(false);
+
+  // Sync word wrap preference from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("dsa_word_wrap");
+      if (saved !== null) {
+        setWrapTemplate(saved === "true");
+      }
+    } catch (e) {}
+  }, []);
+
+  const toggleWrapTemplate = () => {
+    setWrapTemplate((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("dsa_word_wrap", String(next));
+      } catch (e) {}
+      return next;
+    });
+  };
 
   return (
     <div className="space-y-4 sm:space-y-5">
@@ -77,15 +97,17 @@ export default function PatternWorkspace({ topic, pattern }) {
               <div className="flex items-center gap-1.5 shrink-0">
                 <button
                   type="button"
-                  onClick={() => setWrapTemplate(!wrapTemplate)}
+                  onClick={toggleWrapTemplate}
                   className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
                     wrapTemplate
-                      ? "border-accent-500/60 bg-accent-500/20 text-accent-300"
+                      ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                       : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
                   }`}
-                  title={wrapTemplate ? "Disable Word Wrap" : "Enable Word Wrap"}
+                  title={wrapTemplate ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}
+                  aria-label="Toggle word wrap"
+                  aria-pressed={wrapTemplate}
                 >
-                  <WrapText className="h-3.5 w-3.5" />
+                  <WrapText className="h-3.5 w-3.5 stroke-[2.2]" />
                 </button>
 
                 <CopyButton code={pattern.template} iconOnly />
