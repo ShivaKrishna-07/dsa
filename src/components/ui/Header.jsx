@@ -35,7 +35,7 @@ export default function Header({ tree = [], items = [] }) {
 
         {/* Right: Search & Layout Mode Switcher */}
         <div className="shrink-0 flex items-center gap-2">
-          <SearchBox items={items} />
+          {layoutMode !== "sheet" && <SearchBox items={items} />}
 
           {/* Layout Mode Toggle Button */}
           <button

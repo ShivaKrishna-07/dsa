@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BookOpen,
   ChevronDown,
   Code2,
   Flame,
-  Layers,
   Lightbulb,
   Search,
   Sparkles,
@@ -47,6 +46,24 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   const [selectedCodeName, setSelectedCodeName] = useState("Optimal");
   const [wrapCode, setWrapCode] = useState(false);
   const [filterQuery, setFilterQuery] = useState("");
+  const searchInputRef = useRef(null);
+
+  // Focus search input on Ctrl+K / Cmd+K / /
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      } else if (e.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Accordion state (first topic and pattern open by default)
   const [expandedTopics, setExpandedTopics] = useState(() => {
@@ -234,90 +251,119 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       {/* ========================================================================= */}
       {/* LEFT PANEL: Accordion Tree of Topics -> Patterns -> Problems              */}
       {/* ========================================================================= */}
-      <aside className="flex flex-col w-full md:w-[420px] lg:w-[460px] xl:w-[480px] shrink-0 border-r border-ink-800 bg-ink-900/30">
-        {/* Top Control Bar */}
-        <div className="border-b border-ink-800/80 bg-ink-950/70 p-3 space-y-2.5">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-500/10 text-accent-400 border border-accent-500/30">
-                <Layers className="h-3.5 w-3.5" />
-              </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-ink-200">
-                Striver A2Z DSA Sheet
-              </span>
+      {/* ========================================================================= */}
+      {/* LEFT PANEL: Accordion Tree of Topics -> Patterns -> Problems              */}
+      {/* ========================================================================= */}
+      <aside className="flex flex-col w-full md:w-[480px] lg:w-[530px] xl:w-[570px] 2xl:w-[600px] shrink-0 border-r border-ink-800 bg-ink-950">
+        {/* Top Control Bar: Search Filter & Expand/Collapse Controls */}
+        <div className="border-b border-ink-800/80 bg-ink-950/90 p-2.5 sm:p-3">
+          <div className="flex items-center gap-2">
+            {/* Search Filter Box */}
+            <div className="relative flex-1 min-w-0">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-500" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={filterQuery}
+                onChange={(e) => setFilterQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") {
+                    if (filterQuery) {
+                      setFilterQuery("");
+                    } else {
+                      searchInputRef.current?.blur();
+                    }
+                  }
+                }}
+                placeholder={`Filter ${totalProblemsCount} problems, patterns, topics...`}
+                className="w-full rounded-xl border border-ink-800 bg-ink-900/90 py-1.5 pl-9 pr-14 text-xs text-ink-100 placeholder:text-ink-500 outline-none transition focus:border-accent-500/80 focus:ring-1 focus:ring-accent-500/20"
+              />
+              {filterQuery ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFilterQuery("");
+                    searchInputRef.current?.focus();
+                  }}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-500 hover:text-ink-200 transition"
+                  title="Clear filter"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              ) : (
+                <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-ink-800 bg-ink-950/80 px-1.5 py-0.5 text-[10px] font-mono text-ink-500">
+                  Ctrl+K
+                </kbd>
+              )}
             </div>
 
-            <div className="flex items-center gap-1 text-[11px]">
+            {/* Expand All / Collapse Buttons */}
+            <div className="flex items-center shrink-0 rounded-xl border border-ink-800 bg-ink-900/70 p-0.5 text-[11px] shadow-sm">
               <button
                 type="button"
                 onClick={expandAll}
-                className="rounded-md px-2 py-0.5 font-medium text-ink-400 hover:bg-ink-800 hover:text-ink-200 transition"
+                className="rounded-lg px-2.5 py-1 font-medium text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition whitespace-nowrap"
+                title="Expand all topics and patterns"
               >
                 Expand All
               </button>
-              <span className="text-ink-700">|</span>
+              <span className="h-3 w-[1px] bg-ink-800" />
               <button
                 type="button"
                 onClick={collapseAll}
-                className="rounded-md px-2 py-0.5 font-medium text-ink-400 hover:bg-ink-800 hover:text-ink-200 transition"
+                className="rounded-lg px-2.5 py-1 font-medium text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition whitespace-nowrap"
+                title="Collapse all"
               >
                 Collapse
               </button>
             </div>
           </div>
-
-          {/* Search Filter Box */}
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-500" />
-            <input
-              type="text"
-              value={filterQuery}
-              onChange={(e) => setFilterQuery(e.target.value)}
-              placeholder={`Filter ${totalProblemsCount} problems, patterns, topics...`}
-              className="w-full rounded-xl border border-ink-800 bg-ink-900/80 py-1.5 pl-9 pr-8 text-xs text-ink-100 placeholder:text-ink-500 outline-none transition focus:border-accent-500/80 focus:ring-1 focus:ring-accent-500/20"
-            />
-            {filterQuery && (
-              <button
-                type="button"
-                onClick={() => setFilterQuery("")}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-500 hover:text-ink-200"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
         </div>
 
         {/* Accordion Content List */}
-        <div className="flex-1 overflow-y-auto code-scroll divide-y divide-ink-800/40">
+        <div className="flex-1 overflow-y-auto code-scroll">
           {filteredTopics.map((topic) => {
             const isTopicExpanded = expandedTopics.has(topic.slug);
             const topicProblemCount = (topic.patterns || []).reduce((acc, p) => acc + (p.problems?.length || 0), 0);
 
             return (
-              <div key={topic.slug} className="transition-colors">
+              <div key={topic.slug} className="border-b border-ink-800/60">
                 {/* Topic Header Accordion Button */}
                 <button
                   type="button"
                   onClick={() => toggleTopic(topic.slug)}
-                  className="flex w-full items-center justify-between gap-2.5 px-3.5 py-3 text-left transition hover:bg-ink-850/50"
+                  className={`flex w-full items-center justify-between gap-2.5 px-3.5 py-3 text-left transition-all ${
+                    isTopicExpanded
+                      ? "bg-ink-900/90 border-l-[3px] border-l-accent-500 shadow-sm"
+                      : "bg-ink-950/60 hover:bg-ink-900/50 border-l-[3px] border-l-transparent"
+                  }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg border border-ink-800 bg-ink-950/60 text-accent-300">
+                    <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg border transition ${
+                      isTopicExpanded
+                        ? "bg-accent-500/15 border-accent-500/30 text-accent-300 shadow-sm shadow-accent-500/10"
+                        : "border-ink-800 bg-ink-900/80 text-ink-400"
+                    }`}>
                       <TopicIcon name={topic.icon} className="h-3.5 w-3.5" />
                     </span>
-                    <span className="font-semibold text-xs sm:text-sm text-ink-100 truncate">
+                    <span className={`font-bold text-xs sm:text-sm tracking-tight truncate ${
+                      isTopicExpanded ? "text-ink-100" : "text-ink-200"
+                    }`}>
                       {topic.title}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="rounded-full border border-ink-800 bg-ink-950/60 px-2 py-0.5 font-mono text-[11px] font-medium text-ink-400">
+                    <span className={`rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold border ${
+                      isTopicExpanded
+                        ? "bg-accent-500/10 text-accent-400 border-accent-500/20"
+                        : "border-ink-800 bg-ink-900/80 text-ink-500"
+                    }`}>
                       {topicProblemCount}
                     </span>
                     <ChevronDown
-                      className={`h-4 w-4 text-ink-500 transition-transform duration-200 ${
-                        isTopicExpanded ? "rotate-180 text-accent-400" : ""
+                      className={`h-4 w-4 transition-transform duration-200 ${
+                        isTopicExpanded ? "rotate-180 text-accent-400" : "text-ink-500"
                       }`}
                     />
                   </div>
@@ -325,30 +371,48 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
 
                 {/* Patterns under Topic */}
                 {isTopicExpanded && (
-                  <div className="bg-ink-950/40 pl-2 pr-1 pb-2 space-y-1">
+                  <div className="bg-ink-950/90 px-2 py-2 space-y-1.5 border-t border-ink-800/40">
                     {(topic.patterns || []).map((pattern) => {
                       const patternKey = `${topic.slug}-${pattern.slug}`;
                       const isPatternExpanded = expandedPatterns.has(patternKey);
 
                       return (
-                        <div key={pattern.slug} className="rounded-xl overflow-hidden border border-ink-800/60 bg-ink-900/30">
+                        <div
+                          key={pattern.slug}
+                          className={`rounded-xl border transition-all overflow-hidden ${
+                            isPatternExpanded
+                              ? "border-ink-700/80 bg-ink-900/80 shadow-md shadow-black/20"
+                              : "border-ink-800/60 bg-ink-900/40 hover:bg-ink-900/60 hover:border-ink-700/50"
+                          }`}
+                        >
                           {/* Pattern Sub-Accordion Header */}
                           <button
                             type="button"
                             onClick={() => togglePattern(topic.slug, pattern.slug)}
-                            className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition hover:bg-ink-800/40"
+                            className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition ${
+                              isPatternExpanded
+                                ? "bg-ink-850/90 border-b border-ink-800/70"
+                                : "hover:bg-ink-850/50"
+                            }`}
                           >
-                            <span className="font-medium text-xs text-ink-200 truncate">
-                              {pattern.title}
-                            </span>
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                                isPatternExpanded ? "bg-accent-400 shadow-[0_0_6px_rgba(167,139,250,0.6)]" : "bg-ink-600"
+                              }`} />
+                              <span className={`font-semibold text-xs truncate ${
+                                isPatternExpanded ? "text-ink-100" : "text-ink-300"
+                              }`}>
+                                {pattern.title}
+                              </span>
+                            </div>
 
                             <div className="flex items-center gap-1.5 shrink-0">
-                              <span className="text-[10px] font-mono text-ink-500">
+                              <span className="rounded-full px-1.5 py-0.2 text-[10px] font-mono font-medium text-ink-400 bg-ink-950 border border-ink-800/70">
                                 {pattern.problems?.length || 0}
                               </span>
                               <ChevronDown
-                                className={`h-3.5 w-3.5 text-ink-500 transition-transform duration-200 ${
-                                  isPatternExpanded ? "rotate-180 text-emerald-400" : ""
+                                className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                                  isPatternExpanded ? "rotate-180 text-accent-400" : "text-ink-500"
                                 }`}
                               />
                             </div>
@@ -356,7 +420,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
 
                           {/* Problems List in Pattern */}
                           {isPatternExpanded && (
-                            <div className="divide-y divide-ink-800/40 border-t border-ink-800/50 bg-ink-950/60">
+                            <div className="bg-ink-950/80 p-1 space-y-0.5">
                               {(pattern.problems || []).map((problem, pIdx) => {
                                 const isSelected = selectedMeta?.problemSlug === problem.slug;
                                 const probLeetcode = problem.platforms?.leetcode;
@@ -368,22 +432,24 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                                   <div
                                     key={problem.slug}
                                     onClick={() => selectProblem(topic.slug, pattern.slug, problem.slug)}
-                                    className={`group flex items-center justify-between gap-2 px-3 py-2.5 cursor-pointer transition-all ${
+                                    className={`group flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg cursor-pointer transition-all ${
                                       isSelected
-                                        ? "bg-accent-500/15 border-l-2 border-accent-400 text-ink-100"
-                                        : "hover:bg-ink-800/40 text-ink-300"
+                                        ? "bg-accent-500/15 border border-accent-500/40 text-ink-100 shadow-sm shadow-accent-500/10"
+                                        : "bg-ink-900/30 hover:bg-ink-850/80 border border-transparent hover:border-ink-800/60 text-ink-300"
                                     }`}
                                   >
                                     {/* Left: Index & Title */}
                                     <div className="flex items-center gap-2 min-w-0 flex-1">
-                                      <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded font-mono text-[10px] font-semibold ${
+                                      <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded font-mono text-[10px] font-semibold transition ${
                                         isSelected
-                                          ? "bg-accent-500/30 text-accent-300 font-bold"
-                                          : "bg-ink-900 text-ink-500"
+                                          ? "bg-accent-500 text-white font-bold shadow-sm shadow-accent-500/30"
+                                          : "bg-ink-950 text-ink-500 border border-ink-800/80"
                                       }`}>
                                         {pIdx + 1}
                                       </span>
-                                      <span className={`text-xs truncate ${isSelected ? "font-semibold text-accent-200" : "font-normal group-hover:text-ink-100"}`}>
+                                      <span className={`text-xs truncate ${
+                                        isSelected ? "font-semibold text-accent-100" : "font-medium group-hover:text-ink-100"
+                                      }`}>
                                         {problem.title}
                                       </span>
                                     </div>
