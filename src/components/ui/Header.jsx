@@ -19,8 +19,8 @@ export default function Header({ tree = [], items = [] }) {
             className="flex shrink-0 items-center gap-2.5 transition hover:opacity-95"
             title="DSA Patterns"
           >
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-accent-500 text-white shadow-md shadow-accent-500/20 ring-1 ring-white/20">
-              <Brain className="h-4.5 w-4.5 stroke-[2.2]" aria-hidden="true" />
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-accent-500 shadow-md shadow-accent-500/20 ring-1 ring-white/20">
+              <Brain className="h-4.5 w-4.5 stroke-[2.3] text-[#09090b]" aria-hidden="true" />
             </span>
             {layoutMode === "sheet" && (
               <span className="font-semibold text-sm sm:text-base text-ink-100 hidden sm:inline tracking-tight">
