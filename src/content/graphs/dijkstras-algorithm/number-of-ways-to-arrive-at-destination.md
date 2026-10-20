@@ -5,7 +5,7 @@ time: "O(E * log V)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/"
-  youtube: "https://www.youtube.com/watch?v=_-0mx0SmYxA"
+  youtube: "https://www.youtube.com/results?search_query=Number+of+Ways+to+Arrive+at+Destination"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-ways-to-arrive-at-destination"
 ---
 

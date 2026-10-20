@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1"
-  youtube: "https://www.youtube.com/watch?v=C4gxoTaI71U"
+  youtube: "https://www.youtube.com/results?search_query=Shortest+Path+in+Undirected+Graph"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/shortest-path-in-an-unweighted-undirected-graph-using-bfs"
 ---
 

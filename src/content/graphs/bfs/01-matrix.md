@@ -5,7 +5,7 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/01-matrix/"
-  youtube: "https://www.youtube.com/watch?v=edXdVZ85Il4"
+  youtube: "https://www.youtube.com/results?search_query=01+Matrix"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/distance-of-the-nearest-cell-having-1-in-a-binary-matrix"
 ---
 

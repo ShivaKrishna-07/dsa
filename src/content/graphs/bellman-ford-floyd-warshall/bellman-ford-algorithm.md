@@ -5,7 +5,7 @@ time: "O(V * E)"
 space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1"
-  youtube: "https://www.youtube.com/watch?v=0vVofAhAYjc"
+  youtube: "https://www.youtube.com/results?search_query=Bellman-Ford+Algorithm"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/bellman-ford-algorithm"
 ---
 

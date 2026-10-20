@@ -5,7 +5,7 @@ time: "O(N^2)"
 space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/making-a-large-island/"
-  youtube: "https://www.youtube.com/watch?v=lgiz0Oup6gM"
+  youtube: "https://www.youtube.com/results?search_query=Making+A+Large+Island"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/making-a-large-island"
 ---
 

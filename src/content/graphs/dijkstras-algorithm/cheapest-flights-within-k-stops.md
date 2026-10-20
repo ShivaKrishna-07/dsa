@@ -5,7 +5,7 @@ time: "O(K * E)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
-  youtube: "https://www.youtube.com/watch?v=9XybHVqTHcQ"
+  youtube: "https://www.youtube.com/results?search_query=Cheapest+Flights+Within+K+Stops"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/cheapest-flights-within-k-stops"
 ---
 

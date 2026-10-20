@@ -5,7 +5,7 @@ time: "O(N^3)"
 space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/"
-  youtube: "https://www.youtube.com/watch?v=PwMVNSJ5SLI"
+  youtube: "https://www.youtube.com/results?search_query=Find+the+City+With+the+Smallest+Number+of+Neighbors+at+a+Threshold+Distance"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-city-smallest-number-neighbors-threshold-distance"
 ---
 

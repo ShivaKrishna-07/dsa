@@ -5,7 +5,7 @@ time: "O(E * log V)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/network-delay-time/"
-  youtube: "https://www.youtube.com/results?search_query=Network+Delay+Time+takeuforward"
+  youtube: "https://www.youtube.com/results?search_query=Network+Delay+Time"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/network-delay-time"
 ---
 

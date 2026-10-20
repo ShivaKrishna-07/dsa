@@ -5,7 +5,7 @@ time: "O(N * L + K)"
 space: "O(K)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/alien-dictionary/1"
-  youtube: "https://www.youtube.com/watch?v=U3N_je7tWAs"
+  youtube: "https://www.youtube.com/results?search_query=Alien+Dictionary"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/alien-dictionary"
 ---
 

@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/is-graph-bipartite/"
-  youtube: "https://www.youtube.com/watch?v=-vu34sct1g8"
+  youtube: "https://www.youtube.com/results?search_query=Bipartite+Graph"
   article: "https://takeuforward.org/practice/dsa/bipartite-graph"
 ---
 

@@ -6,7 +6,7 @@ space: "O(N^2)"
 platforms:
   article: "https://takeuforward.org/practice/dsa/swim-in-rising-water"
   leetcode: "https://leetcode.com/problems/swim-in-rising-water/"
-  youtube: "https://www.youtube.com/results?search_query=Swim+in+Rising+Water+LeetCode"
+  youtube: "https://www.youtube.com/results?search_query=Swim+in+Rising+Water"
 ---
 
 ### Problem Statement

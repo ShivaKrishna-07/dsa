@@ -5,7 +5,7 @@ time: "O(E * log V)"
 space: "O(V + E)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/shortest-path-in-weighted-undirected-graph/1"
-  youtube: "https://www.youtube.com/watch?v=rp1SMw7HSO8"
+  youtube: "https://www.youtube.com/results?search_query=Print+Shortest+Path"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/print-shortest-path"
 ---
 

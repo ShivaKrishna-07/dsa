@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1"
-  youtube: "https://www.youtube.com/watch?v=9twcmtQj4DU"
+  youtube: "https://www.youtube.com/results?search_query=Detect+Cycle+in+Directed+Graph"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/detect-a-cycle-in-a-directed-graph"
 ---
 

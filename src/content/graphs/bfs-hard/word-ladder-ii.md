@@ -5,7 +5,7 @@ time: "O(N * L * 26 + Paths)"
 space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder-ii/"
-  youtube: "https://www.youtube.com/watch?v=DREutrv2gz0"
+  youtube: "https://www.youtube.com/results?search_query=Word+Ladder+II"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/word-ladder-ii"
 ---
 

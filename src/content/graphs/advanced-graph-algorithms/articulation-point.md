@@ -5,7 +5,7 @@ time: "O(V + 2E)"
 space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/articulation-point-1/1"
-  youtube: "https://www.youtube.com/watch?v=j1QDfU21iZk"
+  youtube: "https://www.youtube.com/results?search_query=Articulation+Point+in+Graph"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/articulation-points-in-graph"
 ---
 

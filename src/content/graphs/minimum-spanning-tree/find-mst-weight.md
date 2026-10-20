@@ -5,7 +5,7 @@ time: "O(E * log E)"
 space: "O(V + E)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1"
-  youtube: "https://www.youtube.com/watch?v=mJcZjjK5380"
+  youtube: "https://www.youtube.com/results?search_query=Minimum+Spanning+Tree"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-the-mst-weight"
 ---
 

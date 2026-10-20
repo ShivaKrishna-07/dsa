@@ -5,7 +5,7 @@ time: "O(N * L * 26)"
 space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder/"
-  youtube: "https://www.youtube.com/watch?v=tRPda0rcf8E"
+  youtube: "https://www.youtube.com/results?search_query=Word+Ladder+I"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/word-ladder"
 ---
 

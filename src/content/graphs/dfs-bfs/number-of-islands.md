@@ -5,7 +5,7 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-islands/"
-  youtube: "https://www.youtube.com/watch?v=muncqlKJrH0"
+  youtube: "https://www.youtube.com/results?search_query=Number+of+Islands"
   article: "https://takeuforward.org/practice/dsa/number-of-islands"
 ---
 

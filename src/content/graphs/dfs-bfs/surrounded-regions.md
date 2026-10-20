@@ -5,7 +5,7 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/surrounded-regions/"
-  youtube: "https://www.youtube.com/watch?v=BtdgAys4yMk"
+  youtube: "https://www.youtube.com/results?search_query=Surrounded+Regions"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/surrounded-regions"
 ---
 

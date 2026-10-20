@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/find-eventual-safe-states/"
-  youtube: "https://www.youtube.com/watch?v=u4v_TQTr9TU"
+  youtube: "https://www.youtube.com/results?search_query=Find+Eventual+Safe+States"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-eventual-safe-states"
 ---
 

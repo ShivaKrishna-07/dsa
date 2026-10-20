@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1"
-  youtube: "https://www.youtube.com/watch?v=BPlrALf1LDU"
+  youtube: "https://www.youtube.com/results?search_query=Detect+Cycle+in+Undirected+Graph"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/detect-a-cycle-in-an-undirected-graph"
 ---
 

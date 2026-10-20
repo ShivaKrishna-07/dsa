@@ -5,7 +5,7 @@ time: "O(V + 2E)"
 space: "O(V + 2E)"
 platforms:
   leetcode: "https://leetcode.com/problems/critical-connections-in-a-network/"
-  youtube: "https://www.youtube.com/watch?v=qrAub5z8FeA"
+  youtube: "https://www.youtube.com/results?search_query=Bridges+in+Graph+(Critical+Connections)"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/bridges-in-graph-tarjan-algorithm"
 ---
 

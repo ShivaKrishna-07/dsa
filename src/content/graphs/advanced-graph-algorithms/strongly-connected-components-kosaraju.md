@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V + E)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1"
-  youtube: "https://www.youtube.com/watch?v=R6uoSjZ2imo"
+  youtube: "https://www.youtube.com/results?search_query=Strongly+Connected+Components+(Kosaraju's+Algorithm)"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/kosarajus-algorithm"
 ---
 

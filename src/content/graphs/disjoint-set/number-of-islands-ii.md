@@ -5,7 +5,7 @@ time: "O(K * 4 * alpha)"
 space: "O(M * N)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/number-of-islands/1"
-  youtube: "https://www.youtube.com/watch?v=Rn6BwgmgS74"
+  youtube: "https://www.youtube.com/results?search_query=Number+of+Islands+II"
   article: "https://takeuforward.org/practice/dsa/number-of-islands-ii"
 ---
 

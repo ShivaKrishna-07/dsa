@@ -5,7 +5,7 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-enclaves/"
-  youtube: "https://www.youtube.com/watch?v=rxKcepXQgU4"
+  youtube: "https://www.youtube.com/results?search_query=Number+of+Enclaves"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-enclaves"
 ---
 

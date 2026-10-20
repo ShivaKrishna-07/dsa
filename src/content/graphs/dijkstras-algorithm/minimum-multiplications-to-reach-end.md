@@ -5,7 +5,7 @@ time: "O(100000 * N)"
 space: "O(100000)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1"
-  youtube: "https://www.youtube.com/watch?v=_BvEJ3VIDWw"
+  youtube: "https://www.youtube.com/results?search_query=Minimum+Multiplications+to+Reach+End"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/minimum-multiplications-to-reach-end"
 ---
 

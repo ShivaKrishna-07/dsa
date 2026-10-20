@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/course-schedule/"
-  youtube: "https://www.youtube.com/watch?v=WAOfKIrV238"
+  youtube: "https://www.youtube.com/results?search_query=Course+Schedule+I+%26+II"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/course-schedule-i"
 ---
 

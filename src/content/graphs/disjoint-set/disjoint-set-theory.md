@@ -4,7 +4,7 @@ difficulty: "Medium"
 time: "O(4 * alpha) ~ O(1)"
 space: "O(N)"
 platforms:
-  youtube: "https://www.youtube.com/watch?v=aBxjDBC4M1U"
+  youtube: "https://www.youtube.com/results?search_query=Disjoint+Set+(Union-Find)+Theory"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/disjoint-set-union"
 ---
 

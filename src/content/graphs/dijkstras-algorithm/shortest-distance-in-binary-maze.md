@@ -5,7 +5,7 @@ time: "O(N * M)"
 space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
-  youtube: "https://www.youtube.com/watch?v=U5Mw4eyUmw4"
+  youtube: "https://www.youtube.com/results?search_query=Shortest+Path+in+Binary+Matrix"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/shortest-distance-binary-maze"
 ---
 

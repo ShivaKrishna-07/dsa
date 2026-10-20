@@ -5,7 +5,7 @@ time: "O(N)"
 space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/"
-  youtube: "https://www.youtube.com/watch?v=OwMNX8SPavM"
+  youtube: "https://www.youtube.com/results?search_query=Most+Stones+Removed+with+Same+Row+or+Column"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/most-stones-removed-same-row-column"
 ---
 

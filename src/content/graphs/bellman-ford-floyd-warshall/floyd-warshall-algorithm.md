@@ -5,7 +5,7 @@ time: "O(V^3)"
 space: "O(1)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1"
-  youtube: "https://www.youtube.com/watch?v=YbY8cVwWAvc"
+  youtube: "https://www.youtube.com/results?search_query=Floyd-Warshall+Algorithm"
   article: "https://takeuforward.org/practice/dsa/floyd-warshall-algorithm"
 ---
 

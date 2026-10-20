@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-provinces/"
-  youtube: "https://www.youtube.com/watch?v=lea-Ap_Rdts"
+  youtube: "https://www.youtube.com/results?search_query=Connected+Components"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-provinces"
 ---
 

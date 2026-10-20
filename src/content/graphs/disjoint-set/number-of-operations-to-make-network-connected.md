@@ -5,7 +5,7 @@ time: "O(V + E)"
 space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-operations-to-make-network-connected/"
-  youtube: "https://www.youtube.com/watch?v=FYrl7iz9_ZU"
+  youtube: "https://www.youtube.com/results?search_query=Number+of+Operations+to+Make+Network+Connected"
   article: "https://takeuforward.org/practice/dsa/number-of-operations-to-make-network-connected"
 ---
 

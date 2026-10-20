@@ -5,7 +5,7 @@ time: "O(M * N * log(M * N))"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/path-with-minimum-effort/"
-  youtube: "https://www.youtube.com/watch?v=0ytpZyiZFhA"
+  youtube: "https://www.youtube.com/results?search_query=Path+With+Minimum+Effort"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/path-with-minimum-effort"
 ---
 

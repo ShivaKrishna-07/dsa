@@ -5,7 +5,7 @@ time: "O(N * M * log(N * M))"
 space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/accounts-merge/"
-  youtube: "https://www.youtube.com/watch?v=FMwpt_aQOGw"
+  youtube: "https://www.youtube.com/results?search_query=Accounts+Merge"
   article: "https://takeuforward.org/practice/dsa/accounts-merge"
 ---
 

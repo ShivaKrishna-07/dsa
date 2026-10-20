@@ -5,7 +5,7 @@ time: "O(M * N)"
 space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/rotting-oranges/"
-  youtube: "https://www.youtube.com/watch?v=yf3oUhkvqA0"
+  youtube: "https://www.youtube.com/results?search_query=Rotting+Oranges"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/rotting-oranges"
 ---
 

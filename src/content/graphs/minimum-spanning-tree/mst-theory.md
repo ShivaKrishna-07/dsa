@@ -4,7 +4,7 @@ difficulty: "Medium"
 time: "O(E * log E)"
 space: "O(V + E)"
 platforms:
-  youtube: "https://www.youtube.com/watch?v=mJcZjjK5380"
+  youtube: "https://www.youtube.com/results?search_query=Minimum+Spanning+Tree+(MST)+Theory"
   article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-the-mst-weight"
 ---
 
