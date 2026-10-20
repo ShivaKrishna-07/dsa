@@ -26,16 +26,19 @@ export default function TopicListClient({ topics }) {
 
   return (
     <>
-      <div className="mb-6 flex items-center justify-between max-w-5xl">
-        <h1 className="text-2xl font-semibold sm:text-3xl text-ink-100">Topics</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink-100">Topics</h1>
+          <p className="mt-1 text-sm text-ink-400">Select a topic to explore its foundational patterns and problems.</p>
+        </div>
         
         {mounted && (
-          <div className="flex items-center gap-1 rounded-md border border-ink-800 bg-ink-950/40 p-1">
+          <div className="flex items-center gap-1 rounded-lg border border-ink-800 bg-ink-950/60 p-1 shadow-sm">
             <button
               onClick={() => handleSetView("grid")}
-              className={`rounded p-1.5 transition-colors ${
+              className={`rounded-md p-1.5 transition-colors ${
                 viewMode === "grid" 
-                  ? "bg-ink-800 text-ink-100" 
+                  ? "bg-ink-800 text-ink-100 shadow-sm" 
                   : "text-ink-400 hover:text-ink-200"
               }`}
               aria-label="Grid view"
@@ -44,9 +47,9 @@ export default function TopicListClient({ topics }) {
             </button>
             <button
               onClick={() => handleSetView("table")}
-              className={`rounded p-1.5 transition-colors ${
+              className={`rounded-md p-1.5 transition-colors ${
                 viewMode === "table" 
-                  ? "bg-ink-800 text-ink-100" 
+                  ? "bg-ink-800 text-ink-100 shadow-sm" 
                   : "text-ink-400 hover:text-ink-200"
               }`}
               aria-label="Table view"
@@ -58,7 +61,7 @@ export default function TopicListClient({ topics }) {
       </div>
 
       {!mounted || viewMode === "grid" ? (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {topics.map((topic) => {
             const isReady = topic.patternCount > 0;
 
@@ -66,24 +69,26 @@ export default function TopicListClient({ topics }) {
               <MotionCard key={topic.slug}>
                 <Link
                   href={isReady ? `/${topic.slug}` : "#"}
-                  className={`block h-full rounded-md border p-5 transition ${
+                  className={`group block h-full rounded-2xl border p-5 sm:p-6 transition-all duration-200 ${
                     isReady
-                      ? "border-ink-800 bg-ink-900/60 hover:border-accent-400"
-                      : "border-ink-800/70 bg-ink-900/30 text-ink-500 pointer-events-none"
+                      ? "border-ink-800 bg-ink-900/40 backdrop-blur-sm hover:border-accent-500/50 hover:bg-ink-900/70 hover:shadow-lg"
+                      : "border-ink-800/70 bg-ink-900/20 text-ink-500 pointer-events-none"
                   }`}
                 >
                   <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-ink-700/60 bg-ink-900/50 text-accent-300 shadow-sm">
+                    <div className="flex items-center gap-3.5">
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-ink-800 bg-ink-950/70 text-accent-300 shadow-sm group-hover:border-accent-500/40 group-hover:bg-accent-500/10 group-hover:text-accent-300 transition-all">
                         <TopicIcon name={topic.icon} className="h-5 w-5" />
                       </span>
-                      <h2 className="text-lg font-semibold text-ink-100">{topic.title}</h2>
+                      <h2 className="text-lg font-semibold text-ink-100 group-hover:text-accent-300 transition-colors">
+                        {topic.title}
+                      </h2>
                     </div>
                     <div className="flex items-center gap-2 text-xs font-medium text-ink-400">
-                      <span className="rounded-md border border-ink-800/60 bg-ink-900/40 px-2.5 py-1">
+                      <span className="rounded-full border border-ink-800 bg-ink-950/60 px-3 py-1">
                         {pluralize(topic.patternCount, "pattern")}
                       </span>
-                      <span className="rounded-md border border-ink-800/60 bg-ink-900/40 px-2.5 py-1">
+                      <span className="rounded-full border border-ink-800 bg-ink-950/60 px-3 py-1">
                         {pluralize(topic.problemCount, "problem")}
                       </span>
                     </div>
@@ -94,9 +99,9 @@ export default function TopicListClient({ topics }) {
           })}
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-ink-800 bg-ink-950/40 shadow-sm w-full max-w-5xl">
+        <div className="overflow-hidden rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm shadow-sm w-full">
           {/* Header */}
-          <div className="grid grid-cols-[minmax(200px,1fr)_120px_120px_100px] gap-4 border-b border-ink-800/60 bg-ink-900/60 px-6 py-4 text-xs uppercase text-ink-400 font-medium">
+          <div className="grid grid-cols-[minmax(200px,1fr)_120px_120px_100px] gap-4 border-b border-ink-800/80 bg-ink-950/70 px-6 py-3.5 text-xs uppercase tracking-wider text-ink-400 font-bold">
             <div>Topic</div>
             <div>Patterns</div>
             <div>Problems</div>
@@ -112,25 +117,25 @@ export default function TopicListClient({ topics }) {
                 <Link 
                   key={topic.slug}
                   href={isReady ? `/${topic.slug}` : "#"}
-                  className={`grid grid-cols-[minmax(200px,1fr)_120px_120px_100px] items-center gap-4 px-6 py-4 transition-colors ${
-                    isReady ? "hover:bg-ink-900/40 group cursor-pointer" : "opacity-60 bg-ink-950/20 cursor-default pointer-events-none"
+                  className={`grid grid-cols-[minmax(200px,1fr)_120px_120px_100px] items-center gap-4 px-6 py-4 transition-all ${
+                    isReady ? "hover:bg-ink-800/40 group cursor-pointer" : "opacity-60 bg-ink-950/20 cursor-default pointer-events-none"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink-700/60 bg-ink-900/50 text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
-                      <TopicIcon name={topic.icon} className="h-5 w-5" />
+                  <div className="flex items-center gap-3.5">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-ink-800 bg-ink-950/70 text-accent-300 shadow-sm transition-all group-hover:border-accent-500/40 group-hover:bg-accent-500/10 group-hover:text-accent-300">
+                      <TopicIcon name={topic.icon} className="h-4.5 w-4.5" />
                     </span>
-                    <div className="font-medium text-ink-100 text-base">
+                    <div className="font-medium text-ink-100 text-base group-hover:text-accent-300 transition-colors">
                       {topic.title}
                     </div>
                   </div>
                   <div className="whitespace-nowrap">
-                    <span className="inline-flex items-center rounded-md border border-ink-800/60 bg-ink-900/40 px-2.5 py-1 text-xs font-medium">
+                    <span className="inline-flex items-center rounded-full border border-ink-800 bg-ink-950/60 px-3 py-0.5 text-xs font-medium">
                       {topic.patternCount}
                     </span>
                   </div>
                   <div className="whitespace-nowrap">
-                    <span className="inline-flex items-center rounded-md border border-ink-800/60 bg-ink-900/40 px-2.5 py-1 text-xs font-medium">
+                    <span className="inline-flex items-center rounded-full border border-ink-800 bg-ink-950/60 px-3 py-0.5 text-xs font-medium">
                       {topic.problemCount}
                     </span>
                   </div>

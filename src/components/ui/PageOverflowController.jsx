@@ -8,7 +8,7 @@ export default function PageOverflowController() {
 
   useLayoutEffect(() => {
     const segments = pathname.split("/").filter(Boolean);
-    const shouldLockPageScroll = segments.length > 0;
+    const shouldLockPageScroll = segments.length === 3;
 
     document.documentElement.classList.toggle("route-lock-scroll", shouldLockPageScroll);
     document.body.classList.toggle("route-lock-scroll", shouldLockPageScroll);

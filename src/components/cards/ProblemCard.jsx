@@ -1,18 +1,20 @@
 import Link from "next/link";
-import { ArrowRight, ExternalLink, Flame } from "lucide-react";
+import { ArrowRight, BookOpen, Flame } from "lucide-react";
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import { difficultyClass, platformLabel } from "@/lib/format";
 
 const platformIcons = {
   leetcode: SiLeetcode,
   gfg: SiGeeksforgeeks,
-  youtube: SiYoutube
+  youtube: SiYoutube,
+  article: BookOpen
 };
 
-const platformIconClass = {
-  leetcode: "text-[#ffa116]",
-  gfg: "text-[#2f8d46]",
-  youtube: "text-[#ff0000]"
+const platformStyles = {
+  leetcode: "text-[#ffa116] hover:border-amber-500/50 hover:bg-amber-500/10",
+  gfg: "text-[#22c55e] hover:border-emerald-500/50 hover:bg-emerald-500/10",
+  youtube: "text-[#ef4444] hover:border-red-500/50 hover:bg-red-500/10",
+  article: "text-accent-400 hover:border-accent-500/50 hover:bg-accent-500/10"
 };
 
 export default function ProblemCard({ topicSlug, patternSlug, problem, index }) {
@@ -26,31 +28,42 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
   return (
     <Link
       href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
-      className="group block px-4 py-4 sm:px-6 transition-colors hover:bg-ink-900/40"
+      className="group block px-4 py-3.5 sm:px-6 transition-all hover:bg-ink-800/40"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4 flex-1 overflow-hidden">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ink-700/60 bg-ink-900/50 text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/30 group-hover:bg-accent-500/10 group-hover:text-accent-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        {/* Left: Problem index & Title */}
+        <div className="flex items-center gap-3.5 flex-1 min-w-0">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 font-mono text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/40 group-hover:bg-accent-500/10 group-hover:text-accent-300">
             {index + 1}
           </span>
-          <h3 className="font-medium text-ink-100 truncate">{problem.title}</h3>
+          <h3 className="font-medium text-ink-100 text-sm sm:text-base truncate group-hover:text-accent-300 transition-colors">
+            {problem.title}
+          </h3>
         </div>
         
-        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 pl-12 sm:pl-0 shrink-0">
-          <span className={`w-[68px] shrink-0 text-center rounded border px-2 py-0.5 text-xs font-medium ${difficultyClass(problem.difficulty)}`}>
+        {/* Right: Difficulty, Label, Platforms, Arrow */}
+        <div className="flex items-center gap-2 sm:gap-3 pl-10.5 sm:pl-0 shrink-0">
+          <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide ${difficultyClass(problem.difficulty)}`}>
             {problem.difficulty}
           </span>
+
           {problem.label && (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded border border-red-500/40 bg-red-950/40 px-2 py-0.5 text-xs font-bold text-red-400 animate-pulse">
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-red-500/40 bg-red-950/40 px-2.5 py-0.5 text-xs font-bold text-red-400">
               <Flame className="h-3 w-3 fill-red-500 text-red-500" />
               {problem.label}
             </span>
           )}
-          {visiblePlatforms.map(([key, url]) => (
-            <PlatformLink key={key} platform={key} url={url} />
-          ))}
-          <div className="hidden sm:flex items-center justify-end pl-2">
-            <ArrowRight className="h-5 w-5 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
+
+          {visiblePlatforms.length > 0 && (
+            <div className="flex items-center gap-1.5 pl-1 border-l border-ink-800/70">
+              {visiblePlatforms.map(([key, url]) => (
+                <PlatformIconLink key={key} platform={key} url={url} />
+              ))}
+            </div>
+          )}
+
+          <div className="hidden sm:flex items-center justify-end pl-1">
+            <ArrowRight className="h-4 w-4 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
           </div>
         </div>
       </div>
@@ -58,16 +71,9 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
   );
 }
 
-const platformWidths = {
-  leetcode: "w-[108px]",
-  gfg: "w-[108px]",
-  youtube: "w-[96px]",
-  article: "w-[84px]"
-};
-
-function PlatformLink({ platform, url }) {
-  const Icon = platformIcons[platform];
-  const widthClass = platformWidths[platform] || "w-[100px]";
+function PlatformIconLink({ platform, url }) {
+  const Icon = platformIcons[platform] || BookOpen;
+  const style = platformStyles[platform] || "text-ink-300 hover:border-ink-700 hover:bg-ink-800";
 
   function open(event) {
     event.preventDefault();
@@ -83,11 +89,10 @@ function PlatformLink({ platform, url }) {
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") open(event);
       }}
-      className={`${widthClass} shrink-0 justify-center inline-flex cursor-pointer items-center gap-1.5 rounded border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition hover:border-accent-400 hover:text-ink-100`}
+      className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 transition-all hover:scale-105 shadow-sm ${style}`}
+      title={`${platformLabel(platform)}`}
     >
-      {Icon ? <Icon className={`h-3.5 w-3.5 shrink-0 ${platformIconClass[platform] || ""}`} /> : null}
-      <span className="truncate">{platformLabel(platform)}</span>
-      <ExternalLink className="h-3 w-3 shrink-0" />
+      <Icon className="h-3.5 w-3.5" />
     </span>
   );
 }
