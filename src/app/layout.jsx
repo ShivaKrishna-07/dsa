@@ -2,9 +2,10 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Header from "@/components/ui/Header";
 import PageOverflowController from "@/components/ui/PageOverflowController";
-import RouteBreadcrumb from "@/components/ui/RouteBreadcrumb";
 import ThemeProvider from "@/components/ui/ThemeProvider";
-import { topics } from "@/lib/data";
+import { LayoutProvider } from "@/context/LayoutContext";
+import AppLayoutView from "@/components/layout/AppLayoutView";
+import { getSearchItems, topics } from "@/lib/data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,30 +40,37 @@ export default function RootLayout({ children }) {
   const navigationTree = topics.map((topic) => ({
     slug: topic.slug,
     title: topic.title,
-    patterns: topic.patterns.map((pattern) => ({
+    icon: topic.icon,
+    patterns: (topic.patterns || []).map((pattern) => ({
       slug: pattern.slug,
       title: pattern.title,
-      problems: pattern.problems.map((problem) => ({
+      problems: (pattern.problems || []).map((problem) => ({
         slug: problem.slug,
         title: problem.title,
-        difficulty: problem.difficulty
+        difficulty: problem.difficulty,
+        label: problem.label || null,
+        platforms: problem.platforms || {}
       }))
     }))
   }));
+
+  const searchItems = getSearchItems();
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen flex flex-col bg-ink-950 text-ink-100">
-            <PageOverflowController />
-            <Header tree={navigationTree} />
-            <main className="flex-1 flex flex-col">{children}</main>
-          </div>
+          <LayoutProvider>
+            <div className="min-h-screen flex flex-col bg-ink-950 text-ink-100">
+              <PageOverflowController />
+              <Header tree={navigationTree} items={searchItems} />
+              <main className="flex-1 flex flex-col">
+                <AppLayoutView tree={navigationTree}>{children}</AppLayoutView>
+              </main>
+            </div>
+          </LayoutProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
-
