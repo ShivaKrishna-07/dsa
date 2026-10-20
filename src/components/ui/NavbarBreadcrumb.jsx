@@ -197,7 +197,7 @@ export default function NavbarBreadcrumb({ tree = [] }) {
                   <Link
                     href={item.href}
                     onContextMenu={(e) => openMenu(e, item)}
-                    className="rounded-md px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 truncate max-w-[120px] sm:max-w-[180px]"
+                    className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap"
                   >
                     {item.label}
                   </Link>
@@ -205,7 +205,7 @@ export default function NavbarBreadcrumb({ tree = [] }) {
                   <button
                     type="button"
                     onContextMenu={(e) => openMenu(e, item)}
-                    className={`rounded-md px-2 py-1 text-left font-semibold shadow-sm transition truncate max-w-[140px] sm:max-w-[220px] ${
+                    className={`rounded-lg px-2.5 py-1 text-left font-semibold shadow-sm transition whitespace-nowrap ${
                       isLast
                         ? "bg-ink-800/80 text-ink-100 border border-ink-700/60"
                         : "hover:bg-ink-800/60 text-ink-200"
