@@ -45,6 +45,7 @@ public:
             auto [d, u] = pq.top();
             pq.pop();
 
+            // Skip stale pair: a shorter distance to u has already been processed
             if (d > dist[u]) {
                 continue;
             }

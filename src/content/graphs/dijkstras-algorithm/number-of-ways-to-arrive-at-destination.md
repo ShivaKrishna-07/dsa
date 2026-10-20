@@ -58,7 +58,11 @@ public:
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
-            if (d > dist[u]) continue;
+
+            // Skip stale pair: a shorter distance to u has already been processed
+            if (d > dist[u]) {
+                continue;
+            }
 
             for (auto& [v, time] : adj[u]) {
                 if (d + time < dist[v]) {

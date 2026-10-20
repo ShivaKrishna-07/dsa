@@ -121,7 +121,7 @@
       "GPS navigation",
       "Weighted grid traversal"
     ],
-    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        if (d > dist[u]) {\n            continue;\n        }\n        for (auto [v, w] : adj[u]) {\n            if (dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
+    "template": "vector<int> dijkstra(int V, vector<pair<int,int>> adj[], int src) {\n    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;\n    vector<int> dist(V, INT_MAX);\n    dist[src] = 0;\n    pq.push({0, src});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        // Skip stale pair: a shorter distance to u has already been processed\n        if (d > dist[u]) {\n            continue;\n        }\n        for (auto [v, w] : adj[u]) {\n            if (dist[u] + w < dist[v]) {\n                dist[v] = dist[u] + w;\n                pq.push({dist[v], v});\n            }\n        }\n    }\n    return dist;\n}",
     "explanation": "Dijkstra's algorithm is a greedy algorithm that finds shortest paths from a source to all vertices. It uses a min-heap to always process the closest unvisited vertex first. It does NOT work with negative edge weights.",
     "problemsOrder": [
       "dijkstra-algorithm",
