@@ -34,76 +34,57 @@ Output: [4]
 
 ### Intuition
 
-Any node that is part of a cycle or leads into a cycle is not safe.
-- **DFS:** Detect cycles. If a node is on a cycle or leads to a cycle, mark it unsafe; otherwise mark it safe.
-- **BFS (Kahn's):** Reverse all edges! Terminal nodes (outdegree 0) now have indegree 0 in the reversed graph. Running Kahn's algorithm on the reversed graph will visit exactly the safe nodes.
+A node is safe if every path starting from it ends at a terminal node (out-degree 0). Any node that is part of a cycle or leads into a cycle is not safe.
+
+By reversing the direction of all edges in the graph:
+- Terminal nodes (nodes with out-degree 0 in the original graph) now have in-degree 0 in the reversed graph.
+- Using Kahn's algorithm (BFS with in-degree array), we start from all terminal nodes and traverse backward. Any node reachable through this topological traversal without getting stuck in a cycle is guaranteed to be a safe node.
 
 ---
 
 ### Code
 
 ```cpp
-// BFS (Reversed Graph + Kahn's)
 class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int n = graph.size();
-        // Reversed graph: original terminal nodes become starting nodes
-        vector<vector<int>> revAdj(n);
-        // Stores in-degree in reversed graph (out-degree in original graph)
-        vector<int> indegree(n, 0);
+        int v = graph.size();
+        // Reversed graph: terminal nodes become sources with in-degree 0
+        vector<vector<int>> adjRev(v);
+        // Stores in-degree of nodes in reversed graph
+        vector<int> indegree(v, 0);
 
-        for (int i = 0; i < n; i++) {
-            for (int it : graph[i]) {
-                revAdj[it].push_back(i);
+        for (int i = 0; i < v; i++) {
+            for (auto it : graph[i]) {
+                adjRev[it].push_back(i);
                 indegree[i]++;
             }
         }
 
-        // Queue stores terminal nodes (in-degree 0 in reversed graph)
+        // Queue stores nodes with in-degree 0
         queue<int> q;
-        for (int i = 0; i < n; i++)
-            if (indegree[i] == 0) q.push(i);
-
-        vector<int> safe;
-        while (!q.empty()) {
-            int node = q.front();
-            q.pop();
-            safe.push_back(node);
-            for (auto it : revAdj[node]) {
-                if (--indegree[it] == 0) q.push(it);
+        for (int i = 0; i < v; i++) {
+            if (indegree[i] == 0) {
+                q.push(i);
             }
         }
 
-        sort(safe.begin(), safe.end());
-        return safe;
-    }
-};
-```
+        vector<int> safeNodes;
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+            safeNodes.push_back(node);
 
-```cpp
-// DFS (Cycle Detection)
-class Solution {
-    bool dfs(int node, vector<vector<int>>& graph, vector<int>& state) {
-        // state: 0 = unvisited, 1 = visiting (in recursion stack), 2 = safe
-        if (state[node] > 0) return state[node] == 2;
-        state[node] = 1;
-        for (int it : graph[node]) {
-            if (!dfs(it, graph, state)) return false;
+            for (auto it : adjRev[node]) {
+                indegree[it]--;
+                if (indegree[it] == 0) {
+                    q.push(it);
+                }
+            }
         }
-        state[node] = 2;
-        return true;
-    }
-public:
-    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int n = graph.size();
-        vector<int> state(n, 0);
-        vector<int> safe;
 
-        for (int i = 0; i < n; i++) {
-            if (dfs(i, graph, state)) safe.push_back(i);
-        }
-        return safe;
+        sort(safeNodes.begin(), safeNodes.end());
+        return safeNodes;
     }
 };
 ```
