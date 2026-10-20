@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/find-eventual-safe-states/"
   youtube: "https://www.youtube.com/watch?v=u4v_TQTr9TU"
-  article: "https://takeuforward.org/data-structure/find-eventual-safe-states-dfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-eventual-safe-states"
 ---
 
 ### Problem Statement

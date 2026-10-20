@@ -6,7 +6,7 @@ space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
   youtube: "https://www.youtube.com/watch?v=U5Mw4eyUmw4"
-  article: "https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/shortest-distance-binary-maze"
 ---
 
 ### Problem Statement

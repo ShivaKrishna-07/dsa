@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/topological-sort/1"
   youtube: "https://www.youtube.com/watch?v=5lZ0iJMrUMk"
-  article: "https://takeuforward.org/data-structure/topological-sort-algorithm-dfs/"
+  article: "https://takeuforward.org/practice/dsa/topological-sort-or-kahns-algorithm"
 ---
 
 ### Problem Statement

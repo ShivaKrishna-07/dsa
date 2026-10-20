@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/rotting-oranges/"
   youtube: "https://www.youtube.com/watch?v=yf3oUhkvqA0"
-  article: "https://takeuforward.org/data-structure/rotten-oranges-bfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/rotting-oranges"
 ---
 
 ### Problem Statement

@@ -6,7 +6,7 @@ space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/accounts-merge/"
   youtube: "https://www.youtube.com/watch?v=FMwpt_aQOGw"
-  article: "https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/"
+  article: "https://takeuforward.org/practice/dsa/accounts-merge"
 ---
 
 ### Problem Statement

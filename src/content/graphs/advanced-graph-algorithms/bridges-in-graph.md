@@ -6,7 +6,7 @@ space: "O(V + 2E)"
 platforms:
   leetcode: "https://leetcode.com/problems/critical-connections-in-a-network/"
   youtube: "https://www.youtube.com/watch?v=qrAub5z8FeA"
-  article: "https://takeuforward.org/data-structure/bridges-in-graph-using-tarjans-algorithm-g-55/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/bridges-in-graph-tarjan-algorithm"
 ---
 
 ### Problem Statement

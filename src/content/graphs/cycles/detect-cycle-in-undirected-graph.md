@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1"
   youtube: "https://www.youtube.com/watch?v=BPlrALf1LDU"
-  article: "https://takeuforward.org/data-structure/detect-cycle-in-an-undirected-graph-using-bfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/detect-a-cycle-in-an-undirected-graph"
 ---
 
 ### Problem Statement

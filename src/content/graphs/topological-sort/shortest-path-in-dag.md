@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/1"
   youtube: "https://www.youtube.com/watch?v=ZUFQfFaU-8U"
-  article: "https://takeuforward.org/data-structure/shortest-path-in-directed-acyclic-graph-topological-sort/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/shortest-path-in-a-directed-acyclic-graph-dag"
 ---
 
 ### Problem Statement

@@ -6,7 +6,7 @@ space: "O(100000)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1"
   youtube: "https://www.youtube.com/watch?v=_BvEJ3VIDWw"
-  article: "https://takeuforward.org/data-structure/g-39-minimum-multiplications-to-reach-end/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/minimum-multiplications-to-reach-end"
 ---
 
 ### Problem Statement

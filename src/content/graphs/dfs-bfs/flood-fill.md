@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/flood-fill/"
   youtube: "https://www.youtube.com/watch?v=C-2_uSRli8o"
-  article: "https://takeuforward.org/graph/flood-fill-algorithm/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/flood-fill-algorithm"
 ---
 
 ### Problem Statement

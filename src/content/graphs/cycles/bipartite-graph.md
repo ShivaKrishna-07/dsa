@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/is-graph-bipartite/"
   youtube: "https://www.youtube.com/watch?v=-vu34sct1g8"
-  article: "https://takeuforward.org/graph/bipartite-graph-dfs-bfs/"
+  article: "https://takeuforward.org/practice/dsa/bipartite-graph"
 ---
 
 ### Problem Statement

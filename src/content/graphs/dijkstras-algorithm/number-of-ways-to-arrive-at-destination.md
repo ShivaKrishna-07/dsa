@@ -6,7 +6,7 @@ space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/"
   youtube: "https://www.youtube.com/watch?v=_-0mx0SmYxA"
-  article: "https://takeuforward.org/data-structure/g-40-number-of-ways-to-arrive-at-destination/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-ways-to-arrive-at-destination"
 ---
 
 ### Problem Statement

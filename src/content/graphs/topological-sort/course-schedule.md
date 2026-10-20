@@ -6,7 +6,7 @@ space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/course-schedule/"
   youtube: "https://www.youtube.com/watch?v=WAOfKIrV238"
-  article: "https://takeuforward.org/data-structure/course-schedule-i-and-ii-pre-requisite-tasks-topological-sort/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/course-schedule-i"
 ---
 
 ### Problem Statement

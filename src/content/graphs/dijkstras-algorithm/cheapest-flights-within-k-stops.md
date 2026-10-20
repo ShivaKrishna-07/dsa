@@ -6,7 +6,7 @@ space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
   youtube: "https://www.youtube.com/watch?v=9XybHVqTHcQ"
-  article: "https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/cheapest-flights-within-k-stops"
 ---
 
 ### Problem Statement

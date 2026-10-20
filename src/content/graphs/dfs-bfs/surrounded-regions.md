@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/surrounded-regions/"
   youtube: "https://www.youtube.com/watch?v=BtdgAys4yMk"
-  article: "https://takeuforward.org/graph/surrounded-regions-replace-os-with-xs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/surrounded-regions"
 ---
 
 ### Problem Statement

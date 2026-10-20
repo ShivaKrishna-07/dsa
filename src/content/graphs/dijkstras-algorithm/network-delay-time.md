@@ -6,7 +6,7 @@ space: "O(V + E)"
 platforms:
   leetcode: "https://leetcode.com/problems/network-delay-time/"
   youtube: "https://www.youtube.com/results?search_query=Network+Delay+Time+takeuforward"
-  article: "https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/network-delay-time"
 ---
 
 ### Problem Statement

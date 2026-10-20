@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1"
   youtube: "https://www.youtube.com/watch?v=0vVofAhAYjc"
-  article: "https://takeuforward.org/data-structure/bellman-ford-algorithm-g-41/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/bellman-ford-algorithm"
 ---
 
 ### Problem Statement

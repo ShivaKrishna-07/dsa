@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1"
   youtube: "https://www.youtube.com/watch?v=C4gxoTaI71U"
-  article: "https://takeuforward.org/data-structure/shortest-path-in-undirected-graph-with-unit-distance-bfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/shortest-path-in-an-unweighted-undirected-graph-using-bfs"
 ---
 
 ### Problem Statement

@@ -6,7 +6,7 @@ space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder/"
   youtube: "https://www.youtube.com/watch?v=tRPda0rcf8E"
-  article: "https://takeuforward.org/graph/word-ladder-i-shortest-paths/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/word-ladder"
 ---
 
 ### Problem Statement

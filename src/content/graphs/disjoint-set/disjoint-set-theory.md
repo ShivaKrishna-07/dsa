@@ -5,7 +5,7 @@ time: "O(4 * alpha) ~ O(1)"
 space: "O(N)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=aBxjDBC4M1U"
-  article: "https://takeuforward.org/data-structure/disjoint-set-union-by-rank-union-by-size-path-compression-g-46/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/disjoint-set-union"
 ---
 
 ### Problem Statement

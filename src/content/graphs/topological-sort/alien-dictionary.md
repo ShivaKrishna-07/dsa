@@ -6,7 +6,7 @@ space: "O(K)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/alien-dictionary/1"
   youtube: "https://www.youtube.com/watch?v=U3N_je7tWAs"
-  article: "https://takeuforward.org/data-structure/alien-dictionary-topological-sort/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/alien-dictionary"
 ---
 
 ### Problem Statement

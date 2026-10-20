@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/articulation-point-1/1"
   youtube: "https://www.youtube.com/watch?v=j1QDfU21iZk"
-  article: "https://takeuforward.org/data-structure/articulation-point-in-graph-g-56/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/articulation-points-in-graph"
 ---
 
 ### Problem Statement

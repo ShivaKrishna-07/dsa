@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/number-of-islands/1"
   youtube: "https://www.youtube.com/watch?v=Rn6BwgmgS74"
-  article: "https://takeuforward.org/data-structure/number-of-islands-ii-online-queries-dsu-g-51/"
+  article: "https://takeuforward.org/practice/dsa/number-of-islands-ii"
 ---
 
 ### Problem Statement

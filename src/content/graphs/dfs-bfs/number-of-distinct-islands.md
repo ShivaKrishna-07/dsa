@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/number-of-distinct-islands/1"
   youtube: "https://www.youtube.com/watch?v=7zmgQSJghpo"
-  article: "https://takeuforward.org/data-structure/number-of-distinct-islands/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-distinct-islands"
 ---
 
 ### Problem Statement

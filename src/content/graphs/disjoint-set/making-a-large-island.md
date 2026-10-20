@@ -6,7 +6,7 @@ space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/making-a-large-island/"
   youtube: "https://www.youtube.com/watch?v=lgiz0Oup6gM"
-  article: "https://takeuforward.org/data-structure/making-a-large-island-dsu-g-52/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/making-a-large-island"
 ---
 
 ### Problem Statement

@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1"
   youtube: "https://www.youtube.com/watch?v=9twcmtQj4DU"
-  article: "https://takeuforward.org/data-structure/detect-cycle-in-a-directed-graph-using-dfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/detect-a-cycle-in-a-directed-graph"
 ---
 
 ### Problem Statement

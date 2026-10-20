@@ -5,7 +5,7 @@ time: "O(E * log E)"
 space: "O(V + E)"
 platforms:
   youtube: "https://www.youtube.com/watch?v=mJcZjjK5380"
-  article: "https://takeuforward.org/data-structure/prims-algorithm-minimum-spanning-tree-c-and-java-g-45/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-the-mst-weight"
 ---
 
 ### What is a Spanning Tree?

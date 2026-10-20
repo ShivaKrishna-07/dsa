@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1"
   youtube: "https://www.youtube.com/watch?v=V6H1qAeB-l4"
-  article: "https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/dijkstras-algorithm"
 ---
 
 ### Problem Statement

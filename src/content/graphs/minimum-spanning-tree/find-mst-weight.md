@@ -6,7 +6,7 @@ space: "O(V + E)"
 platforms:
   gfg: "https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1"
   youtube: "https://www.youtube.com/watch?v=mJcZjjK5380"
-  article: "https://takeuforward.org/data-structure/prims-algorithm-minimum-spanning-tree-c-and-java-g-45/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-the-mst-weight"
 ---
 
 ### Problem Statement

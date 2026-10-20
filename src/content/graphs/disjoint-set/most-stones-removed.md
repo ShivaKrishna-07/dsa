@@ -6,7 +6,7 @@ space: "O(N)"
 platforms:
   leetcode: "https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/"
   youtube: "https://www.youtube.com/watch?v=OwMNX8SPavM"
-  article: "https://takeuforward.org/data-structure/most-stones-removed-with-same-row-or-column-dsu-g-53/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/most-stones-removed-same-row-column"
 ---
 
 ### Problem Statement

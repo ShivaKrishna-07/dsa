@@ -6,7 +6,7 @@ space: "O(N * L)"
 platforms:
   leetcode: "https://leetcode.com/problems/word-ladder-ii/"
   youtube: "https://www.youtube.com/watch?v=DREutrv2gz0"
-  article: "https://takeuforward.org/graph/word-ladder-ii-optimised-approach-dfs-bfs/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/word-ladder-ii"
 ---
 
 ### Problem Statement

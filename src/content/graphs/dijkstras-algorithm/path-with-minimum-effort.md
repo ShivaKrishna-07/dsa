@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/path-with-minimum-effort/"
   youtube: "https://www.youtube.com/watch?v=0ytpZyiZFhA"
-  article: "https://takeuforward.org/data-structure/g-37-path-with-minimum-effort/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/path-with-minimum-effort"
 ---
 
 ### Problem Statement

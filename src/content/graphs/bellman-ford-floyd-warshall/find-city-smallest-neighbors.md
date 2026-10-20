@@ -6,7 +6,7 @@ space: "O(N^2)"
 platforms:
   leetcode: "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/"
   youtube: "https://www.youtube.com/watch?v=PwMVNSJ5SLI"
-  article: "https://takeuforward.org/data-structure/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance-g-43/"
+  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/find-city-smallest-number-neighbors-threshold-distance"
 ---
 
 ### Problem Statement

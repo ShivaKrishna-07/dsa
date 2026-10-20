@@ -6,7 +6,7 @@ space: "O(V)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-operations-to-make-network-connected/"
   youtube: "https://www.youtube.com/watch?v=FYrl7iz9_ZU"
-  article: "https://takeuforward.org/data-structure/number-of-operations-to-make-network-connected-dsu-g-49/"
+  article: "https://takeuforward.org/practice/dsa/number-of-operations-to-make-network-connected"
 ---
 
 ### Problem Statement

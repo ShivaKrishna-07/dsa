@@ -6,7 +6,7 @@ space: "O(M * N)"
 platforms:
   leetcode: "https://leetcode.com/problems/number-of-islands/"
   youtube: "https://www.youtube.com/watch?v=muncqlKJrH0"
-  article: "https://takeuforward.org/blogs/data-structure-and-algorithm/number-of-islands"
+  article: "https://takeuforward.org/practice/dsa/number-of-islands"
 ---
 
 ### Problem Statement
