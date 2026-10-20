@@ -236,12 +236,6 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   const activeCodeObj = activeProblem?.codes?.find((c) => c.name === selectedCodeName) || activeProblem?.codes?.[0];
   const activeCode = activeCodeObj ? activeCodeObj.code : (activeProblem?.code || "");
 
-  // Platform links (LeetCode if free, else GFG)
-  const leetcodeUrl = activeProblem?.platforms?.leetcode;
-  const gfgUrl = !leetcodeUrl ? activeProblem?.platforms?.gfg : null;
-  const youtubeUrl = activeProblem?.platforms?.youtube;
-  const articleUrl = activeProblem?.platforms?.article;
-
   const totalProblemsCount = useMemo(() => {
     return topics.reduce((acc, t) => acc + (t.patterns || []).reduce((a, p) => a + (p.problems?.length || 0), 0), 0);
   }, [topics]);
@@ -541,95 +535,16 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       <main className="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-ink-950">
         {activeProblem ? (
           <div className="flex flex-col h-full overflow-hidden">
-            {/* Problem Top Header Bar */}
-            <div className="border-b border-ink-800/80 bg-ink-950/90 px-4 sm:px-6 py-3 shrink-0">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2 text-xs text-ink-500 font-medium mb-1">
-                    <span>{currentTopic?.title}</span>
-                    <span>›</span>
-                    <span>{currentPattern?.title}</span>
-                  </div>
-                  <h1 className="text-lg sm:text-xl font-bold text-ink-100 tracking-tight">
-                    {activeProblem.title}
-                  </h1>
-                </div>
-
-                {/* Right Badges & Platform Buttons */}
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${difficultyClass(activeProblem.difficulty)}`}>
-                    {activeProblem.difficulty}
-                  </span>
-
-                  {activeProblem.label && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-950/40 px-2.5 py-0.5 text-xs font-bold text-red-400">
-                      <Flame className="h-3 w-3 fill-red-500 text-red-500" />
-                      {activeProblem.label}
-                    </span>
-                  )}
-
-                  {/* Platform Icon Buttons */}
-                  <div className="flex items-center gap-1.5 pl-1.5 border-l border-ink-800/80">
-                    {leetcodeUrl && (
-                      <a
-                        href={leetcodeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-[#ffa116] hover:border-amber-500/50 hover:bg-ink-800 hover:scale-105 transition shadow-sm"
-                        title="Solve on LeetCode"
-                      >
-                        <SiLeetcode className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-
-                    {gfgUrl && (
-                      <a
-                        href={gfgUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-[#22c55e] hover:border-emerald-500/50 hover:bg-ink-800 hover:scale-105 transition shadow-sm"
-                        title="Solve on GeeksforGeeks"
-                      >
-                        <SiGeeksforgeeks className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-
-                    {youtubeUrl && (
-                      <a
-                        href={youtubeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-[#ef4444] hover:border-red-500/50 hover:bg-ink-800 hover:scale-105 transition shadow-sm"
-                        title="Video Solution"
-                      >
-                        <SiYoutube className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-
-                    {articleUrl && (
-                      <a
-                        href={articleUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-7 w-7 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-accent-400 hover:border-accent-500/50 hover:bg-ink-800 hover:scale-105 transition shadow-sm"
-                        title="Article Solution"
-                      >
-                        <BookOpen className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* 3 Tabs: Problem Statement, Intuition, Code */}
-              <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-ink-800/60">
+            {/* 3 Tabs: Problem Statement, Intuition, Code */}
+            <div className="border-b border-ink-800/80 bg-ink-950/90 px-4 sm:px-6 py-2.5 shrink-0">
+              <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={() => setActiveTab("ps")}
                   className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
                     activeTab === "ps"
-                      ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
-                      : "text-ink-400 hover:bg-ink-800/40 hover:text-ink-200"
+                      ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
+                      : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
                   }`}
                 >
                   <BookOpen className="h-3.5 w-3.5 text-accent-400" />
@@ -642,8 +557,8 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                     onClick={() => setActiveTab("intuition")}
                     className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
                       activeTab === "intuition"
-                        ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
-                        : "text-ink-400 hover:bg-ink-800/40 hover:text-ink-200"
+                        ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
+                        : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
                     }`}
                   >
                     <Lightbulb className="h-3.5 w-3.5 text-amber-400" />
@@ -656,8 +571,8 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                   onClick={() => setActiveTab("code")}
                   className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
                     activeTab === "code"
-                      ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
-                      : "text-ink-400 hover:bg-ink-800/40 hover:text-ink-200"
+                      ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
+                      : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
                   }`}
                 >
                   <Code2 className="h-3.5 w-3.5 text-emerald-400" />
