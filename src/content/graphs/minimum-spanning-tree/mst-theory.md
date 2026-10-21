@@ -44,13 +44,29 @@ Total MST Weight = 1 + 2 + 4 = 7
 
 ### Prim's Algorithm vs Kruskal's Algorithm
 
-| Feature | Prim's Algorithm | Kruskal's Algorithm |
-| :--- | :--- | :--- |
-| **Approach** | Greedy (Node-based / Cut Property) | Greedy (Edge-based) |
-| **Strategy** | Grows a single tree starting from an arbitrary node | Picks the smallest edge globally that doesn't form a cycle |
-| **Data Structure** | Min-Heap (Priority Queue) | Disjoint Set Union (Union-Find) |
-| **Time Complexity**| `O(E * log V)` | `O(E * log E)` |
-| **Preferred When** | Dense Graphs (`E ≈ V^2`) | Sparse Graphs (`E ≈ V`) |
+```text
++--------------------+-------------------------------------+-------------------------------------+
+| Feature            | Prim's Algorithm                    | Kruskal's Algorithm                 |
++--------------------+-------------------------------------+-------------------------------------+
+| Strategy           | Vertex-driven (grows a single tree) | Edge-driven (connects components)   |
+| Core Approach      | Cut Property (cheapest edge)        | Cycle Detection (sorted edges)      |
+| Main Data Struct   | Min-Heap (priority_queue)           | Disjoint Set Union (Union-Find)     |
+| Time Complexity    | O(E * log V)                        | O(E * log E)                        |
+| Best Suited For    | Dense Graphs (E ≈ V^2)              | Sparse Graphs (E ≈ V)               |
++--------------------+-------------------------------------+-------------------------------------+
+```
+
+#### 1. Prim's Algorithm (Grows a Single Tree)
+- **Concept:** Starts at any arbitrary root vertex and grows a single tree one edge at a time. In each step, it greedily picks the minimum-weight edge connecting a vertex in the tree to an unvisited vertex.
+- **Data Structure:** Min-Heap (`priority_queue`) storing `{weight, node}` + `vis` array.
+- **Time Complexity:** `O(E * log V)`
+- **When to Choose:** Best for **dense graphs** (many edges, `E ≈ V^2`) or when the graph is already in adjacency list format.
+
+#### 2. Kruskal's Algorithm (Connects Forests)
+- **Concept:** Treats every vertex as an independent component. It sorts all edges globally in ascending order of weight and greedily adds edges one by one, using Union-Find to skip edges that would form a cycle.
+- **Data Structure:** **Disjoint Set Union (DSU)** with path compression and union by size/rank.
+- **Time Complexity:** `O(E * log E)`
+- **When to Choose:** Best for **sparse graphs** (fewer edges, `E ≈ V`), when edges are already sorted, or when an edge list is directly given.
 
 ---
 
@@ -60,7 +76,7 @@ Total MST Weight = 1 + 2 + 4 = 7
 // Prim's
 int primMST(int V, vector<pair<int, int>> adj[]) {
     // Min-heap stores {edge weight, node}
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
     vector<bool> vis(V, false);
 
     pq.push({0, 0});
