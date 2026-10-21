@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Bookmark, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
+import { ArrowLeft, Bookmark, BookOpen, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import ProblemCard from "@/components/cards/ProblemCard";
 import { useBookmarks } from "@/context/BookmarkContext";
@@ -98,45 +98,31 @@ export default function PatternWorkspace({ topic, pattern }) {
           </div>
         </section>
 
-        {/* RIGHT SECTION: Template Code & Guide */}
+        {/* RIGHT SECTION: Pattern Guide & Template Code */}
         <section className="lg:col-span-5 flex flex-col gap-4 sticky top-16">
-          {/* Template Code Card */}
-          <div className="flex flex-col rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm overflow-hidden shadow-sm">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-ink-800/80 bg-ink-950/70 px-4 py-2.5">
+          {/* 1. TOP: What is this Pattern? */}
+          {(pattern.description || pattern.explanation) && (
+            <div className="rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm p-4 sm:p-5 shadow-sm space-y-3">
               <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-ink-300">
-                <Code2 className="h-4 w-4 text-emerald-400" />
-                <span>Template Code</span>
+                <BookOpen className="h-4 w-4 text-accent-400" />
+                <span>What is this Pattern?</span>
               </div>
 
-              {/* Action Buttons: Wrap + Copy (Icons only) */}
-              <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  type="button"
-                  onClick={toggleWrapTemplate}
-                  className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
-                    wrapTemplate
-                      ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
-                      : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
-                  }`}
-                  title={wrapTemplate ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}
-                  aria-label="Toggle word wrap"
-                  aria-pressed={wrapTemplate}
-                >
-                  <WrapText className="h-3.5 w-3.5 stroke-[2.2]" />
-                </button>
+              {pattern.description && (
+                <p className="text-xs sm:text-sm leading-relaxed text-ink-200 font-medium">
+                  {pattern.description}
+                </p>
+              )}
 
-                <CopyButton code={pattern.template} iconOnly />
-              </div>
+              {pattern.explanation && (
+                <div className="rounded-xl border border-ink-800/60 bg-ink-950/60 p-3 sm:p-3.5 text-xs sm:text-sm leading-relaxed text-ink-300 whitespace-pre-line">
+                  {pattern.explanation}
+                </div>
+              )}
             </div>
+          )}
 
-            {/* Code Body */}
-            <div className="max-h-[460px] overflow-auto code-scroll p-1">
-              <CodeBlock code={pattern.template} hideHeader compact wrap={wrapTemplate} />
-            </div>
-          </div>
-
-          {/* Pattern Guide (How to Identify & Appears In) */}
+          {/* 2. MIDDLE: Pattern Guide (How to Identify & Appears In) */}
           {((pattern.identify && pattern.identify.length > 0) || (pattern.appearsIn && pattern.appearsIn.length > 0)) && (
             <div className="rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm p-4 sm:p-5 shadow-sm space-y-4">
               {pattern.identify && pattern.identify.length > 0 && (
@@ -175,6 +161,44 @@ export default function PatternWorkspace({ topic, pattern }) {
                   </div>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* 3. BOTTOM / LAST: Template Code Card */}
+          {pattern.template && pattern.template.trim() !== "" && (
+            <div className="flex flex-col rounded-2xl border border-ink-800 bg-ink-900/40 backdrop-blur-sm overflow-hidden shadow-sm">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-ink-800/80 bg-ink-950/70 px-4 py-2.5">
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-ink-300">
+                  <Code2 className="h-4 w-4 text-emerald-400" />
+                  <span>Template Code</span>
+                </div>
+
+                {/* Action Buttons: Wrap + Copy (Icons only) */}
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={toggleWrapTemplate}
+                    className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
+                      wrapTemplate
+                        ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
+                        : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
+                    }`}
+                    title={wrapTemplate ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}
+                    aria-label="Toggle word wrap"
+                    aria-pressed={wrapTemplate}
+                  >
+                    <WrapText className="h-3.5 w-3.5 stroke-[2.2]" />
+                  </button>
+
+                  <CopyButton code={pattern.template} iconOnly />
+                </div>
+              </div>
+
+              {/* Code Body */}
+              <div className="max-h-[460px] overflow-auto code-scroll p-1">
+                <CodeBlock code={pattern.template} hideHeader compact wrap={wrapTemplate} />
+              </div>
             </div>
           )}
         </section>
