@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 
-export default function CompanyBrandLogo({ name, domain, className = "h-8 w-8" }) {
+export default function CompanyBrandLogo({ name, domain, className = "h-9 w-9" }) {
   const [error, setError] = useState(false);
 
   // High-res official brand icon source via Google's 128px favicon service
@@ -25,7 +25,7 @@ export default function CompanyBrandLogo({ name, domain, className = "h-8 w-8" }
 
   return (
     <span
-      className={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-ink-800/80 bg-white/5 p-1 shadow-sm ${className}`}
+      className={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-ink-700/70 bg-ink-950/80 p-1 shadow-sm ${className}`}
     >
       <img
         src={logoUrl}
