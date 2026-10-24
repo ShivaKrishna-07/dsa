@@ -178,7 +178,7 @@ export function getTopicStats(topic) {
 }
 
 export function getSearchItems() {
-  return topics.flatMap((topic) => {
+  const dsaItems = topics.flatMap((topic) => {
     const topicItem = {
       type: "Topic",
       title: topic.title,
@@ -204,4 +204,33 @@ export function getSearchItems() {
 
     return [topicItem, ...patternItems, ...problemItems];
   });
+
+  const interviewItems = [
+    {
+      type: "Interview",
+      title: "Interview Experiences (Google, Amazon, Microsoft)",
+      description: "Recent candidate-reported coding rounds and graph problems (2026–2024)",
+      href: "/interview-experiences"
+    },
+    {
+      type: "Interview",
+      title: "Google Interview Experiences",
+      description: "Google software engineer graph coding rounds (2026-2024)",
+      href: "/interview-experiences?company=google"
+    },
+    {
+      type: "Interview",
+      title: "Amazon Interview Experiences",
+      description: "Amazon SDE interview experiences and assessments (2026-2024)",
+      href: "/interview-experiences?company=amazon"
+    },
+    {
+      type: "Interview",
+      title: "Microsoft Interview Experiences",
+      description: "Microsoft software engineer interview rounds (2026-2024)",
+      href: "/interview-experiences?company=microsoft"
+    }
+  ];
+
+  return [...dsaItems, ...interviewItems];
 }

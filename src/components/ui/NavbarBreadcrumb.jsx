@@ -189,6 +189,28 @@ export default function NavbarBreadcrumb({ tree = [] }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [problem, prevProblem, nextProblem, router]);
 
+  if (pathname === "/interview-experiences") {
+    return (
+      <div className="flex items-center min-w-0 flex-1 overflow-hidden">
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1 min-w-0 overflow-x-auto whitespace-nowrap code-scroll text-xs sm:text-sm text-ink-400 py-1"
+        >
+          <Link
+            href="/"
+            className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap"
+          >
+            Sheet
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5 text-ink-600/80 shrink-0" />
+          <span className="rounded-lg px-2.5 py-1 text-left font-semibold shadow-sm transition whitespace-nowrap bg-ink-800/80 text-ink-100 border border-ink-700/60">
+            Interview Experiences
+          </span>
+        </nav>
+      </div>
+    );
+  }
+
   if (segments.length === 0 || !topic) return null;
 
   const menuForRoot = rootMenu(tree, topicSlug);
