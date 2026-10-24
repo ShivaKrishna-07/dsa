@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import PageFade from "@/components/ui/PageFade";
 import InterviewExperiencesWorkspace from "@/components/interviews/InterviewExperiencesWorkspace";
 
@@ -10,7 +11,16 @@ export const metadata = {
 export default function InterviewExperiencesPage() {
   return (
     <PageFade className="w-full">
-      <InterviewExperiencesWorkspace />
+      <Suspense
+        fallback={
+          <div className="mx-auto max-w-7xl w-full px-4 py-8 text-xs text-ink-400">
+            Loading interview experiences...
+          </div>
+        }
+      >
+        <InterviewExperiencesWorkspace />
+      </Suspense>
     </PageFade>
   );
 }
+
