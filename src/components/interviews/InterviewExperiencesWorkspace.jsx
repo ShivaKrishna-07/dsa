@@ -2,12 +2,13 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { ExternalLink, Calendar, ChevronDown, RotateCcw } from "lucide-react";
+import { ExternalLink, Calendar, RotateCcw, Layers, Building2 } from "lucide-react";
 import CompanyLogo from "@/components/interviews/CompanyLogo";
+import CustomDropdown from "@/components/interviews/CustomDropdown";
 import data from "@/content/interviews/experiences.json";
 
 export default function InterviewExperiencesWorkspace() {
-  const { experiences } = data;
+  const { companies = [], experiences = [] } = data;
   const searchParams = useSearchParams();
 
   // Filters: Company, Role, Campus
@@ -30,13 +31,54 @@ export default function InterviewExperiencesWorkspace() {
     }
   }, [searchParams]);
 
-  // Distinct roles available in dataset
-  const availableRoles = useMemo(() => {
+  // Company options: only companies present in the experiences dataset, with logos
+  const companyOptions = useMemo(() => {
+    const presentCompanyIds = new Set(experiences.map((e) => e.companyId));
+    const list = [
+      {
+        value: "all",
+        label: "All Companies",
+        icon: <Building2 className="h-4 w-4 text-ink-400" />
+      }
+    ];
+
+    companies.forEach((comp) => {
+      if (presentCompanyIds.has(comp.id)) {
+        list.push({
+          value: comp.id,
+          label: comp.name,
+          icon: <CompanyLogo company={comp.name} className="h-4 w-4" />
+        });
+      }
+    });
+
+    return list;
+  }, [companies, experiences]);
+
+  // Role options: strictly only roles that exist in our dataset
+  const roleOptions = useMemo(() => {
     const set = new Set();
     experiences.forEach((exp) => {
       if (exp.role) set.add(exp.role);
     });
-    return Array.from(set).sort();
+    const sortedRoles = Array.from(set).sort();
+    return [
+      { value: "all", label: "All Roles" },
+      ...sortedRoles.map((role) => ({ value: role, label: role }))
+    ];
+  }, [experiences]);
+
+  // Campus options: strictly only campus types present in our dataset
+  const campusOptions = useMemo(() => {
+    const set = new Set();
+    experiences.forEach((exp) => {
+      if (exp.campus) set.add(exp.campus);
+    });
+    const sortedCampus = Array.from(set).sort();
+    return [
+      { value: "all", label: "All Types" },
+      ...sortedCampus.map((campus) => ({ value: campus, label: campus }))
+    ];
   }, [experiences]);
 
   // Filtered experiences
@@ -63,11 +105,12 @@ export default function InterviewExperiencesWorkspace() {
     setSelectedCampus("all");
   };
 
-  const isFiltered = selectedCompany !== "all" || selectedRole !== "all" || selectedCampus !== "all";
+  const isFiltered =
+    selectedCompany !== "all" || selectedRole !== "all" || selectedCampus !== "all";
 
   return (
     <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-5 space-y-5">
-      {/* Top Header & Compact Dropdown Filters */}
+      {/* Top Header & Smooth Custom Dropdown Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-ink-800/80">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink-100 flex items-center gap-2.5">
@@ -81,66 +124,38 @@ export default function InterviewExperiencesWorkspace() {
           </p>
         </div>
 
-        {/* Compact Dropdown Filters */}
+        {/* Custom Dropdown Filters */}
         <div className="flex flex-wrap items-center gap-2.5">
-          {/* Company Filter Dropdown */}
-          <div className="relative">
-            <select
-              id="company-filter"
-              value={selectedCompany}
-              onChange={(e) => setSelectedCompany(e.target.value)}
-              className="appearance-none bg-ink-900 border border-ink-700/80 hover:border-ink-600 rounded-xl pl-3 pr-8 py-1.5 text-xs sm:text-sm text-ink-200 focus:outline-none focus:border-accent-500 cursor-pointer shadow-sm transition"
-              aria-label="Filter by company"
-            >
-              <option value="all">All Companies</option>
-              <option value="google">Google</option>
-              <option value="amazon">Amazon</option>
-              <option value="microsoft">Microsoft</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-400" />
-          </div>
+          {/* Company Filter (with Logo) */}
+          <CustomDropdown
+            value={selectedCompany}
+            onChange={setSelectedCompany}
+            options={companyOptions}
+            placeholder="Select Company"
+          />
 
-          {/* Role Filter Dropdown */}
-          <div className="relative">
-            <select
-              id="role-filter"
-              value={selectedRole}
-              onChange={(e) => setSelectedRole(e.target.value)}
-              className="appearance-none bg-ink-900 border border-ink-700/80 hover:border-ink-600 rounded-xl pl-3 pr-8 py-1.5 text-xs sm:text-sm text-ink-200 focus:outline-none focus:border-accent-500 cursor-pointer shadow-sm transition"
-              aria-label="Filter by role"
-            >
-              <option value="all">All Roles</option>
-              {availableRoles.map((role) => (
-                <option key={role} value={role}>
-                  {role}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-400" />
-          </div>
+          {/* Role Filter (Only existing roles) */}
+          <CustomDropdown
+            value={selectedRole}
+            onChange={setSelectedRole}
+            options={roleOptions}
+            placeholder="Select Role"
+          />
 
-          {/* On-Campus / Off-Campus Filter Dropdown */}
-          <div className="relative">
-            <select
-              id="campus-filter"
-              value={selectedCampus}
-              onChange={(e) => setSelectedCampus(e.target.value)}
-              className="appearance-none bg-ink-900 border border-ink-700/80 hover:border-ink-600 rounded-xl pl-3 pr-8 py-1.5 text-xs sm:text-sm text-ink-200 focus:outline-none focus:border-accent-500 cursor-pointer shadow-sm transition"
-              aria-label="Filter by campus type"
-            >
-              <option value="all">All Types</option>
-              <option value="On-Campus">On-Campus</option>
-              <option value="Off-Campus">Off-Campus</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-400" />
-          </div>
+          {/* Campus Type Filter (Only existing types) */}
+          <CustomDropdown
+            value={selectedCampus}
+            onChange={setSelectedCampus}
+            options={campusOptions}
+            placeholder="Select Campus"
+          />
 
           {/* Reset Filters (shown only when filter active) */}
           {isFiltered && (
             <button
               type="button"
               onClick={resetFilters}
-              className="flex items-center gap-1 rounded-xl border border-ink-700/60 bg-ink-800/40 px-2.5 py-1.5 text-xs text-ink-400 hover:text-ink-200 hover:border-ink-600 transition"
+              className="flex items-center gap-1.5 h-9 rounded-xl border border-ink-700/60 bg-ink-800/40 px-2.5 text-xs text-ink-400 hover:text-ink-200 hover:border-ink-600 transition"
               title="Reset all filters"
             >
               <RotateCcw className="h-3 w-3" />
