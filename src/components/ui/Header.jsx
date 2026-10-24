@@ -13,7 +13,8 @@ export default function Header({ tree = [], items = [] }) {
   const { layoutMode, toggleLayoutMode } = useLayout();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
-  const isInterviewsPage = pathname?.startsWith("/interview-experiences");
+  const isSpecialPage =
+    pathname?.startsWith("/interview-experiences") || pathname?.startsWith("/companies");
 
   return (
     <>
@@ -42,19 +43,19 @@ export default function Header({ tree = [], items = [] }) {
                 type="button"
                 onClick={() => setIsDrawerOpen(true)}
                 className="ml-1 sm:ml-1.5 flex h-7.5 w-7.5 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/90 text-accent-400 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 hover:border-accent-500/50 hover:bg-accent-500/15 hover:text-accent-300 transition-all duration-150 shadow-sm"
-                title="Open Resource Drawer (DSA & Interview Experiences)"
+                title="Open Resource Drawer"
                 aria-label="Open resource navigation drawer"
               >
                 <PanelLeft className="h-4 w-4" />
               </button>
             </div>
 
-            {/* In sheet layout or on interview experiences page, breadcrumb is hidden */}
-            {layoutMode !== "sheet" && !isInterviewsPage && <NavbarBreadcrumb tree={tree} />}
+            {/* In sheet layout or on resource pages, breadcrumb is hidden */}
+            {layoutMode !== "sheet" && !isSpecialPage && <NavbarBreadcrumb tree={tree} />}
           </div>
 
-          {/* Right: Interviews Shortcut, Search & Layout Mode Switcher (hidden on /interview-experiences) */}
-          {!isInterviewsPage && (
+          {/* Right: Interviews Shortcut, Search & Layout Mode Switcher (hidden on special pages) */}
+          {!isSpecialPage && (
             <div className="shrink-0 flex items-center gap-2">
               <Link
                 href="/interview-experiences"

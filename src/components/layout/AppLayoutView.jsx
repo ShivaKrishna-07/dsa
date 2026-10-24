@@ -8,8 +8,11 @@ export default function AppLayoutView({ children, tree = [] }) {
   const { layoutMode } = useLayout();
   const pathname = usePathname();
 
-  // Dedicated routes like /interview-experiences render directly
-  if (pathname?.startsWith("/interview-experiences")) {
+  // Dedicated resource routes render directly without accordion sheet override
+  if (
+    pathname?.startsWith("/interview-experiences") ||
+    pathname?.startsWith("/companies")
+  ) {
     return children;
   }
 
