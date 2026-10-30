@@ -9,6 +9,20 @@ export default function ProblemStatementMarkdown({ content, isRecursionTopic = f
     <article className="prose prose-invert prose-code:before:content-none prose-code:after:content-none max-w-none text-sm text-ink-200">
       <ReactMarkdown
         components={{
+          a({ node, href, children, ...props }) {
+            const isExternal = href && (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("//"));
+            return (
+              <a
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                className="text-accent-400 underline hover:text-accent-300 transition-colors"
+                {...props}
+              >
+                {children}
+              </a>
+            );
+          },
           code({ node, inline, className, children, ...props }) {
             const textContent = String(children);
             const isInline = inline || (className ? !className.startsWith("language-") : true);

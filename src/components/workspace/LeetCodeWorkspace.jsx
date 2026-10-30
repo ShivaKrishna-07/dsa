@@ -228,7 +228,7 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
             <div className="flex items-center gap-1 pl-1 border-l border-ink-800/80">
               {/* LeetCode Icon */}
               {leetcodeUrl && (
-                <Link
+                <a
                   href={leetcodeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -236,12 +236,12 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                   title="Solve on LeetCode"
                 >
                   <SiLeetcode className="h-4 w-4" />
-                </Link>
+                </a>
               )}
 
               {/* GFG Icon (shown only if no LeetCode) */}
               {gfgUrl && (
-                <Link
+                <a
                   href={gfgUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -249,12 +249,12 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                   title="Solve on GeeksforGeeks"
                 >
                   <SiGeeksforgeeks className="h-4 w-4" />
-                </Link>
+                </a>
               )}
 
               {/* YouTube Icon */}
               {youtubeUrl && (
-                <Link
+                <a
                   href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -262,12 +262,12 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                   title="Watch YouTube Solution"
                 >
                   <SiYoutube className="h-4 w-4" />
-                </Link>
+                </a>
               )}
 
               {/* Article Icon */}
               {articleUrl && (
-                <Link
+                <a
                   href={articleUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -275,7 +275,7 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
                   title="Read Striver Sheet Article"
                 >
                   <FileText className="h-4 w-4" />
-                </Link>
+                </a>
               )}
             </div>
           </div>

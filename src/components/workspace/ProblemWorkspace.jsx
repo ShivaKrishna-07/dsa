@@ -77,10 +77,11 @@ export default function ProblemWorkspace({ problem }) {
           {visiblePlatforms.map(([key, url]) => {
             const Icon = platformIcons[key];
             return (
-            <Link
+            <a
               key={key}
               href={url}
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-between gap-2 rounded-md border border-ink-700 px-3 py-2 text-sm font-medium text-ink-200 transition hover:border-accent-400"
             >
               <span className="flex items-center gap-2">
@@ -88,7 +89,7 @@ export default function ProblemWorkspace({ problem }) {
                 {platformLabel(key)}
               </span>
               <ExternalLink className="h-4 w-4" />
-            </Link>
+            </a>
           )})}
         </div>
         <div className="mt-5 grid gap-3">

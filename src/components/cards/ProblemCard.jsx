@@ -30,10 +30,7 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
   });
 
   return (
-    <Link
-      href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
-      className="group block px-4 py-3.5 sm:px-6 transition-all hover:bg-ink-800/40"
-    >
+    <div className="group relative block px-4 py-3.5 sm:px-6 transition-all hover:bg-ink-800/40">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         {/* Left: Problem index & Title */}
         <div className="flex items-center gap-3.5 flex-1 min-w-0">
@@ -41,12 +38,17 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
             {index + 1}
           </span>
           <h3 className="font-medium text-ink-100 text-sm sm:text-base truncate group-hover:text-accent-300 transition-colors">
-            {problem.title}
+            <Link
+              href={`/${topicSlug}/${patternSlug}/${problem.slug}`}
+              className="after:absolute after:inset-0 after:z-0 focus:outline-none"
+            >
+              {problem.title}
+            </Link>
           </h3>
         </div>
         
         {/* Right: Difficulty, Label, Platforms, Arrow */}
-        <div className="flex items-center gap-2 sm:gap-3 pl-10.5 sm:pl-0 shrink-0">
+        <div className="relative z-10 flex items-center gap-2 sm:gap-3 pl-10.5 sm:pl-0 shrink-0">
           <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide ${difficultyClass(problem.difficulty)}`}>
             {problem.difficulty}
           </span>
@@ -69,11 +71,7 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
           {/* Bookmark / Mark for Review Button */}
           <button
             type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleBookmark(problem.slug);
-            }}
+            onClick={() => toggleBookmark(problem.slug)}
             className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg border transition-all hover:scale-105 shadow-sm ${
               marked
                 ? "border-amber-500/50 bg-amber-500/15 text-amber-400"
@@ -84,12 +82,12 @@ export default function ProblemCard({ topicSlug, patternSlug, problem, index }) 
             <Bookmark className={`h-3.5 w-3.5 ${marked ? "fill-amber-400 text-amber-400" : ""}`} />
           </button>
 
-          <div className="hidden sm:flex items-center justify-end pl-1">
+          <div className="hidden sm:flex items-center justify-end pl-1 pointer-events-none">
             <ArrowRight className="h-4 w-4 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -97,24 +95,15 @@ function PlatformIconLink({ platform, url }) {
   const Icon = platformIcons[platform] || BookOpen;
   const style = platformStyles[platform] || "text-ink-300 hover:border-ink-700 hover:bg-ink-800";
 
-  function open(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-
   return (
-    <span
-      role="link"
-      tabIndex={0}
-      onClick={open}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") open(event);
-      }}
-      className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 transition-all hover:scale-105 shadow-sm ${style}`}
-      title={`${platformLabel(platform)}`}
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 transition-all hover:scale-105 shadow-sm ${style}`}
+      title={platformLabel(platform)}
     >
       <Icon className="h-3.5 w-3.5" />
-    </span>
+    </a>
   );
 }
