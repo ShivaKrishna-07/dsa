@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ArrowLeft,
   BookOpen,
   Bookmark,
   ChevronDown,
@@ -46,6 +47,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   }, [topics]);
 
   const [selectedMeta, setSelectedMeta] = useState(defaultSelection);
+  const [mobileView, setMobileView] = useState("list"); // 'list' | 'details' (for mobile viewport)
   const [activeTab, setActiveTab] = useState("ps"); // 'ps' | 'intuition' | 'code'
   const [selectedCodeName, setSelectedCodeName] = useState("Optimal");
   const [wrapCode, setWrapCode] = useState(false);
@@ -171,6 +173,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   // Select problem and reset code tab if needed
   const selectProblem = (topicSlug, patternSlug, problemSlug) => {
     setSelectedMeta({ topicSlug, patternSlug, problemSlug });
+    setMobileView("details");
     const fullTopic = fullTopics?.find((t) => t.slug === topicSlug);
     const fullPattern = fullTopic?.patterns?.find((p) => p.slug === patternSlug);
     const fullProblem = fullPattern?.problems?.find((p) => p.slug === problemSlug);
@@ -252,7 +255,9 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       {/* ========================================================================= */}
       {/* LEFT PANEL: Accordion Tree of Topics -> Patterns -> Problems              */}
       {/* ========================================================================= */}
-      <aside className="flex flex-col w-full md:w-[480px] lg:w-[530px] xl:w-[570px] 2xl:w-[600px] shrink-0 border-r border-ink-800 bg-ink-950">
+      <aside className={`flex-col w-full md:w-[480px] lg:w-[530px] xl:w-[570px] 2xl:w-[600px] shrink-0 border-r border-ink-800 bg-ink-950 ${
+        mobileView === "details" ? "hidden md:flex" : "flex"
+      }`}>
         {/* Top Control Bar: Search Filter & Expand/Collapse Controls */}
         <div className="border-b border-ink-800/80 bg-ink-950/90 p-2.5 sm:p-3">
           <div className="flex items-center gap-2">
@@ -561,30 +566,44 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       {/* ========================================================================= */}
       {/* RIGHT PANEL: Problem Details Viewer (3 Tabs: Statement, Intuition, Code)   */}
       {/* ========================================================================= */}
-      <main className="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-ink-950">
+      <main className={`flex-1 min-w-0 flex-col h-full overflow-hidden bg-ink-950 ${
+        mobileView === "list" ? "hidden md:flex" : "flex"
+      }`}>
         {activeProblem ? (
           <div className="flex flex-col h-full overflow-hidden">
             {/* Header: Tabs on left, Bookmark / Review on right */}
-            <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/90 px-4 sm:px-6 py-2.5 shrink-0">
-              <div className="flex items-center gap-1.5">
+            <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/90 px-3 sm:px-6 py-2.5 shrink-0">
+              <div className="flex items-center gap-1.5 min-w-0">
+                {/* Mobile Back Button to return to list */}
+                <button
+                  type="button"
+                  onClick={() => setMobileView("list")}
+                  className="md:hidden inline-flex items-center gap-1 rounded-lg border border-ink-800 bg-ink-900/90 px-2.5 py-1.5 text-xs font-semibold text-accent-400 hover:border-accent-500/40 hover:bg-accent-500/10 hover:text-accent-300 transition shrink-0 shadow-sm"
+                  title="Back to Sheet List"
+                >
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <span>List</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={() => setActiveTab("ps")}
-                  className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
+                  className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition shrink-0 ${
                     activeTab === "ps"
                       ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
                       : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
                   }`}
                 >
                   <BookOpen className="h-3.5 w-3.5 text-accent-400" />
-                  <span>Problem Statement</span>
+                  <span className="hidden sm:inline">Problem Statement</span>
+                  <span className="sm:hidden">Problem</span>
                 </button>
 
                 {activeProblem.intuition && (
                   <button
                     type="button"
                     onClick={() => setActiveTab("intuition")}
-                    className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
+                    className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition shrink-0 ${
                       activeTab === "intuition"
                         ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
                         : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
@@ -598,7 +617,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                 <button
                   type="button"
                   onClick={() => setActiveTab("code")}
-                  className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold transition ${
+                  className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition shrink-0 ${
                     activeTab === "code"
                       ? "bg-ink-850 text-ink-100 shadow-sm border border-ink-700/60"
                       : "text-ink-400 hover:bg-ink-850/50 hover:text-ink-200"
@@ -613,7 +632,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
               <button
                 type="button"
                 onClick={() => toggleBookmark(activeProblem.slug)}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-2.5 py-1 text-xs font-semibold transition border shrink-0 ${
                   isBookmarked(activeProblem.slug)
                     ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-sm shadow-amber-500/10"
                     : "border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
@@ -621,7 +640,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                 title={isBookmarked(activeProblem.slug) ? "Marked for review (Click to unmark)" : "Mark to review later"}
               >
                 <Bookmark className={`h-3.5 w-3.5 ${isBookmarked(activeProblem.slug) ? "fill-amber-400 text-amber-400" : ""}`} />
-                <span>{isBookmarked(activeProblem.slug) ? "Review Later" : "Mark"}</span>
+                <span className="hidden sm:inline">{isBookmarked(activeProblem.slug) ? "Review Later" : "Mark"}</span>
               </button>
             </div>
 
@@ -630,6 +649,14 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
               {/* TAB 1: Problem Statement */}
               {activeTab === "ps" && (
                 <div className="h-full overflow-y-auto p-4 sm:p-6 code-scroll space-y-5">
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
+                    <h2 className="text-lg sm:text-xl font-bold tracking-tight text-ink-100">
+                      {activeProblem.title}
+                    </h2>
+                    <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide ${difficultyClass(activeProblem.difficulty)}`}>
+                      {activeProblem.difficulty}
+                    </span>
+                  </div>
                   {/* Tags */}
                   {activeProblem.tags && activeProblem.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
@@ -740,6 +767,14 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center text-ink-400">
+            <button
+              type="button"
+              onClick={() => setMobileView("list")}
+              className="md:hidden mb-4 inline-flex items-center gap-1.5 rounded-lg border border-ink-800 bg-ink-900/80 px-3 py-1.5 text-xs font-semibold text-accent-400"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Problems List</span>
+            </button>
             <Sparkles className="h-8 w-8 text-accent-400 mb-3" />
             <h3 className="text-base font-semibold text-ink-200">No Problem Selected</h3>
             <p className="text-xs text-ink-500 mt-1">Select any problem from the left accordion to view its statement, intuition, and solution.</p>
