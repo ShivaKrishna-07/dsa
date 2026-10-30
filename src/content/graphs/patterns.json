@@ -62,25 +62,7 @@
     "problemsOrder": [
       "rotting-oranges",
       "01-matrix",
-      "shortest-path-in-undirected-graph"
-    ]
-  },
-  {
-    "slug": "bfs-hard",
-    "title": "BFS Hard",
-    "description": "Advanced BFS problems involving word transformations and complex state spaces.",
-    "identify": [
-      "The problem involves transforming one state to another with minimum steps.",
-      "Each transformation changes a small part of the current state."
-    ],
-    "appearsIn": [
-      "Word transformation",
-      "State-space search",
-      "Puzzle solving"
-    ],
-    "template": "",
-    "explanation": "These problems model each state as a node in an implicit graph. BFS finds the shortest transformation sequence since each transformation is one edge.",
-    "problemsOrder": [
+      "shortest-path-in-undirected-graph",
       "word-ladder-i",
       "word-ladder-ii"
     ]
