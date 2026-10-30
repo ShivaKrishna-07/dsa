@@ -13,8 +13,6 @@ platforms:
 
 Given a weighted undirected graph with `n` vertices (numbered `1` to `n`) and `m` edges, find the shortest path between vertex `1` and vertex `n`. If no path exists, return `[-1]`. If a path exists, return the vertices traversed in order from `1` to `n` (prepended with the total weight of the path as per GFG specification).
 
-- If multiple shortest paths exist with the same total weight, return the one whose sequence of vertices is **lexicographically smallest** (handled in **Solution 2**).
-
 **Example 1:**
 ```text
 Input: n = 5, m = 6, edges = [[1,2,2], [2,5,5], [2,3,4], [1,4,1], [4,3,3], [3,5,1]]
@@ -28,17 +26,11 @@ Explanation: Shortest path weight is 5, traversing: 1 -> 4 -> 3 -> 5.
 
 Run Dijkstra's algorithm while maintaining a `parent` array where `parent[i] = i` initially. Whenever distance to `v` improves via node `u`, update `parent[v] = u`. After Dijkstra finishes, if vertex `n` is unreachable (`dist[n] == 1e9`), return `[-1]`. Otherwise, trace backward from node `n` to node `1` using `parent` pointers and reverse the resulting path.
 
-**Lexicographically Smallest Path (Solution 2):**
-If multiple paths share the exact same minimum distance, we need the vertex sequence from `1` to `n` to be lexicographically smallest. We achieve this by:
-1. Sorting the adjacency lists in ascending order of neighbor vertex IDs so smaller vertices are explored first.
-2. In Dijkstra relaxation, when an edge gives the exact same minimum distance (`d + w == dist[v]`), we break ties by checking if the incoming vertex `u` is smaller than the current predecessor (`u < parent[v]`), updating `parent[v] = u`.
-
 ---
 
 ### Code
 
 ```cpp
-// Solution 1
 class Solution {
 public:
     vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
@@ -91,84 +83,6 @@ public:
             curr = parent[curr];
         }
         path.push_back(1);
-        path.push_back(dist[n]);
-
-        reverse(path.begin(), path.end());
-        return path;
-    }
-};
-```
-
-```cpp
-// Solution 2
-// If multiple shortest paths exist with the same total weight, return the one whose sequence of vertices is lexicographically smallest.
-class Solution {
-public:
-    vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
-        vector<pair<int, int>> adj[n + 1];
-        for (auto& e : edges) {
-            adj[e[0]].push_back({e[1], e[2]});
-            adj[e[1]].push_back({e[0], e[2]});
-        }
-
-        // Sort neighbor lists so smaller vertex IDs are discovered and processed first
-        for (int i = 1; i <= n; i++) {
-            sort(adj[i].begin(), adj[i].end());
-        }
-
-        // Min-heap stores {distance, vertex}
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        vector<int> dist(n + 1, 1e9);
-        // parent[v] tracks the predecessor vertex on the optimal path to v
-        vector<int> parent(n + 1);
-
-        for (int i = 1; i <= n; i++) {
-            parent[i] = i;
-        }
-
-        dist[1] = 0;
-        pq.push({0, 1});
-
-        while (!pq.empty()) {
-            auto [d, u] = pq.top();
-            pq.pop();
-
-            // Ignore stale queue entry if a strictly better distance was already processed
-            if (d > dist[u]) {
-                continue;
-            }
-
-            for (auto& [v, w] : adj[u]) {
-                // Strictly shorter path found: update distance and parent
-                if (d + w < dist[v]) {
-                    dist[v] = d + w;
-                    parent[v] = u;
-                    pq.push({dist[v], v});
-                } else if (d + w == dist[v]) {
-                    // Tie in path weight: pick smaller predecessor vertex index to ensure lexicographically smallest path
-                    if (u < parent[v]) {
-                        parent[v] = u;
-                        pq.push({dist[v], v});
-                    }
-                }
-            }
-        }
-
-        // Destination vertex n is unreachable from vertex 1
-        if (dist[n] == 1e9) {
-            return {-1};
-        }
-
-        // Backtrack from vertex n to vertex 1 using parent pointers
-        vector<int> path;
-        int curr = n;
-
-        while (parent[curr] != curr) {
-            path.push_back(curr);
-            curr = parent[curr];
-        }
-        path.push_back(1);
-        // Prepend total weight of path per problem specification
         path.push_back(dist[n]);
 
         reverse(path.begin(), path.end());

@@ -36,11 +36,15 @@ Explanation: Paths 1 -> 2 -> 4 -> 6 and 1 -> 3 -> 4 -> 6 both have total weight 
 
 ### Intuition
 
-We use **Dijkstra's Algorithm** with a min-priority queue and a `parent` array to track the shortest path from `src` to `dest`.
+To find the shortest path that is also **lexicographically smallest**, standard forward Dijkstra with a `parent` array fails because parent pointers only tie-break the *preceding* node (the end of the path) rather than prioritizing smaller vertex indices at the *beginning* of the path.
 
-1. **Shortest Distance:** When an edge `(u, v, wt)` yields a strictly smaller distance (`d + wt < dist[v]`), we update `dist[v] = d + wt`, record `parent[v] = u`, and push `{dist[v], v}` to the priority queue.
-2. **Lexicographical Tie-breaking:** If an edge yields the exact same minimum distance (`d + wt == dist[v]`), we prefer the predecessor vertex with the smaller index (`u < parent[v]`) to ensure the reconstructed path sequence is lexicographically smallest.
-3. **Path Reconstruction:** After Dijkstra finishes, if `dist[dest]` remains infinity, no path exists, so return `{-1}`. Otherwise, backtrack from `dest` to `src` using the `parent` pointers and reverse the resulting list.
+**Reverse Dijkstra + Greedy Forward Reconstruction:**
+1. **Dijkstra from Destination:** Run Dijkstra's algorithm starting from `dest` to compute `dist[i]`, the minimum distance from each vertex `i` to `dest`.
+2. **Unreachable Check:** If `dist[src] == 1e9`, no path exists between `src` and `dest`, return `{-1}`.
+3. **Greedy Traversal from Source:** Start at `src` and move towards `dest`. At the current vertex `curr`, consider all neighbors `v` connected with weight `wt`. A neighbor `v` lies on a shortest path to `dest` if:
+   $$\text{dist}[\text{curr}] = \text{wt} + \text{dist}[v]$$
+   Among all neighbors satisfying this condition, greedily choose the one with the **smallest vertex index** `v`.
+4. This forward greedy choice guarantees the resulting path sequence is lexicographically minimal.
 
 ---
 
@@ -59,59 +63,57 @@ public:
             adj[v].push_back({u, wt});
         }
 
-        // Min-heap stores {distance, node}
+        // Min-heap stores {distance, vertex}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-        // dist: shortest distance; parent: predecessor vertex along shortest path
+        // dist[i] stores the shortest distance from vertex i to dest
         vector<int> dist(V + 1, 1e9);
-        vector<int> parent(V + 1);
 
-        for (int i = 1; i <= V; i++) {
-            parent[i] = i;
-        }
-
-        dist[src] = 0;
-        pq.push({0, src});
+        dist[dest] = 0;
+        pq.push({0, dest});
 
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
 
-            // Skip stale pair: a shorter distance to u has already been processed
             if (d > dist[u]) {
                 continue;
             }
 
-            for (auto& neighbor : adj[u]) {
-                int v = neighbor.first;
-                int wt = neighbor.second;
-
-                if (d + wt < dist[v]) {
-                    dist[v] = d + wt;
-                    parent[v] = u;
+            for (auto& [v, wt] : adj[u]) {
+                if (dist[u] + wt < dist[v]) {
+                    dist[v] = dist[u] + wt;
                     pq.push({dist[v], v});
-                } else if (d + wt == dist[v]) {
-                    // Tie-breaker for lexicographically smaller path
-                    if (u < parent[v]) {
-                        parent[v] = u;
-                        pq.push({dist[v], v});
-                    }
                 }
             }
         }
 
-        if (dist[dest] == 1e9) {
+        // If dest is unreachable from src
+        if (dist[src] == 1e9) {
             return {-1};
         }
 
+        // Greedily reconstruct path from src to dest
         vector<int> path;
-        int curr = dest;
-        while (curr != src) {
-            path.push_back(curr);
-            curr = parent[curr];
-        }
-        path.push_back(src);
+        int curr = src;
+        path.push_back(curr);
 
-        reverse(path.begin(), path.end());
+        while (curr != dest) {
+            int nextNode = -1;
+
+            for (auto& [v, wt] : adj[curr]) {
+                // Check if neighbor v lies on an optimal shortest path to dest
+                if (dist[curr] == wt + dist[v]) {
+                    // Pick the smallest vertex index for lexicographical order
+                    if (nextNode == -1 || v < nextNode) {
+                        nextNode = v;
+                    }
+                }
+            }
+
+            curr = nextNode;
+            path.push_back(curr);
+        }
+
         return path;
     }
 };
@@ -121,5 +123,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O((V + E) * log V)` — Priority queue operations across vertices and edges.
-- **Space Complexity:** `O(V + E)` — Adjacency list, priority queue, parent and distance arrays.
+- **Time Complexity:** `O((V + E) * log V)` — Dijkstra traversal from `dest` takes `O((V + E) * log V)`, and greedy path reconstruction takes `O(V + E)`.
+- **Space Complexity:** `O(V + E)` — Adjacency list `O(V + E)`, distance array `O(V)`, priority queue `O(V)`.
