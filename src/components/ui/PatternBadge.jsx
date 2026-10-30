@@ -4,7 +4,15 @@ export default function PatternBadge({ badge, compact = false, showLabel = true 
   if (!badge) return null;
 
   const type = badge.type || "important";
-  const label = badge.label || (type === "top-priority" ? "Top Priority" : type === "basics" ? "Core Basics" : "Important");
+  const label =
+    badge.label ||
+    (type === "top-priority"
+      ? "#1 Top Priority"
+      : badge.order
+      ? `#${badge.order} Important`
+      : type === "basics"
+      ? "Core Basics"
+      : "Important");
 
   let config = {
     icon: Flame,
@@ -32,9 +40,10 @@ export default function PatternBadge({ badge, compact = false, showLabel = true 
     return (
       <span
         title={label}
-        className={`inline-flex items-center justify-center rounded-md border p-1 shadow-sm ${config.styles}`}
+        className={`inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10px] font-mono font-bold shadow-sm ${config.styles}`}
       >
-        <Icon className={`${compact ? "h-2.5 w-2.5" : "h-3 w-3"} ${config.iconColor}`} />
+        <Icon className={`${compact ? "h-2.5 w-2.5" : "h-3 w-3"} ${config.iconColor} shrink-0`} />
+        {badge.order && <span>#{badge.order}</span>}
       </span>
     );
   }
@@ -50,4 +59,3 @@ export default function PatternBadge({ badge, compact = false, showLabel = true 
     </span>
   );
 }
-
