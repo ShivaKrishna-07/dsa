@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Brain, Columns2, TableProperties, PanelLeft, Briefcase } from "lucide-react";
+import { Brain, Columns2, TableProperties, PanelLeft } from "lucide-react";
 import SearchBox from "@/components/ui/SearchBox";
 import NavbarBreadcrumb from "@/components/ui/NavbarBreadcrumb";
 import { useLayout } from "@/context/LayoutContext";
@@ -54,21 +54,9 @@ export default function Header({ tree = [], items = [] }) {
             {layoutMode !== "sheet" && !isSpecialPage && <NavbarBreadcrumb tree={tree} />}
           </div>
 
-          {/* Right: Interviews Shortcut, Search & Layout Mode Switcher (hidden on special pages) */}
+          {/* Right: Search & Layout Mode Switcher (hidden on special pages) */}
           {!isSpecialPage && (
             <div className="shrink-0 flex items-center gap-2">
-              <Link
-                href="/interview-experiences"
-                className="hidden md:inline-flex items-center gap-1.5 rounded-xl border border-ink-800 bg-ink-900/60 px-2.5 py-1.5 text-xs font-semibold text-ink-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300 transition shadow-sm"
-                title="Recent Company Interview Experiences"
-              >
-                <Briefcase className="h-3.5 w-3.5 text-amber-400" />
-                <span>Interviews</span>
-                <span className="rounded-full bg-amber-500/20 text-amber-300 px-1.5 py-0.2 text-[10px] font-mono font-bold">
-                  2026
-                </span>
-              </Link>
-
               {layoutMode !== "sheet" && <SearchBox items={items} />}
 
               {/* Layout Mode Toggle Button */}
