@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, GitBranch, Layers } from "lucide-react";
+import PatternBadge from "@/components/ui/PatternBadge";
 
 export default function TopicWorkspace({ topic }) {
   const totalProblems = topic.patterns.reduce((sum, p) => sum + (p.problems?.length || 0), 0);
@@ -55,29 +56,50 @@ export default function TopicWorkspace({ topic }) {
 
         {topic.patterns.length ? (
           <div className="divide-y divide-ink-800/60">
-            {topic.patterns.map((pattern, index) => (
-              <Link
-                key={pattern.slug}
-                href={`/${topic.slug}/${pattern.slug}`}
-                className="group flex items-center justify-between gap-4 px-4 py-4 sm:px-6 transition-all hover:bg-ink-800/40"
-              >
-                <div className="flex items-center gap-3.5 flex-1 min-w-0">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 font-mono text-xs font-semibold text-accent-300 shadow-sm transition-all group-hover:border-accent-500/40 group-hover:bg-accent-500/10 group-hover:text-accent-300">
-                    {index + 1}
-                  </span>
-                  <div className="font-medium text-ink-100 text-sm sm:text-base truncate group-hover:text-accent-300 transition-colors">
-                    {pattern.title}
-                  </div>
-                </div>
+            {topic.patterns.map((pattern, index) => {
+              const isTop = pattern.badge?.type === "top-priority";
+              const isImportant = pattern.badge?.type === "important";
+              const isBasics = pattern.badge?.type === "basics";
 
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="rounded-full border border-ink-800 bg-ink-950/60 px-3 py-0.5 text-xs font-medium text-ink-300">
-                    {pattern.problems.length} {pattern.problems.length === 1 ? "problem" : "problems"}
-                  </span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
-                </div>
-              </Link>
-            ))}
+              return (
+                <Link
+                  key={pattern.slug}
+                  href={`/${topic.slug}/${pattern.slug}`}
+                  className="group flex items-center justify-between gap-4 px-4 py-4 sm:px-6 transition-all hover:bg-ink-800/40"
+                >
+                  <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                    <span
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border font-mono text-xs font-semibold shadow-sm transition-all ${
+                        isTop
+                          ? "border-amber-500/40 bg-amber-500/10 text-amber-300 group-hover:border-amber-400 group-hover:bg-amber-500/20"
+                          : isImportant
+                          ? "border-orange-500/30 bg-orange-500/10 text-orange-300 group-hover:border-orange-400 group-hover:bg-orange-500/20"
+                          : isBasics
+                          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300 group-hover:border-emerald-400 group-hover:bg-emerald-500/20"
+                          : "border-ink-800/80 bg-ink-900/60 text-accent-300 group-hover:border-accent-500/40 group-hover:bg-accent-500/10 group-hover:text-accent-300"
+                      }`}
+                    >
+                      {index + 1}
+                    </span>
+                    <div className="flex items-center gap-2.5 flex-wrap min-w-0">
+                      <span className="font-medium text-ink-100 text-sm sm:text-base group-hover:text-accent-300 transition-colors">
+                        {pattern.title}
+                      </span>
+                      {pattern.badge && (
+                        <PatternBadge badge={pattern.badge} compact />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="rounded-full border border-ink-800 bg-ink-950/60 px-3 py-0.5 text-xs font-medium text-ink-300">
+                      {pattern.problems.length} {pattern.problems.length === 1 ? "problem" : "problems"}
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-ink-500 transition-transform group-hover:translate-x-1 group-hover:text-accent-300" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="p-8 text-center text-sm text-ink-400">

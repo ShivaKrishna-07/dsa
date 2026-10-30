@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Bookmark, BookOpen, Check, Code2, ListChecks, Sparkles, WrapText } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import ProblemCard from "@/components/cards/ProblemCard";
+import PatternBadge from "@/components/ui/PatternBadge";
 import { useBookmarks } from "@/context/BookmarkContext";
 
 export default function PatternWorkspace({ topic, pattern }) {
@@ -36,7 +37,7 @@ export default function PatternWorkspace({ topic, pattern }) {
     <div className="space-y-4 sm:space-y-5">
       {/* Pattern Header (Clean title & breadcrumb back link, no subheading) */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <Link
             href={`/${topic.slug}`}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 transition shadow-sm"
@@ -47,6 +48,9 @@ export default function PatternWorkspace({ topic, pattern }) {
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink-100">
             {pattern.title}
           </h1>
+          {pattern.badge && (
+            <PatternBadge badge={pattern.badge} />
+          )}
         </div>
 
         <div className="flex items-center gap-2">

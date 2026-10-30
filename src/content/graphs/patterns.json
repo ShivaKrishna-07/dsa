@@ -1,94 +1,31 @@
 [
   {
-    "slug": "dfs-bfs",
-    "title": "DFS & BFS",
-    "description": "Problems solvable using both Depth-First Search and Breadth-First Search traversals on graphs.",
+    "slug": "disjoint-set",
+    "title": "Disjoint Set (Union-Find)",
+    "description": "A data structure to efficiently track connected components and merge sets.",
     "identify": [
-      "The problem involves traversing or exploring a grid/graph.",
-      "The problem asks to find connected regions, count components, or fill areas."
+      "The problem involves dynamic connectivity queries.",
+      "The problem asks to merge groups or check if two elements belong to the same set."
     ],
     "appearsIn": [
-      "Grid traversal",
-      "Connected component counting",
-      "Flood-fill scenarios"
+      "Dynamic graph connectivity",
+      "Network connectivity",
+      "Grouping problems"
     ],
-    "template": "// DFS\nvoid dfs(int node, vector<int> adj[], vector<bool>& vis) {\n    vis[node] = true;\n    for (auto it : adj[node]) {\n        if (!vis[it]) dfs(it, adj, vis);\n    }\n}\n\n// BFS\nvoid bfs(int src, vector<int> adj[], vector<bool>& vis) {\n    queue<int> q;\n    q.push(src);\n    vis[src] = true;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        for (auto it : adj[node]) {\n            if (!vis[it]) {\n                vis[it] = true;\n                q.push(it);\n            }\n        }\n    }\n}",
-    "explanation": "DFS explores as deep as possible before backtracking, while BFS explores neighbors level by level. Both can solve traversal problems, but DFS is simpler to implement recursively and BFS naturally finds shortest paths in unweighted graphs.",
+    "template": "class DisjointSet {\npublic:\n    vector<int> rank, parent, size;\n    DisjointSet(int n) {\n        rank.resize(n + 1, 0);\n        parent.resize(n + 1);\n        size.resize(n + 1, 1);\n        for (int i = 0; i <= n; i++) parent[i] = i;\n    }\n    int findUPar(int node) {\n        if (node == parent[node]) return node;\n        return parent[node] = findUPar(parent[node]);\n    }\n    void unionByRank(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (rank[ulp_u] < rank[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n        } else if (rank[ulp_v] < rank[ulp_u]) {\n            parent[ulp_v] = ulp_u;\n        } else {\n            parent[ulp_v] = ulp_u;\n            rank[ulp_u]++;\n        }\n    }\n    void unionBySize(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (size[ulp_u] < size[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n            size[ulp_v] += size[ulp_u];\n        } else {\n            parent[ulp_v] = ulp_u;\n            size[ulp_u] += size[ulp_v];\n        }\n    }\n};",
+    "explanation": "Disjoint Set Union (DSU) supports two operations: Find (which component does an element belong to?) and Union (merge two components). With path compression and union by rank, both operations run in nearly O(1) amortized time.",
     "problemsOrder": [
-      "connected-components",
-      "number-of-islands",
-      "flood-fill",
-      "number-of-enclaves",
-      "surrounded-regions",
-      "number-of-distinct-islands"
-    ]
-  },
-  {
-    "slug": "cycles",
-    "title": "Cycles",
-    "description": "Detecting cycles in undirected and directed graphs using DFS/BFS techniques.",
-    "identify": [
-      "The problem asks if a cycle exists in a graph.",
-      "The problem involves checking bipartiteness or detecting back edges."
+      "disjoint-set-theory",
+      "number-of-operations-to-make-network-connected",
+      "accounts-merge",
+      "number-of-islands-ii",
+      "making-a-large-island",
+      "most-stones-removed"
     ],
-    "appearsIn": [
-      "Deadlock detection",
-      "Dependency validation",
-      "Graph coloring"
-    ],
-    "template": "",
-    "explanation": "In undirected graphs, a cycle is detected when we visit a node that's already visited and is NOT the parent. In directed graphs, we use DFS with a recursion stack — a back edge to a node in the current stack indicates a cycle.",
-    "problemsOrder": [
-      "detect-cycle-in-undirected-graph",
-      "bipartite-graph",
-      "detect-cycle-in-directed-graph"
-    ]
-  },
-  {
-    "slug": "bfs",
-    "title": "BFS",
-    "description": "Multi-source BFS and shortest path problems in unweighted graphs and grids.",
-    "identify": [
-      "The problem involves finding the shortest distance in an unweighted graph or grid.",
-      "The problem involves spreading or propagation from multiple sources simultaneously."
-    ],
-    "appearsIn": [
-      "Shortest path in grids",
-      "Multi-source propagation",
-      "Level-wise processing"
-    ],
-    "template": "",
-    "explanation": "BFS explores nodes level by level, making it ideal for finding shortest paths in unweighted graphs. Multi-source BFS starts from all sources simultaneously, processing them in waves.",
-    "problemsOrder": [
-      "rotting-oranges",
-      "01-matrix",
-      "shortest-path-in-undirected-graph",
-      "word-ladder-i",
-      "word-ladder-ii"
-    ]
-  },
-  {
-    "slug": "topological-sort",
-    "title": "Topological Sort",
-    "description": "Ordering vertices in a Directed Acyclic Graph (DAG) such that every edge u→v has u before v.",
-    "identify": [
-      "The problem involves ordering tasks with dependencies.",
-      "The problem is on a Directed Acyclic Graph (DAG)."
-    ],
-    "appearsIn": [
-      "Task scheduling",
-      "Course prerequisites",
-      "Build systems"
-    ],
-    "template": "// Kahn's Algorithm (BFS)\nvector<int> topoSort(int V, vector<int> adj[]) {\n    vector<int> indegree(V, 0);\n    for (int i = 0; i < V; i++) {\n        for (auto it : adj[i]) indegree[it]++;\n    }\n    queue<int> q;\n    for (int i = 0; i < V; i++) {\n        if (indegree[i] == 0) q.push(i);\n    }\n    vector<int> topo;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        topo.push_back(node);\n        for (auto it : adj[node]) {\n            if (--indegree[it] == 0) q.push(it);\n        }\n    }\n    return topo;\n}",
-    "explanation": "Topological Sort can be done via DFS (using a stack to store nodes after all descendants are processed) or BFS (Kahn's Algorithm using indegree). It only works on DAGs.",
-    "problemsOrder": [
-      "topological-sort",
-      "find-eventual-safe-states",
-      "course-schedule",
-      "alien-dictionary",
-      "shortest-path-in-dag"
-    ]
+    "badge": {
+      "label": "Top Priority",
+      "type": "top-priority"
+    }
   },
   {
     "slug": "dijkstras-algorithm",
@@ -117,6 +54,113 @@
       "number-of-ways-to-arrive-at-destination",
       "network-delay-time",
       "swim-in-rising-water"
+    ],
+    "badge": {
+      "label": "Important",
+      "type": "important"
+    }
+  },
+  {
+    "slug": "topological-sort",
+    "title": "Topological Sort",
+    "description": "Ordering vertices in a Directed Acyclic Graph (DAG) such that every edge u→v has u before v.",
+    "identify": [
+      "The problem involves ordering tasks with dependencies.",
+      "The problem is on a Directed Acyclic Graph (DAG)."
+    ],
+    "appearsIn": [
+      "Task scheduling",
+      "Course prerequisites",
+      "Build systems"
+    ],
+    "template": "// Kahn's Algorithm (BFS)\nvector<int> topoSort(int V, vector<int> adj[]) {\n    vector<int> indegree(V, 0);\n    for (int i = 0; i < V; i++) {\n        for (auto it : adj[i]) indegree[it]++;\n    }\n    queue<int> q;\n    for (int i = 0; i < V; i++) {\n        if (indegree[i] == 0) q.push(i);\n    }\n    vector<int> topo;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        topo.push_back(node);\n        for (auto it : adj[node]) {\n            if (--indegree[it] == 0) q.push(it);\n        }\n    }\n    return topo;\n}",
+    "explanation": "Topological Sort can be done via DFS (using a stack to store nodes after all descendants are processed) or BFS (Kahn's Algorithm using indegree). It only works on DAGs.",
+    "problemsOrder": [
+      "topological-sort",
+      "find-eventual-safe-states",
+      "course-schedule",
+      "alien-dictionary",
+      "shortest-path-in-dag"
+    ],
+    "badge": {
+      "label": "Important",
+      "type": "important"
+    }
+  },
+  {
+    "slug": "dfs-bfs",
+    "title": "DFS & BFS",
+    "description": "Problems solvable using both Depth-First Search and Breadth-First Search traversals on graphs.",
+    "identify": [
+      "The problem involves traversing or exploring a grid/graph.",
+      "The problem asks to find connected regions, count components, or fill areas."
+    ],
+    "appearsIn": [
+      "Grid traversal",
+      "Connected component counting",
+      "Flood-fill scenarios"
+    ],
+    "template": "// DFS\nvoid dfs(int node, vector<int> adj[], vector<bool>& vis) {\n    vis[node] = true;\n    for (auto it : adj[node]) {\n        if (!vis[it]) dfs(it, adj, vis);\n    }\n}\n\n// BFS\nvoid bfs(int src, vector<int> adj[], vector<bool>& vis) {\n    queue<int> q;\n    q.push(src);\n    vis[src] = true;\n    while (!q.empty()) {\n        int node = q.front();\n        q.pop();\n        for (auto it : adj[node]) {\n            if (!vis[it]) {\n                vis[it] = true;\n                q.push(it);\n            }\n        }\n    }\n}",
+    "explanation": "DFS explores as deep as possible before backtracking, while BFS explores neighbors level by level. Both can solve traversal problems, but DFS is simpler to implement recursively and BFS naturally finds shortest paths in unweighted graphs.",
+    "problemsOrder": [
+      "connected-components",
+      "number-of-islands",
+      "flood-fill",
+      "number-of-enclaves",
+      "surrounded-regions",
+      "number-of-distinct-islands"
+    ],
+    "badge": {
+      "label": "Core Basics",
+      "type": "basics"
+    }
+  },
+  {
+    "slug": "bfs",
+    "title": "BFS",
+    "description": "Multi-source BFS and shortest path problems in unweighted graphs and grids.",
+    "identify": [
+      "The problem involves finding the shortest distance in an unweighted graph or grid.",
+      "The problem involves spreading or propagation from multiple sources simultaneously."
+    ],
+    "appearsIn": [
+      "Shortest path in grids",
+      "Multi-source propagation",
+      "Level-wise processing"
+    ],
+    "template": "",
+    "explanation": "BFS explores nodes level by level, making it ideal for finding shortest paths in unweighted graphs. Multi-source BFS starts from all sources simultaneously, processing them in waves.",
+    "problemsOrder": [
+      "rotting-oranges",
+      "01-matrix",
+      "shortest-path-in-undirected-graph",
+      "word-ladder-i",
+      "word-ladder-ii"
+    ],
+    "badge": {
+      "label": "Core Basics",
+      "type": "basics"
+    }
+  },
+  {
+    "slug": "cycles",
+    "title": "Cycles",
+    "description": "Detecting cycles in undirected and directed graphs using DFS/BFS techniques.",
+    "identify": [
+      "The problem asks if a cycle exists in a graph.",
+      "The problem involves checking bipartiteness or detecting back edges."
+    ],
+    "appearsIn": [
+      "Deadlock detection",
+      "Dependency validation",
+      "Graph coloring"
+    ],
+    "template": "",
+    "explanation": "In undirected graphs, a cycle is detected when we visit a node that's already visited and is NOT the parent. In directed graphs, we use DFS with a recursion stack — a back edge to a node in the current stack indicates a cycle.",
+    "problemsOrder": [
+      "detect-cycle-in-undirected-graph",
+      "bipartite-graph",
+      "detect-cycle-in-directed-graph"
     ]
   },
   {
@@ -158,30 +202,6 @@
     "problemsOrder": [
       "mst-theory",
       "find-mst-weight"
-    ]
-  },
-  {
-    "slug": "disjoint-set",
-    "title": "Disjoint Set (Union-Find)",
-    "description": "A data structure to efficiently track connected components and merge sets.",
-    "identify": [
-      "The problem involves dynamic connectivity queries.",
-      "The problem asks to merge groups or check if two elements belong to the same set."
-    ],
-    "appearsIn": [
-      "Dynamic graph connectivity",
-      "Network connectivity",
-      "Grouping problems"
-    ],
-    "template": "class DisjointSet {\npublic:\n    vector<int> rank, parent, size;\n    DisjointSet(int n) {\n        rank.resize(n + 1, 0);\n        parent.resize(n + 1);\n        size.resize(n + 1, 1);\n        for (int i = 0; i <= n; i++) parent[i] = i;\n    }\n    int findUPar(int node) {\n        if (node == parent[node]) return node;\n        return parent[node] = findUPar(parent[node]);\n    }\n    void unionByRank(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (rank[ulp_u] < rank[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n        } else if (rank[ulp_v] < rank[ulp_u]) {\n            parent[ulp_v] = ulp_u;\n        } else {\n            parent[ulp_v] = ulp_u;\n            rank[ulp_u]++;\n        }\n    }\n    void unionBySize(int u, int v) {\n        int ulp_u = findUPar(u);\n        int ulp_v = findUPar(v);\n        if (ulp_u == ulp_v) return;\n        if (size[ulp_u] < size[ulp_v]) {\n            parent[ulp_u] = ulp_v;\n            size[ulp_v] += size[ulp_u];\n        } else {\n            parent[ulp_v] = ulp_u;\n            size[ulp_u] += size[ulp_v];\n        }\n    }\n};",
-    "explanation": "Disjoint Set Union (DSU) supports two operations: Find (which component does an element belong to?) and Union (merge two components). With path compression and union by rank, both operations run in nearly O(1) amortized time.",
-    "problemsOrder": [
-      "disjoint-set-theory",
-      "number-of-operations-to-make-network-connected",
-      "accounts-merge",
-      "number-of-islands-ii",
-      "making-a-large-island",
-      "most-stones-removed"
     ]
   },
   {

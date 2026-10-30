@@ -16,6 +16,7 @@ import {
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import { TopicIcon } from "@/components/ui/icons";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
+import PatternBadge from "@/components/ui/PatternBadge";
 import ProblemStatementMarkdown from "@/components/workspace/ProblemStatementMarkdown";
 import { difficultyClass } from "@/lib/format";
 import { useBookmarks } from "@/context/BookmarkContext";
@@ -401,6 +402,9 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                               }`}>
                                 {pattern.title}
                               </span>
+                              {pattern.badge && (
+                                <PatternBadge badge={pattern.badge} compact showLabel={false} />
+                              )}
                             </div>
 
                             <div className="flex items-center gap-1.5 shrink-0">
