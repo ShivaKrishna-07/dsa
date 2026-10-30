@@ -41,7 +41,13 @@ export function getAllData() {
               const codeText = match[1].trim();
               let name = "Optimal"; // Default
               const lower = codeText.toLowerCase();
-              if (lower.includes("brute")) {
+              if (lower.includes("// solution 1") || lower.includes("//solution 1")) {
+                name = "Solution 1";
+              } else if (lower.includes("// solution 2") || lower.includes("//solution 2")) {
+                name = "Solution 2";
+              } else if (lower.includes("// solution 3") || lower.includes("//solution 3")) {
+                name = "Solution 3";
+              } else if (lower.includes("brute")) {
                 name = "Brute Force";
               } else if (lower.includes("better")) {
                 name = "Better";
