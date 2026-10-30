@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Lightbulb, Flame, FileText, ChevronLeft, ChevronRight, WrapText, Bookmark } from "lucide-react";
+import { BookOpen, Lightbulb, Flame, FileText, ChevronLeft, ChevronRight, WrapText, Bookmark, Code2 } from "lucide-react";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
 import { difficultyClass } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
@@ -17,6 +17,7 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
   const pathname = usePathname();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("ps");
+  const [mobileTab, setMobileTab] = useState("problem"); // "problem" | "code" on mobile screens
   const [wrapCode, setWrapCode] = useState(false);
 
   // Sync word wrap preference from localStorage on mount
@@ -83,8 +84,40 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3 w-full h-[calc(100vh-4.25rem)] overflow-hidden">
+      {/* Mobile Top Navigation Tabs (visible only on mobile screens < lg) */}
+      <div className="flex lg:hidden items-center p-1 rounded-xl border border-ink-800 bg-ink-950/80 shrink-0">
+        <button
+          type="button"
+          onClick={() => setMobileTab("problem")}
+          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition ${
+            mobileTab === "problem"
+              ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
+              : "text-ink-400 hover:text-ink-200"
+          }`}
+        >
+          <BookOpen className="h-3.5 w-3.5 text-accent-400" />
+          <span>Problem</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab("code")}
+          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition ${
+            mobileTab === "code"
+              ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60"
+              : "text-ink-400 hover:text-ink-200"
+          }`}
+        >
+          <Code2 className="h-3.5 w-3.5 text-accent-400" />
+          <span>Code</span>
+        </button>
+      </div>
+
       {/* LEFT PANEL: Problem Statement & Intuition */}
-      <section className="flex flex-col h-full rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm">
+      <section
+        className={`flex-1 min-h-0 lg:h-full flex-col rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm ${
+          mobileTab === "problem" ? "flex" : "hidden lg:flex"
+        }`}
+      >
         {/* Left Panel Header: Tabs on left, Navigation Arrows + Difficulty + Platform Icons on right */}
         <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/60 px-3 py-2 shrink-0">
           {/* Navigation Tabs */}
@@ -486,7 +519,11 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
       </section>
 
       {/* RIGHT PANEL: Code Workspace */}
-      <section className="flex flex-col h-full rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm">
+      <section
+        className={`flex-1 min-h-0 lg:h-full flex-col rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden shadow-sm ${
+          mobileTab === "code" ? "flex" : "hidden lg:flex"
+        }`}
+      >
         {/* Code Header Bar: Approach Tabs on left, Word Wrap & Copy Buttons (Icons only) on right */}
         <div className="flex items-center justify-between gap-2 border-b border-ink-800/80 bg-ink-950/60 px-3 py-2 shrink-0">
           {/* Approach Tabs */}
