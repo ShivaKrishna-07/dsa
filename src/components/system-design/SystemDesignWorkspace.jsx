@@ -304,41 +304,6 @@ export default function SystemDesignWorkspace() {
               ))}
             </div>
           </div>
-
-          {/* Section 3: Daily Study Routine */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-              <span>Daily Study Routine</span>
-              <span className="text-ink-500 text-[11px]">2 hours total</span>
-            </div>
-
-            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-              {systemDesignData.framework.dailySchedule.map((row, idx) => (
-                <div
-                  key={row.activity}
-                  className="flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors hover:bg-ink-800/40"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-xs text-ink-500 w-4">
-                      {idx + 1}
-                    </span>
-                    <span className="text-xs sm:text-sm font-medium text-ink-200">
-                      {row.activity}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-4 shrink-0 text-right">
-                    <span className="text-xs text-ink-500 hidden sm:inline">
-                      {row.desc}
-                    </span>
-                    <span className="text-xs text-ink-400">
-                      {row.time}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       )}
     </div>
