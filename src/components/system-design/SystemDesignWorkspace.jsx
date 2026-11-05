@@ -59,7 +59,7 @@ export default function SystemDesignWorkspace() {
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink-100">
             System Design
           </h1>
-          <span className="font-mono text-xs font-semibold text-accent-300 bg-accent-500/10 border border-accent-500/20 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-semibold text-accent-300 bg-accent-500/10 border border-accent-500/20 px-2 py-0.5 rounded-full">
             {totalDone}/{totalItems}
           </span>
         </div>
@@ -128,9 +128,9 @@ export default function SystemDesignWorkspace() {
               <div key={phase.id} className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
                   <span>
-                    {phase.phase}: {phase.title}
+                    {phase.phase} – {phase.title}
                   </span>
-                  <span className="font-mono text-ink-500 text-[11px]">
+                  <span className="text-ink-500 text-[11px]">
                     {phaseDone}/{phase.topics.length} · {phase.duration}
                   </span>
                 </div>
@@ -183,7 +183,7 @@ export default function SystemDesignWorkspace() {
               <div key={grp.id} className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
                   <span>{grp.group}</span>
-                  <span className="font-mono text-ink-500 text-[11px]">
+                  <span className="text-ink-500 text-[11px]">
                     {grpDone}/{grp.items.length}
                   </span>
                 </div>
@@ -208,7 +208,7 @@ export default function SystemDesignWorkspace() {
                           ) : (
                             <Circle className="h-4 w-4 text-ink-600 hover:text-ink-400 shrink-0" />
                           )}
-                          <span className="font-mono text-xs text-ink-500 w-4">
+                          <span className="text-xs text-ink-500 w-4">
                             {idx + 1}
                           </span>
                           <span
@@ -236,94 +236,107 @@ export default function SystemDesignWorkspace() {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 3: ANSWERING FRAMEWORK                                                */}
+      {/* TAB 3: ANSWERING FRAMEWORK (Identical UI to Tab 1 & Tab 2)                 */}
       {/* ========================================================================= */}
       {activeTab === "framework" && (
-        <div className="space-y-5 pt-1">
-          {/* 8-Step Blueprint */}
+        <div className="space-y-4 pt-1">
+          {/* Section 1: 8-Step Blueprint */}
           <div className="space-y-1.5">
-            <div className="text-xs font-semibold text-ink-400 uppercase tracking-wider px-1">
-              8-Step HLD Interview Sequence (45–60 min)
+            <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+              <span>8-Step Interview Sequence</span>
+              <span className="text-ink-500 text-[11px]">45–60 min target</span>
             </div>
 
-            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead>
-                    <tr className="border-b border-ink-800/80 bg-ink-950/60 text-ink-500 text-[11px] uppercase tracking-wider">
-                      <th className="py-2 px-3 w-10">#</th>
-                      <th className="py-2 px-3">Step</th>
-                      <th className="py-2 px-3 w-20">Time</th>
-                      <th className="py-2 px-3">Focus</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-ink-800/50">
-                    {systemDesignData.framework.steps.map((s) => (
-                      <tr key={s.number} className="hover:bg-ink-800/30">
-                        <td className="py-2.5 px-3 font-mono text-xs text-accent-400 font-bold">
-                          0{s.number}
-                        </td>
-                        <td className="py-2.5 px-3 font-medium text-ink-200 whitespace-nowrap">
-                          {s.title}
-                        </td>
-                        <td className="py-2.5 px-3 font-mono text-xs text-ink-400 whitespace-nowrap">
-                          {s.time}
-                        </td>
-                        <td className="py-2.5 px-3 text-xs text-ink-400">
-                          {s.description}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+              {systemDesignData.framework.steps.map((step) => (
+                <div
+                  key={step.number}
+                  className="flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors hover:bg-ink-800/40"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xs text-ink-500 w-4">
+                      {step.number}
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-ink-200">
+                      {step.title}
+                    </span>
+                  </div>
 
-          {/* 3 Rules */}
-          <div className="space-y-1.5">
-            <div className="text-xs font-semibold text-ink-400 uppercase tracking-wider px-1">
-              Core Principles
-            </div>
-
-            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden p-3 space-y-2 text-xs sm:text-sm">
-              {systemDesignData.framework.rules.map((r) => (
-                <div key={r.number} className="pt-1.5 first:pt-0">
-                  <span className="font-semibold text-ink-200">
-                    Rule {r.number}: {r.title}
-                  </span>
-                  <p className="text-xs text-ink-400 mt-0.5">{r.description}</p>
+                  <div className="flex items-center gap-4 shrink-0 text-right">
+                    <span className="text-xs text-ink-500 hidden sm:inline">
+                      {step.description}
+                    </span>
+                    <span className="text-xs text-ink-400">
+                      {step.time}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Daily Schedule */}
+          {/* Section 2: Core Principles */}
           <div className="space-y-1.5">
-            <div className="text-xs font-semibold text-ink-400 uppercase tracking-wider px-1">
-              Daily 2-Hour Routine
+            <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+              <span>Core Principles</span>
+              <span className="text-ink-500 text-[11px]">3 golden rules</span>
             </div>
 
-            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <tbody className="divide-y divide-ink-800/50">
-                    {systemDesignData.framework.dailySchedule.map((row) => (
-                      <tr key={row.activity} className="hover:bg-ink-800/30">
-                        <td className="py-2 px-3 font-medium text-ink-200 w-44">
-                          {row.activity}
-                        </td>
-                        <td className="py-2 px-3 font-mono text-xs text-accent-300 w-24">
-                          {row.time}
-                        </td>
-                        <td className="py-2 px-3 text-xs text-ink-400">
-                          {row.desc}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+              {systemDesignData.framework.rules.map((rule) => (
+                <div
+                  key={rule.number}
+                  className="flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors hover:bg-ink-800/40"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xs text-ink-500 w-4">
+                      {rule.number}
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-ink-200">
+                      {rule.title}
+                    </span>
+                  </div>
+
+                  <span className="text-xs text-ink-500 shrink-0 hidden sm:inline">
+                    {rule.description}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 3: Daily Study Routine */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+              <span>Daily Study Routine</span>
+              <span className="text-ink-500 text-[11px]">2 hours total</span>
+            </div>
+
+            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+              {systemDesignData.framework.dailySchedule.map((row, idx) => (
+                <div
+                  key={row.activity}
+                  className="flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors hover:bg-ink-800/40"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-xs text-ink-500 w-4">
+                      {idx + 1}
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-ink-200">
+                      {row.activity}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-4 shrink-0 text-right">
+                    <span className="text-xs text-ink-500 hidden sm:inline">
+                      {row.desc}
+                    </span>
+                    <span className="text-xs text-ink-400">
+                      {row.time}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
