@@ -244,7 +244,7 @@ export default function SystemDesignWorkspace() {
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
               <span>8-Step Interview Sequence</span>
-              <span className="text-ink-500 text-[11px]">45–60 min target</span>
+              <span className="text-ink-500 text-[11px]">45 min target</span>
             </div>
 
             <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
@@ -270,36 +270,6 @@ export default function SystemDesignWorkspace() {
                       {step.time}
                     </span>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Section 2: Core Principles */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-              <span>Core Principles</span>
-              <span className="text-ink-500 text-[11px]">3 golden rules</span>
-            </div>
-
-            <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-              {systemDesignData.framework.rules.map((rule) => (
-                <div
-                  key={rule.number}
-                  className="flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors hover:bg-ink-800/40"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-xs text-ink-500 w-4">
-                      {rule.number}
-                    </span>
-                    <span className="text-xs sm:text-sm font-medium text-ink-200">
-                      {rule.title}
-                    </span>
-                  </div>
-
-                  <span className="text-xs text-ink-500 shrink-0 hidden sm:inline">
-                    {rule.description}
-                  </span>
                 </div>
               ))}
             </div>

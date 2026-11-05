@@ -177,7 +177,7 @@ export const systemDesignData = {
       {
         number: 2,
         title: "Back-of-the-Envelope Estimation",
-        time: "5 mins",
+        time: "4 mins",
         description: "Rough calculations to determine system scale, storage requirements, and throughput.",
         bulletPoints: [
           "Traffic: Daily Active Users (DAU), Read QPS, Write QPS (Read-to-Write ratio).",
@@ -188,7 +188,7 @@ export const systemDesignData = {
       {
         number: 3,
         title: "API Design",
-        time: "5 mins",
+        time: "4 mins",
         description: "Define core endpoints, request payload parameters, and response structures.",
         bulletPoints: [
           "REST / gRPC signatures (e.g., POST /api/v1/urls, GET /{shortUrl}).",
@@ -199,7 +199,7 @@ export const systemDesignData = {
       {
         number: 4,
         title: "Database Design & Data Model",
-        time: "5–8 mins",
+        time: "5 mins",
         description: "Choose the appropriate database technology and outline schemas and indexes.",
         bulletPoints: [
           "SQL vs NoSQL: Relational (PostgreSQL/MySQL) for ACID transactions vs NoSQL (Cassandra/MongoDB/DynamoDB) for scale/loose schema.",
@@ -210,7 +210,7 @@ export const systemDesignData = {
       {
         number: 5,
         title: "High-Level System Architecture",
-        time: "10 mins",
+        time: "8 mins",
         description: "Draw end-to-end architecture boxes and connections from client to storage.",
         bulletPoints: [
           "Client -> DNS -> CDN (static assets) -> Load Balancer (L7/L4).",
@@ -222,7 +222,7 @@ export const systemDesignData = {
       {
         number: 6,
         title: "Detailed Deep Dive",
-        time: "10–12 mins",
+        time: "10 mins",
         description: "Drill into the hardest component, core business logic, and read/write flow.",
         bulletPoints: [
           "Trace step-by-step: Step 1 client sends request -> Step 2 cache lookup -> Step 3 DB fallback.",
@@ -233,7 +233,7 @@ export const systemDesignData = {
       {
         number: 7,
         title: "Scalability & Bottlenecks",
-        time: "5–8 mins",
+        time: "5 mins",
         description: "Identify performance bottlenecks and scale the system horizontally.",
         bulletPoints: [
           "Caching Strategy: Cache-aside, Write-through, Write-back, and eviction policies (LRU/LFU).",
@@ -244,7 +244,7 @@ export const systemDesignData = {
       {
         number: 8,
         title: "Reliability, Fault Tolerance & Trade-offs",
-        time: "5 mins",
+        time: "4 mins",
         description: "Show real engineering maturity by explaining failure recovery and trade-offs.",
         bulletPoints: [
           "Single Point of Failure (SPOF): Ensure redundant instances across availability zones.",
