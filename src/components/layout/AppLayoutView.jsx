@@ -11,7 +11,8 @@ export default function AppLayoutView({ children, tree = [] }) {
   // Dedicated resource routes render directly without accordion sheet override
   if (
     pathname?.startsWith("/interview-experiences") ||
-    pathname?.startsWith("/companies")
+    pathname?.startsWith("/companies") ||
+    pathname?.startsWith("/system-design")
   ) {
     return children;
   }

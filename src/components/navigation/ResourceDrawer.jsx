@@ -3,13 +3,14 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Brain, Layers /* , Briefcase, Building2 */ } from "lucide-react";
+import { X, Brain, Layers, Compass /* , Briefcase, Building2 */ } from "lucide-react";
 
 export default function ResourceDrawer({ isOpen, onClose }) {
   const pathname = usePathname();
+  const isSystemDesign = pathname?.startsWith("/system-design");
   // const isInterviews = pathname?.startsWith("/interview-experiences");
   // const isCompanies = pathname?.startsWith("/companies");
-  const isDsa = !pathname?.startsWith("/interview-experiences") && !pathname?.startsWith("/companies");
+  const isDsa = !isSystemDesign && !pathname?.startsWith("/interview-experiences") && !pathname?.startsWith("/companies");
 
   // Handle ESC key to close
   useEffect(() => {
@@ -74,6 +75,20 @@ export default function ResourceDrawer({ isOpen, onClose }) {
           >
             <Layers className="h-4.5 w-4.5" />
             <span>DSA</span>
+          </Link>
+
+          {/* Tab 2: System Design */}
+          <Link
+            href="/system-design"
+            onClick={onClose}
+            className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition ${
+              isSystemDesign
+                ? "bg-accent-500/15 border border-accent-500/40 text-accent-300 shadow-sm"
+                : "border border-transparent text-ink-300 hover:bg-ink-900 hover:text-ink-100"
+            }`}
+          >
+            <Compass className="h-4.5 w-4.5" />
+            <span>System Design</span>
           </Link>
 
           {/* Tab 2: Interview Experiences (Commented out for now) */}

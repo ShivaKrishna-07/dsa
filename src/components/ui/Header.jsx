@@ -14,7 +14,9 @@ export default function Header({ tree = [], items = [] }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
   const isSpecialPage =
-    pathname?.startsWith("/interview-experiences") || pathname?.startsWith("/companies");
+    pathname?.startsWith("/interview-experiences") ||
+    pathname?.startsWith("/companies") ||
+    pathname?.startsWith("/system-design");
 
   return (
     <>
