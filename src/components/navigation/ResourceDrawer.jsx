@@ -3,13 +3,13 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Brain, Layers, Briefcase, Building2 } from "lucide-react";
+import { X, Brain, Layers /* , Briefcase, Building2 */ } from "lucide-react";
 
 export default function ResourceDrawer({ isOpen, onClose }) {
   const pathname = usePathname();
-  const isInterviews = pathname?.startsWith("/interview-experiences");
-  const isCompanies = pathname?.startsWith("/companies");
-  const isDsa = !isInterviews && !isCompanies;
+  // const isInterviews = pathname?.startsWith("/interview-experiences");
+  // const isCompanies = pathname?.startsWith("/companies");
+  const isDsa = !pathname?.startsWith("/interview-experiences") && !pathname?.startsWith("/companies");
 
   // Handle ESC key to close
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function ResourceDrawer({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* 3 Navigation Tabs */}
+        {/* Navigation Tabs */}
         <nav className="flex-1 p-3 space-y-1.5" aria-label="Main Navigation">
           {/* Tab 1: DSA */}
           <Link
@@ -76,7 +76,8 @@ export default function ResourceDrawer({ isOpen, onClose }) {
             <span>DSA</span>
           </Link>
 
-          {/* Tab 2: Interview Experiences */}
+          {/* Tab 2: Interview Experiences (Commented out for now) */}
+          {/*
           <Link
             href="/interview-experiences"
             onClick={onClose}
@@ -89,8 +90,10 @@ export default function ResourceDrawer({ isOpen, onClose }) {
             <Briefcase className="h-4.5 w-4.5" />
             <span>Interview Experiences</span>
           </Link>
+          */}
 
-          {/* Tab 3: Companies */}
+          {/* Tab 3: Companies (Commented out for now) */}
+          {/*
           <Link
             href="/companies"
             onClick={onClose}
@@ -103,6 +106,7 @@ export default function ResourceDrawer({ isOpen, onClose }) {
             <Building2 className="h-4.5 w-4.5" />
             <span>Companies</span>
           </Link>
+          */}
         </nav>
       </aside>
     </div>
