@@ -8,10 +8,12 @@ export const systemDesignData = {
       description: "Core architectural paradigms, scaling types, availability metrics, and estimation formulas.",
       topics: [
         { id: "p1-1", title: "What is HLD? HLD vs LLD" },
+        { id: "p1-8", title: "Functional vs Non-functional requirements" },
         { id: "p1-2", title: "Monolith vs microservices" },
         { id: "p1-3", title: "Vertical vs horizontal scaling" },
         { id: "p1-4", title: "Stateless vs stateful architecture" },
         { id: "p1-5", title: "Latency, throughput, QPS and availability" },
+        { id: "p1-9", title: "High Availability" },
         { id: "p1-6", title: "Reliability, fault tolerance and single point of failure" },
         { id: "p1-7", title: "Back-of-the-envelope estimation (traffic, storage, bandwidth)" }
       ]
@@ -26,8 +28,10 @@ export const systemDesignData = {
         { id: "p2-1", title: "DNS and how a browser request reaches a server" },
         { id: "p2-2", title: "HTTP/HTTPS and TCP vs UDP basics" },
         { id: "p2-3", title: "REST API design and HTTP methods" },
+        { id: "p2-8", title: "gRPC and GraphQL" },
         { id: "p2-4", title: "WebSockets vs polling vs SSE" },
         { id: "p2-5", title: "Load balancer (L4/L7 and basic algorithms)" },
+        { id: "p2-9", title: "Service Discovery" },
         { id: "p2-6", title: "Reverse proxy and API Gateway" },
         { id: "p2-7", title: "CDN and how content is delivered" }
       ]
@@ -40,13 +44,17 @@ export const systemDesignData = {
       description: "Storage paradigms, indexing, replication, partitioning, and caching strategies.",
       topics: [
         { id: "p3-1", title: "SQL vs NoSQL (relational, document and key-value)" },
+        { id: "p3-12", title: "Object storage (AWS S3), multipart uploads and basic video transcoding" },
         { id: "p3-2", title: "Database schema design and normalization" },
         { id: "p3-3", title: "Indexing and B-Tree basics" },
+        { id: "p3-13", title: "Geohashing" },
         { id: "p3-4", title: "Replication and read replicas" },
         { id: "p3-5", title: "Sharding and partitioning" },
         { id: "p3-6", title: "Consistent hashing (basic understanding)" },
         { id: "p3-7", title: "ACID and database transactions" },
+        { id: "p3-14", title: "Concurrency control: optimistic vs pessimistic locking" },
         { id: "p3-8", title: "CAP theorem and strong vs eventual consistency" },
+        { id: "p3-15", title: "PACELC theorem" },
         { id: "p3-9", title: "Redis and caching strategies" },
         { id: "p3-10", title: "Cache eviction: LRU and LFU" },
         { id: "p3-11", title: "Cache invalidation and cache stampede" }
@@ -64,7 +72,9 @@ export const systemDesignData = {
         { id: "p4-3", title: "Kafka basics: topics, partitions and consumers" },
         { id: "p4-4", title: "Retries, exponential backoff and dead-letter queues" },
         { id: "p4-5", title: "Idempotency and duplicate requests" },
+        { id: "p4-9", title: "Distributed Transactions – Saga" },
         { id: "p4-6", title: "Distributed locks (basic understanding)" },
+        { id: "p4-10", title: "Leader Election" },
         { id: "p4-7", title: "Timeouts and circuit breakers" },
         { id: "p4-8", title: "Basic logging, monitoring and health checks" }
       ]
