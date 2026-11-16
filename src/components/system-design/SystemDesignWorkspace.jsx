@@ -1,12 +1,101 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X, ArrowLeft, ImageIcon } from "lucide-react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import Link from "next/link";
+import {
+  Brain,
+  PanelLeft,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ArrowLeft,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw
+} from "lucide-react";
+import ResourceDrawer from "@/components/navigation/ResourceDrawer";
 import { systemDesignData } from "@/content/system-design/systemDesignData";
+
+// 8 Curated infographic image pages covering all 20 fundamental topics
+const FUNDAMENTAL_PAGES = [
+  {
+    pageIndex: 0,
+    pageNumber: 1,
+    image: "/images/system-design/fundamentals-1.jpg",
+    title: "Architecture & Scaling",
+    topicIds: ["f1", "f2", "f3"],
+    label: "Topics 1 – 3"
+  },
+  {
+    pageIndex: 1,
+    pageNumber: 2,
+    image: "/images/system-design/fundamentals-2.jpg",
+    title: "Proxies & Load Balancers",
+    topicIds: ["f4", "f5"],
+    label: "Topics 4 – 5"
+  },
+  {
+    pageIndex: 2,
+    pageNumber: 3,
+    image: "/images/system-design/fundamentals-3.jpg",
+    title: "Communication Protocols",
+    topicIds: ["f6", "f7"],
+    label: "Topics 6 – 7"
+  },
+  {
+    pageIndex: 3,
+    pageNumber: 4,
+    image: "/images/system-design/fundamentals-4.jpg",
+    title: "Databases, Storage & Replication",
+    topicIds: ["f8", "f9", "f10"],
+    label: "Topics 8 – 10"
+  },
+  {
+    pageIndex: 4,
+    pageNumber: 5,
+    image: "/images/system-design/fundamentals-5.jpg",
+    title: "Sharding, CAP & Concurrency",
+    topicIds: ["f11", "f12", "f13"],
+    label: "Topics 11 – 13"
+  },
+  {
+    pageIndex: 5,
+    pageNumber: 6,
+    image: "/images/system-design/fundamentals-6.jpg",
+    title: "Cache & Eviction Policies",
+    topicIds: ["f14", "f15"],
+    label: "Topics 14 – 15"
+  },
+  {
+    pageIndex: 6,
+    pageNumber: 7,
+    image: "/images/system-design/fundamentals-7.jpg",
+    title: "Cache Invalidation, Stampede & CDN",
+    topicIds: ["f16", "f17"],
+    label: "Topics 16 – 17"
+  },
+  {
+    pageIndex: 7,
+    pageNumber: 8,
+    image: "/images/system-design/fundamentals-8.jpg",
+    title: "Queues, Idempotency & Data Centers",
+    topicIds: ["f18", "f19", "f20"],
+    label: "Topics 18 – 20"
+  }
+];
 
 export default function SystemDesignWorkspace() {
   const [activeTab, setActiveTab] = useState("fundamentals");
   const [selectedTopicId, setSelectedTopicId] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Zoom and Pan states for infographic diagram viewer
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const panStartRef = useRef({ x: 0, y: 0 });
+  const imageContainerRef = useRef(null);
 
   const allTopics = useMemo(() => {
     return systemDesignData.fundamentals.flatMap((p) => p.topics);
@@ -19,43 +108,135 @@ export default function SystemDesignWorkspace() {
   const selectedIndex = allTopics.findIndex((t) => t.id === selectedTopicId);
   const selectedTopic = selectedIndex >= 0 ? allTopics[selectedIndex] : null;
 
+  // Find corresponding infographic image page
+  const currentPageIndex = useMemo(() => {
+    if (!selectedTopicId) return 0;
+    const idx = FUNDAMENTAL_PAGES.findIndex((p) => p.topicIds.includes(selectedTopicId));
+    return idx >= 0 ? idx : 0;
+  }, [selectedTopicId]);
+
+  const currentPage = FUNDAMENTAL_PAGES[currentPageIndex];
   const isSplitMode = activeTab === "fundamentals" && selectedTopic !== null;
 
-  const handlePrev = () => {
-    if (selectedIndex > 0) {
-      setSelectedTopicId(allTopics[selectedIndex - 1].id);
+  // Reset zoom and pan helper
+  const resetZoom = () => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  };
+
+  const handleZoomIn = () => {
+    setZoom((prev) => Math.min(prev + 0.25, 3.5));
+  };
+
+  const handleZoomOut = () => {
+    setZoom((prev) => {
+      const next = Math.max(prev - 0.25, 0.5);
+      if (next <= 1) setPan({ x: 0, y: 0 });
+      return next;
+    });
+  };
+
+  // Previous / Next IMAGE page handlers
+  const handlePrevImage = () => {
+    if (currentPageIndex > 0) {
+      const prevPage = FUNDAMENTAL_PAGES[currentPageIndex - 1];
+      setSelectedTopicId(prevPage.topicIds[0]);
+      resetZoom();
     }
   };
 
-  const handleNext = () => {
-    if (selectedIndex < allTopics.length - 1) {
-      setSelectedTopicId(allTopics[selectedIndex + 1].id);
+  const handleNextImage = () => {
+    if (currentPageIndex < FUNDAMENTAL_PAGES.length - 1) {
+      const nextPage = FUNDAMENTAL_PAGES[currentPageIndex + 1];
+      setSelectedTopicId(nextPage.topicIds[0]);
+      resetZoom();
     }
   };
 
-  // Keyboard navigation for previous/next arrows & escape to close
+  // Keyboard navigation for previous/next images & escape to close
   useEffect(() => {
     if (!selectedTopic) return;
 
     const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        if (selectedIndex > 0) {
-          setSelectedTopicId(allTopics[selectedIndex - 1].id);
-        }
+        handlePrevImage();
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        if (selectedIndex < allTopics.length - 1) {
-          setSelectedTopicId(allTopics[selectedIndex + 1].id);
-        }
+        handleNextImage();
       } else if (e.key === "Escape") {
         setSelectedTopicId(null);
+        resetZoom();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedTopic, selectedIndex, allTopics]);
+  }, [selectedTopic, currentPageIndex]);
+
+  // Mouse wheel zoom on image container
+  useEffect(() => {
+    const el = imageContainerRef.current;
+    if (!el || !isSplitMode) return;
+
+    const onWheel = (e) => {
+      e.preventDefault();
+      const delta = -e.deltaY * 0.0015;
+      setZoom((prev) => {
+        const next = Math.min(Math.max(prev + delta, 0.6), 3.5);
+        if (next <= 1) setPan({ x: 0, y: 0 });
+        return next;
+      });
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [isSplitMode, currentPageIndex]);
+
+  // Hold & move (mouse drag panning)
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return;
+    setIsDragging(true);
+    dragStartRef.current = { x: e.clientX, y: e.clientY };
+    panStartRef.current = { ...pan };
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartRef.current.x;
+    const dy = e.clientY - dragStartRef.current.y;
+    setPan({
+      x: panStartRef.current.x + dx,
+      y: panStartRef.current.y + dy
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // Touch drag support for mobile / touch screens
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      panStartRef.current = { ...pan };
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - dragStartRef.current.x;
+    const dy = e.touches[0].clientY - dragStartRef.current.y;
+    setPan({
+      x: panStartRef.current.x + dx,
+      y: panStartRef.current.y + dy
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
 
   // Auto-scroll active topic in left sidebar into view
   useEffect(() => {
@@ -70,29 +251,56 @@ export default function SystemDesignWorkspace() {
   // Common Header & Tabs component
   const renderHeader = (isCompact = false) => (
     <div className={isCompact ? "p-3 sm:p-4 border-b border-ink-800/80 bg-ink-950/95 shrink-0 space-y-3" : "space-y-4"}>
+      {/* Brand & Heading Bar */}
       <div className="flex items-center justify-between pb-3 border-b border-ink-800/80">
-        <div className="flex items-center gap-3">
-          <h1 className={`${isCompact ? "text-lg" : "text-xl sm:text-2xl"} font-bold tracking-tight text-ink-100`}>
+        <div className="flex items-center gap-2.5 min-w-0">
+          <Link
+            href="/"
+            className="flex shrink-0 items-center transition hover:opacity-95"
+            title="DSA Patterns Home"
+          >
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-accent-500 shadow-md shadow-accent-500/20 ring-1 ring-white/20">
+              <Brain className="h-4.5 w-4.5 stroke-[2.3] text-[#09090b]" aria-hidden="true" />
+            </span>
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setIsDrawerOpen(true)}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/90 text-accent-400 hover:border-accent-500/50 hover:bg-accent-500/15 hover:text-accent-300 transition-all shadow-sm shrink-0"
+            title="Open Resource Drawer"
+            aria-label="Open resource navigation drawer"
+          >
+            <PanelLeft className="h-4 w-4" />
+          </button>
+
+          <h1 className={`${isCompact ? "text-lg" : "text-xl sm:text-2xl"} font-bold tracking-tight text-ink-100 truncate ml-1`}>
             System Design
           </h1>
-          <span className="text-xs font-semibold text-accent-300 bg-accent-500/10 border border-accent-500/20 px-2.5 py-0.5 rounded-full font-mono">
-            {allTopics.length + coreQuestions.length} Topics
-          </span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1.5 border-b border-ink-800/60 pb-2 overflow-x-auto whitespace-nowrap">
+      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-ink-900/60 border border-ink-800/80 overflow-x-auto whitespace-nowrap">
         <button
           type="button"
           onClick={() => setActiveTab("fundamentals")}
-          className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
             activeTab === "fundamentals"
-              ? "bg-ink-800 text-ink-100 font-semibold"
-              : "text-ink-400 hover:text-ink-200"
+              ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
+              : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
           }`}
         >
-          Fundamentals ({allTopics.length})
+          <span>Fundamentals</span>
+          <span
+            className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+              activeTab === "fundamentals"
+                ? "bg-accent-500/20 text-accent-300 border border-accent-500/30"
+                : "bg-ink-950/80 text-ink-400 border border-ink-800/80"
+            }`}
+          >
+            {allTopics.length}
+          </span>
         </button>
 
         <button
@@ -100,14 +308,24 @@ export default function SystemDesignWorkspace() {
           onClick={() => {
             setActiveTab("questions");
             setSelectedTopicId(null);
+            resetZoom();
           }}
-          className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
             activeTab === "questions"
-              ? "bg-ink-800 text-ink-100 font-semibold"
-              : "text-ink-400 hover:text-ink-200"
+              ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
+              : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
           }`}
         >
-          Interview Questions ({coreQuestions.length})
+          <span>Interview Ques</span>
+          <span
+            className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+              activeTab === "questions"
+                ? "bg-accent-500/20 text-accent-300 border border-accent-500/30"
+                : "bg-ink-950/80 text-ink-400 border border-ink-800/80"
+            }`}
+          >
+            {coreQuestions.length}
+          </span>
         </button>
 
         <button
@@ -115,71 +333,62 @@ export default function SystemDesignWorkspace() {
           onClick={() => {
             setActiveTab("framework");
             setSelectedTopicId(null);
+            resetZoom();
           }}
-          className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
             activeTab === "framework"
-              ? "bg-ink-800 text-ink-100 font-semibold"
-              : "text-ink-400 hover:text-ink-200"
+              ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
+              : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
           }`}
         >
-          Answering Framework
+          <span>Answering Framework</span>
         </button>
       </div>
     </div>
   );
 
-  // Fundamentals list component
+  // Fundamentals list component (clean list items without diagram badge or repeated headings)
   const renderFundamentalsList = (isCompact = false) => (
-    <div className={isCompact ? "p-3 sm:p-4 space-y-1.5" : "space-y-4 pt-1"}>
+    <div className={isCompact ? "p-3 sm:p-4 space-y-2" : "space-y-4 pt-1"}>
       {systemDesignData.fundamentals.map((section) => (
-        <div key={section.id} className="space-y-1.5">
-          <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-            <span>{section.title}</span>
-            <span className="text-ink-500 text-[11px] font-mono">
-              {section.topics.length} topics
-            </span>
-          </div>
+        <div
+          key={section.id}
+          className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden"
+        >
+          {section.topics.map((topic, idx) => {
+            const isSelected = selectedTopicId === topic.id;
 
-          <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-            {section.topics.map((topic, idx) => {
-              const isSelected = selectedTopicId === topic.id;
-
-              return (
-                <div
-                  key={topic.id}
-                  id={`sd-topic-${topic.id}`}
-                  onClick={() => setSelectedTopicId(topic.id)}
-                  className={`flex items-center justify-between gap-3 px-3.5 py-2.5 cursor-pointer transition-colors ${
-                    isSelected
-                      ? "bg-accent-500/15 text-ink-100 border-l-[3px] border-l-accent-500"
-                      : "hover:bg-ink-800/40 text-ink-200 border-l-[3px] border-l-transparent"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span
-                      className={`text-xs w-5 h-5 shrink-0 font-mono rounded flex items-center justify-center font-bold ${
-                        isSelected
-                          ? "bg-accent-500 text-[#09090b]"
-                          : "text-ink-500 bg-ink-950 border border-ink-800/60"
-                      }`}
-                    >
-                      {idx + 1}
-                    </span>
-                    <span className={`text-xs sm:text-sm ${isSelected ? "font-semibold text-accent-100" : "font-medium"}`}>
-                      {topic.title}
-                    </span>
-                  </div>
-
-                  {topic.image && (
-                    <span className="shrink-0 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-mono font-medium bg-accent-500/10 text-accent-400 border border-accent-500/20">
-                      <ImageIcon className="h-3 w-3" />
-                      <span className="hidden sm:inline">Diagram</span>
-                    </span>
-                  )}
+            return (
+              <div
+                key={topic.id}
+                id={`sd-topic-${topic.id}`}
+                onClick={() => {
+                  setSelectedTopicId(topic.id);
+                  resetZoom();
+                }}
+                className={`flex items-center justify-between gap-3 px-3.5 py-2.5 cursor-pointer transition-colors ${
+                  isSelected
+                    ? "bg-accent-500/15 text-ink-100 border-l-[3px] border-l-accent-500"
+                    : "hover:bg-ink-800/40 text-ink-200 border-l-[3px] border-l-transparent"
+                }`}
+              >
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <span
+                    className={`text-xs w-5 h-5 shrink-0 font-mono rounded flex items-center justify-center font-bold ${
+                      isSelected
+                        ? "bg-accent-500 text-[#09090b]"
+                        : "text-ink-500 bg-ink-950 border border-ink-800/60"
+                    }`}
+                  >
+                    {idx + 1}
+                  </span>
+                  <span className={`text-xs sm:text-sm truncate ${isSelected ? "font-semibold text-accent-100" : "font-medium"}`}>
+                    {topic.title}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       ))}
     </div>
@@ -190,129 +399,168 @@ export default function SystemDesignWorkspace() {
   // =========================================================================
   if (isSplitMode) {
     return (
-      <div className="flex h-[calc(100vh-3.5rem)] w-full overflow-hidden bg-ink-950 text-ink-100">
-        {/* Left Sidebar Panel: Shifted current list */}
-        <aside className="hidden md:flex w-full md:w-[380px] lg:w-[420px] xl:w-[460px] shrink-0 border-r border-ink-800 flex-col h-full overflow-hidden bg-ink-950">
-          {renderHeader(true)}
-          <div className="flex-1 overflow-y-auto code-scroll">
-            {renderFundamentalsList(true)}
-          </div>
-        </aside>
-
-        {/* Right Viewer Panel: Complete image shown directly in full height */}
-        <main className="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-ink-950">
-          {/* Top Viewer Control Bar */}
-          <div className="h-13 border-b border-ink-800/80 bg-ink-950/95 px-3 sm:px-5 flex items-center justify-between shrink-0">
-            {/* Left: Mobile back button or topic title */}
-            <div className="flex items-center gap-2.5 min-w-0">
-              <button
-                type="button"
-                onClick={() => setSelectedTopicId(null)}
-                className="md:hidden flex items-center gap-1.5 rounded-lg border border-ink-800 bg-ink-900/80 px-2.5 py-1 text-xs font-semibold text-ink-300 hover:text-ink-100 hover:border-ink-700 transition shrink-0"
-              >
-                <ArrowLeft className="h-3.5 w-3.5" />
-                <span>List</span>
-              </button>
-
-              <span className="text-xs font-mono font-bold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-2 py-0.5 rounded-full shrink-0">
-                #{selectedIndex + 1}
-              </span>
-              <h2 className="font-semibold text-xs sm:text-sm text-ink-100 truncate">
-                {selectedTopic.title}
-              </h2>
+      <>
+        <ResourceDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+        <div className="flex h-screen w-full overflow-hidden bg-ink-950 text-ink-100">
+          {/* Left Sidebar Panel: Shifted current list with increased width */}
+          <aside className="hidden md:flex w-full md:w-[420px] lg:w-[460px] xl:w-[500px] shrink-0 border-r border-ink-800 flex-col h-full overflow-hidden bg-ink-950">
+            {renderHeader(true)}
+            <div className="flex-1 overflow-y-auto code-scroll">
+              {renderFundamentalsList(true)}
             </div>
+          </aside>
 
-            {/* Right: Left & Right Navigation Arrows + Close */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              <span className="text-[11px] font-mono text-ink-500 mr-1 hidden sm:inline">
-                {selectedIndex + 1} / {allTopics.length}
-              </span>
+          {/* Right Viewer Panel: Full screen / full height with zero layout height reduction */}
+          <main className="relative flex-1 min-w-0 h-full overflow-hidden bg-ink-950">
+            {/* Floating Mobile Back Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedTopicId(null);
+                resetZoom();
+              }}
+              className="md:hidden absolute top-3 left-3 z-30 flex items-center gap-1.5 rounded-xl border border-ink-800/90 bg-ink-950/85 backdrop-blur-md px-3 py-1.5 text-xs font-semibold text-ink-200 shadow-xl"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>List</span>
+            </button>
 
-              {/* Left Arrow Button */}
+            {/* Floating Glass Control Bar (Top Right Overlay) */}
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1 rounded-xl bg-ink-950/85 backdrop-blur-md border border-ink-800/90 p-1 shadow-2xl shadow-black/80">
+              {/* Previous Image Switcher */}
               <button
                 type="button"
-                onClick={handlePrev}
-                disabled={selectedIndex === 0}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/80 text-ink-300 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition shadow-sm"
-                title="Previous topic (Left Arrow)"
-                aria-label="Previous topic"
+                onClick={handlePrevImage}
+                disabled={currentPageIndex === 0}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                title="Previous Image (Left Arrow)"
+                aria-label="Previous Image"
               >
                 <ChevronLeft className="h-4 w-4 stroke-[2.2]" />
               </button>
 
-              {/* Right Arrow Button */}
+              {/* Current Image Indicator (clean font-mono, NO # count) */}
+              <span className="text-xs font-mono font-bold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-2.5 py-1 rounded-lg select-none">
+                Image {currentPage.pageNumber} / {FUNDAMENTAL_PAGES.length}
+              </span>
+
+              {/* Next Image Switcher */}
               <button
                 type="button"
-                onClick={handleNext}
-                disabled={selectedIndex === allTopics.length - 1}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/80 text-ink-300 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition shadow-sm"
-                title="Next topic (Right Arrow)"
-                aria-label="Next topic"
+                onClick={handleNextImage}
+                disabled={currentPageIndex === FUNDAMENTAL_PAGES.length - 1}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                title="Next Image (Right Arrow)"
+                aria-label="Next Image"
               >
                 <ChevronRight className="h-4 w-4 stroke-[2.2]" />
               </button>
 
-              {/* Close Button to return to centered full list view */}
+              {/* Vertical divider */}
+              <span className="h-4 w-[1px] bg-ink-800 mx-0.5" />
+
+              {/* Zoom Controls */}
               <button
                 type="button"
-                onClick={() => setSelectedTopicId(null)}
-                className="ml-1 flex h-8 w-8 items-center justify-center rounded-lg border border-ink-800 bg-ink-900/80 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100 transition shadow-sm"
+                onClick={handleZoomOut}
+                disabled={zoom <= 0.6}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                title="Zoom Out (or scroll down on image)"
+                aria-label="Zoom Out"
+              >
+                <ZoomOut className="h-3.5 w-3.5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={resetZoom}
+                className="px-2 py-1 text-[11px] font-mono font-semibold text-ink-300 hover:text-accent-300 hover:bg-ink-800/60 rounded-md transition"
+                title="Click to reset zoom to 100%"
+              >
+                {Math.round(zoom * 100)}%
+              </button>
+
+              <button
+                type="button"
+                onClick={handleZoomIn}
+                disabled={zoom >= 3.5}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                title="Zoom In (or scroll up on image)"
+                aria-label="Zoom In"
+              >
+                <ZoomIn className="h-3.5 w-3.5" />
+              </button>
+
+              {(zoom !== 1 || pan.x !== 0 || pan.y !== 0) && (
+                <button
+                  type="button"
+                  onClick={resetZoom}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-amber-400 transition"
+                  title="Reset Zoom & Pan"
+                  aria-label="Reset"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                </button>
+              )}
+
+              {/* Vertical divider */}
+              <span className="h-4 w-[1px] bg-ink-800 mx-0.5" />
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedTopicId(null);
+                  resetZoom();
+                }}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
                 title="Close viewer (Esc)"
                 aria-label="Close viewer"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
-          </div>
 
-          {/* Viewer Content: Full-height diagram */}
-          <div className="flex-1 overflow-y-auto code-scroll flex items-center justify-center p-3 sm:p-5 bg-ink-950/70">
-            {selectedTopic.image ? (
-              <div className="relative max-h-full flex items-center justify-center">
+            {/* Canvas Container: Full-Height Image Viewport */}
+            <div
+              ref={imageContainerRef}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className={`relative h-full w-full overflow-hidden flex items-center justify-center p-0 bg-ink-950 select-none ${
+                zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
+              }`}
+            >
+              <div
+                style={{
+                  transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                  transformOrigin: "center center",
+                  transition: isDragging ? "none" : "transform 0.12s ease-out"
+                }}
+                className="h-full w-full flex items-center justify-center"
+              >
                 <img
-                  src={selectedTopic.image}
+                  src={currentPage.image}
                   alt={selectedTopic.title}
-                  className="max-h-[calc(100vh-7.5rem)] w-auto max-w-full object-contain rounded-xl border border-ink-800/80 shadow-2xl shadow-black/60 bg-ink-900/40"
+                  draggable={false}
+                  className="h-full w-auto max-w-full object-contain pointer-events-none select-none shadow-2xl"
                 />
               </div>
-            ) : (
-              /* Placeholder for topics whose images are still being generated */
-              <div className="flex flex-col items-center justify-center p-8 text-center max-w-md">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-ink-800 bg-ink-900/60 mb-4 shadow-inner text-accent-400">
-                  <ImageIcon className="h-6 w-6 stroke-[1.8]" />
+
+              {/* Subtle Pan Hint when zoomed in */}
+              {zoom > 1 && !isDragging && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none rounded-full bg-ink-900/90 border border-ink-800 px-3.5 py-1 text-xs text-ink-300 shadow-lg backdrop-blur z-20">
+                  Click & hold to move · Scroll to zoom
                 </div>
-                <span className="text-xs font-mono font-semibold text-accent-400 mb-1">
-                  Topic #{selectedIndex + 1}
-                </span>
-                <h3 className="text-base font-bold text-ink-100 mb-2">
-                  {selectedTopic.title}
-                </h3>
-                <p className="text-xs text-ink-400 leading-relaxed mb-5">
-                  Infographic diagram in progress. You can use the left and right arrows to browse through the other topics.
-                </p>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    disabled={selectedIndex === 0}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-ink-800 bg-ink-900 text-xs font-medium text-ink-300 hover:text-ink-100 hover:bg-ink-850 disabled:opacity-30 disabled:pointer-events-none transition"
-                  >
-                    <ChevronLeft className="h-3.5 w-3.5" /> Previous
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    disabled={selectedIndex === allTopics.length - 1}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-ink-800 bg-ink-900 text-xs font-medium text-ink-300 hover:text-ink-100 hover:bg-ink-850 disabled:opacity-30 disabled:pointer-events-none transition"
-                  >
-                    Next <ChevronRight className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </main>
-      </div>
+              )}
+            </div>
+          </main>
+        </div>
+      </>
     );
   }
 
@@ -320,8 +568,10 @@ export default function SystemDesignWorkspace() {
   // VIEW MODE 2: DEFAULT CENTERED VIEW (No topic opened yet or other tabs)
   // =========================================================================
   return (
-    <div className="mx-auto max-w-4xl w-full px-4 sm:px-6 py-6 space-y-4">
-      {renderHeader(false)}
+    <>
+      <ResourceDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      <div className="mx-auto max-w-4xl w-full px-4 sm:px-6 py-6 space-y-4">
+        {renderHeader(false)}
 
       {/* TAB 1: FUNDAMENTALS */}
       {activeTab === "fundamentals" && renderFundamentalsList(false)}
@@ -405,5 +655,6 @@ export default function SystemDesignWorkspace() {
         </div>
       )}
     </div>
+    </>
   );
 }

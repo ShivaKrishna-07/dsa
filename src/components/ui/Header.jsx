@@ -31,6 +31,10 @@ export default function Header({ tree = [], items = [] }) {
     pathname?.startsWith("/companies") ||
     pathname?.startsWith("/system-design");
 
+  if (pathname?.startsWith("/system-design")) {
+    return null;
+  }
+
   return (
     <>
       <header className="sticky top-0 z-30 border-b border-ink-800 bg-ink-950/95 backdrop-blur h-14">
