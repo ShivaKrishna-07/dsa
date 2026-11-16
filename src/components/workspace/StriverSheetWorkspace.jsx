@@ -27,7 +27,7 @@ import { useLayout } from "@/context/LayoutContext";
 let memoryCachedTopics = null;
 
 export default function StriverSheetWorkspace({ initialTree = [] }) {
-  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { isBookmarked, toggleBookmark, bookmarks, bookmarkCount } = useBookmarks();
   const { activeProblemMeta, setActiveProblemMeta } = useLayout();
   const pathname = usePathname();
   const [fullTopics, setFullTopics] = useState(memoryCachedTopics);
@@ -72,6 +72,8 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   const [selectedCodeName, setSelectedCodeName] = useState("Optimal");
   const [wrapCode, setWrapCode] = useState(false);
   const [filterQuery, setFilterQuery] = useState("");
+  const [filterDifficulty, setFilterDifficulty] = useState("all"); // 'all' | 'easy' | 'medium' | 'hard'
+  const [filterReviewOnly, setFilterReviewOnly] = useState(false);
   const searchInputRef = useRef(null);
 
   // Focus search input on Ctrl+K / Cmd+K / /
@@ -240,42 +242,57 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
     }
   };
 
-  // Filtered topics based on search query
+  // Filtered topics based on search query, difficulty, and review later status
   const q = filterQuery.trim().toLowerCase();
+  const isFiltering = filterReviewOnly || filterDifficulty !== "all" || Boolean(q);
+
   const filteredTopics = useMemo(() => {
-    if (!q) return topics;
+    if (!isFiltering) return topics;
+
     return topics
       .map((t) => {
-        const matchesTopic = t.title.toLowerCase().includes(q);
+        const matchesTopic = q ? t.title.toLowerCase().includes(q) : false;
+
         const filteredPatterns = (t.patterns || [])
           .map((p) => {
-            const matchesPattern = p.title.toLowerCase().includes(q);
+            const matchesPattern = q ? p.title.toLowerCase().includes(q) : false;
+
             const filteredProblems = (p.problems || []).filter((prob) => {
-              return (
-                matchesTopic ||
-                matchesPattern ||
-                prob.title.toLowerCase().includes(q) ||
-                (prob.difficulty && prob.difficulty.toLowerCase().includes(q))
-              );
+              if (filterReviewOnly && !isBookmarked(prob.slug)) {
+                return false;
+              }
+              if (filterDifficulty !== "all" && prob.difficulty?.toLowerCase() !== filterDifficulty) {
+                return false;
+              }
+              if (q) {
+                return (
+                  matchesTopic ||
+                  matchesPattern ||
+                  prob.title.toLowerCase().includes(q) ||
+                  (prob.difficulty && prob.difficulty.toLowerCase().includes(q))
+                );
+              }
+              return true;
             });
-            if (matchesPattern || filteredProblems.length > 0) {
-              return { ...p, problems: matchesPattern ? p.problems : filteredProblems };
+
+            if (filteredProblems.length > 0) {
+              return { ...p, problems: filteredProblems };
             }
             return null;
           })
           .filter(Boolean);
 
-        if (matchesTopic || filteredPatterns.length > 0) {
-          return { ...t, patterns: matchesTopic ? t.patterns : filteredPatterns };
+        if (filteredPatterns.length > 0) {
+          return { ...t, patterns: filteredPatterns };
         }
         return null;
       })
       .filter(Boolean);
-  }, [topics, q]);
+  }, [topics, q, filterReviewOnly, filterDifficulty, bookmarks, isFiltering]);
 
-  // When searching, auto-expand matching items
+  // When filtering or searching, auto-expand matching items
   useEffect(() => {
-    if (q) {
+    if (isFiltering) {
       const tSet = new Set();
       const pSet = new Set();
       filteredTopics.forEach((t) => {
@@ -287,7 +304,24 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       setExpandedTopics(tSet);
       setExpandedPatterns(pSet);
     }
-  }, [q, filteredTopics]);
+  }, [isFiltering, filteredTopics]);
+
+  // If currently selected problem is not in filtered list, auto-select the first visible problem
+  useEffect(() => {
+    if (isFiltering && filteredTopics.length > 0) {
+      const isCurrentVisible = filteredTopics.some((t) =>
+        t.patterns?.some((p) => p.problems?.some((prob) => prob.slug === selectedMeta?.problemSlug))
+      );
+      if (!isCurrentVisible) {
+        const firstT = filteredTopics[0];
+        const firstP = firstT.patterns?.[0];
+        const firstProb = firstP?.problems?.[0];
+        if (firstT && firstP && firstProb) {
+          selectProblem(firstT.slug, firstP.slug, firstProb.slug);
+        }
+      }
+    }
+  }, [isFiltering, filteredTopics, selectedMeta?.problemSlug]);
 
   // Resolve current active problem (from fullTopics if available, fallback to initialTree)
   const currentTopic = (fullTopics || initialTree).find((t) => t.slug === selectedMeta?.topicSlug);
@@ -311,6 +345,10 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
   const totalProblemsCount = useMemo(() => {
     return topics.reduce((acc, t) => acc + (t.patterns || []).reduce((a, p) => a + (p.problems?.length || 0), 0), 0);
   }, [topics]);
+
+  const filteredProblemsCount = useMemo(() => {
+    return filteredTopics.reduce((acc, t) => acc + (t.patterns || []).reduce((a, p) => a + (p.problems?.length || 0), 0), 0);
+  }, [filteredTopics]);
 
   return (
     <div className="flex h-[calc(100vh-3.5rem)] w-full overflow-hidden bg-ink-950 text-ink-100">
@@ -343,7 +381,11 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                     }
                   }
                 }}
-                placeholder={`Filter ${totalProblemsCount} problems, patterns, topics...`}
+                placeholder={
+                  isFiltering
+                    ? `Search ${filteredProblemsCount} filtered problems...`
+                    : `Filter ${totalProblemsCount} problems, patterns, topics...`
+                }
                 className="w-full rounded-xl border border-ink-800 bg-ink-900/90 py-1.5 pl-9 pr-14 text-xs text-ink-100 placeholder:text-ink-500 outline-none transition focus:border-accent-500/80 focus:ring-1 focus:ring-accent-500/20"
               />
               {filterQuery ? (
@@ -386,11 +428,137 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
               </button>
             </div>
           </div>
+
+          {/* Quick Filter Pills Row (Sheet layout only) */}
+          <div className="mt-2.5 pt-2 border-t border-ink-800/60 flex items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-1.5 overflow-x-auto code-scroll py-0.5 min-w-0">
+              {/* All Problems */}
+              <button
+                type="button"
+                onClick={() => {
+                  setFilterReviewOnly(false);
+                  setFilterDifficulty("all");
+                }}
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+                  !filterReviewOnly && filterDifficulty === "all"
+                    ? "bg-accent-500 text-[#09090b] shadow-sm shadow-accent-500/25 ring-1 ring-black/10 font-bold"
+                    : "border border-ink-800 bg-ink-900/70 text-ink-400 hover:border-ink-700 hover:bg-ink-850 hover:text-ink-200"
+                }`}
+                title="Show all problems"
+              >
+                All
+              </button>
+
+              {/* Review Later (Bookmarked) Toggle */}
+              <button
+                type="button"
+                onClick={() => setFilterReviewOnly((prev) => !prev)}
+                className={`shrink-0 flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                  filterReviewOnly
+                    ? "border-amber-500/60 bg-amber-500/20 text-amber-300 font-bold shadow-sm shadow-amber-500/15"
+                    : "border-ink-800 bg-ink-900/70 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
+                }`}
+                title={filterReviewOnly ? "Review Later filter active (click to clear)" : "Show only problems marked for review"}
+              >
+                <Bookmark className={`h-3 w-3 ${filterReviewOnly ? "fill-amber-400 text-amber-400" : ""}`} />
+                <span>Review Later</span>
+                {bookmarkCount > 0 && (
+                  <span className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
+                    filterReviewOnly
+                      ? "bg-amber-500/30 text-amber-200"
+                      : "bg-ink-800 text-ink-400"
+                  }`}>
+                    {bookmarkCount}
+                  </span>
+                )}
+              </button>
+
+              <span className="h-3.5 w-[1px] bg-ink-800 shrink-0 mx-0.5" />
+
+              {/* Difficulty: Easy */}
+              <button
+                type="button"
+                onClick={() => setFilterDifficulty((prev) => (prev === "easy" ? "all" : "easy"))}
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                  filterDifficulty === "easy"
+                    ? "border-emerald-500/60 bg-emerald-500/20 text-emerald-300 font-bold shadow-sm shadow-emerald-500/15"
+                    : "border-ink-800 bg-ink-900/70 text-ink-400 hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:text-emerald-300"
+                }`}
+                title="Filter by Easy difficulty"
+              >
+                Easy
+              </button>
+
+              {/* Difficulty: Medium */}
+              <button
+                type="button"
+                onClick={() => setFilterDifficulty((prev) => (prev === "medium" ? "all" : "medium"))}
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                  filterDifficulty === "medium"
+                    ? "border-amber-500/60 bg-amber-500/20 text-amber-300 font-bold shadow-sm shadow-amber-500/15"
+                    : "border-ink-800 bg-ink-900/70 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
+                }`}
+                title="Filter by Medium difficulty"
+              >
+                Medium
+              </button>
+
+              {/* Difficulty: Hard */}
+              <button
+                type="button"
+                onClick={() => setFilterDifficulty((prev) => (prev === "hard" ? "all" : "hard"))}
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-xs font-semibold transition border ${
+                  filterDifficulty === "hard"
+                    ? "border-rose-500/60 bg-rose-500/20 text-rose-300 font-bold shadow-sm shadow-rose-500/15"
+                    : "border-ink-800 bg-ink-900/70 text-ink-400 hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-300"
+                }`}
+                title="Filter by Hard difficulty"
+              >
+                Hard
+              </button>
+            </div>
+
+            {/* Problem Count Indicator */}
+            <div className="shrink-0 font-mono text-[11px] text-ink-400 hidden sm:block">
+              <span className="font-semibold text-ink-200">{filteredProblemsCount}</span>
+              <span className="text-ink-500">/{totalProblemsCount}</span>
+            </div>
+          </div>
         </div>
 
         {/* Accordion Content List */}
         <div className="flex-1 overflow-y-auto code-scroll">
-          {filteredTopics.map((topic) => {
+          {filteredTopics.length === 0 ? (
+            <div className="flex flex-col items-center justify-center p-8 text-center text-ink-400">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-ink-800 bg-ink-900/60 mb-3 shadow-inner">
+                {filterReviewOnly ? (
+                  <Bookmark className="h-5 w-5 text-amber-400/80" />
+                ) : (
+                  <Search className="h-5 w-5 text-ink-500" />
+                )}
+              </div>
+              <p className="font-semibold text-ink-200 text-sm">
+                {filterReviewOnly ? "No problems marked for review" : "No matching problems found"}
+              </p>
+              <p className="text-xs text-ink-500 mt-1 max-w-[260px]">
+                {filterReviewOnly
+                  ? "Click the bookmark icon on any problem to mark it for review later."
+                  : "Try adjusting your search query or clearing the active filters."}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setFilterReviewOnly(false);
+                  setFilterDifficulty("all");
+                  setFilterQuery("");
+                }}
+                className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg border border-ink-700/80 bg-ink-800/80 px-3 py-1.5 text-xs font-semibold text-ink-200 hover:bg-accent-500 hover:text-[#09090b] transition shadow-sm"
+              >
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            filteredTopics.map((topic) => {
             const isTopicExpanded = expandedTopics.has(topic.slug);
             const topicProblemCount = (topic.patterns || []).reduce((acc, p) => acc + (p.problems?.length || 0), 0);
 
@@ -625,7 +793,8 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                 )}
               </div>
             );
-          })}
+          })
+        )}
         </div>
       </aside>
 
