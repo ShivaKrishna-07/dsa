@@ -3,96 +3,66 @@ export const systemDesignData = {
     {
       id: "phase-1",
       phase: "Phase 1",
-      title: "System Design Basics",
+      title: "Architecture & Scalability Foundations",
       duration: "Week 1",
-      description: "Core architectural paradigms, scaling types, availability metrics, and estimation formulas.",
+      description: "Core architectural paradigms, scaling strategies, availability metrics, and estimations.",
       topics: [
-        { id: "p1-1", title: "What is HLD? HLD vs LLD" },
-        { id: "p1-8", title: "Functional vs Non-functional requirements" },
-        { id: "p1-2", title: "Monolith vs microservices" },
-        { id: "p1-3", title: "Vertical vs horizontal scaling" },
-        { id: "p1-4", title: "Stateless vs stateful architecture" },
-        { id: "p1-5", title: "Latency, throughput, QPS and availability" },
-        { id: "p1-9", title: "High Availability" },
-        { id: "p1-6", title: "Reliability, fault tolerance and single point of failure" },
-        { id: "p1-7", title: "Back-of-the-envelope estimation (traffic, storage, bandwidth)" }
+        { id: "f1", title: "System Requirements & Estimations (Functional vs Non-functional, QPS, Storage)" },
+        { id: "f2", title: "Architectural Styles (Monolith vs Microservices, Stateless vs Stateful)" },
+        { id: "f3", title: "Scaling & High Availability (Horizontal scaling, redundancy, fault tolerance, SLA)" },
+        { id: "f4", title: "Core Performance Metrics (Latency, throughput, QPS, bottleneck analysis)" }
       ]
     },
     {
       id: "phase-2",
       phase: "Phase 2",
-      title: "Networking and APIs",
+      title: "Networking, APIs & Gateways",
       duration: "Week 2",
-      description: "How data flows from client browsers through DNS, proxies, load balancers, and gateways.",
+      description: "Protocols, API paradigms, load distribution, and edge delivery.",
       topics: [
-        { id: "p2-1", title: "DNS and how a browser request reaches a server" },
-        { id: "p2-2", title: "HTTP/HTTPS and TCP vs UDP basics" },
-        { id: "p2-3", title: "REST API design and HTTP methods" },
-        { id: "p2-8", title: "gRPC and GraphQL" },
-        { id: "p2-4", title: "WebSockets vs polling vs SSE" },
-        { id: "p2-5", title: "Load balancer (L4/L7 and basic algorithms)" },
-        { id: "p2-9", title: "Service Discovery" },
-        { id: "p2-6", title: "Reverse proxy and API Gateway" },
-        { id: "p2-7", title: "CDN and how content is delivered" }
+        { id: "f5", title: "API Paradigms & Protocols (REST, gRPC, GraphQL, WebSockets vs SSE)" },
+        { id: "f6", title: "Load Balancing & Service Discovery (L4 vs L7, routing algorithms, service registry)" },
+        { id: "f7", title: "API Gateway & Reverse Proxy (Rate limiting, auth offloading, SSL termination)" },
+        { id: "f8", title: "Content Delivery Networks (Edge caching, static/dynamic asset delivery)" }
       ]
     },
     {
       id: "phase-3",
       phase: "Phase 3",
-      title: "Databases and Caching",
+      title: "Databases, Storage & Caching",
       duration: "Weeks 3–4",
-      description: "Storage paradigms, indexing, replication, partitioning, and caching strategies.",
+      description: "Storage paradigms, replication, sharding, caching architectures, and consistency models.",
       topics: [
-        { id: "p3-1", title: "SQL vs NoSQL (relational, document and key-value)" },
-        { id: "p3-12", title: "Object storage (AWS S3), multipart uploads and basic video transcoding" },
-        { id: "p3-2", title: "Database schema design and normalization" },
-        { id: "p3-3", title: "Indexing and B-Tree basics" },
-        { id: "p3-13", title: "Geohashing" },
-        { id: "p3-4", title: "Replication and read replicas" },
-        { id: "p3-5", title: "Sharding and partitioning" },
-        { id: "p3-6", title: "Consistent hashing (basic understanding)" },
-        { id: "p3-7", title: "ACID and database transactions" },
-        { id: "p3-14", title: "Concurrency control: optimistic vs pessimistic locking" },
-        { id: "p3-8", title: "CAP theorem and strong vs eventual consistency" },
-        { id: "p3-15", title: "PACELC theorem" },
-        { id: "p3-9", title: "Redis and caching strategies" },
-        { id: "p3-10", title: "Cache eviction: LRU and LFU" },
-        { id: "p3-11", title: "Cache invalidation and cache stampede" }
+        { id: "f9", title: "Database Paradigms & Schema Design (SQL vs NoSQL: Relational, document, key-value)" },
+        { id: "f10", title: "Object Storage & Media (AWS S3, multipart chunked uploads, video transcoding)" },
+        { id: "f11", title: "Database Scaling (Replication, read replicas, sharding, and partitioning)" },
+        { id: "f12", title: "Distributed Hashing & Indexing (Consistent hashing, virtual nodes, B-Trees, Geohashing)" },
+        { id: "f13", title: "Transactions & Consistency (ACID, CAP & PACELC theorems, optimistic vs pessimistic locking)" },
+        { id: "f14", title: "Caching Architecture (Redis, caching patterns, LRU/LFU eviction, stampede & invalidation)" }
       ]
     },
     {
       id: "phase-4",
       phase: "Phase 4",
-      title: "Messaging and Distributed Systems",
+      title: "Asynchronous & Distributed Systems",
       duration: "Week 5",
-      description: "Async pipelines, message brokers, distributed synchronization, and failure isolation.",
+      description: "Message brokers, distributed reliability, coordination primitives, and failure tolerance.",
       topics: [
-        { id: "p4-1", title: "Synchronous vs asynchronous communication" },
-        { id: "p4-2", title: "Message queues and Pub/Sub" },
-        { id: "p4-3", title: "Kafka basics: topics, partitions and consumers" },
-        { id: "p4-4", title: "Retries, exponential backoff and dead-letter queues" },
-        { id: "p4-5", title: "Idempotency and duplicate requests" },
-        { id: "p4-9", title: "Distributed Transactions – Saga" },
-        { id: "p4-6", title: "Distributed locks (basic understanding)" },
-        { id: "p4-10", title: "Leader Election" },
-        { id: "p4-7", title: "Timeouts and circuit breakers" },
-        { id: "p4-8", title: "Basic logging, monitoring and health checks" }
+        { id: "f15", title: "Message Queues & Event Streaming (Kafka, Pub/Sub, topics, partitions, consumer groups)" },
+        { id: "f16", title: "Distributed Reliability (Idempotency, retries with exponential backoff, DLQ, circuit breakers)" },
+        { id: "f17", title: "Distributed Coordination (Leader election, distributed locks, consensus basics)" },
+        { id: "f18", title: "Distributed Transactions (Saga pattern: orchestration vs choreography, 2PC)" }
       ]
     },
     {
       id: "phase-5",
       phase: "Phase 5",
-      title: "Reliability and Security",
+      title: "Security & Rate Limiting",
       duration: "Week 6",
-      description: "Authentication, rate limiting algorithms, failover strategies, and security fundamentals.",
+      description: "Traffic policing, authentication, authorization, and data security.",
       topics: [
-        { id: "p5-1", title: "Authentication vs authorization" },
-        { id: "p5-2", title: "JWT and session-based authentication" },
-        { id: "p5-3", title: "Rate limiting: Token Bucket and Sliding Window" },
-        { id: "p5-4", title: "Horizontal scaling and auto-scaling" },
-        { id: "p5-5", title: "Failover and graceful degradation" },
-        { id: "p5-6", title: "Backups and disaster recovery" },
-        { id: "p5-7", title: "Basic security: HTTPS, encryption and access control" }
+        { id: "f19", title: "Rate Limiting Architecture (Token bucket, leaky bucket, sliding window with Redis)" },
+        { id: "f20", title: "Authentication & Authorization (JWT, OAuth2, RBAC, encryption at rest and in transit)" }
       ]
     }
   ],
@@ -152,17 +122,6 @@ export const systemDesignData = {
         { id: "q18", title: "Logging and Monitoring System", concept: "High-volume ingestion, time-series data, metrics", difficulty: "Medium" },
         { id: "q19", title: "Distributed Job Scheduler", concept: "Cron scheduling, worker pools, DAG execution", difficulty: "Medium" },
         { id: "q20", title: "Real-time Leaderboard", concept: "Redis Sorted Sets, Top-K, write-heavy ranking", difficulty: "Easy" }
-      ]
-    },
-    {
-      id: "grp-mocks",
-      group: "Mock Interviews (5 Practice Sessions)",
-      items: [
-        { id: "mock-1", title: "Mock Interview 1", concept: "Full 45-min end-to-end simulation", difficulty: "Exam" },
-        { id: "mock-2", title: "Mock Interview 2", concept: "Full 45-min end-to-end simulation", difficulty: "Exam" },
-        { id: "mock-3", title: "Mock Interview 3", concept: "Full 45-min end-to-end simulation", difficulty: "Exam" },
-        { id: "mock-4", title: "Mock Interview 4", concept: "Full 45-min end-to-end simulation", difficulty: "Exam" },
-        { id: "mock-5", title: "Mock Interview 5", concept: "Full 45-min end-to-end simulation", difficulty: "Exam" }
       ]
     }
   ],

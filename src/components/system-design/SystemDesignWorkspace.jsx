@@ -42,9 +42,7 @@ export default function SystemDesignWorkspace() {
   const completedTopicsCount = allTopics.filter((t) => completed[t.id]).length;
 
   const coreQuestions = useMemo(() => {
-    return systemDesignData.questions
-      .filter((g) => g.id !== "grp-optional" && g.id !== "grp-mocks")
-      .flatMap((g) => g.items);
+    return systemDesignData.questions.flatMap((g) => g.items);
   }, []);
   const completedQuestionsCount = coreQuestions.filter((q) => completed[q.id]).length;
 
