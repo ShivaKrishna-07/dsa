@@ -285,11 +285,11 @@ export default function SystemDesignWorkspace() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-ink-900/60 border border-ink-800/80 overflow-x-auto whitespace-nowrap">
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-ink-900/60 border border-ink-800/80 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap">
         <button
           type="button"
           onClick={() => setActiveTab("fundamentals")}
-          className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition shrink-0 ${
             activeTab === "fundamentals"
               ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
               : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
@@ -314,7 +314,7 @@ export default function SystemDesignWorkspace() {
             setSelectedTopicId(null);
             resetZoom();
           }}
-          className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition shrink-0 ${
             activeTab === "questions"
               ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
               : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
@@ -339,7 +339,7 @@ export default function SystemDesignWorkspace() {
             setSelectedTopicId(null);
             resetZoom();
           }}
-          className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium transition ${
+          className={`flex items-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition shrink-0 ${
             activeTab === "framework"
               ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
               : "text-ink-400 hover:text-ink-200 hover:bg-ink-800/40 border border-transparent"
@@ -407,7 +407,7 @@ export default function SystemDesignWorkspace() {
         <ResourceDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         <div className="fixed inset-0 z-40 flex h-screen w-full overflow-hidden bg-ink-950 text-ink-100">
           {/* Left Sidebar Panel: Shifted current list with increased width */}
-          <aside className="hidden md:flex w-full md:w-[420px] lg:w-[460px] xl:w-[500px] shrink-0 border-r border-ink-800 flex-col h-full overflow-hidden bg-ink-950">
+          <aside className="hidden md:flex w-full md:w-[480px] lg:w-[500px] xl:w-[530px] shrink-0 border-r border-ink-800 flex-col h-full overflow-hidden bg-ink-950">
             {renderHeader(true)}
             <div className="flex-1 overflow-y-auto code-scroll">
               {renderFundamentalsList(true)}
