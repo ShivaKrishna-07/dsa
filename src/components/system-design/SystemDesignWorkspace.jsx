@@ -425,100 +425,96 @@ export default function SystemDesignWorkspace() {
               <span>List</span>
             </button>
 
-            {/* Floating Glass Control Bar (Top Right Overlay) */}
-            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1 rounded-xl bg-ink-950/85 backdrop-blur-md border border-ink-800/90 p-1 shadow-2xl shadow-black/80">
-              {/* Previous Image Switcher */}
-              <button
-                type="button"
-                onClick={handlePrevImage}
-                disabled={currentPageIndex === 0}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Previous Image (Left Arrow)"
-                aria-label="Previous Image"
-              >
-                <ChevronLeft className="h-4 w-4 stroke-[2.2]" />
-              </button>
+            {/* Floating Separate Close Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedTopicId(null);
+                resetZoom();
+              }}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex h-8.5 w-8.5 items-center justify-center rounded-xl bg-ink-950/85 backdrop-blur-md border border-ink-800/90 text-ink-300 hover:text-ink-100 hover:bg-ink-800/80 hover:border-ink-700 transition shadow-xl"
+              title="Close viewer (Esc)"
+              aria-label="Close viewer"
+            >
+              <X className="h-4 w-4 stroke-[2.2]" />
+            </button>
 
-              {/* Current Image Indicator (clean font-mono, NO # count) */}
-              <span className="text-xs font-mono font-bold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-2.5 py-1 rounded-lg select-none">
-                Image {currentPage.pageNumber} / {FUNDAMENTAL_PAGES.length}
-              </span>
+            {/* Floating Navigation & Zoom Controls (2 stacked compact rows) */}
+            <div className="absolute top-3 right-13 sm:top-4 sm:right-15 z-30 flex flex-col items-center gap-1 rounded-xl bg-ink-950/85 backdrop-blur-md border border-ink-800/90 p-1 shadow-2xl shadow-black/80">
+              {/* Top Part: Image Navigation & Count */}
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handlePrevImage}
+                  disabled={currentPageIndex === 0}
+                  className="flex h-7 w-7 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                  title="Previous Image (Left Arrow)"
+                  aria-label="Previous Image"
+                >
+                  <ChevronLeft className="h-4 w-4 stroke-[2.2]" />
+                </button>
 
-              {/* Next Image Switcher */}
-              <button
-                type="button"
-                onClick={handleNextImage}
-                disabled={currentPageIndex === FUNDAMENTAL_PAGES.length - 1}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Next Image (Right Arrow)"
-                aria-label="Next Image"
-              >
-                <ChevronRight className="h-4 w-4 stroke-[2.2]" />
-              </button>
+                <span className="text-xs font-mono font-bold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-2.5 py-0.5 rounded-lg select-none whitespace-nowrap">
+                  Image {currentPage.pageNumber} / {FUNDAMENTAL_PAGES.length}
+                </span>
 
-              {/* Vertical divider */}
-              <span className="h-4 w-[1px] bg-ink-800 mx-0.5" />
+                <button
+                  type="button"
+                  onClick={handleNextImage}
+                  disabled={currentPageIndex === FUNDAMENTAL_PAGES.length - 1}
+                  className="flex h-7 w-7 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                  title="Next Image (Right Arrow)"
+                  aria-label="Next Image"
+                >
+                  <ChevronRight className="h-4 w-4 stroke-[2.2]" />
+                </button>
+              </div>
 
-              {/* Zoom Controls */}
-              <button
-                type="button"
-                onClick={handleZoomOut}
-                disabled={zoom <= 0.6}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Zoom Out (or scroll down on image)"
-                aria-label="Zoom Out"
-              >
-                <ZoomOut className="h-3.5 w-3.5" />
-              </button>
+              {/* Bottom Part: 3 Zoom Buttons in a line below the image count */}
+              <div className="flex items-center justify-center gap-1 w-full pt-1 border-t border-ink-800/60">
+                <button
+                  type="button"
+                  onClick={handleZoomOut}
+                  disabled={zoom <= 0.6}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                  title="Zoom Out (or scroll down on image)"
+                  aria-label="Zoom Out"
+                >
+                  <ZoomOut className="h-3.5 w-3.5" />
+                </button>
 
-              <button
-                type="button"
-                onClick={resetZoom}
-                className="px-2 py-1 text-[11px] font-mono font-semibold text-ink-300 hover:text-accent-300 hover:bg-ink-800/60 rounded-md transition"
-                title="Click to reset zoom to 100%"
-              >
-                {Math.round(zoom * 100)}%
-              </button>
-
-              <button
-                type="button"
-                onClick={handleZoomIn}
-                disabled={zoom >= 3.5}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Zoom In (or scroll up on image)"
-                aria-label="Zoom In"
-              >
-                <ZoomIn className="h-3.5 w-3.5" />
-              </button>
-
-              {(zoom !== 1 || pan.x !== 0 || pan.y !== 0) && (
                 <button
                   type="button"
                   onClick={resetZoom}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-amber-400 transition"
-                  title="Reset Zoom & Pan"
-                  aria-label="Reset"
+                  className="px-2 py-0.5 text-[11px] font-mono font-semibold text-ink-300 hover:text-accent-300 hover:bg-ink-800/60 rounded-md transition"
+                  title="Click to reset zoom to 100%"
                 >
-                  <RotateCcw className="h-3.5 w-3.5" />
+                  {Math.round(zoom * 100)}%
                 </button>
-              )}
 
-              {/* Vertical divider */}
-              <span className="h-4 w-[1px] bg-ink-800 mx-0.5" />
+                <button
+                  type="button"
+                  onClick={handleZoomIn}
+                  disabled={zoom >= 3.5}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
+                  title="Zoom In (or scroll up on image)"
+                  aria-label="Zoom In"
+                >
+                  <ZoomIn className="h-3.5 w-3.5" />
+                </button>
 
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedTopicId(null);
-                  resetZoom();
-                }}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
-                title="Close viewer (Esc)"
-                aria-label="Close viewer"
-              >
-                <X className="h-4 w-4" />
-              </button>
+                {(zoom !== 1 || pan.x !== 0 || pan.y !== 0) && (
+                  <button
+                    type="button"
+                    onClick={resetZoom}
+                    className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-amber-400 transition ml-0.5"
+                    title="Reset Zoom & Pan"
+                    aria-label="Reset"
+                  >
+                    <RotateCcw className="h-3 w-3" />
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Canvas Container: Full-Height Image Viewport */}
