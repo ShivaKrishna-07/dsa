@@ -1,68 +1,25 @@
 export const systemDesignData = {
   fundamentals: [
     {
-      id: "phase-1",
-      phase: "Phase 1",
-      title: "Architecture & Scalability Foundations",
-      duration: "Week 1",
-      description: "Core architectural paradigms, scaling strategies, availability metrics, and estimations.",
+      id: "core-fundamentals",
+      title: "System Design Fundamentals",
       topics: [
-        { id: "f1", title: "System Requirements & Estimations (Functional vs Non-functional, QPS, Storage)" },
-        { id: "f2", title: "Architectural Styles (Monolith vs Microservices, Stateless vs Stateful)" },
-        { id: "f3", title: "Scaling & High Availability (Horizontal scaling, redundancy, fault tolerance, SLA)" },
-        { id: "f4", title: "Core Performance Metrics (Latency, throughput, QPS, bottleneck analysis)" }
-      ]
-    },
-    {
-      id: "phase-2",
-      phase: "Phase 2",
-      title: "Networking, APIs & Gateways",
-      duration: "Week 2",
-      description: "Protocols, API paradigms, load distribution, and edge delivery.",
-      topics: [
-        { id: "f5", title: "API Paradigms & Protocols (REST, gRPC, GraphQL, WebSockets vs SSE)" },
-        { id: "f6", title: "Load Balancing & Service Discovery (L4 vs L7, routing algorithms, service registry)" },
-        { id: "f7", title: "API Gateway & Reverse Proxy (Rate limiting, auth offloading, SSL termination)" },
-        { id: "f8", title: "Content Delivery Networks (Edge caching, static/dynamic asset delivery)" }
-      ]
-    },
-    {
-      id: "phase-3",
-      phase: "Phase 3",
-      title: "Databases, Storage & Caching",
-      duration: "Weeks 3–4",
-      description: "Storage paradigms, replication, sharding, caching architectures, and consistency models.",
-      topics: [
-        { id: "f9", title: "Database Paradigms & Schema Design (SQL vs NoSQL: Relational, document, key-value)" },
-        { id: "f10", title: "Object Storage & Media (AWS S3, multipart chunked uploads, video transcoding)" },
-        { id: "f11", title: "Database Scaling (Replication, read replicas, sharding, and partitioning)" },
-        { id: "f12", title: "Distributed Hashing & Indexing (Consistent hashing, virtual nodes, B-Trees, Geohashing)" },
-        { id: "f13", title: "Transactions & Consistency (ACID, CAP & PACELC theorems, optimistic vs pessimistic locking)" },
-        { id: "f14", title: "Caching Architecture (Redis, caching patterns, LRU/LFU eviction, stampede & invalidation)" }
-      ]
-    },
-    {
-      id: "phase-4",
-      phase: "Phase 4",
-      title: "Asynchronous & Distributed Systems",
-      duration: "Week 5",
-      description: "Message brokers, distributed reliability, coordination primitives, and failure tolerance.",
-      topics: [
-        { id: "f15", title: "Message Queues & Event Streaming (Kafka, Pub/Sub, topics, partitions, consumer groups)" },
-        { id: "f16", title: "Distributed Reliability (Idempotency, retries with exponential backoff, DLQ, circuit breakers)" },
-        { id: "f17", title: "Distributed Coordination (Leader election, distributed locks, consensus basics)" },
-        { id: "f18", title: "Distributed Transactions (Saga pattern: orchestration vs choreography, 2PC)" }
-      ]
-    },
-    {
-      id: "phase-5",
-      phase: "Phase 5",
-      title: "Security & Rate Limiting",
-      duration: "Week 6",
-      description: "Traffic policing, authentication, authorization, and data security.",
-      topics: [
-        { id: "f19", title: "Rate Limiting Architecture (Token bucket, leaky bucket, sliding window with Redis)" },
-        { id: "f20", title: "Authentication & Authorization (JWT, OAuth2, RBAC, encryption at rest and in transit)" }
+        { id: "f1", title: "Monolith vs Microservices" },
+        { id: "f2", title: "Vertical vs Horizontal Scaling" },
+        { id: "f3", title: "Stateless vs Stateful Architecture" },
+        { id: "f4", title: "Forward & Reverse Proxies" },
+        { id: "f5", title: "Load Balancers" },
+        { id: "f6", title: "REST vs gRPC vs GraphQL" },
+        { id: "f7", title: "SQL vs NoSQL" },
+        { id: "f8", title: "Database Replication (Master / Slave)" },
+        { id: "f9", title: "Optimistic vs Pessimistic Locking" },
+        { id: "f10", title: "Cache" },
+        { id: "f11", title: "Cache Eviction (LRU vs LFU)" },
+        { id: "f12", title: "Cache Invalidation & Cache Stampede" },
+        { id: "f13", title: "Content Delivery Network (CDN)" },
+        { id: "f14", title: "Message Queues" },
+        { id: "f15", title: "Idempotency" },
+        { id: "f16", title: "Data Centers" }
       ]
     }
   ],

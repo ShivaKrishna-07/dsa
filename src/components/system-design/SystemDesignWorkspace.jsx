@@ -1,53 +1,18 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { CheckCircle2, Circle, RotateCcw } from "lucide-react";
+import { useState, useMemo } from "react";
 import { systemDesignData } from "@/content/system-design/systemDesignData";
-
-const STORAGE_KEY = "hld_prep_progress_v1";
 
 export default function SystemDesignWorkspace() {
   const [activeTab, setActiveTab] = useState("fundamentals");
-  const [completed, setCompleted] = useState({});
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setCompleted(JSON.parse(saved));
-    } catch (e) {}
-  }, []);
-
-  const toggleItem = (id) => {
-    setCompleted((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      } catch (e) {}
-      return next;
-    });
-  };
-
-  const resetProgress = () => {
-    if (window.confirm("Reset all System Design progress?")) {
-      setCompleted({});
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (e) {}
-    }
-  };
 
   const allTopics = useMemo(() => {
     return systemDesignData.fundamentals.flatMap((p) => p.topics);
   }, []);
-  const completedTopicsCount = allTopics.filter((t) => completed[t.id]).length;
 
   const coreQuestions = useMemo(() => {
     return systemDesignData.questions.flatMap((g) => g.items);
   }, []);
-  const completedQuestionsCount = coreQuestions.filter((q) => completed[q.id]).length;
-
-  const totalDone = completedTopicsCount + completedQuestionsCount;
-  const totalItems = allTopics.length + coreQuestions.length;
 
   return (
     <div className="mx-auto max-w-4xl w-full px-4 sm:px-6 py-6 space-y-4">
@@ -57,22 +22,10 @@ export default function SystemDesignWorkspace() {
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink-100">
             System Design
           </h1>
-          <span className="text-xs font-semibold text-accent-300 bg-accent-500/10 border border-accent-500/20 px-2 py-0.5 rounded-full">
-            {totalDone}/{totalItems}
+          <span className="text-xs font-semibold text-accent-300 bg-accent-500/10 border border-accent-500/20 px-2.5 py-0.5 rounded-full font-mono">
+            {allTopics.length + coreQuestions.length} Topics
           </span>
         </div>
-
-        {totalDone > 0 && (
-          <button
-            type="button"
-            onClick={resetProgress}
-            className="flex items-center gap-1 text-xs text-ink-500 hover:text-red-400 transition"
-            title="Reset checklist"
-          >
-            <RotateCcw className="h-3 w-3" />
-            <span>Reset</span>
-          </button>
-        )}
       </div>
 
       {/* Minimal Tabs */}
@@ -86,7 +39,7 @@ export default function SystemDesignWorkspace() {
               : "text-ink-400 hover:text-ink-200"
           }`}
         >
-          Fundamentals ({completedTopicsCount}/{allTopics.length})
+          Fundamentals ({allTopics.length})
         </button>
 
         <button
@@ -98,7 +51,7 @@ export default function SystemDesignWorkspace() {
               : "text-ink-400 hover:text-ink-200"
           }`}
         >
-          Interview Questions ({completedQuestionsCount}/{coreQuestions.length})
+          Interview Questions ({coreQuestions.length})
         </button>
 
         <button
@@ -119,53 +72,32 @@ export default function SystemDesignWorkspace() {
       {/* ========================================================================= */}
       {activeTab === "fundamentals" && (
         <div className="space-y-4 pt-1">
-          {systemDesignData.fundamentals.map((phase) => {
-            const phaseDone = phase.topics.filter((t) => completed[t.id]).length;
-
-            return (
-              <div key={phase.id} className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-                  <span>
-                    {phase.phase} – {phase.title}
-                  </span>
-                  <span className="text-ink-500 text-[11px]">
-                    {phaseDone}/{phase.topics.length} · {phase.duration}
-                  </span>
-                </div>
-
-                <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-                  {phase.topics.map((topic) => {
-                    const isDone = Boolean(completed[topic.id]);
-
-                    return (
-                      <div
-                        key={topic.id}
-                        onClick={() => toggleItem(topic.id)}
-                        className={`flex items-center gap-3 px-3.5 py-2.5 cursor-pointer select-none transition-colors ${
-                          isDone
-                            ? "bg-emerald-500/5 text-ink-400"
-                            : "hover:bg-ink-800/40 text-ink-200"
-                        }`}
-                      >
-                        {isDone ? (
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                        ) : (
-                          <Circle className="h-4 w-4 text-ink-600 hover:text-ink-400 shrink-0" />
-                        )}
-                        <span
-                          className={`text-xs sm:text-sm ${
-                            isDone ? "line-through text-ink-500" : ""
-                          }`}
-                        >
-                          {topic.title}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+          {systemDesignData.fundamentals.map((section) => (
+            <div key={section.id} className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+                <span>{section.title}</span>
+                <span className="text-ink-500 text-[11px] font-mono">
+                  {section.topics.length} topics
+                </span>
               </div>
-            );
-          })}
+
+              <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+                {section.topics.map((topic, idx) => (
+                  <div
+                    key={topic.id}
+                    className="flex items-center gap-3 px-3.5 py-2.5 hover:bg-ink-800/30 transition-colors"
+                  >
+                    <span className="text-xs text-ink-500 w-5 shrink-0 font-mono">
+                      {idx + 1}
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-ink-200">
+                      {topic.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
@@ -174,67 +106,45 @@ export default function SystemDesignWorkspace() {
       {/* ========================================================================= */}
       {activeTab === "questions" && (
         <div className="space-y-4 pt-1">
-          {systemDesignData.questions.map((grp) => {
-            const grpDone = grp.items.filter((it) => completed[it.id]).length;
-
-            return (
-              <div key={grp.id} className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-                  <span>{grp.group}</span>
-                  <span className="text-ink-500 text-[11px]">
-                    {grpDone}/{grp.items.length}
-                  </span>
-                </div>
-
-                <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-                  {grp.items.map((item, idx) => {
-                    const isDone = Boolean(completed[item.id]);
-
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => toggleItem(item.id)}
-                        className={`flex items-center justify-between gap-3 px-3.5 py-2.5 cursor-pointer select-none transition-colors ${
-                          isDone
-                            ? "bg-emerald-500/5 text-ink-400"
-                            : "hover:bg-ink-800/40 text-ink-200"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          {isDone ? (
-                            <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                          ) : (
-                            <Circle className="h-4 w-4 text-ink-600 hover:text-ink-400 shrink-0" />
-                          )}
-                          <span className="text-xs text-ink-500 w-4">
-                            {idx + 1}
-                          </span>
-                          <span
-                            className={`text-xs sm:text-sm font-medium ${
-                              isDone ? "line-through text-ink-500" : ""
-                            }`}
-                          >
-                            {item.title}
-                          </span>
-                        </div>
-
-                        {item.concept && (
-                          <span className="text-xs text-ink-500 shrink-0 hidden sm:inline">
-                            {item.concept}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+          {systemDesignData.questions.map((grp) => (
+            <div key={grp.id} className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+                <span>{grp.group}</span>
+                <span className="text-ink-500 text-[11px] font-mono">
+                  {grp.items.length}
+                </span>
               </div>
-            );
-          })}
+
+              <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+                {grp.items.map((item, idx) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between gap-3 px-3.5 py-2.5 hover:bg-ink-800/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="text-xs text-ink-500 w-5 shrink-0 font-mono">
+                        {idx + 1}
+                      </span>
+                      <span className="text-xs sm:text-sm font-medium text-ink-200">
+                        {item.title}
+                      </span>
+                    </div>
+
+                    {item.concept && (
+                      <span className="text-xs text-ink-500 shrink-0 hidden sm:inline">
+                        {item.concept}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 3: ANSWERING FRAMEWORK (Identical UI to Tab 1 & Tab 2)                 */}
+      {/* TAB 3: ANSWERING FRAMEWORK                                                 */}
       {/* ========================================================================= */}
       {activeTab === "framework" && (
         <div className="space-y-4 pt-1">
