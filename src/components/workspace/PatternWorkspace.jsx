@@ -185,7 +185,7 @@ export default function PatternWorkspace({ topic, pattern }) {
                     onClick={toggleWrapTemplate}
                     className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
                       wrapTemplate
-                        ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
+                        ? "border-accent-400 bg-accent-500 text-[#09090b] shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                         : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
                     }`}
                     title={wrapTemplate ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}

@@ -9,9 +9,11 @@ import { difficultyClass } from "@/lib/format";
 import { SiLeetcode, SiGeeksforgeeks, SiYoutube } from "react-icons/si";
 import ReactMarkdown from "react-markdown";
 import { useBookmarks } from "@/context/BookmarkContext";
+import { useLayout } from "@/context/LayoutContext";
 
-export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem }) {
+export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, topicSlug, patternSlug }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { setActiveProblemMeta } = useLayout();
   const marked = isBookmarked(problem.slug);
 
   const pathname = usePathname();
@@ -19,6 +21,19 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
   const [activeTab, setActiveTab] = useState("ps");
   const [mobileTab, setMobileTab] = useState("problem"); // "problem" | "code" on mobile screens
   const [wrapCode, setWrapCode] = useState(false);
+
+  // Sync active problem to LayoutContext for seamless layout switching
+  useEffect(() => {
+    const tSlug = topicSlug || pathname?.split("/").filter(Boolean)[0];
+    const pSlug = patternSlug || pathname?.split("/").filter(Boolean)[1];
+    if (tSlug && pSlug && problem?.slug) {
+      setActiveProblemMeta({
+        topicSlug: tSlug,
+        patternSlug: pSlug,
+        problemSlug: problem.slug
+      });
+    }
+  }, [topicSlug, patternSlug, problem?.slug, pathname, setActiveProblemMeta]);
 
   // Sync word wrap preference from localStorage on mount
   useEffect(() => {
@@ -558,7 +573,7 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem })
               onClick={toggleWrapCode}
               className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
                 wrapCode
-                  ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
+                  ? "border-accent-400 bg-accent-500 text-[#09090b] shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                   : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
               }`}
               title={wrapCode ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}

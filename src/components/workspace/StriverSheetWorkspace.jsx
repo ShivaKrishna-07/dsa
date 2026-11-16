@@ -17,19 +17,23 @@ import {
 import { SiGeeksforgeeks, SiLeetcode, SiYoutube } from "react-icons/si";
 import { TopicIcon } from "@/components/ui/icons";
 import CodeBlock, { CopyButton } from "@/components/ui/CodeBlock";
+import { usePathname } from "next/navigation";
 import PatternBadge from "@/components/ui/PatternBadge";
 import ProblemStatementMarkdown from "@/components/workspace/ProblemStatementMarkdown";
 import { difficultyClass } from "@/lib/format";
 import { useBookmarks } from "@/context/BookmarkContext";
+import { useLayout } from "@/context/LayoutContext";
 
 let memoryCachedTopics = null;
 
 export default function StriverSheetWorkspace({ initialTree = [] }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { activeProblemMeta, setActiveProblemMeta } = useLayout();
+  const pathname = usePathname();
   const [fullTopics, setFullTopics] = useState(memoryCachedTopics);
   const topics = fullTopics || initialTree;
 
-  // Default selection
+  // Default fallback selection (first problem in the tree)
   const defaultSelection = useMemo(() => {
     if (!topics.length) return null;
     for (const t of topics) {
@@ -46,7 +50,23 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
     return null;
   }, [topics]);
 
-  const [selectedMeta, setSelectedMeta] = useState(defaultSelection);
+  // Priority selection: activeProblemMeta -> pathname match -> defaultSelection
+  const resolveTargetSelection = () => {
+    if (activeProblemMeta?.topicSlug && activeProblemMeta?.patternSlug && activeProblemMeta?.problemSlug) {
+      return activeProblemMeta;
+    }
+    const pathParts = pathname?.split("/").filter(Boolean) || [];
+    if (pathParts.length === 3) {
+      return {
+        topicSlug: pathParts[0],
+        patternSlug: pathParts[1],
+        problemSlug: pathParts[2]
+      };
+    }
+    return defaultSelection;
+  };
+
+  const [selectedMeta, setSelectedMeta] = useState(() => resolveTargetSelection());
   const [mobileView, setMobileView] = useState("list"); // 'list' | 'details' (for mobile viewport)
   const [activeTab, setActiveTab] = useState("ps"); // 'ps' | 'intuition' | 'code'
   const [selectedCodeName, setSelectedCodeName] = useState("Optimal");
@@ -71,13 +91,42 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Accordion state (first topic and pattern open by default)
+  // Accordion state (selected topic and pattern open by default)
   const [expandedTopics, setExpandedTopics] = useState(() => {
-    return defaultSelection ? new Set([defaultSelection.topicSlug]) : new Set();
+    const target = resolveTargetSelection();
+    return target?.topicSlug ? new Set([target.topicSlug]) : new Set();
   });
   const [expandedPatterns, setExpandedPatterns] = useState(() => {
-    return defaultSelection ? new Set([`${defaultSelection.topicSlug}-${defaultSelection.patternSlug}`]) : new Set();
+    const target = resolveTargetSelection();
+    return target?.topicSlug && target?.patternSlug
+      ? new Set([`${target.topicSlug}-${target.patternSlug}`])
+      : new Set();
   });
+
+  // Keep selected problem and accordion expanded when activeProblemMeta or pathname changes
+  useEffect(() => {
+    const target = resolveTargetSelection();
+    if (target?.problemSlug && target.problemSlug !== selectedMeta?.problemSlug) {
+      setSelectedMeta(target);
+    }
+    if (target?.topicSlug) {
+      setExpandedTopics((prev) => (prev.has(target.topicSlug) ? prev : new Set([...prev, target.topicSlug])));
+    }
+    if (target?.topicSlug && target?.patternSlug) {
+      const key = `${target.topicSlug}-${target.patternSlug}`;
+      setExpandedPatterns((prev) => (prev.has(key) ? prev : new Set([...prev, key])));
+    }
+  }, [activeProblemMeta, pathname]);
+
+  // Auto-scroll selected problem into view in accordion
+  useEffect(() => {
+    if (selectedMeta?.problemSlug) {
+      const el = document.getElementById(`sheet-prob-${selectedMeta.problemSlug}`);
+      if (el) {
+        el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    }
+  }, [selectedMeta?.problemSlug]);
 
   // Fetch full details if not in memory
   useEffect(() => {
@@ -172,7 +221,12 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
 
   // Select problem and reset code tab if needed
   const selectProblem = (topicSlug, patternSlug, problemSlug) => {
-    setSelectedMeta({ topicSlug, patternSlug, problemSlug });
+    const meta = { topicSlug, patternSlug, problemSlug };
+    setSelectedMeta(meta);
+    setActiveProblemMeta(meta);
+    try {
+      window.history.replaceState(null, "", `/${topicSlug}/${patternSlug}/${problemSlug}`);
+    } catch (e) {}
     setMobileView("details");
     const fullTopic = fullTopics?.find((t) => t.slug === topicSlug);
     const fullPattern = fullTopic?.patterns?.find((p) => p.slug === patternSlug);
@@ -242,6 +296,17 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
 
   const activeCodeObj = activeProblem?.codes?.find((c) => c.name === selectedCodeName) || activeProblem?.codes?.[0];
   const activeCode = activeCodeObj ? activeCodeObj.code : (activeProblem?.code || "");
+
+  // Keep code tab valid when active problem or full details load
+  useEffect(() => {
+    if (activeProblem?.codes && activeProblem.codes.length > 0) {
+      const currentCodeExists = activeProblem.codes.some((c) => c.name === selectedCodeName);
+      if (!currentCodeExists) {
+        const optimal = activeProblem.codes.find((c) => c.name === "Optimal")?.name;
+        setSelectedCodeName(optimal || activeProblem.codes[0].name);
+      }
+    }
+  }, [activeProblem?.slug, activeProblem?.codes]);
 
   const totalProblemsCount = useMemo(() => {
     return topics.reduce((acc, t) => acc + (t.patterns || []).reduce((a, p) => a + (p.problems?.length || 0), 0), 0);
@@ -437,6 +502,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                                 return (
                                   <div
                                     key={problem.slug}
+                                    id={`sheet-prob-${problem.slug}`}
                                     onClick={() => selectProblem(topic.slug, pattern.slug, problem.slug)}
                                     className={`group flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg cursor-pointer transition-all ${
                                       isSelected
@@ -448,7 +514,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                                     <div className="flex items-center gap-2 min-w-0 flex-1">
                                       <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded font-mono text-[10px] font-semibold transition ${
                                         isSelected
-                                          ? "bg-accent-500 text-white font-bold shadow-sm shadow-accent-500/30"
+                                          ? "bg-accent-500 text-[#09090b] font-bold shadow-sm shadow-accent-500/30"
                                           : "bg-ink-950 text-ink-500 border border-ink-800/80"
                                       }`}>
                                         {pIdx + 1}
@@ -744,7 +810,7 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                         onClick={toggleWrapCode}
                         className={`flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition shadow-sm ${
                           wrapCode
-                            ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
+                            ? "border-accent-400 bg-accent-500 text-[#09090b] shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                             : "border-ink-800 bg-ink-900/60 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
                         }`}
                         title={wrapCode ? "Word Wrap: On (click to disable)" : "Word Wrap: Off (click to enable)"}

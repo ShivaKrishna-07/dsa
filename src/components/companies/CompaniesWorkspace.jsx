@@ -158,7 +158,7 @@ export default function CompaniesWorkspace() {
               onClick={() => setSelectedCategory(cat)}
               className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
                 isActive
-                  ? "bg-accent-500 text-white shadow-sm shadow-accent-500/25 ring-1 ring-white/10"
+                  ? "bg-accent-500 text-[#09090b] shadow-sm shadow-accent-500/25 ring-1 ring-black/10 font-bold"
                   : "border border-ink-800 bg-ink-900/70 text-ink-300 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100"
               }`}
             >

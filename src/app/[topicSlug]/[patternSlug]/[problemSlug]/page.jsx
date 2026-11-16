@@ -57,6 +57,8 @@ export default function ProblemPage({ params }) {
         problem={problem}
         prevProblem={prevProblem}
         nextProblem={nextProblem}
+        topicSlug={params.topicSlug}
+        patternSlug={params.patternSlug}
       />
     </PageFade>
   );

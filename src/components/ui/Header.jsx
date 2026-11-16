@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Brain, Columns2, TableProperties, PanelLeft } from "lucide-react";
 import SearchBox from "@/components/ui/SearchBox";
 import NavbarBreadcrumb from "@/components/ui/NavbarBreadcrumb";
@@ -10,9 +10,22 @@ import { useLayout } from "@/context/LayoutContext";
 import ResourceDrawer from "@/components/navigation/ResourceDrawer";
 
 export default function Header({ tree = [], items = [] }) {
-  const { layoutMode, toggleLayoutMode } = useLayout();
+  const { layoutMode, setLayoutMode, activeProblemMeta } = useLayout();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleToggleLayout = () => {
+    if (layoutMode === "sheet") {
+      if (activeProblemMeta?.topicSlug && activeProblemMeta?.patternSlug && activeProblemMeta?.problemSlug) {
+        router.push(`/${activeProblemMeta.topicSlug}/${activeProblemMeta.patternSlug}/${activeProblemMeta.problemSlug}`);
+      }
+      setLayoutMode("standard");
+    } else {
+      setLayoutMode("sheet");
+    }
+  };
+
   const isSpecialPage =
     pathname?.startsWith("/interview-experiences") ||
     pathname?.startsWith("/companies") ||
@@ -64,10 +77,10 @@ export default function Header({ tree = [], items = [] }) {
               {/* Layout Mode Toggle Button */}
               <button
                 type="button"
-                onClick={toggleLayoutMode}
+                onClick={handleToggleLayout}
                 className={`flex h-9 w-9 items-center justify-center rounded-xl border transition shadow-sm ${
                   layoutMode === "sheet"
-                    ? "border-accent-400 bg-accent-500 text-white shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
+                    ? "border-accent-400 bg-accent-500 text-[#09090b] shadow-md shadow-accent-500/25 ring-1 ring-accent-300/40"
                     : "border-ink-800 bg-ink-900/70 text-ink-400 hover:border-ink-700 hover:bg-ink-800 hover:text-ink-100"
                 }`}
                 title={

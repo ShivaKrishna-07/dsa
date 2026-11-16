@@ -26,7 +26,7 @@ Explanation: The optimal path with at most 1 stop is 0 -> 1 -> 3 with cost 100 +
 
 ### Intuition
 
-Because each step increases the stop count by 1 (unit weight in terms of stops), we can use a standard BFS queue keyed by `(stops, node, cost)`. Sorting by cost with a PQ is not needed and could lead to unnecessary states because stops increase monotonically by 1.
+We use a modified Dijkstra approach using a min-heap prioritized primarily by the number of `stops` (`{stops, {cost, node}}`). By expanding paths with fewer stops first, we can safely prune any path where `stops > k`. If traversing to neighbor `v` yields a cheaper cost (`d + wt < dist[v]`), we update `dist[v]` and push `{stops + 1, {dist[v], v}}` into the priority queue.
 
 ---
 
@@ -35,29 +35,37 @@ Because each step increases the stop count by 1 (unit weight in terms of stops),
 ```cpp
 class Solution {
 public:
+    using P = pair<int, pair<int, int>>;
+
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<pair<int, int>> adj[n];
-        for (auto& f : flights) {
-            adj[f[0]].push_back({f[1], f[2]});
+        vector<vector<pair<int, int>>> adj(n);
+
+        for (int i = 0; i < flights.size(); i++) {
+            adj[flights[i][0]].push_back({flights[i][1], flights[i][2]});
         }
 
-        // Queue stores {stops, node, cost}
-        queue<tuple<int, int, int>> q; // {stops, node, cost}
-        // Stores minimum cost to reach each node within allowed stops
+        // Min-heap ordered by {stops, {cost, node}}
+        priority_queue<P, vector<P>, greater<P>> pq;
         vector<int> dist(n, 1e9);
 
+        pq.push({0, {0, src}});
         dist[src] = 0;
-        q.push({0, src, 0});
 
-        while (!q.empty()) {
-            auto [stops, u, cost] = q.front();
-            q.pop();
-            if (stops > k) continue;
+        while (!pq.empty()) {
+            int stops = pq.top().first;
+            auto [d, u] = pq.top().second;
+            pq.pop();
 
-            for (auto& [v, price] : adj[u]) {
-                if (cost + price < dist[v]) {
-                    dist[v] = cost + price;
-                    q.push({stops + 1, v, dist[v]});
+            // Prune paths exceeding allowed stops
+            if (stops > k) {
+                continue;
+            }
+
+            for (auto [v, wt] : adj[u]) {
+                // Only push if a cheaper route to node v is found
+                if (d + wt < dist[v]) {
+                    dist[v] = d + wt;
+                    pq.push({stops + 1, {dist[v], v}});
                 }
             }
         }
