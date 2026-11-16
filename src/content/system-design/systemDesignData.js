@@ -100,62 +100,58 @@ export const systemDesignData = {
   questions: [
     {
       id: "grp-1",
-      group: "Group 1 – Core Backend Systems",
+      group: "Group 1 – Core Systems",
       items: [
-        { id: "q1", title: "URL Shortener (TinyURL)", concept: "ID generation, caching, redirects", difficulty: "Easy" },
-        { id: "q2", title: "Rate Limiter", concept: "Redis, algorithms, distributed counters", difficulty: "Medium" },
-        { id: "q3", title: "Distributed Key-Value Store", concept: "Replication, partitioning, consistency", difficulty: "Medium" },
-        { id: "q4", title: "Web Crawler", concept: "Distributed workers, queues, deduplication", difficulty: "Medium" }
+        { id: "q1", title: "Rate Limiter", concept: "Token bucket, sliding window, Redis distributed counters", difficulty: "Medium" },
+        { id: "q2", title: "URL Shortener (TinyURL)", concept: "Base62 encoding, caching, redirects, ID generation", difficulty: "Easy" },
+        { id: "q3", title: "Distributed Unique ID Generator", concept: "Twitter Snowflake, epoch timestamps, worker IDs", difficulty: "Easy" },
+        { id: "q4", title: "Consistent Hashing", concept: "Hash ring, virtual nodes, data partitioning & rebalancing", difficulty: "Medium" },
+        { id: "q5", title: "Distributed Key-Value Store", concept: "Replication, quorum consensus, CAP theorem", difficulty: "Medium" },
+        { id: "q6", title: "Web Crawler", concept: "Distributed workers, URL frontier, deduplication, queues", difficulty: "Medium" },
+        { id: "q7", title: "Notification System", concept: "Kafka, async workers, APNs/FCM, retries & deduplication", difficulty: "Medium" },
+        { id: "q8", title: "News Feed System (Twitter / Instagram)", concept: "Fan-out on write/read, timeline generation, caching", difficulty: "Hard" },
+        { id: "q9", title: "Search Autocomplete System", concept: "Trie data structure, prefix caching, ranking, Top-K", difficulty: "Medium" }
       ]
     },
     {
       id: "grp-2",
       group: "Group 2 – Real-time and Communication",
       items: [
-        { id: "q5", title: "WhatsApp / Chat System", concept: "WebSockets, message delivery, presence", difficulty: "Hard" },
-        { id: "q6", title: "Notification System", concept: "Kafka, async processing, retries", difficulty: "Medium" },
-        { id: "q7", title: "Google Docs (Collaborative Editor)", concept: "Concurrent editing, synchronization", difficulty: "Hard" }
+        { id: "q10", title: "WhatsApp / Chat System", concept: "WebSockets, message delivery, presence", difficulty: "Hard" },
+        { id: "q11", title: "Google Docs (Collaborative Editor)", concept: "Concurrent editing, OT / CRDT synchronization", difficulty: "Hard" }
       ]
     },
     {
       id: "grp-3",
       group: "Group 3 – Media and Storage",
       items: [
-        { id: "q8", title: "YouTube / Netflix", concept: "Video processing, object storage, CDN", difficulty: "Hard" },
-        { id: "q9", title: "Google Drive / Dropbox", concept: "File upload, chunking, synchronization", difficulty: "Hard" },
-        { id: "q10", title: "Instagram / Twitter News Feed", concept: "Fan-out, feed generation, caching", difficulty: "Hard" }
+        { id: "q12", title: "YouTube / Netflix", concept: "Video processing, chunking, object storage, CDN", difficulty: "Hard" },
+        { id: "q13", title: "Google Drive / Dropbox", concept: "File upload, chunking, synchronization protocol", difficulty: "Hard" }
       ]
     },
     {
       id: "grp-4",
       group: "Group 4 – Location-based Systems",
       items: [
-        { id: "q11", title: "Uber / Ola", concept: "Geospatial indexing, matching, tracking", difficulty: "Hard" }
+        { id: "q14", title: "Uber / Ola", concept: "Geospatial indexing, QuadTree, driver-rider matching", difficulty: "Hard" }
       ]
     },
     {
       id: "grp-5",
       group: "Group 5 – Transactions and Commerce",
       items: [
-        { id: "q12", title: "BookMyShow / Ticketmaster", concept: "Concurrency, seat locking, reservations", difficulty: "Medium" },
-        { id: "q13", title: "Payment Gateway", concept: "Idempotency, transaction states, reconciliation", difficulty: "Hard" },
-        { id: "q14", title: "Amazon / E-commerce", concept: "Catalog, cart, inventory, order processing", difficulty: "Hard" }
+        { id: "q15", title: "BookMyShow / Ticketmaster", concept: "Concurrency control, seat locking, reservations", difficulty: "Medium" },
+        { id: "q16", title: "Payment Gateway", concept: "Idempotency, 2PC / Saga, reconciliation", difficulty: "Hard" },
+        { id: "q17", title: "Amazon / E-commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
       ]
     },
     {
       id: "grp-6",
-      group: "Group 6 – Additional Important Systems",
+      group: "Group 6 – Large-Scale & Infrastructure Systems",
       items: [
-        { id: "q15", title: "Search Autocomplete", concept: "Trie, ranking, caching", difficulty: "Medium" },
-        { id: "q16", title: "Logging and Monitoring System", concept: "High-volume ingestion, time-series data", difficulty: "Medium" }
-      ]
-    },
-    {
-      id: "grp-optional",
-      group: "Optional Practice Systems",
-      items: [
-        { id: "q17", title: "Distributed Job Scheduler", concept: "Scheduling, workers and retries", difficulty: "Medium" },
-        { id: "q18", title: "Real-time Leaderboard", concept: "Ranking, Redis sorted sets and Top-K", difficulty: "Easy" }
+        { id: "q18", title: "Logging and Monitoring System", concept: "High-volume ingestion, time-series data, metrics", difficulty: "Medium" },
+        { id: "q19", title: "Distributed Job Scheduler", concept: "Cron scheduling, worker pools, DAG execution", difficulty: "Medium" },
+        { id: "q20", title: "Real-time Leaderboard", concept: "Redis Sorted Sets, Top-K, write-heavy ranking", difficulty: "Easy" }
       ]
     },
     {
