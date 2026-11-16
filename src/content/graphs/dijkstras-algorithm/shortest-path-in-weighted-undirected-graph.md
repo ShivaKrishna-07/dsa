@@ -36,15 +36,7 @@ Explanation: Paths 1 -> 2 -> 4 -> 6 and 1 -> 3 -> 4 -> 6 both have total weight 
 
 ### Intuition
 
-To find the shortest path that is also **lexicographically smallest**, standard forward Dijkstra with a `parent` array fails because parent pointers only tie-break the *preceding* node (the end of the path) rather than prioritizing smaller vertex indices at the *beginning* of the path.
-
-**Reverse Dijkstra + Greedy Forward Reconstruction:**
-1. **Dijkstra from Destination:** Run Dijkstra's algorithm starting from `dest` to compute `dist[i]`, the minimum distance from each vertex `i` to `dest`.
-2. **Unreachable Check:** If `dist[src] == 1e9`, no path exists between `src` and `dest`, return `{-1}`.
-3. **Greedy Traversal from Source:** Start at `src` and move towards `dest`. At the current vertex `curr`, consider all neighbors `v` connected with weight `wt`. A neighbor `v` lies on a shortest path to `dest` if:
-   $$\text{dist}[\text{curr}] = \text{wt} + \text{dist}[v]$$
-   Among all neighbors satisfying this condition, greedily choose the one with the **smallest vertex index** `v`.
-4. This forward greedy choice guarantees the resulting path sequence is lexicographically minimal.
+We use Dijkstra's algorithm starting from `src` with a `parent` array to record the predecessor along the shortest path to each vertex. When relaxing edges, if an alternate path achieves the exact same shortest distance (`d + wt == dist[v]`), we break ties by selecting the parent vertex with the smaller index (`u < parent[v]`). Once Dijkstra completes, we backtrack using the `parent` array from `dest` to `src` and reverse the sequence to obtain the shortest path.
 
 ---
 
@@ -63,57 +55,59 @@ public:
             adj[v].push_back({u, wt});
         }
 
-        // Min-heap stores {distance, vertex}
+        // Min-heap stores {distance, node}
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-        // dist[i] stores the shortest distance from vertex i to dest
+        // dist: shortest distance; parent: predecessor vertex along shortest path
         vector<int> dist(V + 1, 1e9);
+        vector<int> parent(V + 1);
 
-        dist[dest] = 0;
-        pq.push({0, dest});
+        for (int i = 1; i <= V; i++) {
+            parent[i] = i;
+        }
+
+        dist[src] = 0;
+        pq.push({0, src});
 
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
 
+            // Skip stale pair: a shorter distance to u has already been processed
             if (d > dist[u]) {
                 continue;
             }
 
-            for (auto& [v, wt] : adj[u]) {
-                if (dist[u] + wt < dist[v]) {
-                    dist[v] = dist[u] + wt;
+            for (auto& neighbor : adj[u]) {
+                int v = neighbor.first;
+                int wt = neighbor.second;
+
+                if (d + wt < dist[v]) {
+                    dist[v] = d + wt;
+                    parent[v] = u;
                     pq.push({dist[v], v});
-                }
-            }
-        }
-
-        // If dest is unreachable from src
-        if (dist[src] == 1e9) {
-            return {-1};
-        }
-
-        // Greedily reconstruct path from src to dest
-        vector<int> path;
-        int curr = src;
-        path.push_back(curr);
-
-        while (curr != dest) {
-            int nextNode = -1;
-
-            for (auto& [v, wt] : adj[curr]) {
-                // Check if neighbor v lies on an optimal shortest path to dest
-                if (dist[curr] == wt + dist[v]) {
-                    // Pick the smallest vertex index for lexicographical order
-                    if (nextNode == -1 || v < nextNode) {
-                        nextNode = v;
+                } else if (d + wt == dist[v]) {
+                    // Tie-breaker for lexicographically smaller path
+                    if (u < parent[v]) {
+                        parent[v] = u;
+                        pq.push({dist[v], v});
                     }
                 }
             }
-
-            curr = nextNode;
-            path.push_back(curr);
         }
 
+        if (dist[dest] == 1e9) {
+            return {-1};
+        }
+
+        vector<int> path;
+        int curr = dest;
+        while (curr != src) {
+            path.push_back(curr);
+            curr = parent[curr];
+        }
+        path.push_back(src);
+
+        reverse(path.begin(), path.end());
         return path;
     }
 };
