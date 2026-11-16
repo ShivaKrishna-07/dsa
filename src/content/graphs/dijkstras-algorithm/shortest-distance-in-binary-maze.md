@@ -1,7 +1,7 @@
 ---
 title: "Shortest Path in Binary Matrix"
 difficulty: "Medium"
-time: "O(N * M)"
+time: "O(N * M * log(N * M))"
 space: "O(N * M)"
 platforms:
   leetcode: "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
@@ -40,7 +40,7 @@ Output: -1
 
 ### Intuition
 
-Since all edges have equal weight (`1`), we can use standard BFS (which is Dijkstra's algorithm simplified for unit weights). Exploring in 8 directions guarantees finding the shortest path first.
+We model the grid as a graph where each transition has weight `1`. Using Dijkstra's algorithm with a min-priority queue, we start at `(0, 0)` with distance `1` and explore all 8 valid directions, greedily updating the minimum distance to each cell until we reach `(n - 1, m - 1)`.
 
 ---
 
@@ -49,32 +49,46 @@ Since all edges have equal weight (`1`), we can use standard BFS (which is Dijks
 ```cpp
 class Solution {
 public:
+    using p = pair<int, pair<int, int>>;
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
-        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1;
-        if (n == 1) return 1;
+        int m = grid[0].size();
 
-        // Queue stores {row, col} coordinates for unweighted BFS
-        queue<pair<int, int>> q;
-        grid[0][0] = 1; // distance
-        q.push({0, 0});
+        if (grid[0][0] == 1 || grid[n - 1][m - 1] == 1) {
+            return -1;
+        }
 
-        int dirs[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        priority_queue<p, vector<p>, greater<p>> pq;
 
-        while (!q.empty()) {
-            auto [r, c] = q.front();
-            q.pop();
-            int d = grid[r][c];
+        vector<vector<int>> dist(n, vector<int>(m, 1e9));
+        dist[0][0] = 1;
+        pq.push({1, {0, 0}});
 
-            for (auto& dir : dirs) {
-                int nr = r + dir[0], nc = c + dir[1];
-                if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 0) {
-                    if (nr == n - 1 && nc == n - 1) return d + 1;
-                    grid[nr][nc] = d + 1;
-                    q.push({nr, nc});
+        int drow[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int dcol[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        while (!pq.empty()) {
+            int d = pq.top().first;
+            auto [row, col] = pq.top().second;
+            pq.pop();
+
+            if (row == n - 1 && col == m - 1) {
+                return d;
+            }
+
+            for (int i = 0; i < 8; i++) {
+                int nrow = row + drow[i];
+                int ncol = col + dcol[i];
+
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == 0) {
+                    if (d + 1 < dist[nrow][ncol]) {
+                        dist[nrow][ncol] = d + 1;
+                        pq.push({d + 1, {nrow, ncol}});
+                    }
                 }
             }
         }
+
         return -1;
     }
 };
@@ -84,5 +98,5 @@ public:
 
 ### Complexity Analysis
 
-- **Time Complexity:** `O(N * N)` — Every cell is processed at most once.
-- **Space Complexity:** `O(N * N)` — BFS queue.
+- **Time Complexity:** `O(N * M * log(N * M))` — Priority queue operations for 8-directional traversal across grid cells.
+- **Space Complexity:** `O(N * M)` — Distance matrix and priority queue.
