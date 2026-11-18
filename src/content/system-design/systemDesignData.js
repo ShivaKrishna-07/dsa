@@ -33,7 +33,23 @@ export const systemDesignData = {
       id: "grp-1",
       group: "Group 1 – Core Systems",
       items: [
-        { id: "q1", title: "Rate Limiter", concept: "Token bucket, sliding window, Redis distributed counters", difficulty: "Medium" },
+        {
+          id: "q1",
+          title: "Rate Limiter",
+          concept: "Token bucket, sliding window, Redis distributed counters",
+          difficulty: "Medium",
+          pages: [
+            "/images/system-design/rate-limiter/1.png",
+            "/images/system-design/rate-limiter/2.png",
+            "/images/system-design/rate-limiter/3.png",
+            "/images/system-design/rate-limiter/4.png",
+            "/images/system-design/rate-limiter/5.png",
+            "/images/system-design/rate-limiter/6.png",
+            "/images/system-design/rate-limiter/7.png",
+            "/images/system-design/rate-limiter/8.png",
+            "/images/system-design/rate-limiter/9.png"
+          ]
+        },
         { id: "q2", title: "URL Shortener (TinyURL)", concept: "Base62 encoding, caching, redirects, ID generation", difficulty: "Easy" },
         { id: "q3", title: "Distributed Unique ID Generator", concept: "Twitter Snowflake, epoch timestamps, worker IDs", difficulty: "Easy" },
         { id: "q4", title: "Consistent Hashing", concept: "Hash ring, virtual nodes, data partitioning & rebalancing", difficulty: "Medium" },

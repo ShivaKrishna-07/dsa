@@ -87,6 +87,8 @@ const FUNDAMENTAL_PAGES = [
 export default function SystemDesignWorkspace() {
   const [activeTab, setActiveTab] = useState("fundamentals");
   const [selectedTopicId, setSelectedTopicId] = useState(null);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+  const [questionPageIndex, setQuestionPageIndex] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // Zoom and Pan states for infographic diagram viewer
@@ -108,7 +110,12 @@ export default function SystemDesignWorkspace() {
   const selectedIndex = allTopics.findIndex((t) => t.id === selectedTopicId);
   const selectedTopic = selectedIndex >= 0 ? allTopics[selectedIndex] : null;
 
-  // Find corresponding infographic image page
+  const selectedQuestion = useMemo(() => {
+    if (!selectedQuestionId) return null;
+    return coreQuestions.find((q) => q.id === selectedQuestionId) || null;
+  }, [selectedQuestionId, coreQuestions]);
+
+  // Find corresponding infographic image page for fundamentals
   const currentPageIndex = useMemo(() => {
     if (!selectedTopicId) return 0;
     const idx = FUNDAMENTAL_PAGES.findIndex((p) => p.topicIds.includes(selectedTopicId));
@@ -116,7 +123,38 @@ export default function SystemDesignWorkspace() {
   }, [selectedTopicId]);
 
   const currentPage = FUNDAMENTAL_PAGES[currentPageIndex];
-  const isSplitMode = activeTab === "fundamentals" && selectedTopic !== null;
+
+  // Active viewing context depending on tab
+  const activeViewer = useMemo(() => {
+    if (activeTab === "fundamentals" && selectedTopic) {
+      return {
+        type: "fundamental",
+        title: selectedTopic.title,
+        image: currentPage.image,
+        pageNumber: currentPage.pageNumber,
+        totalPages: FUNDAMENTAL_PAGES.length,
+        label: `Image ${currentPage.pageNumber} / ${FUNDAMENTAL_PAGES.length}`,
+        canPrev: currentPageIndex > 0,
+        canNext: currentPageIndex < FUNDAMENTAL_PAGES.length - 1
+      };
+    }
+    if (activeTab === "questions" && selectedQuestion && selectedQuestion.pages?.length > 0) {
+      const total = selectedQuestion.pages.length;
+      return {
+        type: "question",
+        title: selectedQuestion.title,
+        image: selectedQuestion.pages[questionPageIndex] || selectedQuestion.pages[0],
+        pageNumber: questionPageIndex + 1,
+        totalPages: total,
+        label: `Page ${questionPageIndex + 1} / ${total}`,
+        canPrev: questionPageIndex > 0,
+        canNext: questionPageIndex < total - 1
+      };
+    }
+    return null;
+  }, [activeTab, selectedTopic, currentPage, currentPageIndex, selectedQuestion, questionPageIndex]);
+
+  const isSplitMode = Boolean(activeViewer);
 
   // Reset zoom and pan helper
   const resetZoom = () => {
@@ -136,43 +174,62 @@ export default function SystemDesignWorkspace() {
     });
   };
 
-  // Previous / Next IMAGE page handlers
-  const handlePrevImage = () => {
-    if (currentPageIndex > 0) {
-      const prevPage = FUNDAMENTAL_PAGES[currentPageIndex - 1];
-      setSelectedTopicId(prevPage.topicIds[0]);
-      resetZoom();
+  // Previous / Next handlers for both fundamentals and questions
+  const handlePrev = () => {
+    if (activeViewer?.type === "fundamental") {
+      if (currentPageIndex > 0) {
+        const prevPage = FUNDAMENTAL_PAGES[currentPageIndex - 1];
+        setSelectedTopicId(prevPage.topicIds[0]);
+        resetZoom();
+      }
+    } else if (activeViewer?.type === "question") {
+      if (questionPageIndex > 0) {
+        setQuestionPageIndex((prev) => prev - 1);
+        resetZoom();
+      }
     }
   };
 
-  const handleNextImage = () => {
-    if (currentPageIndex < FUNDAMENTAL_PAGES.length - 1) {
-      const nextPage = FUNDAMENTAL_PAGES[currentPageIndex + 1];
-      setSelectedTopicId(nextPage.topicIds[0]);
-      resetZoom();
+  const handleNext = () => {
+    if (activeViewer?.type === "fundamental") {
+      if (currentPageIndex < FUNDAMENTAL_PAGES.length - 1) {
+        const nextPage = FUNDAMENTAL_PAGES[currentPageIndex + 1];
+        setSelectedTopicId(nextPage.topicIds[0]);
+        resetZoom();
+      }
+    } else if (activeViewer?.type === "question") {
+      if (selectedQuestion?.pages && questionPageIndex < selectedQuestion.pages.length - 1) {
+        setQuestionPageIndex((prev) => prev + 1);
+        resetZoom();
+      }
     }
+  };
+
+  const handleClose = () => {
+    setSelectedTopicId(null);
+    setSelectedQuestionId(null);
+    resetZoom();
   };
 
   // Keyboard navigation for previous/next images & escape to close
   useEffect(() => {
-    if (!selectedTopic) return;
+    if (!activeViewer) return;
 
     const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        handlePrevImage();
+        handlePrev();
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        handleNextImage();
+        handleNext();
       } else if (e.key === "Escape") {
-        setSelectedTopicId(null);
-        resetZoom();
+        handleClose();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedTopic, currentPageIndex]);
+  }, [activeViewer, currentPageIndex, questionPageIndex, selectedQuestion]);
 
   // Mouse wheel zoom on image container
   useEffect(() => {
@@ -191,7 +248,7 @@ export default function SystemDesignWorkspace() {
 
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [isSplitMode, currentPageIndex]);
+  }, [isSplitMode, activeViewer]);
 
   // Hold & move (mouse drag panning)
   const handleMouseDown = (e) => {
@@ -238,15 +295,20 @@ export default function SystemDesignWorkspace() {
     setIsDragging(false);
   };
 
-  // Auto-scroll active topic in left sidebar into view
+  // Auto-scroll active item in left sidebar into view
   useEffect(() => {
     if (selectedTopicId) {
       const el = document.getElementById(`sd-topic-${selectedTopicId}`);
       if (el) {
         el.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
+    } else if (selectedQuestionId) {
+      const el = document.getElementById(`sd-question-${selectedQuestionId}`);
+      if (el) {
+        el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
     }
-  }, [selectedTopicId]);
+  }, [selectedTopicId, selectedQuestionId]);
 
   // Common Header & Tabs component
   const renderHeader = (isCompact = false) => (
@@ -288,7 +350,11 @@ export default function SystemDesignWorkspace() {
       <div className="flex items-center gap-1 p-1 rounded-xl bg-ink-900/60 border border-ink-800/80 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap">
         <button
           type="button"
-          onClick={() => setActiveTab("fundamentals")}
+          onClick={() => {
+            setActiveTab("fundamentals");
+            setSelectedQuestionId(null);
+            resetZoom();
+          }}
           className={`flex items-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition shrink-0 ${
             activeTab === "fundamentals"
               ? "bg-ink-800 text-ink-100 shadow-sm border border-ink-700/60 font-semibold"
@@ -337,6 +403,7 @@ export default function SystemDesignWorkspace() {
           onClick={() => {
             setActiveTab("framework");
             setSelectedTopicId(null);
+            setSelectedQuestionId(null);
             resetZoom();
           }}
           className={`flex items-center gap-1.5 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition shrink-0 ${
@@ -398,10 +465,99 @@ export default function SystemDesignWorkspace() {
     </div>
   );
 
+  // Interview Questions list component
+  const renderQuestionsList = (isCompact = false) => (
+    <div className={isCompact ? "p-3 sm:p-4 space-y-3" : "space-y-4 pt-1"}>
+      {systemDesignData.questions.map((grp) => (
+        <div key={grp.id} className="space-y-1.5">
+          <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
+            <span>{grp.group}</span>
+            <span className="text-ink-500 text-[11px] font-mono">
+              {grp.items.length}
+            </span>
+          </div>
+
+          <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
+            {grp.items.map((item, idx) => {
+              const isSelected = selectedQuestionId === item.id;
+              const hasPages = Boolean(item.pages && item.pages.length > 0);
+
+              return (
+                <div
+                  key={item.id}
+                  id={`sd-question-${item.id}`}
+                  onClick={() => {
+                    if (hasPages) {
+                      setSelectedQuestionId(item.id);
+                      setQuestionPageIndex(0);
+                      resetZoom();
+                    }
+                  }}
+                  className={`flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors ${
+                    hasPages ? "cursor-pointer" : "cursor-default opacity-85"
+                  } ${
+                    isSelected
+                      ? "bg-accent-500/15 text-ink-100 border-l-[3px] border-l-accent-500"
+                      : hasPages
+                      ? "hover:bg-ink-800/40 text-ink-200 border-l-[3px] border-l-transparent"
+                      : "text-ink-300 border-l-[3px] border-l-transparent hover:bg-ink-800/20"
+                  }`}
+                >
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <span
+                      className={`text-xs w-5 h-5 shrink-0 font-mono rounded flex items-center justify-center font-bold ${
+                        isSelected
+                          ? "bg-accent-500 text-[#09090b]"
+                          : "text-ink-500 bg-ink-950 border border-ink-800/60"
+                      }`}
+                    >
+                      {idx + 1}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs sm:text-sm truncate ${isSelected ? "font-semibold text-accent-100" : "font-medium"}`}>
+                          {item.title}
+                        </span>
+                        {hasPages && (
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-accent-500/20 text-accent-300 border border-accent-500/30 shrink-0">
+                            {item.pages.length} Pages
+                          </span>
+                        )}
+                      </div>
+                      {!isCompact && item.concept && (
+                        <p className="text-[11px] text-ink-500 truncate mt-0.5">
+                          {item.concept}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {!isCompact && (
+                    <span
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold shrink-0 ${
+                        item.difficulty === "Easy"
+                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
+                          : item.difficulty === "Medium"
+                          ? "bg-amber-500/15 text-amber-400 border border-amber-500/20"
+                          : "bg-rose-500/15 text-rose-400 border border-rose-500/20"
+                      }`}
+                    >
+                      {item.difficulty}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   // =========================================================================
   // VIEW MODE 1: SPLIT SCREEN (Left list, Right full-height image viewer)
   // =========================================================================
-  if (isSplitMode) {
+  if (isSplitMode && activeViewer) {
     return (
       <>
         <ResourceDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
@@ -410,7 +566,8 @@ export default function SystemDesignWorkspace() {
           <aside className="hidden md:flex w-full md:w-[480px] lg:w-[500px] xl:w-[530px] shrink-0 border-r border-ink-800 flex-col h-full overflow-hidden bg-ink-950">
             {renderHeader(true)}
             <div className="flex-1 overflow-y-auto code-scroll">
-              {renderFundamentalsList(true)}
+              {activeTab === "fundamentals" && renderFundamentalsList(true)}
+              {activeTab === "questions" && renderQuestionsList(true)}
             </div>
           </aside>
 
@@ -419,10 +576,7 @@ export default function SystemDesignWorkspace() {
             {/* Floating Mobile Back Button */}
             <button
               type="button"
-              onClick={() => {
-                setSelectedTopicId(null);
-                resetZoom();
-              }}
+              onClick={handleClose}
               className="md:hidden absolute top-3 left-3 z-30 flex items-center gap-1.5 rounded-xl border border-ink-800/90 bg-ink-950/85 backdrop-blur-md px-3 py-1.5 text-xs font-semibold text-ink-200 shadow-xl"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -431,31 +585,31 @@ export default function SystemDesignWorkspace() {
 
             {/* Floating Glass Control Bar (Top Right Overlay) */}
             <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 flex items-center gap-1 rounded-xl bg-ink-950/85 backdrop-blur-md border border-ink-800/90 p-1 shadow-2xl shadow-black/80">
-              {/* Previous Image Switcher */}
+              {/* Previous Page Switcher */}
               <button
                 type="button"
-                onClick={handlePrevImage}
-                disabled={currentPageIndex === 0}
+                onClick={handlePrev}
+                disabled={!activeViewer.canPrev}
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Previous Image (Left Arrow)"
-                aria-label="Previous Image"
+                title="Previous (Left Arrow)"
+                aria-label="Previous"
               >
                 <ChevronLeft className="h-4 w-4 stroke-[2.2]" />
               </button>
 
-              {/* Current Image Indicator (clean font-mono, NO # count) */}
+              {/* Current Page Indicator (clean font-mono, NO # count) */}
               <span className="text-xs font-mono font-bold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-2.5 py-1 rounded-lg select-none whitespace-nowrap">
-                Image {currentPage.pageNumber} / {FUNDAMENTAL_PAGES.length}
+                {activeViewer.label}
               </span>
 
-              {/* Next Image Switcher */}
+              {/* Next Page Switcher */}
               <button
                 type="button"
-                onClick={handleNextImage}
-                disabled={currentPageIndex === FUNDAMENTAL_PAGES.length - 1}
+                onClick={handleNext}
+                disabled={!activeViewer.canNext}
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-300 hover:bg-ink-800 hover:text-ink-100 disabled:opacity-30 disabled:pointer-events-none transition"
-                title="Next Image (Right Arrow)"
-                aria-label="Next Image"
+                title="Next (Right Arrow)"
+                aria-label="Next"
               >
                 <ChevronRight className="h-4 w-4 stroke-[2.2]" />
               </button>
@@ -513,10 +667,7 @@ export default function SystemDesignWorkspace() {
               {/* Close Button */}
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedTopicId(null);
-                  resetZoom();
-                }}
+                onClick={handleClose}
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
                 title="Close viewer (Esc)"
                 aria-label="Close viewer"
@@ -548,8 +699,8 @@ export default function SystemDesignWorkspace() {
                 className="h-full w-full flex items-center justify-center"
               >
                 <img
-                  src={currentPage.image}
-                  alt={selectedTopic.title}
+                  src={activeViewer.image}
+                  alt={activeViewer.title}
                   draggable={false}
                   className="h-full w-auto max-w-full object-contain pointer-events-none select-none shadow-2xl"
                 />
@@ -577,50 +728,13 @@ export default function SystemDesignWorkspace() {
       <div className="mx-auto max-w-4xl w-full px-4 sm:px-6 py-6 space-y-4">
         {renderHeader(false)}
 
-      {/* TAB 1: FUNDAMENTALS */}
-      {activeTab === "fundamentals" && renderFundamentalsList(false)}
+        {/* TAB 1: FUNDAMENTALS */}
+        {activeTab === "fundamentals" && renderFundamentalsList(false)}
 
-      {/* TAB 2: INTERVIEW QUESTIONS */}
-      {activeTab === "questions" && (
-        <div className="space-y-4 pt-1">
-          {systemDesignData.questions.map((grp) => (
-            <div key={grp.id} className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs font-semibold text-ink-400 px-1">
-                <span>{grp.group}</span>
-                <span className="text-ink-500 text-[11px] font-mono">
-                  {grp.items.length}
-                </span>
-              </div>
+        {/* TAB 2: INTERVIEW QUESTIONS */}
+        {activeTab === "questions" && renderQuestionsList(false)}
 
-              <div className="rounded-xl border border-ink-800/80 bg-ink-900/30 divide-y divide-ink-800/50 overflow-hidden">
-                {grp.items.map((item, idx) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between gap-3 px-3.5 py-2.5 hover:bg-ink-800/30 transition-colors"
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-xs text-ink-500 w-5 shrink-0 font-mono">
-                        {idx + 1}
-                      </span>
-                      <span className="text-xs sm:text-sm font-medium text-ink-200">
-                        {item.title}
-                      </span>
-                    </div>
-
-                    {item.concept && (
-                      <span className="text-xs text-ink-500 shrink-0 hidden sm:inline">
-                        {item.concept}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* TAB 3: ANSWERING FRAMEWORK */}
+        {/* TAB 3: ANSWERING FRAMEWORK */}
       {activeTab === "framework" && (
         <div className="space-y-4 pt-1">
           <div className="space-y-1.5">
