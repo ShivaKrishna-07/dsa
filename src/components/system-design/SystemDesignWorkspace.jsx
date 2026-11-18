@@ -21,7 +21,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 0,
     pageNumber: 1,
-    image: "/images/system-design/fundamentals-1.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-1.jpg",
     title: "Architecture & Scaling",
     topicIds: ["f1", "f2", "f3"],
     label: "Topics 1 – 3"
@@ -29,7 +29,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 1,
     pageNumber: 2,
-    image: "/images/system-design/fundamentals-2.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-2.jpg",
     title: "Proxies & Load Balancers",
     topicIds: ["f4", "f5"],
     label: "Topics 4 – 5"
@@ -37,7 +37,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 2,
     pageNumber: 3,
-    image: "/images/system-design/fundamentals-3.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-3.jpg",
     title: "Communication Protocols",
     topicIds: ["f6", "f7"],
     label: "Topics 6 – 7"
@@ -45,7 +45,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 3,
     pageNumber: 4,
-    image: "/images/system-design/fundamentals-4.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-4.jpg",
     title: "Databases, Storage & Replication",
     topicIds: ["f8", "f9", "f10"],
     label: "Topics 8 – 10"
@@ -53,7 +53,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 4,
     pageNumber: 5,
-    image: "/images/system-design/fundamentals-5.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-5.jpg",
     title: "Sharding, CAP & Concurrency",
     topicIds: ["f11", "f12", "f13"],
     label: "Topics 11 – 13"
@@ -61,7 +61,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 5,
     pageNumber: 6,
-    image: "/images/system-design/fundamentals-6.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-6.jpg",
     title: "Cache & Eviction Policies",
     topicIds: ["f14", "f15"],
     label: "Topics 14 – 15"
@@ -69,7 +69,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 6,
     pageNumber: 7,
-    image: "/images/system-design/fundamentals-7.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-7.jpg",
     title: "Cache Invalidation, Stampede & CDN",
     topicIds: ["f16", "f17"],
     label: "Topics 16 – 17"
@@ -77,7 +77,7 @@ const FUNDAMENTAL_PAGES = [
   {
     pageIndex: 7,
     pageNumber: 8,
-    image: "/images/system-design/fundamentals-8.jpg",
+    image: "/images/system-design/fundamentals/fundamentals-8.jpg",
     title: "Queues, Idempotency & Data Centers",
     topicIds: ["f18", "f19", "f20"],
     label: "Topics 18 – 20"
