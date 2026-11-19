@@ -215,7 +215,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q13", title: "Google Drive / Dropbox", concept: "File upload, chunking, synchronization protocol", difficulty: "Hard" }
+        {
+          id: "q13",
+          title: "Google Drive / Dropbox",
+          concept: "File upload, chunking, synchronization protocol",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "Educative",
+              url: "https://www.educative.io/blog/google-drive-system-design"
+            }
+          ]
+        }
       ]
     },
     {
