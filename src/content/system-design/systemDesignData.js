@@ -123,6 +123,10 @@ export const systemDesignData = {
             {
               title: "DesignGurus",
               url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-a-distributed-cache-like-redis"
+            },
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/KeyValueStore/"
             }
           ]
         },
@@ -150,7 +154,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q8", title: "News Feed System (Twitter / Instagram)", concept: "Fan-out on write/read, timeline generation, caching", difficulty: "Hard" },
+        {
+          id: "q8",
+          title: "News Feed System (Twitter / Instagram)",
+          concept: "Fan-out on write/read, timeline generation, caching",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/TwitterFeed/"
+            }
+          ]
+        },
         { id: "q9", title: "Search Autocomplete System", concept: "Trie data structure, prefix caching, ranking, Top-K", difficulty: "Medium" }
       ]
     },
