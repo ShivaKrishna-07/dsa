@@ -189,7 +189,18 @@ export const systemDesignData = {
       id: "grp-4",
       group: "Group 4 – Location-based Systems",
       items: [
-        { id: "q14", title: "Uber / Ola", concept: "Geospatial indexing, QuadTree, driver-rider matching", difficulty: "Hard" }
+        {
+          id: "q14",
+          title: "Uber / Ola",
+          concept: "Geospatial indexing, QuadTree, driver-rider matching",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/Uber/"
+            }
+          ]
+        }
       ]
     },
     {
