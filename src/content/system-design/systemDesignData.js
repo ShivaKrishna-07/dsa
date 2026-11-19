@@ -181,7 +181,18 @@ export const systemDesignData = {
       id: "grp-3",
       group: "Group 3 – Media and Storage",
       items: [
-        { id: "q12", title: "YouTube / Netflix", concept: "Video processing, chunking, object storage, CDN", difficulty: "Hard" },
+        {
+          id: "q12",
+          title: "YouTube / Netflix",
+          concept: "Video processing, chunking, object storage, CDN",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "DesignGurus",
+              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-youtube"
+            }
+          ]
+        },
         { id: "q13", title: "Google Drive / Dropbox", concept: "File upload, chunking, synchronization protocol", difficulty: "Hard" }
       ]
     },
