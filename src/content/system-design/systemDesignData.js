@@ -134,7 +134,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q7", title: "Notification System", concept: "Kafka, async workers, APNs/FCM, retries & deduplication", difficulty: "Medium" },
+        {
+          id: "q7",
+          title: "Notification System",
+          concept: "Kafka, async workers, APNs/FCM, retries & deduplication",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/NotificationSystem"
+            }
+          ]
+        },
         { id: "q8", title: "News Feed System (Twitter / Instagram)", concept: "Fan-out on write/read, timeline generation, caching", difficulty: "Hard" },
         { id: "q9", title: "Search Autocomplete System", concept: "Trie data structure, prefix caching, ranking, Top-K", difficulty: "Medium" }
       ]
