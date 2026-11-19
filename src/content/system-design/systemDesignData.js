@@ -48,17 +48,6 @@ export const systemDesignData = {
           title: "Rate Limiter",
           concept: "Token bucket, sliding window, Redis distributed counters",
           difficulty: "Medium",
-          pages: [
-            "/images/system-design/rate-limiter/1.png",
-            "/images/system-design/rate-limiter/2.png",
-            "/images/system-design/rate-limiter/3.png",
-            "/images/system-design/rate-limiter/4.png",
-            "/images/system-design/rate-limiter/5.png",
-            "/images/system-design/rate-limiter/6.png",
-            "/images/system-design/rate-limiter/7.png",
-            "/images/system-design/rate-limiter/8.png",
-            "/images/system-design/rate-limiter/9.png"
-          ],
           articles: [
             {
               title: "HelloInterview",
