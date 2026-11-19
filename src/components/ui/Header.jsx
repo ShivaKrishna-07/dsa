@@ -31,6 +31,8 @@ export default function Header({ tree = [], items = [] }) {
     pathname?.startsWith("/companies") ||
     pathname?.startsWith("/system-design");
 
+  const isHomePage = pathname === "/";
+
   return (
     <>
       <header className="sticky top-0 z-30 border-b border-ink-800 bg-ink-950/95 backdrop-blur h-14">
@@ -46,7 +48,7 @@ export default function Header({ tree = [], items = [] }) {
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-accent-500 shadow-md shadow-accent-500/20 ring-1 ring-white/20">
                   <Brain className="h-4.5 w-4.5 stroke-[2.3] text-[#09090b]" aria-hidden="true" />
                 </span>
-                {layoutMode === "sheet" && (
+                {layoutMode === "sheet" && isHomePage && (
                   <span className="font-semibold text-sm sm:text-base text-ink-100 hidden sm:inline tracking-tight">
                     DSA Pattern Sheet
                   </span>
@@ -65,14 +67,14 @@ export default function Header({ tree = [], items = [] }) {
               </button>
             </div>
 
-            {/* In sheet layout or on resource pages, breadcrumb is hidden */}
-            {layoutMode !== "sheet" && !isSpecialPage && <NavbarBreadcrumb tree={tree} />}
+            {/* In sheet layout home or on resource pages, breadcrumb is hidden; on problem/topic pages it's always shown */}
+            {(!isHomePage || layoutMode !== "sheet") && !isSpecialPage && <NavbarBreadcrumb tree={tree} />}
           </div>
 
           {/* Right: Search & Layout Mode Switcher (hidden on special pages) */}
           {!isSpecialPage && (
             <div className="shrink-0 flex items-center gap-2">
-              {layoutMode !== "sheet" && <SearchBox items={items} />}
+              {(!isHomePage || layoutMode !== "sheet") && <SearchBox items={items} />}
 
               {/* Layout Mode Toggle Button */}
               <button

@@ -11,7 +11,9 @@ import {
   ArrowLeft,
   ZoomIn,
   ZoomOut,
-  RotateCcw
+  RotateCcw,
+  BookOpen,
+  ExternalLink
 } from "lucide-react";
 import ResourceDrawer from "@/components/navigation/ResourceDrawer";
 import { systemDesignData } from "@/content/system-design/systemDesignData";
@@ -494,7 +496,7 @@ export default function SystemDesignWorkspace() {
                     }
                   }}
                   className={`flex items-center justify-between gap-3 px-3.5 py-2.5 transition-colors ${
-                    hasPages ? "cursor-pointer" : "cursor-default opacity-85"
+                    hasPages ? "cursor-pointer" : "cursor-default"
                   } ${
                     isSelected
                       ? "bg-accent-500/15 text-ink-100 border-l-[3px] border-l-accent-500"
@@ -532,19 +534,41 @@ export default function SystemDesignWorkspace() {
                     </div>
                   </div>
 
-                  {!isCompact && (
-                    <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold shrink-0 ${
-                        item.difficulty === "Easy"
-                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                          : item.difficulty === "Medium"
-                          ? "bg-amber-500/15 text-amber-400 border border-amber-500/20"
-                          : "bg-rose-500/15 text-rose-400 border border-rose-500/20"
-                      }`}
-                    >
-                      {item.difficulty}
-                    </span>
-                  )}
+                  {/* Right side: Article buttons and Difficulty */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {item.articles && item.articles.length > 0 && (
+                      <div className="flex items-center gap-1.5 flex-wrap justify-end" onClick={(e) => e.stopPropagation()}>
+                        {item.articles.map((art, aIdx) => (
+                          <a
+                            key={art.url || aIdx}
+                            href={art.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg bg-accent-500/10 hover:bg-accent-500/20 text-accent-300 hover:text-accent-200 border border-accent-500/25 hover:border-accent-500/40 transition shadow-sm shrink-0 group/art"
+                            title={`Open: ${art.title || "Article"} (${art.url})`}
+                          >
+                            <BookOpen className="h-3.5 w-3.5 stroke-[2.2] text-accent-400 group-hover/art:scale-110 transition-transform" />
+                            <span>{item.articles.length > 1 ? (art.title || `Article ${aIdx + 1}`) : "Article"}</span>
+                            <ExternalLink className="h-3 w-3 opacity-60 group-hover/art:opacity-100 transition-opacity" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+
+                    {!isCompact && (
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold shrink-0 ${
+                          item.difficulty === "Easy"
+                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
+                            : item.difficulty === "Medium"
+                            ? "bg-amber-500/15 text-amber-400 border border-amber-500/20"
+                            : "bg-rose-500/15 text-rose-400 border border-rose-500/20"
+                        }`}
+                      >
+                        {item.difficulty}
+                      </span>
+                    )}
+                  </div>
                 </div>
               );
             })}

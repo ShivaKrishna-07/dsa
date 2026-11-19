@@ -48,11 +48,54 @@ export const systemDesignData = {
             "/images/system-design/rate-limiter/7.png",
             "/images/system-design/rate-limiter/8.png",
             "/images/system-design/rate-limiter/9.png"
+          ],
+          articles: [
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter"
+            }
           ]
         },
-        { id: "q2", title: "URL Shortener (TinyURL)", concept: "Base62 encoding, caching, redirects, ID generation", difficulty: "Easy" },
-        { id: "q3", title: "Distributed Unique ID Generator", concept: "Twitter Snowflake, epoch timestamps, worker IDs", difficulty: "Easy" },
-        { id: "q4", title: "Consistent Hashing", concept: "Hash ring, virtual nodes, data partitioning & rebalancing", difficulty: "Medium" },
+        {
+          id: "q2",
+          title: "URL Shortener (TinyURL)",
+          concept: "Base62 encoding, caching, redirects, ID generation",
+          difficulty: "Easy",
+          articles: [
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly"
+            }
+          ]
+        },
+        {
+          id: "q3",
+          title: "Distributed Unique ID Generator",
+          concept: "Twitter Snowflake, epoch timestamps, worker IDs",
+          difficulty: "Easy",
+          articles: [
+            {
+              title: "AlgoMaster",
+              url: "https://algomaster.io/learn/system-design-interviews/design-unique-id-generator"
+            }
+          ]
+        },
+        {
+          id: "q4",
+          title: "Consistent Hashing",
+          concept: "Hash ring, virtual nodes, data partitioning & rebalancing",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "AlgoMaster",
+              url: "https://algomaster.io/learn/system-design/consistent-hashing"
+            },
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/core-concepts/consistent-hashing"
+            }
+          ]
+        },
         { id: "q5", title: "Distributed Key-Value Store", concept: "Replication, quorum consensus, CAP theorem", difficulty: "Medium" },
         { id: "q6", title: "Web Crawler", concept: "Distributed workers, URL frontier, deduplication, queues", difficulty: "Medium" },
         { id: "q7", title: "Notification System", concept: "Kafka, async workers, APNs/FCM, retries & deduplication", difficulty: "Medium" },

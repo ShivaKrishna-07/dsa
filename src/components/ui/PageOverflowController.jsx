@@ -9,8 +9,22 @@ export default function PageOverflowController() {
   const { layoutMode } = useLayout();
 
   useLayoutEffect(() => {
+    const isSpecialPage =
+      pathname?.startsWith("/interview-experiences") ||
+      pathname?.startsWith("/companies") ||
+      pathname?.startsWith("/system-design");
+
+    // Special pages (like /system-design) manage their own layout and must NEVER have page scroll locked!
+    if (isSpecialPage) {
+      document.documentElement.classList.remove("route-lock-scroll");
+      document.body.classList.remove("route-lock-scroll");
+      return;
+    }
+
     const segments = pathname.split("/").filter(Boolean);
-    const shouldLockPageScroll = layoutMode === "sheet" || segments.length === 3;
+    const isProblemPage = segments.length === 3;
+    const isDsaSheetHome = segments.length === 0 && layoutMode === "sheet";
+    const shouldLockPageScroll = isProblemPage || isDsaSheetHome;
 
     document.documentElement.classList.toggle("route-lock-scroll", shouldLockPageScroll);
     document.body.classList.toggle("route-lock-scroll", shouldLockPageScroll);
