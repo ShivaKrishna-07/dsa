@@ -122,7 +122,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q6", title: "Web Crawler", concept: "Distributed workers, URL frontier, deduplication, queues", difficulty: "Medium" },
+        {
+          id: "q6",
+          title: "Web Crawler",
+          concept: "Distributed workers, URL frontier, deduplication, queues",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler"
+            }
+          ]
+        },
         { id: "q7", title: "Notification System", concept: "Kafka, async workers, APNs/FCM, retries & deduplication", difficulty: "Medium" },
         { id: "q8", title: "News Feed System (Twitter / Instagram)", concept: "Fan-out on write/read, timeline generation, caching", difficulty: "Hard" },
         { id: "q9", title: "Search Autocomplete System", concept: "Trie data structure, prefix caching, ranking, Top-K", difficulty: "Medium" }
