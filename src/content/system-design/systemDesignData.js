@@ -263,7 +263,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q16", title: "Payment Gateway", concept: "Idempotency, 2PC / Saga, reconciliation", difficulty: "Hard" },
+        {
+          id: "q16",
+          title: "Payment Gateway",
+          concept: "Idempotency, 2PC / Saga, reconciliation",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/payment-gateway-system-design-complete-guide"
+            }
+          ]
+        },
         { id: "q17", title: "Amazon / E-commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
       ]
     },
