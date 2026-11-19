@@ -12,7 +12,17 @@ export const systemDesignData = {
         { id: "f6", title: "REST vs gRPC vs GraphQL", image: "/images/system-design/fundamentals/fundamentals-3.jpg" },
         { id: "f7", title: "WebSockets vs Polling vs SSE", image: "/images/system-design/fundamentals/fundamentals-3.jpg" },
         { id: "f8", title: "SQL vs NoSQL", image: "/images/system-design/fundamentals/fundamentals-4.jpg" },
-        { id: "f9", title: "Object Storage", image: "/images/system-design/fundamentals/fundamentals-4.jpg" },
+        {
+          id: "f9",
+          title: "Object Storage",
+          image: "/images/system-design/fundamentals/fundamentals-4.jpg",
+          articles: [
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/amazon-s3-system-design-and-file-storage-architecture"
+            }
+          ]
+        },
         { id: "f10", title: "Database Replication (Master / Slave)", image: "/images/system-design/fundamentals/fundamentals-4.jpg" },
         { id: "f11", title: "Sharding & Partitioning", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
         { id: "f12", title: "CAP Theorem", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
@@ -57,13 +67,17 @@ export const systemDesignData = {
         },
         {
           id: "q2",
-          title: "URL Shortener (TinyURL)",
-          concept: "Base62 encoding, caching, redirects, ID generation",
+          title: "URL Shortener (TinyURL) / Pastebin",
+          concept: "Base62 encoding, caching, redirects, text blob storage",
           difficulty: "Easy",
           articles: [
             {
               title: "HelloInterview",
               url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly"
+            },
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/pastebin-system-design-and-text-sharing-service"
             }
           ]
         },
@@ -224,6 +238,10 @@ export const systemDesignData = {
             {
               title: "Educative",
               url: "https://www.educative.io/blog/google-drive-system-design"
+            },
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/amazon-s3-system-design-and-file-storage-architecture"
             }
           ]
         }
@@ -260,6 +278,10 @@ export const systemDesignData = {
             {
               title: "DesignGurus",
               url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-airbnb"
+            },
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/ticket-booking-system-design"
             }
           ]
         },
@@ -282,7 +304,18 @@ export const systemDesignData = {
       id: "grp-6",
       group: "Group 6 – Large-Scale & Infrastructure Systems",
       items: [
-        { id: "q18", title: "Logging and Monitoring System", concept: "High-volume ingestion, time-series data, metrics", difficulty: "Medium" },
+        {
+          id: "q18",
+          title: "Logging and Monitoring System",
+          concept: "High-volume ingestion, time-series data, metrics",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/logging-monitoring-system-design-architecture-metrics-logs-and-alerts"
+            }
+          ]
+        },
         { id: "q19", title: "Distributed Job Scheduler", concept: "Cron scheduling, worker pools, DAG execution", difficulty: "Medium" },
         { id: "q20", title: "Real-time Leaderboard", concept: "Redis Sorted Sets, Top-K, write-heavy ranking", difficulty: "Easy" }
       ]
