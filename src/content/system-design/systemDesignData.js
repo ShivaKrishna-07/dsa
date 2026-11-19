@@ -185,7 +185,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q11", title: "Google Docs (Collaborative Editor)", concept: "Concurrent editing, OT / CRDT synchronization", difficulty: "Hard" }
+        {
+          id: "q11",
+          title: "Google Docs (Collaborative Editor)",
+          concept: "Concurrent editing, OT / CRDT synchronization",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "SystemDesignSchool",
+              url: "https://systemdesignschool.io/problems/google-docs/solution"
+            }
+          ]
+        }
       ]
     },
     {
