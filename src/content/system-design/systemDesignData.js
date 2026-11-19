@@ -229,7 +229,18 @@ export const systemDesignData = {
       id: "grp-5",
       group: "Group 5 – Transactions and Commerce",
       items: [
-        { id: "q15", title: "BookMyShow / Ticketmaster", concept: "Concurrency control, seat locking, reservations", difficulty: "Medium" },
+        {
+          id: "q15",
+          title: "BookMyShow / Airbnb / Ticketmaster",
+          concept: "Concurrency control, seat/room locking, reservations",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "DesignGurus",
+              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-airbnb"
+            }
+          ]
+        },
         { id: "q16", title: "Payment Gateway", concept: "Idempotency, 2PC / Saga, reconciliation", difficulty: "Hard" },
         { id: "q17", title: "Amazon / E-commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
       ]
