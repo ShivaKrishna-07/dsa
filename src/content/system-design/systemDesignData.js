@@ -155,7 +155,18 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q9", title: "Search Autocomplete System", concept: "Trie data structure, prefix caching, ranking, Top-K", difficulty: "Medium" }
+        {
+          id: "q9",
+          title: "Search Autocomplete System",
+          concept: "Trie data structure, prefix caching, ranking, Top-K",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "AlgoMaster",
+              url: "https://algomaster.io/learn/system-design-interviews/design-search-autocomplete-system"
+            }
+          ]
+        }
       ]
     },
     {
