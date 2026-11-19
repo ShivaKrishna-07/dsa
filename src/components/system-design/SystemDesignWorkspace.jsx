@@ -459,6 +459,26 @@ export default function SystemDesignWorkspace() {
                     {topic.title}
                   </span>
                 </div>
+
+                {/* Right side: Article buttons */}
+                {topic.articles && topic.articles.length > 0 && (
+                  <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end" onClick={(e) => e.stopPropagation()}>
+                    {topic.articles.map((art, aIdx) => (
+                      <a
+                        key={art.url || aIdx}
+                        href={art.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-lg bg-accent-500/10 hover:bg-accent-500/20 text-accent-300 hover:text-accent-200 border border-accent-500/25 hover:border-accent-500/40 transition shadow-sm shrink-0 group/art"
+                        title={`Open: ${art.title || "Article"} (${art.url})`}
+                      >
+                        <BookOpen className="h-3.5 w-3.5 stroke-[2.2] text-accent-400 group-hover/art:scale-110 transition-transform" />
+                        <span>{topic.articles.length > 1 ? (art.title || `Article ${aIdx + 1}`) : "Article"}</span>
+                        <ExternalLink className="h-3 w-3 opacity-60 group-hover/art:opacity-100 transition-opacity" />
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             );
           })}

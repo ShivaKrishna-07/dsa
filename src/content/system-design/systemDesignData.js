@@ -17,7 +17,17 @@ export const systemDesignData = {
         { id: "f11", title: "Sharding & Partitioning", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
         { id: "f12", title: "CAP Theorem", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
         { id: "f13", title: "Optimistic vs Pessimistic Locking", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
-        { id: "f14", title: "Cache", image: "/images/system-design/fundamentals/fundamentals-6.jpg" },
+        {
+          id: "f14",
+          title: "Cache",
+          image: "/images/system-design/fundamentals/fundamentals-6.jpg",
+          articles: [
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/core-concepts/caching"
+            }
+          ]
+        },
         { id: "f15", title: "Cache Eviction (LRU vs LFU)", image: "/images/system-design/fundamentals/fundamentals-6.jpg" },
         { id: "f16", title: "Cache Invalidation & Cache Stampede", image: "/images/system-design/fundamentals/fundamentals-7.jpg" },
         { id: "f17", title: "Content Delivery Network (CDN)", image: "/images/system-design/fundamentals/fundamentals-7.jpg" },
@@ -96,7 +106,22 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q5", title: "Distributed Key-Value Store", concept: "Replication, quorum consensus, CAP theorem", difficulty: "Medium" },
+        {
+          id: "q5",
+          title: "Distributed Key-Value Store",
+          concept: "Replication, quorum consensus, CAP theorem",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/core-concepts/caching"
+            },
+            {
+              title: "DesignGurus",
+              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-a-distributed-cache-like-redis"
+            }
+          ]
+        },
         { id: "q6", title: "Web Crawler", concept: "Distributed workers, URL frontier, deduplication, queues", difficulty: "Medium" },
         { id: "q7", title: "Notification System", concept: "Kafka, async workers, APNs/FCM, retries & deduplication", difficulty: "Medium" },
         { id: "q8", title: "News Feed System (Twitter / Instagram)", concept: "Fan-out on write/read, timeline generation, caching", difficulty: "Hard" },
