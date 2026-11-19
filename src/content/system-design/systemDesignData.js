@@ -173,7 +173,18 @@ export const systemDesignData = {
       id: "grp-2",
       group: "Group 2 – Real-time and Communication",
       items: [
-        { id: "q10", title: "WhatsApp / Chat System", concept: "WebSockets, message delivery, presence", difficulty: "Hard" },
+        {
+          id: "q10",
+          title: "WhatsApp / Chat System",
+          concept: "WebSockets, message delivery, presence",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "DesignGurus",
+              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-whatsapp"
+            }
+          ]
+        },
         { id: "q11", title: "Google Docs (Collaborative Editor)", concept: "Concurrent editing, OT / CRDT synchronization", difficulty: "Hard" }
       ]
     },
