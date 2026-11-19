@@ -87,6 +87,10 @@ export const systemDesignData = {
             {
               title: "AlgoMaster",
               url: "https://algomaster.io/learn/system-design-interviews/design-unique-id-generator"
+            },
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/UniqueIDGenerator/"
             }
           ]
         },
