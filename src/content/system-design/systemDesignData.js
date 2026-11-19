@@ -23,7 +23,7 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "f10", title: "Database Replication (Master / Slave)", image: "/images/system-design/fundamentals/fundamentals-4.jpg" },
+        { id: "f10", title: "Database Replication (Primary - Replica)", image: "/images/system-design/fundamentals/fundamentals-4.jpg" },
         { id: "f11", title: "Sharding & Partitioning", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
         { id: "f12", title: "CAP Theorem", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
         { id: "f13", title: "Optimistic vs Pessimistic Locking", image: "/images/system-design/fundamentals/fundamentals-5.jpg" },
@@ -67,8 +67,8 @@ export const systemDesignData = {
         },
         {
           id: "q2",
-          title: "URL Shortener (TinyURL) / Pastebin",
-          concept: "Base62 encoding, caching, redirects, text blob storage",
+          title: "URL Shortener (TinyURL)",
+          concept: "Base62 encoding, caching, redirects, ID generation",
           difficulty: "Easy",
           articles: [
             {
@@ -159,7 +159,7 @@ export const systemDesignData = {
         },
         {
           id: "q8",
-          title: "News Feed System (Twitter / Instagram)",
+          title: "Twitter News Feed",
           concept: "Fan-out on write/read, timeline generation, caching",
           difficulty: "Hard",
           articles: [
@@ -189,7 +189,7 @@ export const systemDesignData = {
       items: [
         {
           id: "q10",
-          title: "WhatsApp / Chat System",
+          title: "WhatsApp Chat System",
           concept: "WebSockets, message delivery, presence",
           difficulty: "Hard",
           articles: [
@@ -219,7 +219,7 @@ export const systemDesignData = {
       items: [
         {
           id: "q12",
-          title: "YouTube / Netflix",
+          title: "YouTube Video Streaming",
           concept: "Video processing, chunking, object storage, CDN",
           difficulty: "Hard",
           articles: [
@@ -231,7 +231,7 @@ export const systemDesignData = {
         },
         {
           id: "q13",
-          title: "Google Drive / Dropbox",
+          title: "Google Drive Cloud Storage",
           concept: "File upload, chunking, synchronization protocol",
           difficulty: "Hard",
           articles: [
@@ -253,7 +253,7 @@ export const systemDesignData = {
       items: [
         {
           id: "q14",
-          title: "Uber / Ola",
+          title: "Uber Ride Sharing",
           concept: "Geospatial indexing, QuadTree, driver-rider matching",
           difficulty: "Hard",
           articles: [
@@ -271,8 +271,8 @@ export const systemDesignData = {
       items: [
         {
           id: "q15",
-          title: "BookMyShow / Airbnb / Ticketmaster",
-          concept: "Concurrency control, seat/room locking, reservations",
+          title: "Ticket Booking System",
+          concept: "Concurrency control, seat locking, reservations",
           difficulty: "Medium",
           articles: [
             {
@@ -297,7 +297,7 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q17", title: "Amazon / E-commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
+        { id: "q17", title: "Amazon E-Commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
       ]
     },
     {
