@@ -1,5 +1,5 @@
 ---
-title: "Maximum Sum of Non-Adjacent Elements"
+title: "House Robber"
 difficulty: "Medium"
 time: "O(N)"
 space: "O(1)"
