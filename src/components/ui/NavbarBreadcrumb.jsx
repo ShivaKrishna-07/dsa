@@ -179,15 +179,27 @@ export default function NavbarBreadcrumb({ tree = [] }) {
       }
 
       if (event.key === "ArrowLeft" && prevProblem) {
-        router.push(prevProblem.href);
+        if (typeof window !== "undefined") window.location.href = prevProblem.href;
       } else if (event.key === "ArrowRight" && nextProblem) {
-        router.push(nextProblem.href);
+        if (typeof window !== "undefined") window.location.href = nextProblem.href;
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [problem, prevProblem, nextProblem, router]);
+
+  const navigateTo = (e, href) => {
+    if (!href) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    try {
+      router.push(href);
+    } catch (err) {}
+    if (typeof window !== "undefined") {
+      window.location.href = href;
+    }
+  };
 
   if (pathname === "/interview-experiences") {
     return (
@@ -198,7 +210,8 @@ export default function NavbarBreadcrumb({ tree = [] }) {
         >
           <Link
             href="/"
-            className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap"
+            onClick={(e) => navigateTo(e, "/")}
+            className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap cursor-pointer"
           >
             Sheet
           </Link>
@@ -264,9 +277,9 @@ export default function NavbarBreadcrumb({ tree = [] }) {
                 {item.href ? (
                   <Link
                     href={item.href}
-                    onClick={() => router.push(item.href)}
+                    onClick={(e) => navigateTo(e, item.href)}
                     onContextMenu={(e) => openMenu(e, item)}
-                    className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap"
+                    className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap cursor-pointer"
                   >
                     {item.label}
                   </Link>
