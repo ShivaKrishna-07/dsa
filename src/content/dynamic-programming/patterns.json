@@ -1,30 +1,95 @@
 [
   {
     "slug": "1d-dp",
-    "title": "1D DP"
+    "title": "1D DP",
+    "problemsOrder": [
+      "climbing-stairs",
+      "frog-jump",
+      "frog-jump-with-k-distances",
+      "maximum-sum-of-non-adjacent-elements",
+      "house-robber-2"
+    ]
   },
   {
     "slug": "dp-on-grids",
-    "title": "DP on Grids"
+    "title": "DP on Grids",
+    "problemsOrder": [
+      "ninjas-training",
+      "grid-unique-paths",
+      "unique-paths-2",
+      "minimum-path-sum",
+      "triangle",
+      "minimum-falling-path-sum",
+      "cherry-pickup-2"
+    ]
   },
   {
     "slug": "dp-on-subsequences",
-    "title": "DP on Subsequences"
+    "title": "DP on Subsequences",
+    "problemsOrder": [
+      "subset-sum-equal-to-target",
+      "partition-equal-subset-sum",
+      "partition-set-into-two-subsets-with-min-absolute-sum-diff",
+      "count-subsets-with-sum-k",
+      "count-partitions-with-given-difference",
+      "0-1-knapsack",
+      "coin-change",
+      "target-sum",
+      "coin-change-2",
+      "unbounded-knapsack",
+      "rod-cutting-problem"
+    ]
   },
   {
     "slug": "dp-on-strings",
-    "title": "DP on Strings"
+    "title": "DP on Strings",
+    "problemsOrder": [
+      "longest-common-subsequence",
+      "print-longest-common-subsequence",
+      "longest-common-substring",
+      "longest-palindromic-subsequence",
+      "minimum-insertions-to-make-string-palindrome",
+      "minimum-insertions-deletions-to-convert-string",
+      "shortest-common-supersequence",
+      "distinct-subsequences",
+      "edit-distance",
+      "wildcard-matching"
+    ]
   },
   {
     "slug": "dp-on-lis",
-    "title": "DP on LIS"
+    "title": "DP on LIS",
+    "problemsOrder": [
+      "longest-increasing-subsequence",
+      "print-longest-increasing-subsequence",
+      "largest-divisible-subset",
+      "longest-string-chain",
+      "longest-bitonic-subsequence",
+      "number-of-longest-increasing-subsequences"
+    ]
   },
   {
     "slug": "dp-on-stocks",
-    "title": "DP on Stocks"
+    "title": "DP on Stocks",
+    "problemsOrder": [
+      "best-time-to-buy-and-sell-stock",
+      "best-time-to-buy-and-sell-stock-2",
+      "best-time-to-buy-and-sell-stock-3",
+      "best-time-to-buy-and-sell-stock-4",
+      "best-time-to-buy-and-sell-stock-with-cooldown",
+      "best-time-to-buy-and-sell-stock-with-transaction-fee"
+    ]
   },
   {
     "slug": "dp-on-partition",
-    "title": "DP on Partition"
+    "title": "DP on Partition",
+    "problemsOrder": [
+      "matrix-chain-multiplication",
+      "minimum-cost-to-cut-a-stick",
+      "burst-balloons",
+      "evaluate-boolean-expression-to-true",
+      "palindrome-partitioning-2",
+      "partition-array-for-maximum-sum"
+    ]
   }
 ]
