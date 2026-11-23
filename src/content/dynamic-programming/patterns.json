@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "1d-dp",
+    "title": "1D DP"
+  },
+  {
+    "slug": "dp-on-grids",
+    "title": "DP on Grids"
+  },
+  {
+    "slug": "dp-on-subsequences",
+    "title": "DP on Subsequences"
+  },
+  {
+    "slug": "dp-on-strings",
+    "title": "DP on Strings"
+  },
+  {
+    "slug": "dp-on-lis",
+    "title": "DP on LIS"
+  },
+  {
+    "slug": "dp-on-stocks",
+    "title": "DP on Stocks"
+  },
+  {
+    "slug": "dp-on-partition",
+    "title": "DP on Partition"
+  }
+]

@@ -41,7 +41,15 @@ export function getAllData() {
               const codeText = match[1].trim();
               let name = "Optimal"; // Default
               const lower = codeText.toLowerCase();
-              if (lower.includes("// solution 1") || lower.includes("//solution 1")) {
+              if (lower.includes("// space optimiz") || lower.includes("space optimization") || lower.includes("//space optimiz")) {
+                name = "Space Optimization";
+              } else if (lower.includes("// tabulation") || lower.includes("tabulation") || lower.includes("//tabulation")) {
+                name = "Tabulation";
+              } else if (lower.includes("// memoization") || lower.includes("memoization") || lower.includes("//memoization") || lower.includes("memo")) {
+                name = "Memoization";
+              } else if (lower.includes("// recursion") || lower.includes("recursion") || lower.includes("//recursion") || lower.includes("recursive")) {
+                name = "Recursion";
+              } else if (lower.includes("// solution 1") || lower.includes("//solution 1")) {
                 name = "Solution 1";
               } else if (lower.includes("// solution 2") || lower.includes("//solution 2")) {
                 name = "Solution 2";

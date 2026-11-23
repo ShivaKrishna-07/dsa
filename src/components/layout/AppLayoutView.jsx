@@ -17,7 +17,9 @@ export default function AppLayoutView({ children, tree = [] }) {
     return children;
   }
 
-  if (layoutMode === "sheet") {
+  // When in sheet mode, render StriverSheetWorkspace on the home page (/).
+  // Dedicated topic/pattern/problem routes render their dedicated pages so breadcrumbs and arrows navigate properly!
+  if (layoutMode === "sheet" && pathname === "/") {
     return <StriverSheetWorkspace initialTree={tree} />;
   }
 

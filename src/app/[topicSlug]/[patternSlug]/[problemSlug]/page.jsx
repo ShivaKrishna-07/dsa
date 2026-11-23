@@ -52,8 +52,9 @@ export default function ProblemPage({ params }) {
   const nextProblem = currentIndex >= 0 && currentIndex < allProblems.length - 1 ? allProblems[currentIndex + 1] : null;
 
   return (
-    <PageFade className="w-full px-2 sm:px-3 lg:px-4 py-2 flex-1 flex flex-col">
+    <PageFade key={problem.slug} className="w-full px-2 sm:px-3 lg:px-4 py-2 flex-1 flex flex-col">
       <LeetCodeWorkspace
+        key={problem.slug}
         problem={problem}
         prevProblem={prevProblem}
         nextProblem={nextProblem}

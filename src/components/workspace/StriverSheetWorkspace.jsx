@@ -6,6 +6,8 @@ import {
   BookOpen,
   Bookmark,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Code2,
   Flame,
   Lightbulb,
@@ -341,6 +343,52 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
       }
     }
   }, [activeProblem?.slug, activeProblem?.codes]);
+
+  const allProblemsList = useMemo(() => {
+    const list = [];
+    const sourceTopics = fullTopics || initialTree || [];
+    for (const t of sourceTopics) {
+      for (const p of t.patterns || []) {
+        for (const prob of p.problems || []) {
+          list.push({
+            topicSlug: t.slug,
+            patternSlug: p.slug,
+            problemSlug: prob.slug,
+            title: prob.title,
+          });
+        }
+      }
+    }
+    return list;
+  }, [fullTopics, initialTree]);
+
+  const currentIndex = allProblemsList.findIndex(
+    (p) => p.problemSlug === selectedMeta?.problemSlug
+  );
+  const prevProblemItem = currentIndex > 0 ? allProblemsList[currentIndex - 1] : null;
+  const nextProblemItem = currentIndex >= 0 && currentIndex < allProblemsList.length - 1 ? allProblemsList[currentIndex + 1] : null;
+
+  // Keyboard navigation for previous/next problems
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (
+        document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA" ||
+        document.activeElement.isContentEditable
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft" && prevProblemItem) {
+        selectProblem(prevProblemItem.topicSlug, prevProblemItem.patternSlug, prevProblemItem.problemSlug);
+      } else if (event.key === "ArrowRight" && nextProblemItem) {
+        selectProblem(nextProblemItem.topicSlug, nextProblemItem.patternSlug, nextProblemItem.problemSlug);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [prevProblemItem, nextProblemItem]);
 
   const totalProblemsCount = useMemo(() => {
     return topics.reduce((acc, t) => acc + (t.patterns || []).reduce((a, p) => a + (p.problems?.length || 0), 0), 0);
@@ -863,20 +911,67 @@ export default function StriverSheetWorkspace({ initialTree = [] }) {
                 </button>
               </div>
 
-              {/* Bookmark / Review Later Toggle */}
-              <button
-                type="button"
-                onClick={() => toggleBookmark(activeProblem.slug)}
-                className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-2.5 py-1 text-xs font-semibold transition border shrink-0 ${
-                  isBookmarked(activeProblem.slug)
-                    ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-sm shadow-amber-500/10"
-                    : "border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
-                }`}
-                title={isBookmarked(activeProblem.slug) ? "Marked for review (Click to unmark)" : "Mark to review later"}
-              >
-                <Bookmark className={`h-3.5 w-3.5 ${isBookmarked(activeProblem.slug) ? "fill-amber-400 text-amber-400" : ""}`} />
-                <span className="hidden sm:inline">{isBookmarked(activeProblem.slug) ? "Review Later" : "Mark"}</span>
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                {/* Prev/Next Problem Navigation Controls */}
+                <div className="flex items-center rounded-lg border border-ink-800/80 bg-ink-900/60 p-0.5 shadow-sm">
+                  {prevProblemItem ? (
+                    <button
+                      type="button"
+                      onClick={() => selectProblem(prevProblemItem.topicSlug, prevProblemItem.patternSlug, prevProblemItem.problemSlug)}
+                      className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                      title={`Previous: ${prevProblemItem.title} (Left Arrow)`}
+                      aria-label={`Previous: ${prevProblemItem.title}`}
+                    >
+                      <ChevronLeft className="h-3.5 w-3.5" />
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-700 cursor-not-allowed"
+                      title="No previous problem"
+                    >
+                      <ChevronLeft className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+
+                  <div className="h-3.5 w-px bg-ink-800/80 my-auto mx-0.5" />
+
+                  {nextProblemItem ? (
+                    <button
+                      type="button"
+                      onClick={() => selectProblem(nextProblemItem.topicSlug, nextProblemItem.patternSlug, nextProblemItem.problemSlug)}
+                      className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                      title={`Next: ${nextProblemItem.title} (Right Arrow)`}
+                      aria-label={`Next: ${nextProblemItem.title}`}
+                    >
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-700 cursor-not-allowed"
+                      title="No next problem"
+                    >
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Bookmark / Review Later Toggle */}
+                <button
+                  type="button"
+                  onClick={() => toggleBookmark(activeProblem.slug)}
+                  className={`flex items-center gap-1.5 rounded-lg px-2 sm:px-2.5 py-1 text-xs font-semibold transition border shrink-0 ${
+                    isBookmarked(activeProblem.slug)
+                      ? "border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-sm shadow-amber-500/10"
+                      : "border-ink-800/80 bg-ink-900/60 text-ink-400 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300"
+                  }`}
+                  title={isBookmarked(activeProblem.slug) ? "Marked for review (Click to unmark)" : "Mark to review later"}
+                >
+                  <Bookmark className={`h-3.5 w-3.5 ${isBookmarked(activeProblem.slug) ? "fill-amber-400 text-amber-400" : ""}`} />
+                  <span className="hidden sm:inline">{isBookmarked(activeProblem.slug) ? "Review Later" : "Mark"}</span>
+                </button>
+              </div>
             </div>
 
             {/* Tab Body Contents */}

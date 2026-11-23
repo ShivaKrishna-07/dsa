@@ -58,5 +58,10 @@
     "slug": "graphs",
     "title": "Graphs",
     "icon": "Share2"
+  },
+  {
+    "slug": "dynamic-programming",
+    "title": "Dynamic Programming",
+    "icon": "Cpu"
   }
 ]

@@ -264,6 +264,7 @@ export default function NavbarBreadcrumb({ tree = [] }) {
                 {item.href ? (
                   <Link
                     href={item.href}
+                    onClick={() => router.push(item.href)}
                     onContextMenu={(e) => openMenu(e, item)}
                     className="rounded-lg px-2 py-1 font-medium transition hover:bg-ink-800/70 hover:text-ink-100 whitespace-nowrap"
                   >

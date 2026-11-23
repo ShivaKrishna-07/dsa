@@ -171,13 +171,15 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
             {/* Prev/Next Problem Navigation Controls */}
             <div className="flex items-center rounded-lg border border-ink-800/80 bg-ink-900/60 p-0.5 shadow-sm">
               {prevProblem ? (
-                <Link
-                  href={prevProblem.href}
+                <button
+                  type="button"
+                  onClick={() => router.push(prevProblem.href)}
                   className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
                   title={`Previous: ${prevProblem.title} (Left Arrow)`}
+                  aria-label={`Previous: ${prevProblem.title}`}
                 >
                   <ChevronLeft className="h-3.5 w-3.5" />
-                </Link>
+                </button>
               ) : (
                 <button
                   disabled
@@ -191,13 +193,15 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
               <div className="h-3.5 w-px bg-ink-800/80 my-auto mx-0.5" />
 
               {nextProblem ? (
-                <Link
-                  href={nextProblem.href}
+                <button
+                  type="button"
+                  onClick={() => router.push(nextProblem.href)}
                   className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
                   title={`Next: ${nextProblem.title} (Right Arrow)`}
+                  aria-label={`Next: ${nextProblem.title}`}
                 >
                   <ChevronRight className="h-3.5 w-3.5" />
-                </Link>
+                </button>
               ) : (
                 <button
                   disabled
