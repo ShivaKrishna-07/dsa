@@ -75,6 +75,16 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
   const youtubeUrl = problem.platforms?.youtube;
   const articleUrl = problem.platforms?.article;
 
+  const navigateTo = (href) => {
+    if (!href) return;
+    try {
+      router.push(href);
+    } catch (e) {}
+    if (typeof window !== "undefined") {
+      window.location.href = href;
+    }
+  };
+
   // Keyboard navigation for previous/next problems
   useEffect(() => {
     function handleKeyDown(event) {
@@ -87,15 +97,15 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
       }
 
       if (event.key === "ArrowLeft" && prevProblem) {
-        router.push(prevProblem.href);
+        navigateTo(prevProblem.href);
       } else if (event.key === "ArrowRight" && nextProblem) {
-        router.push(nextProblem.href);
+        navigateTo(nextProblem.href);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [prevProblem, nextProblem, router]);
+  }, [prevProblem, nextProblem]);
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3 w-full h-[calc(100vh-4.25rem)] overflow-hidden">
@@ -171,15 +181,18 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
             {/* Prev/Next Problem Navigation Controls */}
             <div className="flex items-center rounded-lg border border-ink-800/80 bg-ink-900/60 p-0.5 shadow-sm">
               {prevProblem ? (
-                <button
-                  type="button"
-                  onClick={() => router.push(prevProblem.href)}
-                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                <Link
+                  href={prevProblem.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(prevProblem.href);
+                  }}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition cursor-pointer"
                   title={`Previous: ${prevProblem.title} (Left Arrow)`}
                   aria-label={`Previous: ${prevProblem.title}`}
                 >
                   <ChevronLeft className="h-3.5 w-3.5" />
-                </button>
+                </Link>
               ) : (
                 <button
                   disabled
@@ -193,15 +206,18 @@ export default function LeetCodeWorkspace({ problem, prevProblem, nextProblem, t
               <div className="h-3.5 w-px bg-ink-800/80 my-auto mx-0.5" />
 
               {nextProblem ? (
-                <button
-                  type="button"
-                  onClick={() => router.push(nextProblem.href)}
-                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition"
+                <Link
+                  href={nextProblem.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(nextProblem.href);
+                  }}
+                  className="flex h-6.5 w-6.5 items-center justify-center rounded-md text-ink-400 hover:bg-ink-800 hover:text-ink-100 transition cursor-pointer"
                   title={`Next: ${nextProblem.title} (Right Arrow)`}
                   aria-label={`Next: ${nextProblem.title}`}
                 >
                   <ChevronRight className="h-3.5 w-3.5" />
-                </button>
+                </Link>
               ) : (
                 <button
                   disabled
