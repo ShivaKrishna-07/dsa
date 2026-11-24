@@ -15,7 +15,7 @@
     "title": "DP on Grids",
     "problemsOrder": [
       "ninjas-training",
-      "grid-unique-paths",
+      "unique-paths",
       "unique-paths-2",
       "minimum-path-sum",
       "triangle",

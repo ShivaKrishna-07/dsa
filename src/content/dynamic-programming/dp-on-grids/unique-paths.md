@@ -1,5 +1,5 @@
 ---
-title: "Grid Unique Paths"
+title: "Unique Paths"
 difficulty: "Medium"
 time: "O(M * N)"
 space: "O(N)"
