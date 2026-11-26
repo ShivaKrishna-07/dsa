@@ -50,12 +50,12 @@ export const systemDesignData = {
 
   questions: [
     {
-      id: "grp-1",
-      group: "Group 1 – Core Systems",
+      id: "grp-core",
+      group: "Core Infrastructure & Foundations",
       items: [
         {
           id: "q1",
-          title: "Rate Limiter",
+          title: "Design a Rate Limiter",
           concept: "Token bucket, sliding window, Redis distributed counters",
           difficulty: "Medium",
           articles: [
@@ -67,56 +67,32 @@ export const systemDesignData = {
         },
         {
           id: "q2",
-          title: "URL Shortener (TinyURL)",
+          title: "Design a URL Shortener (TinyURL)",
           concept: "Base62 encoding, caching, redirects, ID generation",
           difficulty: "Easy",
           articles: [
             {
               title: "HelloInterview",
               url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly"
-            },
-            {
-              title: "LearnCodeWithDurgesh",
-              url: "https://learncodewithdurgesh.com/tutorials/system-design/pastebin-system-design-and-text-sharing-service"
             }
           ]
         },
         {
           id: "q3",
-          title: "Distributed Unique ID Generator",
-          concept: "Twitter Snowflake, epoch timestamps, worker IDs",
-          difficulty: "Easy",
+          title: "Design a Web Crawler",
+          concept: "Distributed workers, URL frontier, deduplication, queues",
+          difficulty: "Medium",
           articles: [
             {
-              title: "AlgoMaster",
-              url: "https://algomaster.io/learn/system-design-interviews/design-unique-id-generator"
-            },
-            {
-              title: "SystemCraft",
-              url: "https://systemcraft.in/hld/UniqueIDGenerator/"
+              title: "HelloInterview",
+              url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler"
             }
           ]
         },
         {
           id: "q4",
-          title: "Consistent Hashing",
-          concept: "Hash ring, virtual nodes, data partitioning & rebalancing",
-          difficulty: "Medium",
-          articles: [
-            {
-              title: "AlgoMaster",
-              url: "https://algomaster.io/learn/system-design/consistent-hashing"
-            },
-            {
-              title: "HelloInterview",
-              url: "https://www.hellointerview.com/learn/system-design/core-concepts/consistent-hashing"
-            }
-          ]
-        },
-        {
-          id: "q5",
-          title: "Distributed Key-Value Store",
-          concept: "Replication, quorum consensus, CAP theorem",
+          title: "Design a Distributed Key-Value Store",
+          concept: "Replication, quorum consensus, CAP theorem, LSM-tree",
           difficulty: "Medium",
           articles: [
             {
@@ -134,44 +110,24 @@ export const systemDesignData = {
           ]
         },
         {
+          id: "q5",
+          title: "Design a Distributed Unique ID Generator",
+          concept: "Twitter Snowflake, epoch timestamps, worker IDs",
+          difficulty: "Easy",
+          articles: [
+            {
+              title: "AlgoMaster",
+              url: "https://algomaster.io/learn/system-design-interviews/design-unique-id-generator"
+            },
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/UniqueIDGenerator/"
+            }
+          ]
+        },
+        {
           id: "q6",
-          title: "Web Crawler",
-          concept: "Distributed workers, URL frontier, deduplication, queues",
-          difficulty: "Medium",
-          articles: [
-            {
-              title: "HelloInterview",
-              url: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler"
-            }
-          ]
-        },
-        {
-          id: "q7",
-          title: "Notification System",
-          concept: "Kafka, async workers, APNs/FCM, retries & deduplication",
-          difficulty: "Medium",
-          articles: [
-            {
-              title: "SystemCraft",
-              url: "https://systemcraft.in/hld/NotificationSystem"
-            }
-          ]
-        },
-        {
-          id: "q8",
-          title: "Twitter News Feed",
-          concept: "Fan-out on write/read, timeline generation, caching",
-          difficulty: "Hard",
-          articles: [
-            {
-              title: "SystemCraft",
-              url: "https://systemcraft.in/hld/TwitterFeed/"
-            }
-          ]
-        },
-        {
-          id: "q9",
-          title: "Search Autocomplete System",
+          title: "Design a Search Autocomplete System",
           concept: "Trie data structure, prefix caching, ranking, Top-K",
           difficulty: "Medium",
           articles: [
@@ -184,13 +140,49 @@ export const systemDesignData = {
       ]
     },
     {
-      id: "grp-2",
-      group: "Group 2 – Real-time and Communication",
+      id: "grp-social",
+      group: "Social Media & Feeds",
       items: [
         {
+          id: "q7",
+          title: "Design Twitter (Social Graph & Feed)",
+          concept: "Fan-out on write/read, timeline generation, caching",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/TwitterFeed/"
+            }
+          ]
+        },
+        {
+          id: "q8",
+          title: "Design Instagram (Photo Sharing)",
+          concept: "Image upload pipeline, news feed, user follow graph",
+          difficulty: "Hard"
+        },
+        {
+          id: "q9",
+          title: "Design a News Feed System",
+          concept: "Aggregation service, ranking algorithms, fan-out cluster",
+          difficulty: "Hard"
+        },
+        {
           id: "q10",
-          title: "WhatsApp Chat System",
-          concept: "WebSockets, message delivery, presence",
+          title: "Design Reddit (Discussion Forum)",
+          concept: "Nested comment trees, upvoting/ranking score decay",
+          difficulty: "Medium"
+        }
+      ]
+    },
+    {
+      id: "grp-messaging",
+      group: "Messaging & Real-Time Communication",
+      items: [
+        {
+          id: "q11",
+          title: "Design a Chat System (WhatsApp)",
+          concept: "WebSockets, message delivery/ACKs, presence, E2EE",
           difficulty: "Hard",
           articles: [
             {
@@ -200,8 +192,32 @@ export const systemDesignData = {
           ]
         },
         {
-          id: "q11",
-          title: "Google Docs (Collaborative Editor)",
+          id: "q12",
+          title: "Design Discord (Voice & Chat)",
+          concept: "Real-time gateway servers, Cassandra message history, WebRTC",
+          difficulty: "Hard"
+        },
+        {
+          id: "q13",
+          title: "Design a Notification System",
+          concept: "Kafka, async workers, APNs/FCM, retries & deduplication",
+          difficulty: "Medium",
+          articles: [
+            {
+              title: "SystemCraft",
+              url: "https://systemcraft.in/hld/NotificationSystem"
+            }
+          ]
+        },
+        {
+          id: "q14",
+          title: "Design Zoom (Video Conferencing)",
+          concept: "WebRTC, Selective Forwarding Unit (SFU), adaptive bitrate",
+          difficulty: "Hard"
+        },
+        {
+          id: "q15",
+          title: "Design Google Docs (Collaborative Editor)",
           concept: "Concurrent editing, OT / CRDT synchronization",
           difficulty: "Hard",
           articles: [
@@ -214,13 +230,13 @@ export const systemDesignData = {
       ]
     },
     {
-      id: "grp-3",
-      group: "Group 3 – Media and Storage",
+      id: "grp-media",
+      group: "Media & Streaming",
       items: [
         {
-          id: "q12",
-          title: "YouTube Video Streaming",
-          concept: "Video processing, chunking, object storage, CDN",
+          id: "q16",
+          title: "Design YouTube (Video Streaming)",
+          concept: "Video processing, chunking, transcoding, object storage, CDN",
           difficulty: "Hard",
           articles: [
             {
@@ -230,9 +246,27 @@ export const systemDesignData = {
           ]
         },
         {
-          id: "q13",
-          title: "Google Drive Cloud Storage",
-          concept: "File upload, chunking, synchronization protocol",
+          id: "q17",
+          title: "Design Netflix (Video Streaming)",
+          concept: "Transcoding pipeline, Open Connect custom CDN, DRM",
+          difficulty: "Hard"
+        },
+        {
+          id: "q18",
+          title: "Design Spotify (Audio Streaming)",
+          concept: "Audio chunk delivery, playlist caching, music recommendations",
+          difficulty: "Medium"
+        }
+      ]
+    },
+    {
+      id: "grp-storage",
+      group: "Storage & File Sharing",
+      items: [
+        {
+          id: "q19",
+          title: "Design Google Drive (File Storage)",
+          concept: "File upload, chunking, metadata DB, sync protocol",
           difficulty: "Hard",
           articles: [
             {
@@ -244,16 +278,34 @@ export const systemDesignData = {
               url: "https://learncodewithdurgesh.com/tutorials/system-design/amazon-s3-system-design-and-file-storage-architecture"
             }
           ]
+        },
+        {
+          id: "q20",
+          title: "Design Dropbox (File Sync)",
+          concept: "Block-level chunking, deduplication, client sync engine",
+          difficulty: "Hard"
+        },
+        {
+          id: "q21",
+          title: "Design Pastebin (Text Storage)",
+          concept: "Simple text storage, TTL/expiration cleanup, unique hash keys",
+          difficulty: "Easy",
+          articles: [
+            {
+              title: "LearnCodeWithDurgesh",
+              url: "https://learncodewithdurgesh.com/tutorials/system-design/pastebin-system-design-and-text-sharing-service"
+            }
+          ]
         }
       ]
     },
     {
-      id: "grp-4",
-      group: "Group 4 – Location-based Systems",
+      id: "grp-location",
+      group: "Location & Ride-Hailing",
       items: [
         {
-          id: "q14",
-          title: "Uber Ride Sharing",
+          id: "q22",
+          title: "Design Uber (Ride Hailing)",
           concept: "Geospatial indexing, QuadTree, driver-rider matching",
           difficulty: "Hard",
           articles: [
@@ -262,23 +314,37 @@ export const systemDesignData = {
               url: "https://systemcraft.in/hld/Uber/"
             }
           ]
+        },
+        {
+          id: "q23",
+          title: "Design Google Maps (Location Service)",
+          concept: "Map tiles, graph shortest path algorithms, traffic routing & ETA",
+          difficulty: "Hard"
+        },
+        {
+          id: "q24",
+          title: "Design Tinder (Location-based Matching)",
+          concept: "Geohash proximity search, swipe recommendation engine, mutual match",
+          difficulty: "Medium"
         }
       ]
     },
     {
-      id: "grp-5",
-      group: "Group 5 – Transactions and Commerce",
+      id: "grp-booking",
+      group: "Booking & E-Commerce",
       items: [
         {
-          id: "q15",
-          title: "Ticket Booking System",
-          concept: "Concurrency control, seat locking, reservations",
+          id: "q25",
+          title: "Design Amazon (E-Commerce)",
+          concept: "Product catalog, cart service, inventory management",
+          difficulty: "Hard"
+        },
+        {
+          id: "q26",
+          title: "Design Ticketmaster (Booking System)",
+          concept: "High-concurrency seat locking, distributed reservations, virtual queue",
           difficulty: "Medium",
           articles: [
-            {
-              title: "DesignGurus",
-              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-airbnb"
-            },
             {
               title: "LearnCodeWithDurgesh",
               url: "https://learncodewithdurgesh.com/tutorials/system-design/ticket-booking-system-design"
@@ -286,9 +352,27 @@ export const systemDesignData = {
           ]
         },
         {
-          id: "q16",
-          title: "Payment Gateway",
-          concept: "Idempotency, 2PC / Saga, reconciliation",
+          id: "q27",
+          title: "Design Airbnb (Hotel Booking)",
+          concept: "Property search filters, calendar availability indexing, booking concurrency",
+          difficulty: "Hard",
+          articles: [
+            {
+              title: "DesignGurus",
+              url: "https://www.designgurus.io/course-play/system-design-interview-crash-course/doc/design-airbnb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "grp-finance",
+      group: "Finance & Payments",
+      items: [
+        {
+          id: "q28",
+          title: "Design a Payment Gateway (Stripe)",
+          concept: "Idempotency, 2PC / Saga pattern, PSP integration, reconciliation",
           difficulty: "Hard",
           articles: [
             {
@@ -296,18 +380,17 @@ export const systemDesignData = {
               url: "https://learncodewithdurgesh.com/tutorials/system-design/payment-gateway-system-design-complete-guide"
             }
           ]
-        },
-        { id: "q17", title: "Amazon E-Commerce", concept: "Product catalog, cart, inventory, order processing", difficulty: "Hard" }
+        }
       ]
     },
     {
-      id: "grp-6",
-      group: "Group 6 – Large-Scale & Infrastructure Systems",
+      id: "grp-infra",
+      group: "Observability & Infrastructure",
       items: [
         {
-          id: "q18",
-          title: "Logging and Monitoring System",
-          concept: "High-volume ingestion, time-series data, metrics",
+          id: "q29",
+          title: "Design a Logging and Monitoring System",
+          concept: "High-volume log ingestion, time-series metrics, alerting engine",
           difficulty: "Medium",
           articles: [
             {
@@ -316,8 +399,12 @@ export const systemDesignData = {
             }
           ]
         },
-        { id: "q19", title: "Distributed Job Scheduler", concept: "Cron scheduling, worker pools, DAG execution", difficulty: "Medium" },
-        { id: "q20", title: "Real-time Leaderboard", concept: "Redis Sorted Sets, Top-K, write-heavy ranking", difficulty: "Easy" }
+        {
+          id: "q30",
+          title: "Design a Distributed Job Scheduler",
+          concept: "Cron scheduling, worker pools, DAG execution, heartbeat",
+          difficulty: "Medium"
+        }
       ]
     }
   ],
